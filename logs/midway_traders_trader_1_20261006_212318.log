@@ -1,0 +1,6 @@
+21:23:18  INFO    Logging to C:\Users\mohit\Desktop\UChicago\Autumn Quarter 2026\Systematic Trading Technologies\algoarena-midway-traders\logs\midway_traders_trader_1_20261006_212318.log
+21:23:18  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from .env — set EXCHANGE_HOST=localhost for local play)
+21:23:19  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+21:23:19  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+21:23:19  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+21:23:19  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.

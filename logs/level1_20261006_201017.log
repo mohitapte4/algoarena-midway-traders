@@ -1,0 +1,42 @@
+
+╔══════════════════════════════════════════════╗
+║       AlgoArena — Trader Bot                 ║
+╠══════════════════════════════════════════════╣
+║  Team:     midway_traders_trader_1           ║
+║  Exchange: wss://feed.algoarena-st.duckdns.org║
+║  Cash:     set at connect  Tick: 0.5s        ║
+╚══════════════════════════════════════════════╝
+
+20:10:17  INFO      Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from .env — set EXCHANGE_HOST=localhost for local play)
+20:10:18  INFO      Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+Tick 583096  rank=#?  net_worth=$321,168.68  realized_pnl=+0.00
+20:10:18  INFO      Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+Session: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 
+bps
+20:10:18  INFO      Session event: SESSION_OPEN — Session already open — you joined mid-session.
+▶  Session open — trading begins
+20:10:18  INFO      ORDER  buy 5 AAPL @ 232.28 limit (notional 1161.40)
+20:10:18  INFO      Fill: bought 5 AAPL @ 232.2800 (fee=1.7421)
+20:10:18  INFO      FILL   #1 buy    5 AAPL   @   232.28  notional   1161.40  vs limit +0.0000
+20:10:18  INFO             position 5 shares, vwap 232.2800, cost 1161.40
+Tick 583098  rank=#?  net_worth=$321,165.50  realized_pnl=+0.00
+Tick 583100  rank=#?  net_worth=$321,166.70  realized_pnl=+0.00
+Tick 583102  rank=#?  net_worth=$321,168.32  realized_pnl=+0.00
+Tick 583104  rank=#?  net_worth=$321,169.52  realized_pnl=+0.00
+Tick 583106  rank=#?  net_worth=$321,170.72  realized_pnl=+0.00
+Tick 583108  rank=#?  net_worth=$321,171.92  realized_pnl=+0.00
+Tick 583110  rank=#?  net_worth=$321,173.12  realized_pnl=+0.00
+Tick 583112  rank=#?  net_worth=$321,174.14  realized_pnl=+0.00
+Tick 583114  rank=#?  net_worth=$321,175.28  realized_pnl=+0.00
+Tick 583116  rank=#?  net_worth=$321,175.94  realized_pnl=+0.00
+Tick 583118  rank=#?  net_worth=$321,175.76  realized_pnl=+0.00
+Tick 583120  rank=#?  net_worth=$321,178.16  realized_pnl=+0.00
+Tick 583122  rank=#?  net_worth=$321,179.36  realized_pnl=+0.00
+Tick 583124  rank=#?  net_worth=$321,180.56  realized_pnl=+0.00
+Tick 583126  rank=#?  net_worth=$321,181.70  realized_pnl=+0.00
+Tick 583128  rank=#?  net_worth=$321,183.23  realized_pnl=+0.00
+Tick 583130  rank=#?  net_worth=$321,184.43  realized_pnl=+0.00
+Tick 583132  rank=#?  net_worth=$321,185.69  realized_pnl=+0.00
+Tick 583134  rank=#?  net_worth=$321,186.89  realized_pnl=+0.00
+Tick 583136  rank=#?  net_worth=$321,188.09  realized_pnl=+0.00
+Tick 583138  rank=#?  net_worth=$321,189.29  realized_pnl=+0.00

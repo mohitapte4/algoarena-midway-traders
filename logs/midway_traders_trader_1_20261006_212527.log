@@ -1,0 +1,13 @@
+21:25:27  INFO    Logging to C:\Users\mohit\Desktop\UChicago\Autumn Quarter 2026\Systematic Trading Technologies\algoarena-midway-traders\logs\midway_traders_trader_1_20261006_212527.log
+21:25:27  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from .env — set EXCHANGE_HOST=localhost for local play)
+21:25:27  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+21:25:27  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+21:25:27  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+21:25:27  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+21:25:28  INFO    ORDER  buy  5 AAPL @ 240.22 limit (notional 1201.10) — starter 1/3
+21:25:28  DEBUG   Placed: buy 5 AAPL @ 240.2200
+21:25:28  DEBUG   Ack: buy 5 AAPL @ 240.2200
+21:25:28  INFO    Fill: bought 5 AAPL @ 240.2200 (fee=1.8016)
+21:25:28  INFO    FILL   #1 buy    5 AAPL   @   240.22  notional   1201.10  vs limit +0.0000  | bought and held 5, avg entry 240.2200
+21:25:28  DEBUG   Portfolio: net_worth=323918.22
+21:25:28  INFO    RISK   session reference net worth 323918.22
