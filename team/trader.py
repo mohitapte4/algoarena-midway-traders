@@ -18,6 +18,10 @@ from arena import Signal, Trader
 
 logger = logging.getLogger(__name__)
 
+# The engine logs order acknowledgements at DEBUG; enable that level for
+# its trader logger only so each order_ack appears in the session log.
+logging.getLogger("trader.trader").setLevel(logging.DEBUG)
+
 #: Bounds on the Level 1 order; the tighter of the two applies.
 MAX_SHARES = 5
 MAX_NOTIONAL = 5_000.0
