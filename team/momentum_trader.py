@@ -35,8 +35,8 @@ from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 
-import trader.config as _trader_config
-from arena import Signal, Trader
+from arena import Signal, Trader      # first: puts the engine on sys.path
+import trader.config as _trader_config  # noqa: E402  (engine module)
 from team.risk import RiskLimits
 
 logger = logging.getLogger(__name__)
