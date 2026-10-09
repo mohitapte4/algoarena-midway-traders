@@ -46,8 +46,9 @@ make register            # interactive wizard
 ```
 
 This creates:
+
 - `team/` — your starter code (this is where you work)
-- `.env`  — your secret team token. **Never commit or share it** — anyone
+- `.env` — your secret team token. **Never commit or share it** — anyone
   who has it can trade with your capital.
 
 ## 3. Run your bots
@@ -56,6 +57,9 @@ This creates:
 make trader BOT=<your_trader_id>     # ids are listed in team/README.md
 make broker                          # if you bought a broker desk
 ```
+
+Add `LOG=1` to either command to also save the bot's log to
+`logs/<bot_id>_<timestamp>.log`.
 
 Bots connect to the hosted arena, authenticate with your token, and wait
 for the teacher to open the session. Watch yourself live on the class

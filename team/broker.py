@@ -35,4 +35,6 @@ class MyBroker(Broker):
 
 
 if __name__ == "__main__":
+    from team import logs
+    logs.setup()
     MyBroker().run()
