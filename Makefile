@@ -19,13 +19,14 @@ test-remote:
 	python scripts/test_remote.py --arena $(ARENA_URL) --code $(CODE)
 
 # Run a bot seat: make trader BOT=<id>  — TEAM_ID=<id> works too.
+# Add LOG=1 to also write the bot's log to logs/<id>_<timestamp>.log.
 TEAM_ID ?= $(BOT)
 
 trader:
-	TEAM_ID=$(TEAM_ID) python -m team.trader
+	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.trader
 
 broker:
-	TEAM_ID=$(TEAM_ID) python -m team.broker
+	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.broker
 
 exchange:
 	python -m exchange.server

@@ -106,4 +106,6 @@ class MyTrader(Trader):
 
 
 if __name__ == "__main__":
+    from team import logs
+    logs.setup()
     MyTrader().run()
