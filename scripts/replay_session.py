@@ -82,7 +82,7 @@ class ReplayServer:
                 if delay > 0:
                     await asyncio.sleep(delay)
                 dead = set()
-                for c in self.clients:
+                for c in list(self.clients):
                     try:
                         await c.send(payload)
                     except Exception:
