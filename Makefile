@@ -28,6 +28,15 @@ trader:
 broker:
 	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.broker
 
+# Strategy seats (each writes its own log under logs/):
+#   make momentum   → trader_1, moving-average crossover
+#   make meanrev    → trader_2, buy dips / sell the rebound
+momentum:
+	TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_1) python -m team.momentum_trader
+
+meanrev:
+	TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_2) python -m team.mean_reversion_trader
+
 exchange:
 	python -m exchange.server
 
@@ -37,4 +46,4 @@ sim:
 test:
 	pytest tests/ -q
 
-.PHONY: install register trader broker exchange sim test
+.PHONY: install register trader broker momentum meanrev exchange sim test
