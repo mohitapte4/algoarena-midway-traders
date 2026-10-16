@@ -194,10 +194,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         A requote is a cancel and a replace of every level, and the venue
         refuses whatever goes past the quota (week-3 dry run: 69
         RATE_LIMITED in the first two seconds), so a send waits its turn.
+        Orders still waiting when the session closes are dropped.
         """
         if isinstance(msg, (PlaceOrder, CancelOrder)):
             while not self._bucket.take(self._clock()):
                 await self._sleep(1.0 / self._bucket.rate)
+        # A requote waiting its turn can outlive the session (dry run: 3
+        # SESSION_CLOSED); once it is closed only cancels are accepted.
+        if isinstance(msg, PlaceOrder) and not self._session_open:
+            return
         await super()._send(msg)
 
     # ── quoting ─────────────────────────────────────────────────────────

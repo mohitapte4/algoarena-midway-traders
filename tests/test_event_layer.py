@@ -294,3 +294,12 @@ def test_event_before_the_server_portfolio_still_gets_a_reaction():
     out = run(t, m, p, clock, 25)                         # before the starter retry
     assert t._start_net_worth is None
     assert_reaction_bid(out, PX * 0.98)
+
+
+def test_an_empty_book_still_gets_the_reaction_bid_at_the_settle_level():
+    t, m, p, c = setup(MeanReversionTrader)
+    fire(t, 0.062)
+    m.best_bid = m.best_ask = lambda s: None     # every maker pulled for the event
+    out = run(t, m, p, c, 60)
+    assert_reaction_bid(out, PX * 1.062)
+    assert abs(out[0][1].price - PX * 1.062) < 0.011

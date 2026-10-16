@@ -339,3 +339,19 @@ def test_orders_and_cancels_are_paced_inside_the_team_quota():
         in_one_tick = [t for t in sent_at if start <= t < start + 1.0]
         assert len(in_one_tick) <= 2 * MESSAGES_PER_SEC
     assert max(sent_at) >= (40 - MESSAGES_PER_SEC) / MESSAGES_PER_SEC - 1e-6
+
+
+def test_an_order_still_waiting_when_the_session_closes_is_dropped():
+    b = TeamBrokerBot(MyBroker(), "ws://test")
+    sent = []
+
+    class Socket:
+        async def send(self, raw):
+            sent.append(raw)
+
+    b._ws = Socket()
+    b._session_open = False
+    run(b._send(PlaceOrder(team_id=ME, symbol="AAPL", side="buy",
+                           order_type="limit", price=100.0, quantity=10)))
+    run(b._send(CancelOrder(team_id=ME, order_id="o1", symbol="AAPL")))
+    assert len(sent) == 1 and '"cancel_order"' in sent[0]

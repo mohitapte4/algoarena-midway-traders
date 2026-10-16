@@ -418,10 +418,11 @@ class BaseTrader(Trader):
                 logger.info("EVENT  %s reaction: session loss limit, no new "
                             "position — the cancels are the reaction", symbol)
                 continue
+            # Makers pull their quotes for an event, so the book may be empty;
+            # the bid then rests at the settle level on its own.
             bid = market.best_bid(symbol)
-            if not bid:
-                continue
-            signal = self._place(symbol, "buy", STARTER_QUANTITY, min(bid, r.settle),
+            price = min(bid, r.settle) if bid else r.settle
+            signal = self._place(symbol, "buy", STARTER_QUANTITY, price,
                                  now, "event reaction", taker=False, purpose="reaction")
             if signal is not None:
                 logger.info("EVENT  %s reaction: bid %d @ %.2f (settle %.2f)",
