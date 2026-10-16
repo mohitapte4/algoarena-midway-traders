@@ -69,7 +69,7 @@ dashboard.
 
 - `team/trader.py` → `MyTrader.on_tick()` — your edge
 - `team/broker.py` → quoting + inventory management (Level 4 keeps you solvent)
-- Test offline, no network needed: `make sim` and `make test`
+- Test offline, no network needed: `make sim`, `make season WEEK=3` (that week's rules and event calendar, from `season/week03.json`) and `make test`
 
 **Full connection guide (read this first): [docs/CONNECTING.md](docs/CONNECTING.md)**
 
