@@ -52,7 +52,11 @@ WEEK ?= 1
 season:
 	python scripts/season_sim.py --weeks $(WEEK)
 
+# Replay a recorded block into a local dashboard: make replay FILE=sessions/<file>
+replay:
+	python scripts/replay_session.py $(FILE) --speed 5
+
 test:
 	pytest tests/ -q
 
-.PHONY: install register trader broker momentum meanrev exchange sim season test
+.PHONY: install register trader broker momentum meanrev exchange sim season replay test
