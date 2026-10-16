@@ -75,8 +75,10 @@ DEFAULT_TAKER = 0.003     # hosted venue, until FEE_SCHEDULE says otherwise
 DEFAULT_REBATE = 0.0
 EDGE_MARGIN = 1.25        # a signal must clear its cost by this factor
 
-SEAT_MAX_SHARES = 300     # per symbol: held + on order. Team limit is ±400,
-                          # and the broker's inventory and bids count too.
+SEAT_MAX_SHARES = 200     # per symbol: held + on order. The team limit (600
+                          # in week 3) counts both seats' orders and the
+                          # broker's inventory and bids (team.broker
+                          # MAX_INVENTORY = 150), so 2 × 200 + 150 stays under.
 PRICE_BAND = 0.09         # venue rejects limits beyond ±10% of the mark
 ORDERS_PER_SEC = 4.0      # orders + cancels; the team shares 20 per tick
 QUOTE_DRIFT = 0.001       # re-quote once the touch is 10 bp away

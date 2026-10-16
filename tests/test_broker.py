@@ -10,7 +10,7 @@ import broker.config as _config
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution)
 from team import broker as team_broker
-from team.broker import REJECT_BUDGET, MyBroker, TeamBrokerBot
+from team.broker import MAX_INVENTORY, REJECT_BUDGET, MyBroker, TeamBrokerBot
 
 logging.disable(logging.CRITICAL)
 
@@ -244,7 +244,7 @@ def test_every_venue_gets_a_team_broker_sharing_one_yahoo_feed(monkeypatch):
 
     monkeypatch.setattr(team_broker._config, "EXCHANGE_URLS",
                         ["ws://a:8765", "ws://b:8766"])
-    monkeypatch.setattr(team_broker._AdaptedBrokerBot, "run", fake_run)
+    monkeypatch.setattr(TeamBrokerBot, "run", fake_run)
     run(MyBroker()._run_venues())
     assert [type(b) for b in started] == [TeamBrokerBot, TeamBrokerBot]
     assert started[1].state.yahoo_prices is started[0].state.yahoo_prices
@@ -258,3 +258,57 @@ def test_a_malformed_event_or_trade_never_reaches_the_socket_loop():
     b._on_trade(TradeExecution.model_construct(
         trade_id="t1", symbol="AAPL", price=None, quantity=None,
         buyer_id=ME, seller_id="x", aggressor="sell", fee=0.0))
+
+
+def test_bids_stop_at_the_inventory_cap():
+    b, sent, _ = make(positions={"AAPL": MAX_INVENTORY - 15})
+    run(b.quote_symbol("AAPL"))
+    assert [m.quantity for m in places(sent, "buy")] == [10, 5]
+
+
+def test_a_full_inventory_quotes_asks_only_and_does_not_churn():
+    b, sent, _ = make(positions={"AAPL": MAX_INVENTORY})
+    run(b.quote_symbol("AAPL"))
+    assert places(sent, "buy") == []
+    assert places(sent, "sell")
+    ack_all(b, sent)
+    run(b.quote_symbol("AAPL"))
+    assert sent == []
+
+
+def test_the_fire_cuts_short_the_warning_pause_so_the_broker_requotes_in_time():
+    b, sent, now = make(prices={"NVDA": 500.0})
+    run(b._on_session_event(event(
+        "CALENDAR", tick=300, announce_lead=120, early=False, events=[],
+        imminent=[{"kind": "earnings", "symbol": "NVDA", "tick": 420}])))
+    now[0] = 30.0
+    run(b._on_session_event(event(
+        "CALENDAR_EVENT", kind="earnings", symbol="NVDA", market_wide=False,
+        affected=["NVDA"], ramp_ticks=15)))
+    sent.clear()
+    now[0] = 30.0 + 44.0
+    run(b.quote_symbol("NVDA"))
+    assert places(sent) == []
+    now[0] = 30.0 + 46.0
+    run(b.quote_symbol("NVDA"))
+    assert places(sent, "buy")
+
+
+def test_a_new_connection_forgets_the_quotes_the_venue_swept():
+    b, sent, _ = make()
+    run(b.quote_symbol("AAPL"))
+    ack_all(b, sent)
+    assert b._live
+
+    async def down():
+        raise OSError("venue down")
+
+    b.connect_to_exchange = down
+    try:
+        run(b._serve())
+    except OSError:
+        pass
+    assert b._live == {}
+    run(b.quote_symbol("AAPL"))
+    assert places(sent, "buy")
+    assert cancelled(sent) == set()

@@ -17,6 +17,7 @@ Run:
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import json
 import logging
 import math
@@ -27,9 +28,11 @@ from dataclasses import dataclass
 import broker.config as _config
 from arena import Broker
 from arena.broker import _AdaptedBrokerBot
+from broker.broker import _print_startup
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution, parse_message)
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
+from team.reconnect import run_with_backoff
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +46,9 @@ DEFAULT_WIDTH = 0.30    # engine BASE_SPREAD...
 DEFAULT_CAP_BPS = 25.0  # ...capped at 25 bp of the price
 
 REJECT_BUDGET = 8       # graded: under 10 rejects a session; stop quoting at 8
+MAX_INVENTORY = 150     # per symbol, held + bid. The venue's limit (600 in week 3)
+                        # is per team and counts resting orders: two trader
+                        # seats at SEAT_MAX_SHARES (200) plus this stays under it.
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
@@ -141,6 +147,42 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._errors = 0
         self._clock = time.monotonic
 
+    # ── connection ──────────────────────────────────────────────────────
+
+    async def run(self) -> None:
+        """Quote this venue, reconnecting with backoff whenever the link ends."""
+        _print_startup()
+        self.start_yahoo_feeds()
+        await run_with_backoff(self._serve, f"broker {_config.TEAM_ID} "
+                                            f"{self.exchange_url}")
+
+    async def _serve(self) -> None:
+        """One connection: quote until the venue closes it or it drops.
+
+        The venue cancels a seat's resting orders when it disconnects
+        (server.py, cancel-on-disconnect), so each connection starts with
+        nothing tracked; cancelling over the dead socket, as the engine
+        does, would only lose track of what was left.
+        """
+        self._live.clear()
+        self._taken.clear()
+        self.state.resting_orders.clear()
+        self.state.last_quote_prices.clear()
+        try:
+            await self.connect_to_exchange()
+            self._session_open = False
+            listener = asyncio.create_task(self.listen_to_exchange())
+            requoter = asyncio.create_task(self.requote_loop())
+            try:
+                await listener
+            finally:
+                requoter.cancel()
+                await asyncio.wait({requoter})   # a cancel aimed at us still propagates
+        finally:
+            if self._ws:
+                with contextlib.suppress(Exception):
+                    await self._ws.close()
+
     # ── quoting ─────────────────────────────────────────────────────────
 
     def _ask_room(self, symbol: str) -> float:
@@ -150,6 +192,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if self._shorts_allowed:
             return math.inf
         return max(self.state.positions.get(symbol, 0), 0)
+
+    def _bid_room(self, symbol: str) -> int:
+        """Shares we may still bid for without the team breaching its limit."""
+        return max(MAX_INVENTORY - max(self.state.positions.get(symbol, 0), 0), 0)
 
     def _paused(self, symbol: str) -> bool:
         now = self._clock()
@@ -162,7 +208,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if last is None:
             return True
         resting = self.state.resting_orders.get(symbol, {})
-        if not resting.get("buy_qty"):
+        if not resting.get("buy_qty") and self._bid_room(symbol) > 0:
             return True
         if not resting.get("sell_qty") and self._ask_room(symbol) > 0:
             return True
@@ -196,6 +242,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
         half_step = max(half, 0.01)
         unoffered = self._ask_room(symbol)
+        unbid = self._bid_room(symbol)
         bid_total = ask_total = 0
         for lvl in range(_config.QUOTE_LEVELS):
             size = _config.QUOTE_SIZE * (lvl + 1)
@@ -203,11 +250,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             lvl_ask = math.ceil((ask_price + lvl * half_step) * 100) / 100
             if lvl_bid <= 0:
                 continue
-            await self._send(PlaceOrder(
-                team_id=_config.TEAM_ID, symbol=symbol, side="buy",
-                order_type="limit", price=lvl_bid, quantity=size,
-            ))
-            bid_total += size
+            bid_size = min(size, unbid)
+            if bid_size > 0:
+                await self._send(PlaceOrder(
+                    team_id=_config.TEAM_ID, symbol=symbol, side="buy",
+                    order_type="limit", price=lvl_bid, quantity=bid_size,
+                ))
+                bid_total += bid_size
+                unbid -= bid_size
             ask_size = min(size, unoffered)
             if ask_size > 0:
                 await self._send(PlaceOrder(
@@ -368,7 +418,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                               * EXCHANGE_TICK_SEC, ev.get("kind", "event"))
 
     async def _on_fire(self, event: str, data: dict) -> None:
-        """A CALENDAR_EVENT or SHOCK: out until three ramps from now."""
+        """A CALENDAR_EVENT or SHOCK: out until three ramps from now.
+
+        This replaces a longer pause from the warning, which assumed the
+        event would fire as late as possible: requoting three ramps after the
+        fire is also the broker's order within 60 ticks of the event.
+        """
         ramp = int(data.get("ramp_ticks") or DEFAULT_RAMP_TICKS)
         if data.get("market_wide"):
             keys = ["*"]
@@ -376,11 +431,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             keys = data.get("affected") or (
                 [data["symbol"]] if data.get("symbol") else [])
         for key in keys:
-            await self._pause(key, PAUSE_RAMPS * ramp * EXCHANGE_TICK_SEC, event)
+            await self._pause(key, PAUSE_RAMPS * ramp * EXCHANGE_TICK_SEC, event,
+                              replace=True)
 
-    async def _pause(self, key: str, seconds: float, reason: str) -> None:
+    async def _pause(self, key: str, seconds: float, reason: str, *,
+                     replace: bool = False) -> None:
         until = self._clock() + seconds
-        self._paused_until[key] = max(self._paused_until.get(key, 0.0), until)
+        if not replace:
+            until = max(self._paused_until.get(key, 0.0), until)
+        self._paused_until[key] = until
         for symbol in list(self._quote_symbols) if key == "*" else [key]:
             await self.cancel_quotes(symbol)
         logger.info("EVENT %s: %s quotes pulled for %.0fs", reason, key, seconds)
