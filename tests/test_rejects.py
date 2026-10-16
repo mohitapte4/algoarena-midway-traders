@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
 
+import pytest
+from websockets.exceptions import ConnectionClosed, InvalidHandshake
+
+from shared.messages import ErrorMsg, Handshake, OrderAck, SessionEvent, TradeExecution
 from team.base_trader import ORDERS_PER_SEC, REJECT_BUDGET, SEAT_MAX_SHARES
 from team.momentum_trader import MomentumTrader
+from team.reconnect import backoff_delay, run_with_backoff
 from team.venue import CANCEL_GRACE_SEC, OwnOrders, TeamBot
 from tests.test_momentum_trader import Clock, FakeMarket, FakePortfolio, flat, trend
 
@@ -149,19 +153,164 @@ def test_no_close_out_orders_after_the_session_closes():
     assert bot._ws.sent == []
 
 
-def test_bot_routes_acks_and_errors_to_the_trader(monkeypatch):
+def _routable(monkeypatch):
     import trader.config as cfg
     monkeypatch.setattr(cfg, "TEAM_ID", "me")
     t, m, p, c = ready(positions={"AAA": 20, "ZZZ": 6})
     t._place("AAA", "sell", 5, 100.10, c.t, "test", taker=False)
-    bot = TeamBot(t)
-    bot._peek(json.dumps({"type": "order_ack", "order_id": "k1", "team_id": "me",
-                          "symbol": "AAA", "side": "sell", "price": 100.10,
-                          "quantity": 5}))
+    return t, TeamBot(t)
+
+
+def _ack(team_id="me"):
+    return OrderAck(order_id="k1", team_id=team_id, symbol="AAA", side="sell",
+                    price=100.10, quantity=5).model_dump_json()
+
+
+def test_bot_routes_acks_and_errors_to_the_trader(monkeypatch):
+    t, bot = _routable(monkeypatch)
+    bot._peek(_ack())
     assert t.orders.live("AAA", "sell").order_id == "k1"
-    bot._peek(json.dumps({"type": "error", "code": "RATE_LIMITED",
-                          "message": "Message quota exceeded"}))
+    bot._peek(ErrorMsg(code="RATE_LIMITED",
+                       message="Message quota exceeded").model_dump_json())
     assert t.rejects["RATE_LIMITED"] == 1
+
+
+def test_bot_ignores_another_teams_ack(monkeypatch):
+    t, bot = _routable(monkeypatch)
+    bot._peek(_ack(team_id="them"))
+    assert t.orders.live("AAA", "sell").order_id is None
+
+
+def test_bot_survives_unreadable_messages(monkeypatch):
+    t, bot = _routable(monkeypatch)
+    for raw in ("not json", '{"no": "type"}', '{"type": "mystery"}',
+                '{"type": "order_ack", "order_id": "k1"}'):
+        bot._peek(raw)
+    assert t.orders.live("AAA", "sell").order_id is None
+    assert sum(t.rejects.values()) == 0
+    bot._peek(_ack())                       # still routing afterwards
+    assert t.orders.live("AAA", "sell").order_id == "k1"
+
+
+def test_a_raising_fill_hook_does_not_drop_the_connection(monkeypatch):
+    t, bot = _routable(monkeypatch)
+    called = []
+
+    def boom(*args):
+        called.append(args)
+        raise RuntimeError("trader bug")
+
+    t.on_fill = boom
+    bot._on_trade(TradeExecution(trade_id="x", symbol="AAA", price=100.0,
+                                 quantity=1, buyer_id="me", seller_id="them",
+                                 aggressor="buy", fee=0.0))
+    assert called == [("buy", "AAA", 1, 100.0)]
+
+
+def test_a_raising_event_hook_does_not_drop_the_connection(monkeypatch):
+    t, bot = _routable(monkeypatch)
+    called = []
+
+    def boom(*args):
+        called.append(args)
+        raise RuntimeError("trader bug")
+
+    t.on_event = boom
+    asyncio.run(bot._on_session_event(
+        SessionEvent(event="SHOCK", message="AAA -5%", data={})))
+    assert called == [("SHOCK", "AAA -5%", {})]
+
+
+# ── reconnect ──────────────────────────────────────────────────────────────
+
+class _Link:
+    """Scripted connections for run_with_backoff, on a fake clock.
+
+    Each outcome is (seconds the connection lasts, exception or None for a
+    clean close). When the script runs out the loop is cancelled.
+    """
+
+    def __init__(self, outcomes) -> None:
+        self.outcomes = list(outcomes)
+        self.now = 0.0
+        self.delays: list[float] = []
+        self.cancelled = False
+
+    async def serve(self) -> None:
+        if not self.outcomes:
+            self.cancelled = True
+            raise asyncio.CancelledError
+        lasted, exc = self.outcomes.pop(0)
+        self.now += lasted
+        if exc is not None:
+            raise exc
+
+    async def sleep(self, seconds: float) -> None:
+        assert not self.cancelled, "retried after cancellation"
+        self.delays.append(seconds)
+        self.now += seconds
+
+    def run(self, rand=lambda: 0.5):
+        with pytest.raises(asyncio.CancelledError):
+            asyncio.run(run_with_backoff(self.serve, "test", sleep=self.sleep,
+                                         clock=lambda: self.now, rand=rand))
+        return self.delays
+
+
+def test_backoff_doubles_up_to_the_cap():
+    link = _Link([(0.0, OSError("refused"))] * 7)
+    assert link.run() == [1, 2, 4, 8, 16, 30, 30]
+
+
+def test_backoff_jitter_stays_within_twenty_percent():
+    assert backoff_delay(1, base=1, cap=30, jitter=0.2, r=0.0) == pytest.approx(0.8)
+    assert backoff_delay(6, base=1, cap=30, jitter=0.2, r=0.999999) == pytest.approx(36, rel=1e-5)
+    low = _Link([(0.0, OSError("refused"))] * 3).run(rand=lambda: 0.0)
+    assert low == pytest.approx([0.8, 1.6, 3.2])
+
+
+def test_backoff_resets_after_a_healthy_connection():
+    link = _Link([
+        (0.0, OSError("refused")),
+        (0.0, OSError("refused")),
+        (0.0, OSError("refused")),
+        (45.0, ConnectionClosed(None, None)),  # up 45 s, then dropped
+        (0.0, None),                           # clean close right away
+        (29.0, None),                          # not long enough to count
+    ])
+    assert link.run() == [1, 2, 4, 1, 2, 4]
+
+
+def test_every_ending_is_retried():
+    link = _Link([(0.0, None), (0.0, RuntimeError("bug")),
+                  (0.0, InvalidHandshake("401")), (0.0, TimeoutError())])
+    assert len(link.run()) == 4
+
+
+def test_cancellation_is_not_retried():
+    link = _Link([])
+    assert link.run() == []
+
+
+def test_a_clean_close_ends_the_connection_so_the_bot_can_redial(monkeypatch):
+    import websockets
+    import trader.config as cfg
+    t, bot = _routable(monkeypatch)
+    handshakes = []
+
+    async def venue(ws):
+        handshakes.append(Handshake.model_validate_json(await ws.recv()))
+        await ws.close()                     # a restarting exchange: clean close
+
+    async def two_connections():
+        async with websockets.serve(venue, "127.0.0.1", 0) as server:
+            port = server.sockets[0].getsockname()[1]
+            monkeypatch.setattr(cfg, "EXCHANGE_URL", f"ws://127.0.0.1:{port}")
+            for _ in range(2):
+                await asyncio.wait_for(bot._serve(), timeout=5)
+
+    asyncio.run(two_connections())
+    assert [h.team_id for h in handshakes] == ["me", "me"]
 
 
 # ── broker width ────────────────────────────────────────────────────────────
@@ -180,4 +329,4 @@ def test_broker_widens_on_a_ramp_but_never_past_the_cap():
     assert width > 0.30
     assert width <= ramp[-1] * MAX_WIDEN_BPS / 10_000 + 1e-9
     chop = [195.0, 195.3] * 6                                      # 15 bp chop
-    assert volatility_spread(195.0, chop) == __import__("pytest").approx(0.6)   # 2 × range
+    assert volatility_spread(195.0, chop) == pytest.approx(0.6)   # 2 × range

@@ -25,7 +25,10 @@ TeamBot
         order per held symbol (10 rejects on 2026-10-09) and never traded;
       * reads order acks and errors off the socket and hands them to the
         trader (the engine only logs them);
-      * sends the cancels the trader asks for, between ticks.
+      * sends the cancels the trader asks for, between ticks;
+      * reconnects with exponential backoff (team.reconnect) instead of a
+        fixed 3 s, and a trader hook that raises is logged rather than
+        dropping the connection.
 """
 
 from __future__ import annotations
@@ -39,7 +42,17 @@ from dataclasses import dataclass
 
 from arena.trader import _AdaptedTraderBot
 import trader.config as _config  # noqa: E402  (engine module)
-from shared.messages import CancelOrder  # noqa: E402  (engine module)
+from shared.messages import (  # noqa: E402  (engine module)
+    CancelOrder,
+    ErrorMsg,
+    OrderAck,
+    SessionEvent,
+    TradeExecution,
+    parse_message,
+)
+from trader.trader import MarketData, _print_startup  # noqa: E402  (engine module)
+
+from team.reconnect import run_with_backoff
 
 logger = logging.getLogger(__name__)
 
@@ -220,6 +233,31 @@ class _Tap:
 class TeamBot(_AdaptedTraderBot):
     """The engine's trader bot with order acks, rejects and cancels wired in."""
 
+    async def run(self) -> None:
+        """Connect and trade, reconnecting with backoff whenever the link ends."""
+        _print_startup()
+        await run_with_backoff(self._serve, f"trader {_config.TEAM_ID}")
+
+    async def _serve(self) -> None:
+        """One connection: trade until the venue closes it or it drops."""
+        try:
+            await self.connect()
+            self._session_open = False
+            self.market = MarketData()
+            # listen() returns on a clean close; the trading loop never
+            # ends by itself, so it must be cancelled with the connection.
+            listener = asyncio.create_task(self.listen())
+            trading = asyncio.create_task(self.trading_loop())
+            try:
+                await listener
+            finally:
+                trading.cancel()
+                await asyncio.wait({trading})   # a cancel aimed at us still propagates
+        finally:
+            if self._ws:
+                with contextlib.suppress(Exception):
+                    await self._ws.close()
+
     async def connect(self) -> None:
         await super().connect()
         self._owner.on_connect()
@@ -231,16 +269,31 @@ class TeamBot(_AdaptedTraderBot):
 
     def _peek(self, raw) -> None:
         try:
-            msg = json.loads(raw)
-            kind = msg.get("type")
-            if kind == "order_ack" and msg.get("team_id") == _config.TEAM_ID:
-                self._owner.on_ack(msg["order_id"], msg["symbol"], msg["side"],
-                                   float(msg["price"]))
-            elif kind == "error":
-                self._owner.on_reject(str(msg.get("code", "")),
-                                      str(msg.get("message", "")))
+            msg = parse_message(json.loads(raw))
+        except (KeyError, ValueError) as exc:   # ValidationError is a ValueError
+            # listen() parses the same message and warns about it.
+            logger.debug("Skipped unreadable venue message: %s", exc)
+            return
+        try:
+            if isinstance(msg, OrderAck) and msg.team_id == _config.TEAM_ID:
+                self._owner.on_ack(msg.order_id, msg.symbol, msg.side, msg.price)
+            elif isinstance(msg, ErrorMsg):
+                self._owner.on_reject(msg.code, msg.message)
         except Exception:
-            logger.exception("Could not read venue message")
+            logger.exception("Trader could not take %s", type(msg).__name__)
+
+    def _on_trade(self, msg: TradeExecution) -> None:
+        try:
+            super()._on_trade(msg)
+        except Exception:
+            logger.exception("Fill handler raised; connection kept")
+
+    async def _on_session_event(self, msg: SessionEvent) -> None:
+        try:
+            await super()._on_session_event(msg)
+        except Exception:
+            logger.exception("Event handler raised on %s; connection kept",
+                             msg.event)
 
     async def trading_loop(self) -> None:
         pump = asyncio.create_task(self._cancel_pump())
