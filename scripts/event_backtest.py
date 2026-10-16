@@ -32,6 +32,10 @@ MODEL — read before trusting a number
                (more than 20 messages in one second), STP_CANCEL (an order
                crossing the seat's own resting order cancels that order),
                ORDER_NOT_FOUND (cancel of an order no longer resting).
+    Score      the venue's season score (exchange.scoring.score_equity):
+               net worth marked at the reference price every 60 s of tape
+               (one snapshot per 60 ticks), idle cash earning the venue's
+               CASH_INTEREST_PER_TICK, so a seat that does nothing scores ~0.
     Limits     nobody reacts to our orders, and every share we "buy" was
                bought by someone else on the day. In-sample: treat the
                numbers as an upper bound on what the logic can earn.
@@ -54,12 +58,14 @@ sys.path[:0] = [str(ROOT / "engine"), str(ROOT)]
 
 import arena  # noqa: E402,F401  (puts the engine on sys.path first)
 from arena import Signal, Trader  # noqa: E402
+from exchange import config as venue_config, scoring  # noqa: E402
 from trader.trader import MarketData  # noqa: E402
 
 POSITION_LIMIT = 400
 PRICE_BAND = 0.10
 QUOTA_PER_SEC = 20
 MARK_EVERY_SEC = 1.0
+SNAPSHOT_SEC = 60.0          # the venue's season snapshot: every 60 ticks of 1 s
 
 
 # ── the tape ────────────────────────────────────────────────────────────────
@@ -107,6 +113,10 @@ class SimPortfolio:
         return self.cash + sum(q * (market.mid_price(s) or 0.0)
                                for s, q in self.positions.items())
 
+    def scored_equity(self, ref: dict[str, float]) -> float:
+        """Net worth the way the venue scores it: inventory at the reference."""
+        return self.cash + sum(q * ref.get(s, 0.0) for s, q in self.positions.items())
+
     def can_buy(self, symbol: str, qty: int, price: float) -> bool:
         return self.cash >= price * qty * 1.001
 
@@ -131,6 +141,7 @@ class Result:
     ride: float = 0.0
     fade: float = 0.0
     max_dd: float = 0.0
+    equity: list = field(default_factory=list)     # one point per SNAPSHOT_SEC
     taker_fills: int = 0
     maker_fills: int = 0
     fees: float = 0.0
@@ -148,6 +159,7 @@ class Venue:
         self.market = MarketData()
         self.now = 0.0
         self.books: dict[str, dict] = {}
+        self.ref: dict[str, float] = {}
         self.taken: dict[tuple[str, str, float], int] = {}
         self.resting: list[Resting] = []
         self.inbound: list[tuple[float, str, object]] = []   # (arrive, kind, item)
@@ -277,6 +289,9 @@ class Venue:
                                mid_price=float(msg.get("mid_price") or 0.0),
                                spread=float(msg.get("spread") or 0.0))
         self.market.update_book(snap)
+        ref = float(msg.get("ref_price") or 0.0) or snap.mid_price
+        if ref > 0:
+            self.ref[snap.symbol] = ref
         self.books[snap.symbol] = {"bids": snap.bids, "asks": snap.asks}
         for key in [k for k in self.taken if k[0] == snap.symbol]:
             del self.taken[key]
@@ -394,7 +409,8 @@ def run(tape: Tape, args) -> Result:
     bot.on_event("FEE_SCHEDULE", "backtest fees",
                  {"taker": args.fee, "rebate": args.rebate})
     start_nw: float | None = None
-    peak, next_tick, next_mark = -math.inf, None, None
+    peak, next_tick, next_mark, next_snap = -math.inf, None, None, None
+    interest = (1.0 + venue_config.CASH_INTEREST_PER_TICK) ** args.tick - 1.0
     for ts, kind, msg in tape.records:
         if next_tick is None:
             next_tick, next_mark = ts, ts
@@ -404,6 +420,12 @@ def run(tape: Tape, args) -> Result:
             if len(venue.market.symbols()) >= len(seeds):
                 if start_nw is None:
                     start_nw = venue.pf.net_worth(venue.market)
+                    next_snap = next_tick
+                if venue.pf.cash > 0:       # idle cash earns the venue's rate
+                    venue.pf.cash *= 1.0 + interest
+                if next_tick >= next_snap:
+                    venue.res.equity.append(venue.pf.scored_equity(venue.ref))
+                    next_snap += SNAPSHOT_SEC
                 venue.tick()
             next_tick += args.tick
         venue.deliver(ts)
@@ -425,6 +447,7 @@ def run(tape: Tape, args) -> Result:
             next_mark = ts + MARK_EVERY_SEC
 
     res = venue.res
+    res.equity.append(venue.pf.scored_equity(venue.ref))   # the close
     res.pnl = venue.pf.net_worth(venue.market) - (start_nw or args.cash)
     res.fees, res.rebates = venue.pf.fees, venue.pf.rebates
     plans = list(getattr(bot, "finished_plans", [])) + list(getattr(bot, "_plans", {}).values())
@@ -443,14 +466,18 @@ def logging_off():
 
 def print_table(results: list[Result]) -> None:
     head = (f"{'bot':<26}{'P&L':>10}{'ride':>9}{'fade':>9}{'max DD':>9}"
-            f"{'taker':>7}{'maker':>7}{'fees':>8}{'rebates':>9}  rejects")
+            f"{'taker':>7}{'maker':>7}{'fees':>8}{'rebates':>9}"
+            f"{'score':>8}{'ret':>8}{'vol':>8}{'mdd':>7}  rejects")
     print(head)
     print("-" * len(head))
     for r in results:
         rej = ", ".join(f"{k} {v}" for k, v in sorted(r.rejects.items())) or "0"
+        sc = scoring.score_equity(r.equity)
         print(f"{r.bot:<26}{r.pnl:>+10,.0f}{r.ride:>+9,.0f}{r.fade:>+9,.0f}"
               f"{r.max_dd:>9,.0f}{r.taker_fills:>7}{r.maker_fills:>7}"
-              f"{r.fees:>8,.0f}{r.rebates:>9,.0f}  {rej}")
+              f"{r.fees:>8,.0f}{r.rebates:>9,.0f}"
+              f"{sc['risk_adjusted']:>+8.3f}{sc['cumulative_return']:>+8.2%}"
+              f"{sc['vol']:>8.4%}{sc['max_drawdown']:>7.2%}  {rej}")
 
 
 def main(argv: list[str] | None = None) -> int:
