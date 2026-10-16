@@ -6,7 +6,7 @@ Budget invested: $1,000,000, across three seats:
 | ------------------------- | -------- | --------------------------- | ------------------------------------------------- |
 | `midway_traders_trader_1` | $300,000 | momentum + event ride/fade  | `make momentum`                                   |
 | `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`                                    |
-| `midway_traders_broker`   | $400,000 | market maker                | `make broker TEAM_ID=midway_traders_broker LOG=1` |
+| `midway_traders_broker`   | $400,000 | market maker                | `make broker` |
 
 ## Friday checklist
 
@@ -28,7 +28,7 @@ is on Fri Oct 23 (the ORCA IPO).
 
        make momentum
        make meanrev
-       make broker TEAM_ID=midway_traders_broker LOG=1
+       make broker
 
    Start the seats before the teacher opens the session. They connect, then
    wait for `SESSION_OPEN`.
@@ -67,8 +67,7 @@ Part A is scored for each seat from the session recording.
 
 ## What to look for in the logs
 
-The trader seats always log to `logs/<seat>_<timestamp>.log`. The broker logs
-there only with `LOG=1`.
+Every seat logs to `logs/<seat>_<timestamp>.log` as well as the terminal.
 
 | Log line                                      | Meaning                                                                               |
 | --------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -173,7 +172,7 @@ To run against a local copy of the week-3 venue, use four terminals:
     make exchange SCENARIO_PATH=season/week03.json EXCHANGE_PORT=8799
     make momentum EXCHANGE_URL=ws://localhost:8799
     make meanrev EXCHANGE_URL=ws://localhost:8799
-    make broker TEAM_ID=midway_traders_broker LOG=1 EXCHANGE_URL=ws://localhost:8799
+    make broker EXCHANGE_URL=ws://localhost:8799
 
 In the exchange terminal, type `open` to start the session. Type
 `shock earnings_miss` to inject a shock, and `close` to end the session. The

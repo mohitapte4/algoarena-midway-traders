@@ -29,8 +29,9 @@ TEAM_ID ?= $(BOT)
 trader:
 	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.trader
 
+# The broker always writes logs/<id>_<timestamp>.log, like the strategy seats.
 broker:
-	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.broker
+	TEAM_ID=$(or $(TEAM_ID),midway_traders_broker) python -m team.broker
 
 # Strategy seats (each writes its own log under logs/):
 #   make momentum   → trader_1, moving-average crossover + event ride/fade

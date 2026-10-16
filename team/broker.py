@@ -469,5 +469,5 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
 if __name__ == "__main__":
     from team import logs
-    logs.setup()
+    logs.setup(always=True)
     MyBroker().run()
