@@ -33,6 +33,7 @@ from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution, parse_message)
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.reconnect import run_with_backoff
+from team.venue import TokenBucket
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +50,8 @@ REJECT_BUDGET = 8       # graded: under 10 rejects a session; stop quoting at 8
 MAX_INVENTORY = 150     # per symbol, held + bid. The venue's limit (600 in week 3)
                         # is per team and counts resting orders: two trader
                         # seats at SEAT_MAX_SHARES (200) plus this stays under it.
+MESSAGES_PER_SEC = 8.0  # orders + cancels: the team shares 20 per exchange
+                        # tick (1 s) and each trader seat takes 4 (base_trader)
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
@@ -146,6 +149,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._paused_until: dict[str, float] = {}   # symbol or "*" -> time
         self._errors = 0
         self._clock = time.monotonic
+        self._sleep = asyncio.sleep
+        self._bucket = TokenBucket(MESSAGES_PER_SEC, MESSAGES_PER_SEC)
 
     # ── connection ──────────────────────────────────────────────────────
 
@@ -182,6 +187,18 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             if self._ws:
                 with contextlib.suppress(Exception):
                     await self._ws.close()
+
+    async def _send(self, msg) -> None:
+        """Send, pacing orders and cancels inside the team's message quota.
+
+        A requote is a cancel and a replace of every level, and the venue
+        refuses whatever goes past the quota (week-3 dry run: 69
+        RATE_LIMITED in the first two seconds), so a send waits its turn.
+        """
+        if isinstance(msg, (PlaceOrder, CancelOrder)):
+            while not self._bucket.take(self._clock()):
+                await self._sleep(1.0 / self._bucket.rate)
+        await super()._send(msg)
 
     # ── quoting ─────────────────────────────────────────────────────────
 

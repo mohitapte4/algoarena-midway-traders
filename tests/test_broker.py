@@ -10,7 +10,8 @@ import broker.config as _config
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution)
 from team import broker as team_broker
-from team.broker import MAX_INVENTORY, REJECT_BUDGET, MyBroker, TeamBrokerBot
+from team.broker import (MAX_INVENTORY, MESSAGES_PER_SEC, REJECT_BUDGET,
+                         MyBroker, TeamBrokerBot)
 
 logging.disable(logging.CRITICAL)
 
@@ -312,3 +313,29 @@ def test_a_new_connection_forgets_the_quotes_the_venue_swept():
     run(b.quote_symbol("AAPL"))
     assert places(sent, "buy")
     assert cancelled(sent) == set()
+
+
+def test_orders_and_cancels_are_paced_inside_the_team_quota():
+    b = TeamBrokerBot(MyBroker(), "ws://test")
+    now = [0.0]
+    sent_at = []
+
+    class Socket:
+        async def send(self, raw):
+            sent_at.append(now[0])
+
+    async def sleep(seconds):
+        now[0] += seconds
+
+    b._ws, b._clock, b._sleep = Socket(), (lambda: now[0]), sleep
+
+    async def burst():
+        for i in range(40):
+            await b._send(CancelOrder(team_id=ME, order_id=f"o{i}", symbol="AAPL"))
+
+    run(burst())
+    assert len(sent_at) == 40
+    for start in sent_at:
+        in_one_tick = [t for t in sent_at if start <= t < start + 1.0]
+        assert len(in_one_tick) <= 2 * MESSAGES_PER_SEC
+    assert max(sent_at) >= (40 - MESSAGES_PER_SEC) / MESSAGES_PER_SEC - 1e-6
