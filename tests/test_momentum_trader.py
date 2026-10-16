@@ -6,9 +6,8 @@ import logging
 
 import pytest
 
-from team.momentum_trader import (
-    PENDING_TIMEOUT_SEC, STARTER_MAX_ATTEMPTS, STARTER_RETRY_SEC, MomentumTrader,
-)
+from team.base_trader import QUOTE_DRIFT, STARTER_MAX_ATTEMPTS, STARTER_RETRY_SEC
+from team.momentum_trader import MomentumTrader
 from team.risk import RiskLimits
 
 logging.disable(logging.CRITICAL)
@@ -176,10 +175,12 @@ def test_flat_tape_sits_out():
     assert t.on_tick(m, p) is None
 
 
-def test_uptrend_buys_at_the_ask():
+def test_uptrend_rests_a_bid_at_the_touch():
+    # A maker: the buy joins the bid instead of paying the taker fee.
     t, m, p, _ = filled_trader({"AAA": flat(), "UP": trend()})
     s = t.on_tick(m, p)
-    assert (s.symbol, s.side, s.price) == ("UP", "buy", m.best_ask("UP"))
+    assert (s.symbol, s.side) == ("UP", "buy")
+    assert m.best_bid("UP") - 0.01 < s.price <= m.best_bid("UP")   # to the cent, down
 
 
 def test_downtrend_sells_only_shares_held():
@@ -192,13 +193,21 @@ def test_downtrend_sells_only_shares_held():
     assert t2.on_tick(m2, p2) is None                 # nothing held: long-only
 
 
-def test_one_outstanding_order_per_symbol():
+def test_one_resting_quote_per_symbol_until_the_touch_moves():
     t, m, p, c = filled_trader({"AAA": flat(), "UP": trend()})
-    assert t.on_tick(m, p).symbol == "UP"
+    s = t.on_tick(m, p)
+    t.on_ack("id-1", s.symbol, s.side, s.price)
     c.t += 1
-    assert t.on_tick(m, p) is None                    # UP still pending
-    c.t += PENDING_TIMEOUT_SEC
-    assert t.on_tick(m, p).symbol == "UP"             # expired: may trade again
+    assert t.on_tick(m, p) is None                    # the bid is still resting
+    assert t.take_cancels() == []
+    m.books["UP"] = trend(px=100.0 * (1 + 2 * QUOTE_DRIFT))   # market ran away
+    c.t += 1
+    assert t.on_tick(m, p) is None
+    assert t.take_cancels() == [("id-1", "UP")]       # pulled, to re-join higher
+    c.t += 1                                          # cancel grace has passed
+    again = t.on_tick(m, p)
+    assert (again.symbol, again.side) == ("UP", "buy")
+    assert again.price > s.price
 
 
 # ── risk limits inside the trader ───────────────────────────────────────────

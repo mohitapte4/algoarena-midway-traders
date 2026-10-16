@@ -13,6 +13,10 @@ meaningful whatever the seat's starting capital.
     Gross exposure       notional held across all symbols
     Stop-loss            sell a position whose bid has fallen this far
                          below its average entry price
+
+Event trades (team.events) are short-lived and sized separately, by
+EventLimits: a bigger slice of net worth in one name for well under a
+minute, with a share cap that keeps the team inside the venue's ±400.
 """
 
 from __future__ import annotations
@@ -60,3 +64,21 @@ class RiskLimits:
         if not bid or not avg_entry:
             return False
         return bid <= avg_entry * (1 - self.stop_loss)
+
+
+@dataclass(frozen=True)
+class EventLimits:
+    """Size of one event plan; shares count held + resting + unacked orders."""
+
+    max_symbol: float = 0.12      # of net worth, in the event's symbol
+    max_order_shares: int = 60    # per order
+    max_shares: int = 200         # per symbol, per seat
+
+    def ride_shares(self, price: float, net_worth: float, held: int,
+                    fraction: float) -> int:
+        """Shares a ride may buy at `price`, scaled by the edge fraction."""
+        if price <= 0 or net_worth <= 0 or fraction <= 0:
+            return 0
+        by_value = int(self.max_symbol * net_worth // price)
+        room = min(self.max_shares, by_value) - max(held, 0)
+        return max(0, int(room * min(fraction, 1.0)))

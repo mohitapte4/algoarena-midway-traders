@@ -1,7 +1,8 @@
 """
-Midway Traders — optional log file for a bot run.
+Midway Traders — log file for a bot run.
 
-With LOG=1 set, everything the bot shows in the terminal is also written to
+With LOG=1 set (always, for the broker), everything the bot shows in the
+terminal is also written to
 logs/<TEAM_ID>_<timestamp>.log: our ORDER/FILL lines, the engine's log
 messages, its console output (session banners, tick/rank lines, portfolio
 tables) and any crash traceback. The terminal output is unchanged.
@@ -52,10 +53,10 @@ class _Tee:
         return getattr(self._terminal, name)
 
 
-def setup() -> Path | None:
-    """Start writing the bot's output to a log file if LOG is set; return
-    the file's path."""
-    if os.environ.get("LOG", "").lower() not in ("1", "true", "yes"):
+def setup(always: bool = False) -> Path | None:
+    """Start writing the bot's output to a log file if LOG is set, or
+    `always`; return the file's path."""
+    if not always and os.environ.get("LOG", "").lower() not in ("1", "true", "yes"):
         return None
 
     # Same console format as arena's run(). Configuring it here first makes
