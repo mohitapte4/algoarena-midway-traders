@@ -7,9 +7,14 @@ is common to every seat, so each strategy gets the same protections.
 Every tick, in order:
   1. Nothing is sent during the pre-open auction, after the reject budget is
      spent, or before the exchange has sent the seat's portfolio (it does so
-     after the first fill) — except the starter order.
+     after the first fill) — except the starter order and event reactions.
   2. Event plans (team.events): when a CALENDAR_EVENT or SHOCK fires, ride
      good news / fade bad news. These outrank everything else.
+     Every event also gets a reaction, because the session checks that each
+     seat sends an order or cancel within 60 s of every event: the seat's
+     other orders in the name are cancelled and, unless a plan or the
+     strategy trades the name first, a 5-share bid rests at the settle level
+     once the ramp is over.
   3. Exits: a stop-loss sells shares bought below their average entry.
   4. A starter order (5 shares) is placed until one fill is confirmed, so the
      session always has at least one fill. It is re-sent if not filled.
@@ -43,6 +48,7 @@ import math
 import time
 from collections import Counter
 from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
@@ -81,6 +87,18 @@ REJECT_COOLDOWN_SEC = 10.0
 RATE_LIMIT_PAUSE_SEC = 1.0
 LEDGER_SETTLE_SEC = 1.0   # trust the venue's positions this long after a fill
 WINDOW_MARGIN_SEC = 10.0  # event window extends this far past the deadline
+REACTION_EXPIRY_SEC = 45.0  # inside the session check's 60-tick window
+
+
+@dataclass(frozen=True)
+class Reaction:
+    """The order one fired event is owed if nothing else trades the name."""
+
+    symbol: str
+    t0: float                 # when the event arrived (bot clock)
+    start: float              # bid once the ramp is over
+    settle: float             # pre × (1 + pct): the bid pays no more
+    expires: float
 
 
 class BaseTrader(Trader):
@@ -132,6 +150,8 @@ class BaseTrader(Trader):
         self._windows: dict[str, tuple[float, float]] = {}   # "*" = all
         self._new_events: list[dict] = []
         self._plans: dict[str, EventPlan] = {}
+        self._reactions: dict[str, Reaction] = {}
+        self._last_order_at: dict[str, float] = {}
         self._last_ramp = (DEFAULT_RAMP_TICKS, DEFAULT_OVERSHOOT)
         self.finished_plans: list[EventPlan] = []
 
@@ -154,15 +174,16 @@ class BaseTrader(Trader):
         if self._start_net_worth is None:
             # The exchange sends this seat its portfolio only after its first
             # fill; until then the local Portfolio reports a placeholder that
-            # is lower than the real net worth. Only the starter may trade on
-            # it (sized against the placeholder, so the limits are stricter);
-            # its fill brings the real numbers, and the loss limit is anchored
-            # to those.
+            # is lower than the real net worth. Only the starter and event
+            # reactions may trade on it (sized against the placeholder, so the
+            # limits are stricter); the first fill brings the real numbers,
+            # and the loss limit is anchored to those.
             if not self._has_server_state(portfolio, net_worth):
                 self._record_mids(market)
-                if self._starter_filled:
-                    return None
-                return self._starter(market, portfolio, net_worth, now, False)
+                signal = None
+                if not self._starter_filled:
+                    signal = self._starter(market, portfolio, net_worth, now, False)
+                return signal or self._reaction_signal(market, now, False)
             self._start_net_worth = net_worth
             logger.info("RISK   session reference net worth %.2f", net_worth)
         halted = self.limits.halted(net_worth, self._start_net_worth)
@@ -172,11 +193,13 @@ class BaseTrader(Trader):
                            "%.2f at the open): no new positions, exits only",
                            net_worth, self._start_net_worth)
 
-        self._open_plans(market, net_worth, now, halted)
+        self._open_plans(net_worth, halted)
         self._record_mids(market)
         self._pull_quotes_in_windows(now)
 
         signal = self._event_signal(market, now, halted)
+        if signal is None:
+            signal = self._reaction_signal(market, now, halted)
         if signal is None:
             signal = self._stop_loss(market, portfolio, now)
         if signal is None and not self._starter_filled:
@@ -232,6 +255,8 @@ class BaseTrader(Trader):
 
     def on_event(self, event: str, message: str, data: dict) -> None:
         """Auction state, fees, the event calendar and shocks."""
+        if event != "AUCTION_INDICATIVE":       # sent every pre-open tick
+            logger.info("EVENT  %-14s %s", event, message)
         if event == "SESSION_PREOPEN":
             self._preopen = True
         elif event == "AUCTION_RESULT":
@@ -247,10 +272,8 @@ class BaseTrader(Trader):
             self._last_ramp = (ramp, overshoot)
             for symbol in data.get("affected") or (
                     [data["symbol"]] if data.get("symbol") else []):
-                self._new_events.append({
-                    "symbol": symbol, "pct": float(data.get("pct") or 0.0),
-                    "ramp": ramp, "overshoot": overshoot,
-                    "t0": self._clock(), "label": message})
+                self._on_move(symbol, ramp, overshoot, message,
+                              pct=float(data.get("pct") or 0.0))
         elif event == "SHOCK":
             # A teacher-injected move carries target prices, not a pct; the
             # venue ramps it like a calendar event (server.py, inject shock).
@@ -258,12 +281,8 @@ class BaseTrader(Trader):
             prices = data.get("prices") or {}
             for symbol in data.get("affected") or list(prices):
                 if symbol in prices:
-                    self._new_events.append({
-                        "symbol": symbol, "target": float(prices[symbol]),
-                        "ramp": ramp, "overshoot": overshoot,
-                        "t0": self._clock(), "label": message})
-        if event != "AUCTION_INDICATIVE":       # sent every pre-open tick
-            logger.info("EVENT  %-14s %s", event, message)
+                    self._on_move(symbol, ramp, overshoot, message,
+                                  target=float(prices[symbol]))
 
     # ── venue feedback (called by team.venue.TeamBot) ───────────────────
 
@@ -349,6 +368,65 @@ class BaseTrader(Trader):
                         "no new strategy orders until %.0fs from now",
                         key, ev.get("kind", "event"), fire_in, end - now)
 
+    def _on_move(self, symbol: str, ramp: int, overshoot: float, label: str, *,
+                 pct: float | None = None, target: float | None = None) -> None:
+        """Queue a fired event for `_open_plans` and owe it a reaction."""
+        now = self._clock()
+        pre = self._last_mid.get(symbol) or (
+            self._market.mid_price(symbol) if self._market is not None else None)
+        if not pre:
+            logger.warning("EVENT  %s reaction: no price seen yet, nothing sent", symbol)
+            return
+        if pct is None:
+            pct = target / pre - 1.0
+        self._new_events.append({
+            "symbol": symbol, "pct": pct, "pre": pre, "ramp": ramp,
+            "overshoot": overshoot, "t0": now, "label": label})
+        # A ramp longer than the expiry must still leave time to bid.
+        wait = min(ramp * EXCHANGE_TICK_SEC, REACTION_EXPIRY_SEC / 2)
+        reaction = Reaction(symbol=symbol, t0=now, start=now + wait,
+                            settle=pre * (1 + pct), expires=now + REACTION_EXPIRY_SEC)
+        self._reactions[symbol] = reaction
+        self._cancel_others(symbol, now)
+        logger.info("EVENT  %s reaction: cancel other orders; unless a plan "
+                    "trades first, bid %d at no more than %.2f in %.0fs",
+                    symbol, STARTER_QUANTITY, reaction.settle, wait)
+
+    def _cancel_others(self, symbol: str, now: float) -> None:
+        """Cancel this seat's resting orders in the name that no plan owns."""
+        for order in self.orders:
+            if order.symbol == symbol and not order.purpose.startswith((RIDE, FADE)):
+                self._cancel(order, now)
+
+    def _reaction_signal(self, market, now: float, halted: bool) -> Signal | None:
+        """The fallback bid for events nothing else has traded since."""
+        for symbol, r in list(self._reactions.items()):
+            acted = self._last_order_at.get(symbol, -math.inf) >= r.t0
+            if acted or now >= r.expires:
+                del self._reactions[symbol]
+                if not acted:
+                    logger.warning("EVENT  %s reaction: expired after %.0fs, no "
+                                   "order sent", symbol, now - r.t0)
+                continue
+            self._cancel_others(symbol, now)
+            if now < r.start:
+                continue
+            if halted:
+                del self._reactions[symbol]
+                logger.info("EVENT  %s reaction: session loss limit, no new "
+                            "position — the cancels are the reaction", symbol)
+                continue
+            bid = market.best_bid(symbol)
+            if not bid:
+                continue
+            signal = self._place(symbol, "buy", STARTER_QUANTITY, min(bid, r.settle),
+                                 now, "event reaction", taker=False, purpose="reaction")
+            if signal is not None:
+                logger.info("EVENT  %s reaction: bid %d @ %.2f (settle %.2f)",
+                            symbol, signal.quantity, signal.price, r.settle)
+                return signal
+        return None
+
     def _in_window(self, symbol: str, now: float) -> bool:
         if symbol in self._plans:
             return True
@@ -364,19 +442,12 @@ class BaseTrader(Trader):
             if order.purpose == "quote" and self._in_window(order.symbol, now):
                 self._cancel(order, now)
 
-    def _open_plans(self, market, net_worth: float, now: float,
-                    halted: bool) -> None:
+    def _open_plans(self, net_worth: float, halted: bool) -> None:
         """Turn the events that arrived since the last tick into plans."""
         events, self._new_events = self._new_events, []
         round_trip = 2 * self.taker
         for ev in events:
-            symbol = ev["symbol"]
-            pre = self._last_mid.get(symbol) or market.mid_price(symbol)
-            if not pre:
-                continue
-            pct = ev.get("pct")
-            if pct is None:
-                pct = ev["target"] / pre - 1.0
+            symbol, pre, pct = ev["symbol"], ev["pre"], ev["pct"]
             mode = RIDE if pct > 0 else FADE
             edge = designed_edge(mode, pct, ev["overshoot"])
             fraction = size_fraction(edge, round_trip)
@@ -412,10 +483,6 @@ class BaseTrader(Trader):
                              overshoot=ev["overshoot"], target_shares=shares,
                              label=ev["label"])
             self._plans[symbol] = plan
-            # Strategy quotes in this name would trade against the plan.
-            for order in self.orders:
-                if order.symbol == symbol and order.purpose == "quote":
-                    self._cancel(order, now)
             if mode == RIDE:
                 logger.info("EVENT  %s — RIDE %d shares: buy up to %.2f, sell at "
                             "%.2f, stop half the move below entry", why, shares,
@@ -702,6 +769,7 @@ class BaseTrader(Trader):
             return None
 
         self._bucket.take(now)
+        self._last_order_at[symbol] = now
         self.orders.add(Order(symbol=symbol, side=side, price=price,
                               quantity=qty, sent_at=now,
                               purpose=purpose or reason, taker=taker))
