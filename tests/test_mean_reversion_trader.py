@@ -31,10 +31,11 @@ def test_flat_tape_sits_out():
     assert t.on_tick(m, p) is None
 
 
-def test_sharp_dip_buys_at_the_ask():
+def test_sharp_dip_rests_a_bid_at_the_touch():
     t, m, p, _ = filled_trader({"AAA": flat(), "DIP": dip()})
     s = t.on_tick(m, p)
-    assert (s.symbol, s.side, s.quantity, s.price) == ("DIP", "buy", 5, m.best_ask("DIP"))
+    assert (s.symbol, s.side, s.quantity) == ("DIP", "buy", 5)
+    assert m.best_bid("DIP") - 0.01 < s.price <= m.best_bid("DIP")
 
 
 def test_dip_too_small_to_cover_costs_is_ignored():
