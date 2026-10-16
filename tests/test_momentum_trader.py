@@ -6,9 +6,10 @@ import logging
 
 import pytest
 
-from team.momentum_trader import (
-    PENDING_TIMEOUT_SEC, STARTER_MAX_ATTEMPTS, STARTER_RETRY_SEC, MomentumTrader,
+from team.base_trader import (
+    PENDING_TIMEOUT_SEC, STARTER_MAX_ATTEMPTS, STARTER_RETRY_SEC,
 )
+from team.momentum_trader import MomentumTrader
 from team.risk import RiskLimits
 
 logging.disable(logging.CRITICAL)
