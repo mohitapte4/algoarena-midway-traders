@@ -33,13 +33,17 @@ broker:
 	TEAM_ID=$(TEAM_ID) LOG=$(LOG) python -m team.broker
 
 # Strategy seats (each writes its own log under logs/):
-#   make momentum   → trader_1, moving-average crossover
-#   make meanrev    → trader_2, buy dips / sell the rebound
+#   make momentum   → trader_1, moving-average crossover + event ride/fade
+#   make meanrev    → trader_2, buy dips / sell the rebound + event fade
+# They run a 0.1 s loop: on a scheduled event the first order decides who
+# gets the cheap shares (override with TICK_INTERVAL=0.5).
+SEAT_TICK ?= 0.1
+
 momentum:
-	TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_1) python -m team.momentum_trader
+	TICK_INTERVAL=$(or $(TICK_INTERVAL),$(SEAT_TICK)) TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_1) python -m team.momentum_trader
 
 meanrev:
-	TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_2) python -m team.mean_reversion_trader
+	TICK_INTERVAL=$(or $(TICK_INTERVAL),$(SEAT_TICK)) TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_2) python -m team.mean_reversion_trader
 
 exchange:
 	python -m exchange.server
@@ -56,7 +60,13 @@ season:
 replay:
 	python scripts/replay_session.py $(FILE) --speed 5
 
+# Replay a recorded block through a strategy seat, events and fills included:
+#   make backtest FILE=sessions/<file> STRATEGY=momentum
+STRATEGY ?= momentum
+backtest:
+	python scripts/event_backtest.py $(FILE) --bot $(STRATEGY)
+
 test:
 	pytest tests/ -q
 
-.PHONY: install register trader broker momentum meanrev exchange sim season replay test
+.PHONY: install register trader broker momentum meanrev exchange sim season replay backtest test
