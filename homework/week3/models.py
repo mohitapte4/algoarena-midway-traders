@@ -1,7 +1,9 @@
 from enum import Enum
 from typing import Annotated, Literal, Union
 
-from pydantic import BaseModel, Field, PositiveFloat
+
+from pydantic import BaseModel, Field, PositiveFloat, field_validator
+
 
 NonEmptyStr = Annotated[str, Field(min_length=1)]
 class ErrorMsg(Enum):
@@ -11,12 +13,15 @@ class ErrorMsg(Enum):
     GREATER_THAN = "greater_than"
 
 
+
+
 class PlaceOrder(BaseModel):
     type: Literal["place_order"] = "place_order"
     symbol: NonEmptyStr
     side: Literal["buy", "sell"]
     quantity: int = Field(gt=0)
     price: PositiveFloat | None = None     # None => market order
+
 
 class OrderAck(BaseModel):
     type: Literal["order_ack"] = "order_ack"
@@ -27,13 +32,24 @@ class OrderAck(BaseModel):
     price: PositiveFloat
     quantity: int = Field(ge=0)
 
+
 class BookSnapshot(BaseModel):
     type: Literal["book_snapshot"] = "book_snapshot"
     symbol: NonEmptyStr
     bids: list[list[float]]   # [[price, qty], ...] best (highest) first
     asks: list[list[float]]   # [[price, qty], ...] best (lowest) first
-    mid_price: float = Field(gt=0.0)
-    spread: float = Field(ge=0.0)   # 0.0 when the book is one-sided
+    mid_price: float = Field(gt=0.0, allow_inf_nan=False)
+    spread: float = Field(ge=0.0, allow_inf_nan=False)   # 0.0 when the book is one-sided
+
+
+    @field_validator("bids", "asks")
+    @classmethod
+    def validate_levels(cls, levels):
+        import math
+        for level in levels:
+            if len(level) != 2 or not all(math.isfinite(x) and x > 0 for x in level):
+                raise ValueError("each level must contain a finite positive price and quantity")
+        return levels
 
 class Handshake(BaseModel):
     type: Literal["handshake"] = "handshake"
@@ -42,5 +58,7 @@ class Handshake(BaseModel):
     level: int = Field(ge=1)
     token: str = ""           # empty for local play
 
+
 Message = Annotated[Union[Handshake, PlaceOrder, OrderAck, BookSnapshot],
                     Field(discriminator="type")]
+
