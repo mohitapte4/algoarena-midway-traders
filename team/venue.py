@@ -8,7 +8,7 @@ OwnOrders
     cancelled, or are refused. The seat rests passive quotes (it is a maker
     by default), so it must know what it already has on the book: shares
     offered cannot be offered again (a sell larger than the position is
-    rejected, the venue is long-only), an order may not cross the seat's own
+    rejected while shorts are locked), an order may not cross the seat's own
     resting order (self-trade prevention cancels it and counts a reject), and
     a cancel sent just as an order fills comes back ORDER_NOT_FOUND.
 
@@ -26,6 +26,10 @@ TeamBot
       * reads order acks and errors off the socket and hands them to the
         trader (the engine only logs them);
       * sends the cancels the trader asks for, between ticks;
+      * tells the trader which listed symbols are not equities (the index
+        future is quoted weeks before it may be traded);
+      * passes SESSION_OPEN to the trader, which the engine adapter does not:
+        a seat that rejoins after the opening cross sees no AUCTION_RESULT;
       * reconnects with exponential backoff (team.reconnect) instead of a
         fixed 3 s, and a trader hook that raises is logged rather than
         dropping the connection.
@@ -43,6 +47,7 @@ from dataclasses import dataclass
 from arena.trader import _AdaptedTraderBot
 import trader.config as _config  # noqa: E402  (engine module)
 from shared.messages import (  # noqa: E402  (engine module)
+    BookSnapshot,
     CancelOrder,
     ErrorMsg,
     OrderAck,
@@ -59,6 +64,12 @@ logger = logging.getLogger(__name__)
 CANCEL_GRACE_SEC = 0.5     # a cancel not refused by then is taken as done
 ACK_TIMEOUT_SEC = 5.0      # an order neither acked nor filled by then is gone
 EPS = 1e-9
+# Venue errors that answer something other than an order, e.g. an IPO
+# indication: they must not be matched to (and drop) a pending order.
+NOT_ORDER_ERRORS = frozenset({"IPO_REJECTED"})
+# A cancel that lost the race with a fill. The venue answers it without
+# recording a reject, so it reconciles the order but spends no budget.
+CANCEL_RACE = "ORDER_NOT_FOUND"
 
 
 @dataclass(eq=False)          # identity: two identical orders are still two
@@ -117,6 +128,8 @@ class OwnOrders:
 
     def on_reject(self, code: str, message: str) -> Order | None:
         """Drop the order a venue error refers to; return it if found."""
+        if code in NOT_ORDER_ERRORS:
+            return None
         if code == "STP_CANCEL":
             # "Your resting buy 1 AAPL @ 196.5 was cancelled by self-trade ..."
             m = re.search(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)", message)
@@ -279,6 +292,9 @@ class TeamBot(_AdaptedTraderBot):
                 self._owner.on_ack(msg.order_id, msg.symbol, msg.side, msg.price)
             elif isinstance(msg, ErrorMsg):
                 self._owner.on_reject(msg.code, msg.message)
+            elif isinstance(msg, BookSnapshot) and msg.asset_type != "equity":
+                # e.g. the index future, listed before it may be traded
+                self._owner.untradeable.add(msg.symbol)
         except Exception:
             logger.exception("Trader could not take %s", type(msg).__name__)
 
@@ -291,6 +307,10 @@ class TeamBot(_AdaptedTraderBot):
     async def _on_session_event(self, msg: SessionEvent) -> None:
         try:
             await super()._on_session_event(msg)
+            # The adapter keeps SESSION_OPEN from on_event, but it is the
+            # only open a late joiner sees and it carries the week's flags.
+            if msg.event == "SESSION_OPEN":
+                self._owner.on_event(msg.event, msg.message, msg.data or {})
         except Exception:
             logger.exception("Event handler raised on %s; connection kept",
                              msg.event)

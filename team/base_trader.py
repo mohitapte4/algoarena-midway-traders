@@ -15,7 +15,9 @@ Every tick, in order:
      other orders in the name are cancelled and, unless a plan or the
      strategy trades the name first, a 5-share bid rests at the settle level
      once the ramp is over.
-  3. Exits: a stop-loss sells shares bought below their average entry.
+  3. Exits: a stop-loss sells shares bought below their average entry, or
+     buys back shares sold short above theirs. IPO allocations rest an ask
+     at the expected listing pop instead, with a wider stop.
   4. A starter order (5 shares) is placed until one fill is confirmed, so the
      session always has at least one fill. It is re-sent if not filled.
   5. The strategy's `_signal()`, with every buy checked against team.risk
@@ -28,8 +30,8 @@ event ride entry and fade sale, the stop-loss and the starter.
 
 Every order passes one gate (`_place`), built so the venue never has reason
 to refuse it — the seat must stay under 10 rejected orders a session:
-  * sells never exceed the shares held minus the shares already offered
-    (long-only: an uncovered sell is rejected);
+  * sells never exceed the shares held minus the shares already offered,
+    plus MAX_SHORT once the venue allows shorts (0 for a long-only seat);
   * buys stay inside this seat's share cap and its cash, fee included;
   * at most one order per symbol and side; an order that would cross the
     seat's own resting order waits for that order to be cancelled first
@@ -59,7 +61,7 @@ from team.events import (
     EventPlan, designed_edge, size_fraction,
 )
 from team.risk import EventLimits, RiskLimits
-from team.venue import Order, OwnOrders, TokenBucket
+from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
 
 logger = logging.getLogger(__name__)
 
@@ -75,8 +77,8 @@ DEFAULT_TAKER = 0.003     # hosted venue, until FEE_SCHEDULE says otherwise
 DEFAULT_REBATE = 0.0
 EDGE_MARGIN = 1.25        # a signal must clear its cost by this factor
 
-SEAT_MAX_SHARES = 200     # per symbol: held + on order. The team limit (600
-                          # in week 3) counts both seats' orders and the
+SEAT_MAX_SHARES = 200     # per symbol: held + on order. The team limit (800
+                          # from week 4) counts both seats' orders and the
                           # broker's inventory and bids (team.broker
                           # MAX_INVENTORY = 150), so 2 × 200 + 150 stays under.
 PRICE_BAND = 0.09         # venue rejects limits beyond ±10% of the mark
@@ -90,6 +92,18 @@ RATE_LIMIT_PAUSE_SEC = 1.0
 LEDGER_SETTLE_SEC = 1.0   # trust the venue's positions this long after a fill
 WINDOW_MARGIN_SEC = 10.0  # event window extends this far past the deadline
 REACTION_EXPIRY_SEC = 45.0  # inside the session check's 60-tick window
+SSR_GUARD = 0.05          # no new shorts this far below the open: the venue's
+                          # short-sale rule (6%) refuses shorts that hit bids
+
+# The bookbuild. The venue sets a listing's hidden value at offer ×
+# exp(N(12%, 18%)) (exchange/ipo.py): +15% expected, below the offer about a
+# quarter of the time. An undersubscribed book prices at the bottom of the
+# range whatever the bid, so the seat bids the top of the range; two seats
+# at 200 keep the team at 400 of its 800-share limit, leaving the broker room.
+IPO_SHARES = 200
+IPO_CASH_MARGIN = 1.1     # pass unless cash covers the indication with room
+IPO_TAKE_PROFIT = 1.12    # rest the allocation at the median pop, exp(12%)
+IPO_STOP = 0.08           # listing-day swings run ~3% a tick: a wider stop
 
 
 @dataclass(frozen=True)
@@ -108,6 +122,8 @@ class BaseTrader(Trader):
 
     # Which event legs this seat trades (team.events.RIDE / FADE).
     EVENT_MODES: frozenset[str] = frozenset()
+    # Shares per symbol this seat may sell short once the venue allows it.
+    MAX_SHORT: int = 0
 
     def __init__(self, limits: RiskLimits | None = None,
                  clock: Callable[[], float] = time.monotonic,
@@ -125,6 +141,17 @@ class BaseTrader(Trader):
         # shares this bot bought and still holds, and what they cost
         self._bought: dict[str, int] = {}
         self._cost: dict[str, float] = {}
+        # shares this bot sold short and has not bought back, and the proceeds
+        self._shorted: dict[str, int] = {}
+        self._short_cost: dict[str, float] = {}
+        self._shorts_allowed = False          # from SESSION_OPEN's flags
+        self._no_short: set[str] = set()      # refused a short: SSR or borrow
+        self._open_mid: dict[str, float] = {}
+        # IPO deals priced this session: symbol -> offer price
+        self._ipo_offer: dict[str, float] = {}
+        self._ipo_unbooked: set[str] = set()
+        # listed but not equities (e.g. the index future): never ordered
+        self.untradeable: set[str] = set()
         self._fills = 0
         self._last_note: dict[str, str] = {}
 
@@ -171,6 +198,7 @@ class BaseTrader(Trader):
         self._market, self._portfolio = market, portfolio
         self.orders.expire(now)
         self._sync_ledger(portfolio, now)
+        self._book_ipo(portfolio)
 
         net_worth = portfolio.net_worth(market)
         if self._start_net_worth is None:
@@ -204,6 +232,8 @@ class BaseTrader(Trader):
             signal = self._reaction_signal(market, now, halted)
         if signal is None:
             signal = self._stop_loss(market, portfolio, now)
+        if signal is None:
+            signal = self._ipo_exit(market, now)
         if signal is None and not self._starter_filled:
             signal = self._starter(market, portfolio, net_worth, now, halted)
         if signal is None:
@@ -219,20 +249,38 @@ class BaseTrader(Trader):
         self._fills += 1
         self._starter_filled = True
         self._last_fill_at = now
-        self._ledger[symbol] = self._ledger.get(symbol, 0) + (
-            quantity if side == "buy" else -quantity)
+        before = self._ledger.get(symbol, self._position(symbol))
+        self._ledger[symbol] = before + (quantity if side == "buy" else -quantity)
         order = self.orders.on_fill(symbol, side, quantity, price, now)
         plan = self._plans.get(symbol)
         if plan is not None and order is not None and order.purpose.startswith(plan.mode):
             plan.record(side, quantity, price)
 
-        if side == "buy" and order is not None and order.purpose.startswith("fade"):
+        # A buy covers shares sold short first; a sell past the shares held
+        # opens a short.
+        rest = quantity
+        if side == "buy" and self._shorted.get(symbol):
+            covered = min(rest, self._shorted[symbol])
+            avg = self._short_cost[symbol] / self._shorted[symbol]
+            self._shorted[symbol] -= covered
+            self._short_cost[symbol] -= covered * avg
+            if self._shorted[symbol] == 0:
+                del self._shorted[symbol], self._short_cost[symbol]
+            rest -= covered
+        elif side == "sell" and quantity > max(before, 0):
+            short = quantity - max(before, 0)
+            self._shorted[symbol] = self._shorted.get(symbol, 0) + short
+            self._short_cost[symbol] = self._short_cost.get(symbol, 0.0) + short * price
+
+        if rest <= 0:
+            pass    # bought back shares sold short
+        elif side == "buy" and order is not None and order.purpose.startswith("fade"):
             pass    # restoring inventory sold ahead of the drop, not a new position
         elif side == "buy":
-            self._bought[symbol] = self._bought.get(symbol, 0) + quantity
-            self._cost[symbol] = self._cost.get(symbol, 0.0) + quantity * price
+            self._bought[symbol] = self._bought.get(symbol, 0) + rest
+            self._cost[symbol] = self._cost.get(symbol, 0.0) + rest * price
         elif self._bought.get(symbol):
-            sold = min(quantity, self._bought[symbol])
+            sold = min(rest, self._bought[symbol])
             avg = self._cost[symbol] / self._bought[symbol]
             self._bought[symbol] -= sold
             self._cost[symbol] -= sold * avg
@@ -249,11 +297,14 @@ class BaseTrader(Trader):
                   f"{'taker' if order.taker else 'maker'})"
         held = self._bought.get(symbol, 0)
         avg_entry = self._cost[symbol] / held if held else 0.0
+        short = self._shorted.get(symbol, 0)
+        short_tag = (f", short {short} avg {self._short_cost[symbol] / short:.4f}"
+                     if short else "")
         (logger.warning if worse else logger.info)(
             "FILL   #%d %-4s %3d %-6s @ %8.2f  notional %9.2f%s  "
-            "| bought and held %d, avg entry %.4f",
+            "| bought and held %d, avg entry %.4f%s",
             self._fills, side, quantity, symbol, price, quantity * price, tag,
-            held, avg_entry)
+            held, avg_entry, short_tag)
 
     def on_event(self, event: str, message: str, data: dict) -> None:
         """Auction state, fees, the event calendar and shocks."""
@@ -263,6 +314,19 @@ class BaseTrader(Trader):
             self._preopen = True
         elif event == "AUCTION_RESULT":
             self._preopen = False
+        elif event == "SESSION_OPEN":
+            # Also the only open a seat that rejoins after the cross sees.
+            self._preopen = False
+            flags = (data.get("scenario") or {}).get("flags") or {}
+            self._shorts_allowed = flags.get("shorts_allowed") is True
+        elif event == "IPO_PRICED" and data.get("symbol") and data.get("offer_price"):
+            symbol = data["symbol"]
+            self._ipo_offer[symbol] = float(data["offer_price"])
+            self._ipo_unbooked.add(symbol)
+        elif event == "IPO_LISTED" and data.get("symbol") in self._ipo_unbooked:
+            self._ipo_unbooked.discard(data["symbol"])
+            logger.info("IPO    %s listed with no allocation booked for this "
+                        "seat", data["symbol"])
         elif event == "FEE_SCHEDULE":
             self.taker = float(data.get("taker", self.taker))
             self.rebate = float(data.get("rebate", self.rebate))
@@ -289,9 +353,36 @@ class BaseTrader(Trader):
     # ── venue feedback (called by team.venue.TeamBot) ───────────────────
 
     def on_connect(self) -> None:
-        """A (re)connection: whatever we had on the book is unknown now."""
+        """A (re)connection: whatever we had on the book is unknown now.
+
+        The venue replays SESSION_PREOPEN to a seat that joins during the
+        auction, so a pre-open flag from before the drop is not kept.
+        """
         self.orders.clear()
         self._cancels.clear()
+        self._preopen = False
+
+    def on_ipo(self, symbol: str, lo: float, hi: float, shares: int,
+               data: dict) -> tuple[int, float] | None:
+        """Indicate IPO_SHARES at the top of the range, or pass for cash.
+
+        The reasoning is with the IPO_* constants: a positive expected pop,
+        a bid at `hi` that costs nothing in a cold book, and a size that
+        leaves the team room under its share limit after allocation.
+        """
+        need = IPO_SHARES * hi * IPO_CASH_MARGIN
+        cash = self._portfolio.cash if self._portfolio is not None else None
+        if cash is not None and cash < need:
+            logger.info("IPO    %s: pass — %d shares up to $%.2f needs $%.0f "
+                        "with margin, cash is $%.0f", symbol, IPO_SHARES, hi,
+                        need, cash)
+            return None
+        logger.info("IPO    %s: indicate %d of %d shares up to $%.2f (range "
+                    "$%.2f-%.2f). Expected pop +15%% (venue: offer x "
+                    "exp(N(12%%, 18%%))); top of range costs nothing if the "
+                    "book is cold; team stays at 400 of 800 shares",
+                    symbol, IPO_SHARES, shares, hi, lo, hi)
+        return IPO_SHARES, hi
 
     def on_ack(self, order_id: str, symbol: str, side: str, price: float) -> None:
         self.orders.on_ack(order_id, symbol, side, price)
@@ -299,12 +390,21 @@ class BaseTrader(Trader):
     def on_reject(self, code: str, message: str) -> None:
         """Count a venue error, reconcile the order, and back off."""
         now = self._clock()
+        if code in NOT_ORDER_ERRORS:
+            logger.warning("VENUE  %s: %s", code, message)
+            return
+        order = self.orders.on_reject(code, message)
+        if code == CANCEL_RACE:
+            logger.info("CANCEL %s: %s", code, message)
+            return
         self.rejects[code] += 1
         total = sum(self.rejects.values())
-        order = self.orders.on_reject(code, message)
         symbol = order.symbol if order else None
         if symbol:
             self._cooldown[symbol] = now + REJECT_COOLDOWN_SEC
+        if code in ("SSR_RESTRICTED", "BORROW_UNAVAILABLE") and symbol:
+            # The rule holds until the next open; retrying spends the budget.
+            self._no_short.add(symbol)
         if code == "RATE_LIMITED":
             self._paused_until = now + RATE_LIMIT_PAUSE_SEC
         if code == "POSITION_LIMIT" and symbol in self._plans:
@@ -373,6 +473,8 @@ class BaseTrader(Trader):
     def _on_move(self, symbol: str, ramp: int, overshoot: float, label: str, *,
                  pct: float | None = None, target: float | None = None) -> None:
         """Queue a fired event for `_open_plans` and owe it a reaction."""
+        if symbol in self.untradeable or self._ipo_held(symbol):
+            return            # not ours to trade; an IPO allocation has its own exit
         now = self._clock()
         pre = self._last_mid.get(symbol) or (
             self._market.mid_price(symbol) if self._market is not None else None)
@@ -433,6 +535,8 @@ class BaseTrader(Trader):
     def _in_window(self, symbol: str, now: float) -> bool:
         if symbol in self._plans:
             return True
+        if self._ipo_held(symbol):
+            return True       # the allocation is worked by _ipo_exit alone
         for key in (symbol, "*"):
             span = self._windows.get(key)
             if span and span[0] <= now <= span[1]:
@@ -471,7 +575,7 @@ class BaseTrader(Trader):
                 shares = self.event_limits.ride_shares(
                     pre * (1 + pct / 2), net_worth, held, fraction)
             else:
-                shares = int(self.sellable(symbol) * fraction)
+                shares = int(self.sellable(symbol, allow_short=True) * fraction)
                 extra = (ev["overshoot"] - 1) * abs(pct)
                 logger.info("EVENT  %s fade-extra leg edge %.2f%% — not traded",
                             symbol, extra * 100)
@@ -579,7 +683,7 @@ class BaseTrader(Trader):
             if want > 0 and not live_sell and bid and bid >= plan.sell_floor:
                 qty = min(want, self.event_limits.max_order_shares)
                 return self._place(sym, "sell", qty, plan.sell_floor, now,
-                                   "fade sell", taker=True)
+                                   "fade sell", taker=True, allow_short=True)
             return None
 
         if live_sell:
@@ -618,9 +722,10 @@ class BaseTrader(Trader):
     # ── the other order sources ─────────────────────────────────────────
 
     def _stop_loss(self, market, portfolio, now: float) -> Signal | None:
-        """Sell shares bought whose bid has fallen through the stop."""
+        """Sell shares bought whose bid has fallen through the stop, or buy
+        back shares sold short whose ask has risen through it."""
         for symbol in sorted(self._bought):
-            if symbol in self._plans:
+            if symbol in self._plans or symbol in self._ipo_offer:
                 continue
             bid = market.best_bid(symbol)
             avg = self._cost[symbol] / self._bought[symbol]
@@ -638,6 +743,66 @@ class BaseTrader(Trader):
                            "entry %.4f", symbol, bid, (1 - bid / avg) * 100, avg)
             return self._place(symbol, "sell", qty, bid, now, "stop-loss",
                                taker=True)
+        for symbol in sorted(self._shorted):
+            if symbol in self._plans:
+                continue
+            ask = market.best_ask(symbol)
+            avg = self._short_cost[symbol] / self._shorted[symbol]
+            if not self.limits.short_stop_hit(ask, avg):
+                continue
+            resting = self.orders.live(symbol, "buy")
+            if resting is not None:
+                if not resting.taker:
+                    self._cancel(resting, now)
+                continue
+            qty = min(self._shorted[symbol], max(-self._position(symbol), 0))
+            if qty < 1:
+                continue
+            logger.warning("RISK   short stop %s: ask %.2f is %.2f%% above average "
+                           "short entry %.4f", symbol, ask, (ask / avg - 1) * 100, avg)
+            return self._place(symbol, "buy", qty, ask, now, "short stop",
+                               taker=True)
+        return None
+
+    def _book_ipo(self, portfolio) -> None:
+        """Book a priced deal's allocation at the offer once the venue's
+        portfolio shows it (the allocation arrives with no fill)."""
+        for symbol in list(self._ipo_unbooked):
+            qty = int(portfolio.positions.get(symbol, 0))
+            if qty < 1:
+                continue
+            self._ipo_unbooked.discard(symbol)
+            offer = self._ipo_offer[symbol]
+            self._bought[symbol] = self._bought.get(symbol, 0) + qty
+            self._cost[symbol] = self._cost.get(symbol, 0.0) + qty * offer
+            self._ledger[symbol] = qty
+            logger.info("IPO    %s allocation %d @ %.2f booked (cost %.2f): "
+                        "offered at %.2f once listed, stop %.2f", symbol, qty,
+                        offer, qty * offer, offer * IPO_TAKE_PROFIT,
+                        offer * (1 - IPO_STOP))
+
+    def _ipo_exit(self, market, now: float) -> Signal | None:
+        """Rest each allocation at the expected pop; sell at the bid if the
+        listing falls through the IPO stop."""
+        for symbol, offer in self._ipo_offer.items():
+            held = min(self._bought.get(symbol, 0), max(self._position(symbol), 0))
+            bid, ask = market.best_bid(symbol), market.best_ask(symbol)
+            if held < 1 or not bid:
+                continue                    # nothing held, or not listed yet
+            resting = self.orders.live(symbol, "sell")
+            if bid <= offer * (1 - IPO_STOP):
+                if resting is not None:
+                    if not resting.taker:
+                        self._cancel(resting, now)
+                    continue
+                logger.warning("RISK   IPO stop %s: bid %.2f vs offer %.2f",
+                               symbol, bid, offer)
+                return self._place(symbol, "sell", held, bid, now, "ipo stop",
+                                   taker=True)
+            if resting is None:
+                price = max(offer * IPO_TAKE_PROFIT, ask or 0.0)
+                return self._place(symbol, "sell", held, price, now,
+                                   "ipo exit", taker=False)
         return None
 
     def _starter(self, market, portfolio, net_worth: float, now: float,
@@ -692,7 +857,8 @@ class BaseTrader(Trader):
     # ── strategy order helpers ──────────────────────────────────────────
 
     def _quote(self, symbol: str, side: str, qty: int, now: float,
-               reason: str, net_worth: float | None = None) -> Signal | None:
+               reason: str, net_worth: float | None = None, *,
+               allow_short: bool = False) -> Signal | None:
         """Rest a passive order at the touch, or keep the one already there.
 
         Buys are cut to the risk limits first. A resting quote whose touch
@@ -720,7 +886,7 @@ class BaseTrader(Trader):
             if why:
                 self._note(symbol, f"buy cut to {qty} by {why} limit")
         return self._place(symbol, side, qty, touch, now, reason, taker=False,
-                           purpose="quote")
+                           purpose="quote", allow_short=allow_short)
 
     def _withdraw(self, symbol: str, side: str, now: float) -> None:
         """Cancel this side's resting strategy quote, if any."""
@@ -740,9 +906,10 @@ class BaseTrader(Trader):
 
     def _place(self, symbol: str, side: str, qty: int, price: float | None,
                now: float, reason: str, *, taker: bool,
-               purpose: str | None = None) -> Signal | None:
+               purpose: str | None = None,
+               allow_short: bool = False) -> Signal | None:
         """Build an order the venue will accept, or return None."""
-        if self._stopped or not price or qty < 1:
+        if self._stopped or not price or qty < 1 or symbol in self.untradeable:
             return None
         if now < self._paused_until or now < self._cooldown.get(symbol, 0.0):
             return None
@@ -760,7 +927,7 @@ class BaseTrader(Trader):
 
         price = self._in_band(symbol, side, price)
         if side == "sell":
-            qty = min(qty, self.sellable(symbol))
+            qty = min(qty, self.sellable(symbol, allow_short))
         else:
             held = max(self._position(symbol), self._ledger.get(symbol, 0), 0)
             qty = min(qty, SEAT_MAX_SHARES - held
@@ -789,11 +956,39 @@ class BaseTrader(Trader):
             return
         self._cancels.append(order)
 
-    def sellable(self, symbol: str) -> int:
-        """Shares that may be offered now without risking a short sale."""
+    def sellable(self, symbol: str, allow_short: bool = False) -> int:
+        """Shares that may be offered now: those held, plus the short room
+        if `allow_short`, less the shares already offered."""
         venue = self._position(symbol)
         own = self._ledger.get(symbol, venue)
-        return max(0, min(venue, own) - self.orders.open_quantity(symbol, "sell"))
+        room = self.short_room(symbol) if allow_short else 0
+        return max(0, min(venue, own) + room - self.orders.open_quantity(symbol, "sell"))
+
+    def short_room(self, symbol: str) -> int:
+        """How far below flat this seat may sell `symbol` right now.
+
+        MAX_SHORT shares, cut so the short is no bigger than the
+        concentration limit allows a long, and all shorts together no bigger
+        than the gross limit: a market-wide print fades every name at once.
+        """
+        if (not self.MAX_SHORT or not self._shorts_allowed
+                or symbol in self._no_short or symbol in self._ipo_offer
+                or symbol in self.untradeable
+                or self._market is None or self._portfolio is None):
+            return 0
+        open_mid, mid = self._open_mid.get(symbol), self._market.mid_price(symbol)
+        if not mid or (open_mid and mid <= open_mid * (1 - SSR_GUARD)):
+            return 0
+        net_worth = self._portfolio.net_worth(self._market)
+        other_shorts = sum(
+            max(-int(q), 0) * (self._market.mid_price(s) or 0.0)
+            for s, q in self._portfolio.positions.items() if s != symbol)
+        notional = min(self.limits.max_symbol * net_worth,
+                       self.limits.max_gross * net_worth - other_shorts)
+        return max(0, min(self.MAX_SHORT, int(notional // mid)))
+
+    def _ipo_held(self, symbol: str) -> bool:
+        return symbol in self._ipo_offer and bool(self._bought.get(symbol))
 
     def _in_band(self, symbol: str, side: str, price: float) -> float:
         mid = self._market.mid_price(symbol) if self._market is not None else None
@@ -830,6 +1025,7 @@ class BaseTrader(Trader):
             mid = market.mid_price(symbol)
             if mid:
                 self._last_mid[symbol] = mid
+                self._open_mid.setdefault(symbol, mid)
 
     @staticmethod
     def _has_server_state(portfolio, net_worth: float) -> bool:

@@ -12,11 +12,13 @@ meaningful whatever the seat's starting capital.
     Concentration        notional held in a single symbol
     Gross exposure       notional held across all symbols
     Stop-loss            sell a position whose bid has fallen this far
-                         below its average entry price
+                         below its average entry price (for a short: buy
+                         back once the ask has risen this far above it)
 
 Event trades (team.events) are short-lived and sized separately, by
 EventLimits: a bigger slice of net worth in one name for well under a
-minute, with a share cap that keeps the team inside the venue's ±400.
+minute, with a share cap that keeps the team inside the venue's limit
+(±800 shares per symbol from week 4).
 """
 
 from __future__ import annotations
@@ -64,6 +66,12 @@ class RiskLimits:
         if not bid or not avg_entry:
             return False
         return bid <= avg_entry * (1 - self.stop_loss)
+
+    def short_stop_hit(self, ask: float | None, avg_entry: float | None) -> bool:
+        """True when the ask is at or above the stop over a short's average entry."""
+        if not ask or not avg_entry:
+            return False
+        return ask >= avg_entry * (1 + self.stop_loss)
 
 
 @dataclass(frozen=True)
