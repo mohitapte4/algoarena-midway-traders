@@ -411,8 +411,8 @@ def cash_rows(books: Books, venue: VenueState,
 
 
 def _cash_ok(residual: float, interest: float | None, carry: float,
-             slack: float) -> bool | None:
-    if residual < -(MONEY_TOL + slack):
+             mark_slack: float) -> bool | None:
+    if residual < -(MONEY_TOL + mark_slack):
         return False
     if interest is None:
         return None
