@@ -4,13 +4,15 @@ Midway Traders — momentum trader (seat: midway_traders_trader_1).
 Strategy: a moving-average crossover. When the average of the last 5 mid
 prices is more than 0.3% above the average of the last 20, the symbol is
 treated as trending up and a bid rests at the touch; when it is more than
-0.3% below, shares held are offered at the touch. The buffer keeps the bot
+0.3% below, shares are offered at the touch: those held and, once the
+venue allows shorts, up to MAX_SHORT more. The buffer keeps the bot
 out of calm, noisy markets, where a short-horizon trend signal does not
 cover its trading costs; it is raised automatically if the venue's fees make
 0.3% too thin (BaseTrader.min_edge).
 
 Scheduled events are traded from the message, not the chart: this seat
-rides good news and fades bad news (team.events). Ahead of an event its
+rides good news and fades bad news (team.events); with shorts allowed the
+fade sells below flat, so bad news is ridden down too. Ahead of an event its
 quotes in that name are pulled, so the crossover never trades the ramp.
 
 The starter order, stop-loss, maker quoting and risk limits come from
@@ -41,6 +43,7 @@ class MomentumTrader(BaseTrader):
     """Moving-average crossover quoting, plus event rides and fades."""
 
     EVENT_MODES = frozenset({RIDE, FADE})
+    MAX_SHORT = 100           # team limit: −100 here and −150 broker, of 800
 
     def _signal(self, market, portfolio, net_worth: float, now: float,
                 halted: bool) -> Signal | None:
@@ -64,9 +67,10 @@ class MomentumTrader(BaseTrader):
 
             self._withdraw(symbol, "buy", now)
             if short_ma < long_ma * (1 - buffer):
-                qty = min(QUANTITY, self.sellable(symbol))
+                qty = min(QUANTITY, self.sellable(symbol, allow_short=True))
                 if qty >= 1:
-                    signal = self._quote(symbol, "sell", qty, now, trend)
+                    signal = self._quote(symbol, "sell", qty, now, trend,
+                                         allow_short=True)
                     if signal:
                         return signal
         return None

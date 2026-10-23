@@ -7,8 +7,10 @@ Inventory management (skew) is the key to staying solvent: the exchange
 charges margin interest and liquidates teams below maintenance.
 
 Underneath, TeamBrokerBot sends only orders and cancels the venue accepts
-(long-only asks, no cancels for filled quotes, nothing after the close) and
-stands aside while a scheduled event or a shock moves the price.
+(asks capped at the inventory, or at MAX_INVENTORY short once shorts are
+allowed; no cancels for filled quotes; nothing after the close), stands
+aside while a scheduled event or a shock moves the price, and leaves a new
+listing alone for its first minute of price discovery.
 
 Run:
     TEAM_ID=midway_traders_broker python -m team.broker
@@ -29,8 +31,9 @@ import broker.config as _config
 from arena import Broker
 from arena.broker import _AdaptedBrokerBot
 from broker.broker import _print_startup
-from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
-                             SessionEvent, TradeExecution, parse_message)
+from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
+                             PortfolioUpdate, SessionEvent, TradeExecution,
+                             parse_message)
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.reconnect import run_with_backoff
 from team.venue import TokenBucket
@@ -47,13 +50,19 @@ DEFAULT_WIDTH = 0.30    # engine BASE_SPREAD...
 DEFAULT_CAP_BPS = 25.0  # ...capped at 25 bp of the price
 
 REJECT_BUDGET = 8       # graded: under 10 rejects a session; stop quoting at 8
-MAX_INVENTORY = 150     # per symbol, held + bid. The venue's limit (600 in week 3)
-                        # is per team and counts resting orders: two trader
-                        # seats at SEAT_MAX_SHARES (200) plus this stays under it.
+MAX_INVENTORY = 150     # per symbol, held + bid, or short + offered. The venue's
+                        # limit (800 from week 4) is per team and counts resting
+                        # orders: two trader seats at SEAT_MAX_SHARES (200) plus
+                        # this stays under it.
+EVENT_MAX_INVENTORY = 50  # per symbol once an event has fired in it: in Session
+                        # 3 the winner's timed exit sold 110 NVDA into our bids
+                        # in 3 s, and we held 145 shares of a falling name
 MESSAGES_PER_SEC = 8.0  # orders + cancels: the team shares 20 per exchange
                         # tick (1 s) and each trader seat takes 4 (base_trader)
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
+TICK = 0.01
+LISTING_PAUSE_SEC = 60.0  # an IPO opens at the offer and moves ~3% a tick
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
 _STP = re.compile(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)")
 
@@ -77,6 +86,18 @@ def volatility_spread(price, history) -> float | None:
     return max(default, min(WIDEN_FACTOR * move, price * MAX_WIDEN_BPS / 10_000))
 
 
+def inventory_skew(position: int, limit: int, width: float) -> float:
+    """Shift both quotes against the inventory: one full width at the limit.
+
+    Long, the ask moves toward the touch so buyers take the shares; short,
+    the bid does. In Session 3 the broker quoted symmetrically and held 145
+    NVDA from the event to the close.
+    """
+    if limit <= 0:
+        return 0.0
+    return -max(-1.0, min(1.0, position / limit)) * width
+
+
 class MyBroker(Broker):
     """Your market-making logic. An empty subclass already quotes."""
 
@@ -84,10 +105,8 @@ class MyBroker(Broker):
         # Level 3: widen the quotes when the market gets choppy.
         return volatility_spread(price, history)
 
-    def skew(self, symbol, inventory):
-        # TODO Level 4: shift both quotes to flatten your inventory.
-        # Long (inventory > 0) → quote lower to attract sellers.
-        return None
+    # Level 4 (skew) lives in TeamBrokerBot.quote_symbol: it needs the
+    # quote width and the inventory limit, which the skew() hook is not given.
 
     # Optional extra hooks:
     #   def toxic(self, trader_id): ...                 # Level 5
@@ -147,6 +166,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
         self._paused_until: dict[str, float] = {}   # symbol or "*" -> time
+        # Each book's levels as last snapshotted: (bids, asks) of [price, qty]
+        self._levels: dict[str, tuple[list, list]] = {}
+        self._event_fired: set[str] = set()         # symbols, or "*"
+        self._quoted_position: dict[str, int] = {}  # inventory at the last quote
+        # The shares granted at the open: the skew leans only against what
+        # we trade on top of them, as an idle team keeps them. Kept across
+        # reconnects; a restarted process takes what it holds as its opening.
+        self._opening: dict[str, int] | None = None
         self._errors = 0
         self._clock = time.monotonic
         self._sleep = asyncio.sleep
@@ -207,17 +234,43 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     # ── quoting ─────────────────────────────────────────────────────────
 
-    def _ask_room(self, symbol: str) -> float:
-        """Shares the venue lets us offer: any while shorts are allowed,
-        else the inventory (it rejects a sell that would take it below 0,
-        ignoring our resting sells)."""
+    def _max_inventory(self, symbol: str) -> int:
+        """MAX_INVENTORY, or EVENT_MAX_INVENTORY once an event has fired in
+        the name: informed flow follows an event for the rest of the block."""
+        if symbol in self._event_fired or "*" in self._event_fired:
+            return EVENT_MAX_INVENTORY
+        return MAX_INVENTORY
+
+    def _ask_room(self, symbol: str) -> int:
+        """Shares we may offer: the inventory, plus the inventory limit short
+        while shorts are allowed (the venue rejects a sell below 0
+        otherwise, ignoring our resting sells)."""
+        held = self.state.positions.get(symbol, 0)
         if self._shorts_allowed:
-            return math.inf
-        return max(self.state.positions.get(symbol, 0), 0)
+            return max(held + self._max_inventory(symbol), 0)
+        return max(held, 0)
 
     def _bid_room(self, symbol: str) -> int:
         """Shares we may still bid for without the team breaching its limit."""
-        return max(MAX_INVENTORY - max(self.state.positions.get(symbol, 0), 0), 0)
+        held = max(self.state.positions.get(symbol, 0), 0)
+        return max(self._max_inventory(symbol) - held, 0)
+
+    def _others_touch(self, symbol: str) -> tuple[float | None, float | None]:
+        """Best bid and ask of everyone but us: a level counts only for the
+        size beyond our own quotes resting at that price."""
+        bids, asks = self._levels.get(symbol, ([], []))
+        mine: dict[tuple[str, float], int] = {}
+        for q in self._live.values():
+            if q.symbol == symbol:
+                key = (q.side, round(q.price, 2))
+                mine[key] = mine.get(key, 0) + q.open_qty
+
+        def first(levels, side):
+            for price, qty in levels:
+                if qty > mine.get((side, round(price, 2)), 0):
+                    return price
+            return None
+        return first(bids, "buy"), first(asks, "sell")
 
     def _paused(self, symbol: str) -> bool:
         now = self._clock()
@@ -236,6 +289,11 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             return True
         if abs(centre - last) >= self.requote_threshold(centre):
             return True
+        # Fills that moved the inventory a quote size call for a new skew.
+        moved = (self.state.positions.get(symbol, 0)
+                 - self._quoted_position.get(symbol, 0))
+        if abs(moved) >= _config.QUOTE_SIZE:
+            return True
         age = time.time() - self.state.last_quote_time.get(symbol, 0.0)
         return age >= _config.QUOTE_MAX_AGE_SEC
 
@@ -251,10 +309,19 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             return
 
         spread = self.state.compute_spread(symbol)
-        skew = self.state.compute_skew(symbol)
+        position = self.state.positions.get(symbol, 0)
+        traded = position - (self._opening or {}).get(symbol, 0)
+        skew = inventory_skew(traded, self._max_inventory(symbol), spread)
         half = spread / 2
         bid_price = math.floor((centre - half + skew) * 100) / 100
         ask_price = math.ceil((centre + half + skew) * 100) / 100
+        # Never cross the book: the mark can sit far from it (Session 3 NFLX:
+        # mark 572, book 568), and a bid at the mark takes the offer.
+        best_bid, best_ask = self._others_touch(symbol)
+        if best_ask:
+            bid_price = min(bid_price, round(best_ask - TICK, 2))
+        if best_bid:
+            ask_price = max(ask_price, round(best_bid + TICK, 2))
         if bid_price <= 0 or ask_price <= bid_price:
             return
 
@@ -294,8 +361,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         resting["sell_qty"] = ask_total
         self.state.last_quote_prices[symbol] = centre
         self.state.last_quote_time[symbol] = time.time()
-        logger.info("Quoted %s bid=%.2f x%d ask=%.2f x%d centre=%.4f", symbol,
-                    bid_price, bid_total, ask_price, ask_total, centre)
+        self._quoted_position[symbol] = position
+        logger.info("Quoted %s bid=%.2f x%d ask=%.2f x%d centre=%.4f "
+                    "inventory %+d (traded %+d) skew %+.2f", symbol, bid_price,
+                    bid_total, ask_price, ask_total, centre, position, traded, skew)
 
     async def cancel_quotes(self, symbol: str) -> None:
         """Cancel this symbol's quotes that are still resting, and no others:
@@ -327,11 +396,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         await super().listen_to_exchange()
 
     async def _peek(self, raw) -> None:
-        """Count the venue's errors; the engine loop only logs them."""
+        """Keep each book's touch and count the venue's errors; the engine
+        loop keeps only the mark and logs errors."""
         try:
             msg = parse_message(json.loads(raw))
         except (KeyError, ValueError):
             return                     # the engine loop logs these
+        if isinstance(msg, BookSnapshot):
+            self._levels[msg.symbol] = (msg.bids, msg.asks)
+            return
         if not isinstance(msg, ErrorMsg):
             return
         try:
@@ -340,12 +413,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             logger.exception("Could not handle venue error [%s]", msg.code)
 
     async def _on_error(self, msg: ErrorMsg) -> None:
-        self._errors += 1
         if msg.code == "ORDER_NOT_FOUND":
+            # A cancel that lost the race with a fill (our own seats fade
+            # into these bids as an event fires): not a rejected order.
             found = _NOT_FOUND.search(msg.message)
             if found:
                 self._live.pop(found.group(1), None)
-        elif msg.code == "STP_CANCEL":
+            return
+        self._errors += 1
+        if msg.code == "STP_CANCEL":
             # The venue names the quote it pulled by side, symbol and price.
             found = _STP.search(msg.message)
             if found:
@@ -360,6 +436,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                          "cancelling every quote and quoting nothing more",
                          self._errors, msg.code, msg.message)
             await self.cancel_all_quotes()
+
+    def _on_portfolio(self, msg: PortfolioUpdate) -> None:
+        super()._on_portfolio(msg)
+        if self._opening is None and msg.positions:
+            self._opening = dict(msg.positions)
+            logger.info("Opening position (not skewed away): %s", self._opening)
 
     def _on_order_ack(self, msg: OrderAck) -> None:
         if msg.team_id != _config.TEAM_ID:
@@ -418,6 +500,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 await self._on_calendar(msg.data)
             elif msg.event in ("CALENDAR_EVENT", "SHOCK"):
                 await self._on_fire(msg.event, msg.data)
+            elif msg.event == "IPO_LISTED" and msg.data.get("symbol"):
+                # Nothing rests in the name yet, so there is nothing to cancel.
+                self._paused_until[msg.data["symbol"]] = (
+                    self._clock() + LISTING_PAUSE_SEC)
+                logger.info("IPO %s listed: no quotes for %.0fs",
+                            msg.data["symbol"], LISTING_PAUSE_SEC)
             await super()._on_session_event(msg)
         except Exception:
             logger.exception("Could not handle session event %s", msg.event)
@@ -453,6 +541,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             keys = data.get("affected") or (
                 [data["symbol"]] if data.get("symbol") else [])
         for key in keys:
+            self._event_fired.add(key)
             await self._pause(key, PAUSE_RAMPS * ramp * EXCHANGE_TICK_SEC, event,
                               replace=True)
 
