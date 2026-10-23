@@ -6,6 +6,8 @@ import asyncio
 import itertools
 import logging
 
+import pytest
+
 import broker.config as _config
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution)
@@ -195,6 +197,43 @@ def test_calendar_event_pulls_that_symbol_until_three_ramps_pass():
     now[0] = 46.0
     run(b.quote_symbol("NVDA"))
     assert places(sent, "buy")
+
+
+@pytest.mark.xfail(strict=True, reason="the event cancel races the fill behind it")
+def test_a_quote_filled_just_behind_the_event_is_not_cancelled():
+    """The venue sends the event and then the fill it set off; the broker
+    must book the fill before it pulls the symbol's quotes, or the cancel
+    for the filled quote comes back ORDER_NOT_FOUND (week-4 run, AMZN)."""
+    b, sent, _ = make(prices={"AAPL": 100.0, "NVDA": 500.0})
+    run(b.quote_symbol("AAPL"))
+    run(b.quote_symbol("NVDA"))
+    ids = ack_all(b, sent)
+    nvda = {i for i, m in ids.items() if m.symbol == "NVDA"}
+    top_bid = max(nvda, key=lambda i: ids[i].price)    # flat: bids only
+    frames = [
+        event("CALENDAR_EVENT", kind="earnings", symbol="NVDA",
+              market_wide=False, affected=["NVDA"],
+              ramp_ticks=15).model_dump_json(),
+        TradeExecution(trade_id="t1", symbol="NVDA", price=ids[top_bid].price,
+                       quantity=ids[top_bid].quantity, buyer_id=ME,
+                       seller_id="someone", aggressor="sell",
+                       fee=0.0).model_dump_json(),
+    ]
+
+    class Socket:
+        async def __aiter__(self):
+            for raw in frames:
+                yield raw
+            await asyncio.sleep(0.2)          # the connection stays up
+
+    async def session():
+        b._ws = Socket()
+        await b.listen_to_exchange()
+        await b.quote_symbol("NVDA")
+
+    run(session())
+    assert cancelled(sent) == nvda - {top_bid}
+    assert places(sent) == []
 
 
 def test_imminent_calendar_warning_pulls_the_symbol_before_the_fire():
