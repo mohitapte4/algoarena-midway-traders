@@ -19,8 +19,8 @@ import broker.config as broker_config
 import exchange.config as config
 from exchange.ipo import IPOOffering
 from exchange.server import ExchangeServer, Portfolio
-from shared.messages import (Leaderboard, OrderAck, SessionEvent, TradeExecution,
-                             parse_message)
+from shared.messages import (Leaderboard, OrderAck, SeatRequest, SessionEvent,
+                             TradeExecution, parse_message)
 from shared.orderbook import Trade
 from team.books import Bookkeeper, Books, VenueState, Verdict
 from team.broker import MyBroker, TeamBrokerBot
@@ -360,6 +360,51 @@ def test_liquidation_of_another_seat_changes_nothing(venue):
     assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
     assert recon.row("pos AAPL").own == 50
     assert not any(r.item == "liquidated" for r in recon.rows)
+
+
+class Teacher:
+    """The teacher relay's socket: SEAT_RESULT, with each bot's share of
+    the cost, goes only here."""
+
+    def __init__(self) -> None:
+        self.events: list = []
+
+    async def send(self, payload: str) -> None:
+        self.events.append(parse_message(json.loads(payload)))
+
+
+def test_a_seat_bought_mid_session_reconciles(venue, monkeypatch, tmp_path):
+    roster = tmp_path / "teams.json"
+    roster.write_text(json.dumps({"Acme": {
+        "traders": ["acme_trader_1", "acme_trader_2"],
+        "brokers": ["acme_broker"],
+        "capital": {"acme_trader_1": 100_000, "acme_trader_2": 100_000,
+                    "acme_broker": 100_000}}}))
+    monkeypatch.setattr(config, "ROSTER_PATH", str(roster))
+    monkeypatch.setitem(venue.scenario.flags, "purchase_window", True)
+    for bot, role, cash in (("acme_trader_1", "trader", 100_000.0),
+                            ("acme_trader_2", "trader", 137_421.37),
+                            ("acme_broker", "broker", -5_000.0)):
+        venue.portfolios[bot] = Portfolio(team_id=bot, role=role, level=1,
+                                          cash=cash)
+    seat = Seat(venue, "acme_trader_1")
+    seat.connect()
+    seat.trade("buy", "AAPL", 100, 200.0, taker=True)
+    seat.ticks(10)
+    before = seat.keeper.books.cash
+
+    teacher = Teacher()
+    venue.teacher_ws.add(teacher)
+    seat.run(venue._handle_seat_request(
+        teacher, SeatRequest(team="Acme", kind="trader", capital=75_000),
+        "teacher"))
+    result = teacher.events[-1]
+    assert result.data["ok"], result.message
+    assert before - seat.keeper.books.cash == pytest.approx(
+        result.data["split"]["acme_trader_1"], abs=0.01)
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
 
 
 def test_reconnect_with_books_intact(venue, caplog):

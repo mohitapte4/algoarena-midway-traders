@@ -18,6 +18,8 @@ These books are built from the seat's own messages only:
     grants       SESSION_PREOPEN / SESSION_OPEN: the starting shares, read
                  off the venue's position like an IPO allocation
     upgrades     UPGRADE_PURCHASED: this seat's share of the price
+    seats        SEAT_PURCHASED: the cost, from the event's text, split by
+                 this seat's part of the team's cash on the next leaderboard
     carry        total_carry_paid: margin interest and borrow fees, taken
                  from the venue as a labelled item
 
@@ -40,6 +42,7 @@ reports.
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable
@@ -55,6 +58,7 @@ MONEY_TOL = 0.01         # leaderboard money is rounded to cents
 INTEREST_FLOOR = 1.0     # the interest estimate may be off by $1...
 INTEREST_SLACK = 0.5     # ...or by half of itself, whichever is more
 MARK_ROUNDING = 0.00005  # FUTURES_SETTLEMENT marks are rounded to 4 dp
+SEAT_COST = re.compile(r"\$([\d,]+)")
 
 
 @dataclass(frozen=True)
@@ -485,6 +489,8 @@ class Bookkeeper:
         self._update_since_boundary = False
         self._futures: set[str] = set()
         self._liquidating = False
+        self._team = _team_slug(seat)
+        self._seat_cost: float | None = None
         self._handlers = {
             BookSnapshot: self._on_snapshot,
             TradeExecution: self._on_trade,
@@ -500,6 +506,7 @@ class Bookkeeper:
             "UPGRADE_PURCHASED": self._on_upgrade,
             "FUTURES_SETTLEMENT": self._on_futures_settlement,
             "LIQUIDATION": self._on_liquidation,
+            "SEAT_PURCHASED": self._on_seat_purchased,
             "SESSION_CLOSED": self._on_close,
         }
 
@@ -552,6 +559,8 @@ class Bookkeeper:
 
     def _on_leaderboard(self, msg: Leaderboard) -> None:
         self.tick = msg.tick
+        if self._seat_cost is not None:
+            self._book_seat_purchase(msg)
         venue = venue_from_leaderboard(msg, self.seat)
         if venue is None:
             return
@@ -572,9 +581,10 @@ class Bookkeeper:
     def _on_event(self, msg: SessionEvent) -> None:
         handler = self._events.get(msg.event)
         if handler is not None:
-            handler(msg.data or {})
+            handler(msg)
 
-    def _on_ipo(self, data: dict) -> None:
+    def _on_ipo(self, event: SessionEvent) -> None:
+        data = event.data
         symbol, offer = data.get("symbol"), data.get("offer_price")
         if self.books is None or self._update is None or not offer:
             return
@@ -585,12 +595,13 @@ class Bookkeeper:
             logger.info("BOOKS  IPO %s +%d @ %.2f (quantity from the venue's "
                         "position)", symbol, qty, float(offer))
 
-    def _on_dividend(self, data: dict) -> None:
+    def _on_dividend(self, event: SessionEvent) -> None:
+        data = event.data
         if self.books is not None and data.get("symbol"):
             self.books.apply_dividend(data["symbol"],
                                       float(data.get("amount_per_share", 0.0)))
 
-    def _on_open(self, data: dict) -> None:
+    def _on_open(self, event: SessionEvent) -> None:
         if (self.books is not None and self._update is not None
                 and self._update_since_boundary):
             gaps = {s: q - self.books.positions.get(s, 0)
@@ -605,26 +616,41 @@ class Bookkeeper:
         if self.phase in (Phase.CLOSING, Phase.CLOSED):
             self.phase = Phase.LIVE
 
-    def _on_upgrade(self, data: dict) -> None:
+    def _on_upgrade(self, event: SessionEvent) -> None:
+        data = event.data
         share = (data.get("split") or {}).get(self.seat)
         if self.books is not None and share:
             self.books.apply_charge(float(share))
             logger.info("BOOKS  upgrade %s: %.2f charged to this seat",
                         data.get("upgrade", "?"), float(share))
 
-    def _on_futures_settlement(self, data: dict) -> None:
+    def _on_futures_settlement(self, event: SessionEvent) -> None:
         if self.books is None:
             return
-        for symbol, mark in (data.get("marks") or {}).items():
+        for symbol, mark in (event.data.get("marks") or {}).items():
             if mark:
                 self.books.settle_future(symbol, float(mark))
 
-    def _on_liquidation(self, data: dict) -> None:
+    def _on_liquidation(self, event: SessionEvent) -> None:
         # The venue sends LIQUIDATION before the update it causes.
-        if data.get("team_id") == self.seat and self.books is not None:
+        if event.data.get("team_id") == self.seat and self.books is not None:
             self._liquidating = True
 
-    def _on_close(self, data: dict) -> None:
+    def _on_seat_purchased(self, event: SessionEvent) -> None:
+        if (self.books is None or self._team is None
+                or _team_slug(str(event.data.get("bot_id", ""))) != self._team):
+            return
+        # The venue gives the cost only in the text, in whole dollars
+        # (server.py purchase_seat), and each bot's share to the teacher.
+        cost = SEAT_COST.search(event.message)
+        if cost is None:
+            logger.warning("BOOKS  seat purchase not booked: no cost in %r",
+                           event.message)
+            return
+        self._seat_cost = float(cost.group(1).replace(",", ""))
+
+    def _on_close(self, event: SessionEvent) -> None:
+        data = event.data
         if isinstance(data.get("tick"), int):
             self.tick = data["tick"]
         self._update_since_boundary = False
@@ -665,6 +691,27 @@ class Bookkeeper:
         logger.warning("BOOKS  liquidated: proceeds %.2f, realized %.2f (from "
                        "the venue's update; no fills are sent)",
                        proceeds, realized)
+
+    def _book_seat_purchase(self, msg: Leaderboard) -> None:
+        """Each bot with cash paid cost × its cash / the team's cash, which
+        scales every payer's cash by the same factor, so the shares can be
+        read off the team's cash after the purchase."""
+        cost, self._seat_cost = self._seat_cost, None
+        cash = {r.get("team_id"): _number(r, "cash")
+                for r in (*msg.traders, *msg.brokers)
+                if _team_slug(str(r.get("team_id", ""))) == self._team}
+        ours = cash.get(self.seat)
+        if ours is None or None in cash.values():
+            logger.warning("BOOKS  seat purchase not booked: the leaderboard "
+                           "lacks the team's cash")
+            return
+        if ours <= 0:
+            return              # a bot without cash pays nothing
+        share = ours * cost / sum(c for c in cash.values() if c > 0)
+        self.books.apply_charge(share)
+        logger.info("BOOKS  seat purchase: %.2f of $%.0f charged to this seat "
+                    "(its part of the team's cash on the leaderboard)",
+                    share, cost)
 
     def _check_reconnect(self, venue: VenueState) -> None:
         recon = Recon(f"{self.seat} reconnect check vs {venue.source}",
@@ -722,6 +769,14 @@ class Bookkeeper:
         emit = logger.info if recon.verdict is not Verdict.BREAK else logger.warning
         for line in recon.format():
             emit(line)
+
+
+def _team_slug(bot_id: str) -> str | None:
+    """The team's bot-id prefix, read as engine/exchange/seats.py reads it."""
+    for suffix in ("_trader", "_broker", "_exchange"):
+        if suffix in bot_id:
+            return bot_id.split(suffix)[0]
+    return None
 
 
 def _positions(positions: dict[str, int]) -> str:
