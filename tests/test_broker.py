@@ -6,8 +6,6 @@ import asyncio
 import itertools
 import logging
 
-import pytest
-
 import broker.config as _config
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution)
@@ -46,6 +44,14 @@ def make(positions=None, prices=None, flags=None):
     b.state.positions = dict(positions or {})
     b.state.exchange_prices.update(prices or {"AAPL": 100.0})
     return b, sent, now
+
+
+def handle(b, msg):
+    """Handle a session event and give its deferred cancels time to go out."""
+    async def go():
+        await b._on_session_event(msg)
+        await asyncio.sleep(0.2)
+    run(go())
 
 
 def places(sent, side=None):
@@ -181,9 +187,9 @@ def test_calendar_event_pulls_that_symbol_until_three_ramps_pass():
     run(b.quote_symbol("AAPL"))
     run(b.quote_symbol("NVDA"))
     ids = ack_all(b, sent)
-    run(b._on_session_event(event(
+    handle(b, event(
         "CALENDAR_EVENT", kind="earnings", symbol="NVDA", market_wide=False,
-        affected=["NVDA"], ramp_ticks=15)))
+        affected=["NVDA"], ramp_ticks=15))
     assert cancelled(sent) == {i for i, m in ids.items() if m.symbol == "NVDA"}
 
     sent.clear()
@@ -199,7 +205,6 @@ def test_calendar_event_pulls_that_symbol_until_three_ramps_pass():
     assert places(sent, "buy")
 
 
-@pytest.mark.xfail(strict=True, reason="the event cancel races the fill behind it")
 def test_a_quote_filled_just_behind_the_event_is_not_cancelled():
     """The venue sends the event and then the fill it set off; the broker
     must book the fill before it pulls the symbol's quotes, or the cancel
@@ -240,9 +245,9 @@ def test_imminent_calendar_warning_pulls_the_symbol_before_the_fire():
     b, sent, now = make(prices={"NVDA": 500.0})
     run(b.quote_symbol("NVDA"))
     ids = ack_all(b, sent)
-    run(b._on_session_event(event(
+    handle(b, event(
         "CALENDAR", tick=300, announce_lead=120, early=False, events=[],
-        imminent=[{"kind": "earnings", "symbol": "NVDA", "tick": 420}])))
+        imminent=[{"kind": "earnings", "symbol": "NVDA", "tick": 420}]))
     assert cancelled(sent) == set(ids)
     sent.clear()
     now[0] = 120.0 + 44.0
@@ -351,6 +356,35 @@ def test_a_new_connection_forgets_the_quotes_the_venue_swept():
     assert b._live == {}
     run(b.quote_symbol("AAPL"))
     assert places(sent, "buy")
+    assert cancelled(sent) == set()
+
+
+def test_an_event_cancel_waiting_when_the_link_drops_spares_the_next_link():
+    """The venue sweeps the quotes as the link drops; a pull still in its
+    grace must not cancel what the next connection rests."""
+    b, sent, _ = make(prices={"NVDA": 500.0})
+
+    class Socket:
+        async def __aiter__(self):
+            yield event("CALENDAR_EVENT", kind="earnings", symbol="NVDA",
+                        market_wide=False, affected=["NVDA"],
+                        ramp_ticks=15).model_dump_json()
+
+        async def close(self):
+            pass
+
+    async def connect():
+        b._ws = Socket()
+
+    b.connect_to_exchange = connect
+
+    async def two_links():
+        await b._serve()
+        b._on_order_ack(OrderAck(order_id="next", team_id=ME, symbol="NVDA",
+                                 side="buy", price=499.0, quantity=10))
+        await asyncio.sleep(0.2)
+
+    run(two_links())
     assert cancelled(sent) == set()
 
 
