@@ -127,6 +127,22 @@ def test_ipo_and_dividend_match_the_venue():
     assert_books_match(books, venue)
 
 
+def test_futures_fills_and_settlements_match_the_venue_portfolio():
+    rng = random.Random(7)
+    venue = Portfolio(team_id="me", role="trader", level=1)
+    books = Books.seed(venue_of(venue))
+    for n, (side, _, qty, _, fee, rebate) in enumerate(random_fills(rng, 300)):
+        price = round(rng.uniform(280, 300), 2)
+        venue.apply_futures_fill("ARENA10", price, qty, side, fee, rebate)
+        books.apply_fill(side, "ARENA10", qty, price, fee, rebate, future=True)
+        if n % 40 == 39:
+            mark = round(rng.uniform(280, 300), 4)
+            venue.settle_future("ARENA10", mark)
+            books.settle_future("ARENA10", mark)
+    assert_books_match(books, venue)
+    assert venue.realized_pnl != 0
+
+
 def test_a_fill_on_an_unpriced_position_loses_the_entry():
     seeded = VenueState(source="portfolio update", cash=1000.0,
                         positions={"AAA": 10, "BBB": 5}, realized=0.0,
@@ -171,7 +187,9 @@ class Seat:
         self.srv.clients[self.seat] = self
         self.srv.ws_to_team[self] = self.seat
         self.on_connect()
-        # server.py sends the leaderboard to every new connection
+        # server.py sends every book and the leaderboard to a new connection
+        self.inbox.extend(self.srv._make_snapshot(s, b)
+                          for s, b in self.srv.books.items())
         self.inbox.append(self.srv._build_leaderboard())
         self.deliver()
 
@@ -290,6 +308,24 @@ def test_dividend_on_a_short_reconciles(venue):
     seat.ticks(5)
     recon = seat.close()
     assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+
+
+def test_futures_and_a_settlement_reconcile(venue):
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("buy", "ARENA10", 700, 290.0, taker=True)
+    seat.trade("sell", "ARENA10", 100, 291.5, taker=False)
+    seat.trade("buy", "AAPL", 10, 200.0, taker=True)
+    # 4-dp rounding of this mark costs 600 contracts $0.03
+    venue.ref_prices["ARENA10"] = 295.123449
+    seat.run(venue._settle_futures())
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos ARENA10").venue == 600
+    assert recon.row("realized").venue == pytest.approx(
+        100 * 1.5 + 600 * 5.123449, abs=0.01)
+    assert recon.row("realized").ok
 
 
 def test_reconnect_with_books_intact(venue, caplog):
