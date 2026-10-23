@@ -10,22 +10,44 @@ These books are built from the seat's own messages only:
     IPO pricing  IPO_PRICED: the offer price. No message carries the
                  allocated quantity, so it is read off the venue's position.
     dividends    DIVIDEND: amount per share × our own position
+    grants       SESSION_PREOPEN / SESSION_OPEN: the starting shares, read
+                 off the venue's position like an IPO allocation
+    upgrades     UPGRADE_PURCHASED: this seat's share of the price
     carry        total_carry_paid: margin interest and borrow fees, taken
                  from the venue as a labelled item
+
+Interest on idle cash is in no message, so it is what the cash comparison
+leaves over: it must not be negative, and must be near rate × cash × ticks.
 
 Books mirrors the venue's Portfolio (engine/exchange/server.py): cash moves by
 price × quantity ± fee ∓ rebate, positions keep a signed average cost, and
 the part of a fill that closes a position realises (price − entry) × closed.
 VenueState is the venue's view, parsed once from a PortfolioUpdate or a
 leaderboard row; nothing past the parse touches raw message fields.
+
+Bookkeeper runs one seat's books off its message stream and logs a RECON
+when the venue first answers a reconnect and at the close, against the
+first leaderboard after SESSION_CLOSED. A reconnect that finds a BREAK
+re-seeds the books from the venue and counts a rebase, which the close
+reports.
 """
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
+from enum import Enum
 from typing import Any, Callable
 
-from shared.messages import Leaderboard, PortfolioUpdate
+from shared.messages import Leaderboard, PortfolioUpdate, SessionEvent, TradeExecution
+
+from team.config import CASH_INTEREST_PER_TICK
+
+logger = logging.getLogger(__name__)
+
+MONEY_TOL = 0.01         # leaderboard money is rounded to cents
+INTEREST_FLOOR = 1.0     # the interest estimate may be off by $1...
+INTEREST_SLACK = 0.5     # ...or by half of itself, whichever is more
 
 
 @dataclass(frozen=True)
@@ -115,13 +137,16 @@ class Books:
     carry_base: float           # the venue's total_carry_paid at the seed
     seed_cash: float
     # Held symbols whose entry price the books have not learned: a seed from
-    # a PortfolioUpdate carries no avg_cost. A later leaderboard can supply it.
+    # a PortfolioUpdate carries no avg_cost, nor does a starting grant. A
+    # later leaderboard can supply it.
     unpriced: set[str] = field(default_factory=set)
     # False once a fill lands on an unpriced position: realized is then
     # measured from a guessed entry and cannot be compared.
     entry_known: bool = True
     anchor_tick: int | None = None          # first leaderboard on or after the seed
-    anchor_net_worth: float | None = None
+    # (tick, venue net worth) P&L is measured from. A starting grant moves
+    # net worth without being P&L, so it restarts the measure.
+    pnl_anchor: tuple[int, float] | None = None
     fills: int = 0
     rebases: int = 0
 
@@ -143,10 +168,13 @@ class Books:
         return books
 
     def anchor(self, venue: VenueState) -> None:
-        """Measure elapsed ticks and P&L from this leaderboard: the close is
-        a leaderboard too, so both ends mark positions the same way."""
-        self.anchor_tick = venue.tick
-        self.anchor_net_worth = venue.net_worth
+        """Measure elapsed ticks and P&L from this leaderboard unless already
+        measuring: the close is a leaderboard too, so both ends mark
+        positions the same way."""
+        if self.anchor_tick is None:
+            self.anchor_tick = venue.tick
+        if self.pnl_anchor is None and venue.net_worth is not None:
+            self.pnl_anchor = (venue.tick, venue.net_worth)
 
     def apply_fill(self, side: str, symbol: str, qty: int, price: float,
                    fee: float, rebate: float) -> None:
@@ -177,9 +205,21 @@ class Books:
         self.avg_cost[symbol] = offer
         self.unpriced.discard(symbol)
 
+    def apply_grant(self, symbol: str, qty: int) -> None:
+        """Starting shares cost nothing. The venue enters a new holding at its
+        reference price, which no message gives, and keeps the entry of one
+        already held."""
+        if symbol not in self.avg_cost:
+            self.unpriced.add(symbol)
+        self._set_position(symbol, self.positions.get(symbol, 0) + qty)
+        self.pnl_anchor = None
+
     def apply_dividend(self, symbol: str, amount_per_share: float) -> None:
         """Longs are paid, shorts pay."""
         self.cash += self.positions.get(symbol, 0) * amount_per_share
+
+    def apply_charge(self, amount: float) -> None:
+        self.cash -= amount
 
     def learn_entries(self, venue: VenueState) -> list[str]:
         """Take the venue's entry price for unpriced symbols whose position
@@ -198,3 +238,375 @@ class Books:
         else:
             self.positions.pop(symbol, None)
             self.avg_cost.pop(symbol, None)
+            self.unpriced.discard(symbol)
+
+
+# ── reconciliation ──────────────────────────────────────────────────────────
+
+class Verdict(Enum):
+    PASS = "PASS"
+    BREAK = "BREAK"
+    UNCHECKED = "UNCHECKED"     # the venue reported nothing to compare
+
+
+@dataclass(frozen=True)
+class Row:
+    item: str
+    own: float | None
+    venue: float | None
+    ok: bool | None             # None: shown, not judged
+    note: str = ""
+
+    @property
+    def diff(self) -> float | None:
+        if self.own is None or self.venue is None:
+            return None
+        return self.venue - self.own
+
+
+@dataclass(frozen=True)
+class Recon:
+    title: str
+    rows: tuple[Row, ...]
+
+    @property
+    def verdict(self) -> Verdict:
+        judged = [r.ok for r in self.rows if r.ok is not None]
+        if not judged:
+            return Verdict.UNCHECKED
+        return Verdict.PASS if all(judged) else Verdict.BREAK
+
+    def row(self, item: str) -> Row:
+        return next(r for r in self.rows if r.item == item)
+
+    def format(self) -> list[str]:
+        lines = [f"RECON  {self.title}: {self.verdict.value}",
+                 f"RECON    {'item':<20}{'own':>14}{'venue':>14}{'diff':>12}"]
+        for r in self.rows:
+            mark = {True: "ok", False: "BREAK", None: ""}[r.ok]
+            if r.ok is None and r.venue is None:
+                mark = "n/a"
+            tail = "  ".join(t for t in (mark, r.note) if t)
+            lines.append(f"RECON    {r.item:<20}{_fmt(r.own):>14}"
+                         f"{_fmt(r.venue):>14}{_fmt(r.diff):>12}  {tail}")
+        return lines
+
+
+def _fmt(v: float | None) -> str:
+    if v is None:
+        return "n/a"
+    return str(v) if isinstance(v, int) else f"{round(v, 2) + 0.0:,.2f}"
+
+
+def position_rows(books: Books, venue: VenueState) -> list[Row]:
+    if venue.positions is None:
+        return [Row("positions", len(books.positions), None, None,
+                    "not reported")]
+    rows = [Row("positions held", len(books.positions), len(venue.positions),
+                len(books.positions) == len(venue.positions))]
+    for s in sorted(books.positions.keys() | venue.positions.keys()):
+        own, theirs = books.positions.get(s, 0), venue.positions.get(s, 0)
+        rows.append(Row(f"pos {s}", own, theirs, own == theirs))
+    return rows
+
+
+def pnl_rows(books: Books, venue: VenueState) -> list[Row]:
+    rows = [_money_row("fees", books.fees, venue.fees),
+            _money_row("rebates", books.rebates, venue.rebates)]
+    if books.entry_known:
+        rows.append(_money_row("realized", books.realized, venue.realized))
+    else:
+        rows.append(Row("realized", books.realized, venue.realized, None,
+                        "n/a: a fill met a position of unknown entry"))
+    return rows
+
+
+def _money_row(item: str, own: float, venue: float | None) -> Row:
+    if venue is None:
+        return Row(item, own, None, None, "not reported")
+    return Row(item, own, venue, abs(venue - own) <= MONEY_TOL + 1e-9)
+
+
+def cash_rows(books: Books, venue: VenueState,
+              interest: float | None) -> list[Row]:
+    """Own cash after the venue's carry, against the venue's cash. What is
+    left over is interest on idle cash, which no message itemizes."""
+    if venue.carry is None or venue.cash is None:
+        return [Row("cash", books.cash, venue.cash, None, "not reported")]
+    carry = venue.carry - books.carry_base
+    own = books.cash - carry
+    residual = venue.cash - own
+    return [
+        Row("carry (venue's)", None, carry, None,
+            "margin interest + borrow fees, taken from the venue"),
+        Row("cash", own, venue.cash, _cash_ok(residual, interest, carry),
+            "diff is interest on idle cash"),
+        Row("interest (est)", interest, residual, None,
+            "rate x cash x ticks" if interest is not None else "no tick seen"),
+    ]
+
+
+def _cash_ok(residual: float, interest: float | None,
+             carry: float) -> bool | None:
+    if residual < -MONEY_TOL:
+        return False
+    if interest is None:
+        return None
+    slack = max(INTEREST_FLOOR, INTEREST_SLACK * interest)
+    if residual > interest + slack:
+        return False
+    # The venue pays no interest on a tick it charges carry, so a seat that
+    # paid carry may earn well under the estimate.
+    return carry > MONEY_TOL or residual >= interest - slack
+
+
+def net_worth_rows(books: Books, venue: VenueState) -> list[Row]:
+    """Shown, not judged: with positions equal, own net worth differs from
+    the venue's by exactly the cash residual."""
+    if None in (venue.cash, venue.carry, venue.net_worth):
+        return [Row("net worth", None, venue.net_worth, None, "not reported")]
+    held = venue.net_worth - venue.cash     # positions at the venue's marks
+    own = books.cash - (venue.carry - books.carry_base) + held
+    rows = [Row("net worth", own, venue.net_worth, None)]
+    if books.pnl_anchor is not None:
+        tick, start = books.pnl_anchor
+        rows.append(Row(f"P&L since t{tick}", own - start,
+                        venue.net_worth - start, None))
+    return rows
+
+
+# ── the seat's state machine ────────────────────────────────────────────────
+
+class Phase(Enum):
+    UNSEEDED = "unseeded"
+    LIVE = "live"
+    RECONNECTING = "reconnecting"   # the venue's next figures are a check
+    CLOSING = "closing"             # SESSION_CLOSED seen, awaiting the leaderboard
+    CLOSED = "closed"
+
+
+# The venue sends the PortfolioUpdate these cause BEFORE the event itself.
+FOLLOWS_ITS_UPDATE = frozenset({"IPO_PRICED", "DIVIDEND", "SESSION_PREOPEN",
+                                "SESSION_OPEN", "UPGRADE_PURCHASED"})
+
+
+class Bookkeeper:
+    """One seat's books, fed every message the seat receives.
+
+    A PortfolioUpdate is compared only once the next message is in, so the
+    event that caused it is booked first. The starting-share grant is booked
+    at the open from the update that arrived since the last connect or close.
+    """
+
+    def __init__(self, seat: str,
+                 interest_rate: float = CASH_INTEREST_PER_TICK) -> None:
+        self.seat = seat
+        self.interest_rate = interest_rate
+        self.phase = Phase.UNSEEDED
+        self.books: Books | None = None
+        self.recons: list[Recon] = []
+        self.tick: int | None = None
+        self._update: VenueState | None = None      # the last PortfolioUpdate
+        self._unsettled = False
+        self._update_since_boundary = False
+        self._handlers = {
+            TradeExecution: self._on_trade,
+            PortfolioUpdate: self._on_update,
+            Leaderboard: self._on_leaderboard,
+            SessionEvent: self._on_event,
+        }
+        self._events = {
+            "IPO_PRICED": self._on_ipo,
+            "DIVIDEND": self._on_dividend,
+            "SESSION_PREOPEN": self._on_open,
+            "SESSION_OPEN": self._on_open,
+            "UPGRADE_PURCHASED": self._on_upgrade,
+            "SESSION_CLOSED": self._on_close,
+        }
+
+    def on_connect(self) -> None:
+        self._settle()
+        self._update_since_boundary = False
+        if self.phase is Phase.LIVE:
+            self.phase = Phase.RECONNECTING
+
+    def on_message(self, msg: Any) -> None:
+        follows = (isinstance(msg, SessionEvent)
+                   and msg.event in FOLLOWS_ITS_UPDATE)
+        if not follows:
+            self._settle()
+        handler = self._handlers.get(type(msg))
+        if handler is not None:
+            handler(msg)
+        if follows:
+            self._settle()
+
+    # ── messages ────────────────────────────────────────────────────────
+
+    def _on_trade(self, msg: TradeExecution) -> None:
+        if self.books is None:
+            return              # the update that follows seeds the books
+        for side, who in (("buy", msg.buyer_id), ("sell", msg.seller_id)):
+            if who != self.seat:
+                continue
+            taker = msg.aggressor == side
+            self.books.apply_fill(side, msg.symbol, msg.quantity, msg.price,
+                                  fee=msg.fee if taker else 0.0,
+                                  rebate=0.0 if taker else msg.maker_rebate)
+
+    def _on_update(self, msg: PortfolioUpdate) -> None:
+        if msg.team_id != self.seat:
+            return
+        self._update = venue_from_update(msg)
+        self._unsettled = True
+        self._update_since_boundary = True
+
+    def _on_leaderboard(self, msg: Leaderboard) -> None:
+        self.tick = msg.tick
+        venue = venue_from_leaderboard(msg, self.seat)
+        if venue is None:
+            return
+        if self.books is None:
+            self._seed(venue)
+            return
+        self.books.anchor(venue)
+        priced = self.books.learn_entries(venue)
+        if priced:
+            logger.info("BOOKS  entry prices from the %s: %s", venue.source,
+                        ", ".join(f"{s} {self.books.avg_cost[s]:.4f}"
+                                  for s in priced))
+        if self.phase is Phase.RECONNECTING:
+            self._check_reconnect(venue)
+        elif self.phase is Phase.CLOSING:
+            self._reconcile_close(venue)
+
+    def _on_event(self, msg: SessionEvent) -> None:
+        handler = self._events.get(msg.event)
+        if handler is not None:
+            handler(msg.data or {})
+
+    def _on_ipo(self, data: dict) -> None:
+        symbol, offer = data.get("symbol"), data.get("offer_price")
+        if self.books is None or self._update is None or not offer:
+            return
+        qty = (self._update.positions.get(symbol, 0)
+               - self.books.positions.get(symbol, 0))
+        if qty > 0:
+            self.books.apply_ipo(symbol, qty, float(offer))
+            logger.info("BOOKS  IPO %s +%d @ %.2f (quantity from the venue's "
+                        "position)", symbol, qty, float(offer))
+
+    def _on_dividend(self, data: dict) -> None:
+        if self.books is not None and data.get("symbol"):
+            self.books.apply_dividend(data["symbol"],
+                                      float(data.get("amount_per_share", 0.0)))
+
+    def _on_open(self, data: dict) -> None:
+        if (self.books is not None and self._update is not None
+                and self._update_since_boundary):
+            gaps = {s: q - self.books.positions.get(s, 0)
+                    for s, q in sorted(self._update.positions.items())}
+            granted = {s: gap for s, gap in gaps.items() if gap > 0}
+            for s, gap in granted.items():
+                self.books.apply_grant(s, gap)
+            if granted:
+                logger.info("BOOKS  starting grant %s (quantities from the "
+                            "venue's positions)", _positions(granted))
+        self._update_since_boundary = False
+        if self.phase in (Phase.CLOSING, Phase.CLOSED):
+            self.phase = Phase.LIVE
+
+    def _on_upgrade(self, data: dict) -> None:
+        share = (data.get("split") or {}).get(self.seat)
+        if self.books is not None and share:
+            self.books.apply_charge(float(share))
+            logger.info("BOOKS  upgrade %s: %.2f charged to this seat",
+                        data.get("upgrade", "?"), float(share))
+
+    def _on_close(self, data: dict) -> None:
+        if isinstance(data.get("tick"), int):
+            self.tick = data["tick"]
+        self._update_since_boundary = False
+        if self.books is None:
+            return
+        if self._update is not None:
+            self._log(Recon(
+                f"{self.seat} positions at SESSION_CLOSED vs the last "
+                f"portfolio update", tuple(position_rows(self.books,
+                                                         self._update))))
+        self.phase = Phase.CLOSING
+
+    # ── transitions ─────────────────────────────────────────────────────
+
+    def _settle(self) -> None:
+        if not self._unsettled:
+            return
+        self._unsettled = False
+        if self.phase is Phase.UNSEEDED:
+            self._seed(self._update)
+        elif self.phase is Phase.RECONNECTING:
+            self._check_reconnect(self._update)
+
+    def _seed(self, venue: VenueState) -> None:
+        if not venue.complete:
+            return
+        self.books = Books.seed(venue)
+        self.phase = Phase.LIVE
+        logger.info("BOOKS  seeded from venue (%s): cash %.2f, positions %s",
+                    venue.source, venue.cash, _positions(venue.positions))
+
+    def _check_reconnect(self, venue: VenueState) -> None:
+        recon = Recon(f"{self.seat} reconnect check vs {venue.source}",
+                      (*position_rows(self.books, venue),
+                       *cash_rows(self.books, venue,
+                                  self._interest(venue))))
+        if recon.verdict is Verdict.UNCHECKED:
+            return              # wait for figures that can be compared
+        self.phase = Phase.LIVE
+        if recon.verdict is Verdict.PASS:
+            self.recons.append(recon)
+            logger.info("BOOKS  reconnect check PASS: books survived the drop")
+            return
+        self._log(recon)
+        if not venue.complete:
+            logger.warning("BOOKS  cannot rebase: %s is incomplete",
+                           venue.source)
+            return
+        old = self.books
+        self.books = Books.seed(venue, fills=old.fills,
+                                rebases=old.rebases + 1)
+        # The last update predates the rebase; comparing it would re-report
+        # the break just repaired.
+        self._update = None
+        logger.warning("BOOKS  rebased on the venue (%s): cash %.2f, "
+                       "positions %s, rebase %d", venue.source, venue.cash,
+                       _positions(venue.positions), self.books.rebases)
+
+    def _reconcile_close(self, venue: VenueState) -> None:
+        books = self.books
+        self._log(Recon(
+            f"{self.seat} close vs {venue.source} ({books.fills} fills, "
+            f"{books.rebases} rebases)",
+            (*position_rows(books, venue), *pnl_rows(books, venue),
+             *cash_rows(books, venue, self._interest(venue)),
+             *net_worth_rows(books, venue))))
+        self.phase = Phase.CLOSED
+
+    def _interest(self, venue: VenueState) -> float | None:
+        """rate × the average of cash at the seed and now × ticks since."""
+        books = self.books
+        now = venue.tick if venue.tick is not None else self.tick
+        if now is None or books.anchor_tick is None:
+            return None
+        cash = max(0.0, (books.seed_cash + books.cash) / 2)
+        return self.interest_rate * cash * max(0, now - books.anchor_tick)
+
+    def _log(self, recon: Recon) -> None:
+        self.recons.append(recon)
+        emit = logger.info if recon.verdict is not Verdict.BREAK else logger.warning
+        for line in recon.format():
+            emit(line)
+
+
+def _positions(positions: dict[str, int]) -> str:
+    return ", ".join(f"{s} {q}" for s, q in sorted(positions.items())) or "none"

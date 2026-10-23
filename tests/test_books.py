@@ -7,12 +7,20 @@ arithmetic, and a real ExchangeServer for the message stream a seat sees.
 Run with:  PYTHONPATH=engine:. python -m pytest tests/test_books.py -v
 """
 
+import asyncio
+import json
+import logging
 import random
+from types import SimpleNamespace
 
 import pytest
 
-from exchange.server import Portfolio
-from team.books import Books, VenueState
+import exchange.config as config
+from exchange.ipo import IPOOffering
+from exchange.server import ExchangeServer, Portfolio
+from shared.messages import Leaderboard, SessionEvent, TradeExecution, parse_message
+from shared.orderbook import Trade
+from team.books import Bookkeeper, Books, VenueState, Verdict
 
 TAKER = 0.0015
 MAKER = 0.0010
@@ -130,3 +138,258 @@ def test_a_fill_on_an_unpriced_position_loses_the_entry():
     assert books.learn_entries(board) == ["AAA"]
     assert books.avg_cost["AAA"] == 20.0
     assert not books.entry_known
+
+
+# ── a seat on a real venue ──────────────────────────────────────────────────
+
+class Seat:
+    """What a real ExchangeServer sends one seat, fed to its Bookkeeper.
+
+    `drop` decides which messages never reach the bookkeeper, `edit` may
+    rewrite one on the way."""
+
+    def __init__(self, srv: ExchangeServer, seat: str = "me") -> None:
+        self.srv, self.seat = srv, seat
+        self.keeper = Bookkeeper(seat)
+        self.inbox: list = []
+        self.drop = lambda msg: False
+        self.edit = lambda msg: msg
+
+    async def send(self, payload: str) -> None:
+        self.inbox.append(parse_message(json.loads(payload)))
+
+    def connect(self) -> None:
+        self.srv.clients[self.seat] = self
+        self.srv.ws_to_team[self] = self.seat
+        self.keeper.on_connect()
+        # server.py sends the leaderboard to every new connection
+        self.inbox.append(self.srv._build_leaderboard())
+        self.deliver()
+
+    def disconnect(self) -> None:
+        self.deliver()
+        del self.srv.clients[self.seat]
+
+    def deliver(self) -> None:
+        for msg in self.inbox:
+            if not self.drop(msg):
+                self.keeper.on_message(self.edit(msg))
+        self.inbox.clear()
+
+    def run(self, coro) -> None:
+        asyncio.run(coro)
+        self.deliver()
+
+    def trade(self, side: str, symbol: str, qty: int, price: float, *,
+              taker: bool, against: str = "them") -> None:
+        buyer, seller = (self.seat, against) if side == "buy" else (against, self.seat)
+        aggressor = side if taker else ("sell" if side == "buy" else "buy")
+        self.run(self.srv._process_trade(Trade(
+            trade_id=f"t{len(self.srv.trade_log)}", symbol=symbol, price=price,
+            quantity=qty, buyer_id=buyer, seller_id=seller,
+            aggressor=aggressor, fee=0.0, timestamp=0.0)))
+
+    def ticks(self, n: int) -> None:
+        for _ in range(n):
+            self.srv.tick += 1
+            asyncio.run(self.srv._apply_carry_and_maintenance())
+        self.inbox.append(self.srv._build_leaderboard())
+        self.deliver()
+
+    def close(self):
+        self.run(self.srv.close_session(persist=False))
+        return self.keeper.recons[-1]
+
+
+@pytest.fixture
+def venue(monkeypatch):
+    monkeypatch.setattr(config, "MAKER_TAKER_ENABLED", True)
+    monkeypatch.setattr(config, "TAKER_FEE_RATE", TAKER)
+    monkeypatch.setattr(config, "MAKER_REBATE_RATE", MAKER)
+    srv = ExchangeServer()
+    for team, role in (("me", "trader"), ("them", "broker")):
+        srv.portfolios[team] = Portfolio(team_id=team, role=role, level=1)
+    return srv
+
+
+def a_session(seat: Seat) -> None:
+    """Long and short, taker and maker, a flip, carry and idle-cash interest."""
+    seat.connect()
+    seat.trade("buy", "AAPL", 40, 210.0, taker=True)
+    seat.trade("sell", "AAPL", 15, 214.5, taker=False)
+    seat.ticks(30)
+    seat.trade("sell", "MSFT", 20, 410.0, taker=False)      # short
+    seat.ticks(10)                                          # borrow fees
+    seat.trade("buy", "MSFT", 35, 405.25, taker=True)       # cover and flip
+    seat.trade("sell", "AAPL", 25, 208.0, taker=True)
+    seat.ticks(40)
+
+
+def test_clean_session_reconciles(venue):
+    seat = Seat(venue)
+    a_session(seat)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos MSFT").venue == 15
+    assert recon.row("realized").ok
+    assert recon.row("fees").ok and recon.row("fees").own > 0
+    assert recon.row("rebates").ok and recon.row("rebates").own > 0
+    assert recon.row("carry (venue's)").venue > 0
+    assert recon.row("interest (est)").venue > 0       # credited, never itemized
+
+
+def test_dropped_fill_breaks_on_its_symbol(venue):
+    seat = Seat(venue)
+    seat.drop = lambda m: isinstance(m, TradeExecution) and m.symbol == "MSFT" \
+        and m.quantity == 35
+    a_session(seat)
+    recon = seat.close()
+    assert recon.verdict is Verdict.BREAK
+    assert broken_positions(recon) == ["pos MSFT"]
+    assert recon.row("pos MSFT").own == -20
+    at_close = seat.keeper.recons[-2]
+    assert "SESSION_CLOSED" in at_close.title
+    assert broken_positions(at_close) == ["pos MSFT"]
+
+
+def broken_positions(recon) -> list[str]:
+    return [r.item for r in recon.rows
+            if r.ok is False and r.item.startswith("pos ")]
+
+
+def test_ipo_allocation_reconciles(venue):
+    seat = Seat(venue)
+    seat.connect()
+    deal = IPOOffering(symbol="NEWCO", name="NewCo", shares=100, range_lo=10,
+                       range_hi=12, open_tick=0, close_tick=1, list_tick=2,
+                       state="open")
+    deal.subscribe("me", 60, 12)
+    seat.run(venue._price_ipo(deal))
+    assert seat.keeper.books.positions["NEWCO"] == 60
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos NEWCO").venue == 60
+
+
+def test_dividend_on_a_short_reconciles(venue):
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("sell", "AAPL", 50, 200.0, taker=True)
+    seat.run(venue._pay_dividend(SimpleNamespace(symbol="AAPL",
+                                                 amount_per_share=2.0)))
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+
+
+def test_reconnect_with_books_intact(venue, caplog):
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("buy", "AAPL", 10, 200.0, taker=False)
+    seat.disconnect()
+    seat.ticks(20)
+    with caplog.at_level(logging.INFO, logger="team.books"):
+        seat.connect()
+    assert "BOOKS  reconnect check PASS: books survived the drop" in caplog.text
+    assert seat.keeper.recons[-1].verdict is Verdict.PASS
+
+
+def test_allocation_missed_while_disconnected_is_rebased(venue):
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("buy", "AAPL", 10, 200.0, taker=False)
+    deal = IPOOffering(symbol="NEWCO", name="NewCo", shares=100, range_lo=10,
+                       range_hi=12, open_tick=0, close_tick=1, list_tick=2,
+                       state="open")
+    deal.subscribe("me", 40, 12)
+    seat.disconnect()
+    asyncio.run(venue._price_ipo(deal))           # no socket: nothing sent
+    seat.connect()
+    check = seat.keeper.recons[-1]
+    assert check.verdict is Verdict.BREAK
+    assert check.row("pos NEWCO").ok is False
+    seat.trade("sell", "AAPL", 4, 205.0, taker=True)
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert "1 rebases" in recon.title
+
+
+def test_leaderboard_without_cash_is_not_a_break(venue):
+    seat = Seat(venue)
+
+    def no_cash(msg):
+        if isinstance(msg, Leaderboard) and seat.keeper.recons:
+            for row in msg.traders:
+                row.pop("cash", None)
+        return msg
+
+    seat.connect()
+    seat.trade("buy", "AAPL", 10, 200.0, taker=True)
+    seat.ticks(5)
+    seat.edit = no_cash
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("cash").ok is None
+    assert recon.row("cash").venue is None
+
+
+def test_starting_grant_at_the_open_reconciles(venue, monkeypatch):
+    monkeypatch.setattr(config, "RECORD_SESSIONS", False)
+
+    async def no_report():
+        pass
+
+    monkeypatch.setattr(venue, "_write_eod_report", no_report)
+    seat = Seat(venue)
+    seat.connect()
+    seat.run(venue.open_session())
+    granted = venue.portfolios["me"].positions.get("AAPL", 0)
+    assert granted > 0
+    seat.ticks(1)                   # the leaderboard gives the grant's entry
+    seat.trade("sell", "AAPL", granted + 5, 200.0, taker=False)
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos AAPL").venue == -5
+    assert recon.row("realized").ok
+    pnl = next(r for r in recon.rows if r.item.startswith("P&L since"))
+    assert pnl.item == "P&L since t1"             # measured after the grant
+    assert abs(pnl.venue) < 5_000                 # the grant is worth ~$58k
+
+
+def test_unbooked_credit_breaks_on_cash(venue):
+    seat = Seat(venue)
+    seat.drop = lambda m: isinstance(m, SessionEvent) and m.event == "DIVIDEND"
+    seat.connect()
+    seat.trade("buy", "AAPL", 50, 200.0, taker=True)
+    seat.run(venue._pay_dividend(SimpleNamespace(symbol="AAPL",
+                                                 amount_per_share=2.0)))
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.BREAK
+    assert recon.row("cash").ok is False
+    assert recon.row("cash").diff == pytest.approx(100.0, abs=1.0)
+
+
+def test_seeded_from_a_dividend_update_books_it_once(venue):
+    """With no usable leaderboard the first PortfolioUpdate seeds the books,
+    and the venue sends a dividend's update before the DIVIDEND event."""
+    venue.portfolios["me"].positions["AAPL"] = -30
+    venue.portfolios["me"].avg_cost["AAPL"] = 210.0
+    seat = Seat(venue)
+
+    def hide_seat_until_seeded(msg):
+        if isinstance(msg, Leaderboard) and seat.keeper.books is None:
+            return msg.model_copy(update={"traders": []})
+        return msg
+
+    seat.edit = hide_seat_until_seeded
+    seat.connect()
+    seat.run(venue._pay_dividend(SimpleNamespace(symbol="AAPL",
+                                                 amount_per_share=2.0)))
+    assert seat.keeper.books.cash == pytest.approx(venue.portfolios["me"].cash)
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
