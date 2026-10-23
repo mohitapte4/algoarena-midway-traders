@@ -15,12 +15,16 @@ from types import SimpleNamespace
 
 import pytest
 
+import broker.config as broker_config
 import exchange.config as config
 from exchange.ipo import IPOOffering
 from exchange.server import ExchangeServer, Portfolio
-from shared.messages import Leaderboard, SessionEvent, TradeExecution, parse_message
+from shared.messages import (Leaderboard, OrderAck, SessionEvent, TradeExecution,
+                             parse_message)
 from shared.orderbook import Trade
 from team.books import Bookkeeper, Books, VenueState, Verdict
+from team.broker import MyBroker, TeamBrokerBot
+from team.venue import TeamBot
 
 TAKER = 0.0015
 MAKER = 0.0010
@@ -143,14 +147,19 @@ def test_a_fill_on_an_unpriced_position_loses_the_entry():
 # ── a seat on a real venue ──────────────────────────────────────────────────
 
 class Seat:
-    """What a real ExchangeServer sends one seat, fed to its Bookkeeper.
+    """What a real ExchangeServer sends one seat, fed to its Bookkeeper, or
+    to the seat's own connect and message hooks when they are given.
 
-    `drop` decides which messages never reach the bookkeeper, `edit` may
-    rewrite one on the way."""
+    `drop` decides which messages never arrive, `edit` may rewrite one on
+    the way."""
 
-    def __init__(self, srv: ExchangeServer, seat: str = "me") -> None:
+    def __init__(self, srv: ExchangeServer, seat: str = "me", *,
+                 keeper: Bookkeeper | None = None, on_connect=None,
+                 on_message=None) -> None:
         self.srv, self.seat = srv, seat
-        self.keeper = Bookkeeper(seat)
+        self.keeper = keeper or Bookkeeper(seat)
+        self.on_connect = on_connect or self.keeper.on_connect
+        self.on_message = on_message or self.keeper.on_message
         self.inbox: list = []
         self.drop = lambda msg: False
         self.edit = lambda msg: msg
@@ -161,7 +170,7 @@ class Seat:
     def connect(self) -> None:
         self.srv.clients[self.seat] = self
         self.srv.ws_to_team[self] = self.seat
-        self.keeper.on_connect()
+        self.on_connect()
         # server.py sends the leaderboard to every new connection
         self.inbox.append(self.srv._build_leaderboard())
         self.deliver()
@@ -173,7 +182,7 @@ class Seat:
     def deliver(self) -> None:
         for msg in self.inbox:
             if not self.drop(msg):
-                self.keeper.on_message(self.edit(msg))
+                self.on_message(self.edit(msg))
         self.inbox.clear()
 
     def run(self, coro) -> None:
@@ -393,3 +402,93 @@ def test_seeded_from_a_dividend_update_books_it_once(venue):
     seat.ticks(5)
     recon = seat.close()
     assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+
+
+# ── the seats ───────────────────────────────────────────────────────────────
+
+class Owner:
+    """The trader behind a TeamBot, reduced to what its socket hooks call."""
+
+    def __init__(self) -> None:
+        self.untradeable: set[str] = set()
+        self.acks: list[str] = []
+
+    def on_connect(self) -> None:
+        pass
+
+    def on_ack(self, order_id, symbol, side, price) -> None:
+        self.acks.append(order_id)
+
+    def on_reject(self, code, message) -> None:
+        pass
+
+
+@pytest.fixture
+def trader_bot(monkeypatch):
+    import trader.config as trader_config
+    from trader.trader import TraderBot
+
+    async def no_socket(self):
+        pass
+
+    monkeypatch.setattr(trader_config, "TEAM_ID", "me")
+    monkeypatch.setattr(TraderBot, "connect", no_socket)
+    owner = Owner()
+    return TeamBot(owner), owner
+
+
+def test_a_trader_seat_reconciles_its_own_books(venue, trader_bot):
+    bot, _ = trader_bot
+    seat = Seat(venue, keeper=bot._books,
+                on_connect=lambda: asyncio.run(bot.connect()),
+                on_message=lambda m: bot._peek(m.model_dump_json()))
+    a_session(seat)
+    seat.disconnect()
+    seat.connect()
+    assert seat.keeper.recons[-1].verdict is Verdict.PASS     # the reconnect
+    recon = seat.close()
+    assert "close" in recon.title
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+
+
+def test_a_failing_bookkeeper_leaves_the_trader_its_messages(trader_bot, caplog):
+    bot, owner = trader_bot
+
+    def broken(msg):
+        raise RuntimeError("books bug")
+
+    bot._books.on_message = broken
+    ack = OrderAck(order_id="o1", team_id="me", symbol="AAPL", side="buy",
+                   price=100.0, quantity=5)
+    with caplog.at_level(logging.ERROR, logger="team.venue"):
+        bot._peek(ack.model_dump_json())
+    assert owner.acks == ["o1"]
+    assert "Books could not take OrderAck" in caplog.text
+
+
+def test_the_broker_seat_reconciles_its_own_books(venue, monkeypatch):
+    seat_id = broker_config.TEAM_ID
+    venue.portfolios[seat_id] = Portfolio(team_id=seat_id, role="broker",
+                                          level=1)
+    bot = TeamBrokerBot(MyBroker(), "ws://test")
+
+    async def idle(*args):
+        pass
+
+    for name in ("connect_to_exchange", "listen_to_exchange", "requote_loop"):
+        monkeypatch.setattr(bot, name, idle)
+    seat = Seat(venue, seat_id, keeper=bot._books,
+                on_connect=lambda: asyncio.run(bot._serve()),
+                on_message=lambda m: asyncio.run(bot._peek(m.model_dump_json())))
+    seat.connect()
+    seat.trade("sell", "AAPL", 30, 220.0, taker=False)
+    seat.trade("buy", "AAPL", 10, 219.0, taker=False)
+    seat.disconnect()
+    seat.ticks(10)
+    seat.connect()
+    assert "reconnect check" in seat.keeper.recons[-1].title
+    assert seat.keeper.recons[-1].verdict is Verdict.PASS
+    recon = seat.close()
+    assert "close" in recon.title
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos AAPL").venue == -20

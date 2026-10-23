@@ -32,7 +32,9 @@ TeamBot
         a seat that rejoins after the opening cross sees no AUCTION_RESULT;
       * reconnects with exponential backoff (team.reconnect) instead of a
         fixed 3 s, and a trader hook that raises is logged rather than
-        dropping the connection.
+        dropping the connection;
+      * keeps the seat's own books from every message it receives
+        (team.books) and logs their reconciliation with the venue.
 """
 
 from __future__ import annotations
@@ -57,6 +59,7 @@ from shared.messages import (  # noqa: E402  (engine module)
 )
 from trader.trader import MarketData, _print_startup  # noqa: E402  (engine module)
 
+from team.books import Bookkeeper
 from team.reconnect import run_with_backoff
 
 logger = logging.getLogger(__name__)
@@ -246,6 +249,10 @@ class _Tap:
 class TeamBot(_AdaptedTraderBot):
     """The engine's trader bot with order acks, rejects and cancels wired in."""
 
+    def __init__(self, owner) -> None:
+        super().__init__(owner)
+        self._books = Bookkeeper(_config.TEAM_ID)
+
     async def run(self) -> None:
         """Connect and trade, reconnecting with backoff whenever the link ends."""
         _print_startup()
@@ -274,6 +281,10 @@ class TeamBot(_AdaptedTraderBot):
     async def connect(self) -> None:
         await super().connect()
         self._owner.on_connect()
+        try:
+            self._books.on_connect()
+        except Exception:
+            logger.exception("Books could not take the connect")
 
     async def listen(self) -> None:
         if not isinstance(self._ws, _Tap):
@@ -287,6 +298,10 @@ class TeamBot(_AdaptedTraderBot):
             # listen() parses the same message and warns about it.
             logger.debug("Skipped unreadable venue message: %s", exc)
             return
+        try:
+            self._books.on_message(msg)
+        except Exception:
+            logger.exception("Books could not take %s", type(msg).__name__)
         try:
             if isinstance(msg, OrderAck) and msg.team_id == _config.TEAM_ID:
                 self._owner.on_ack(msg.order_id, msg.symbol, msg.side, msg.price)

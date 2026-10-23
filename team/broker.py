@@ -10,7 +10,8 @@ Underneath, TeamBrokerBot sends only orders and cancels the venue accepts
 (asks capped at the inventory, or at MAX_INVENTORY short once shorts are
 allowed; no cancels for filled quotes; nothing after the close), stands
 aside while a scheduled event or a shock moves the price, and leaves a new
-listing alone for its first minute of price discovery.
+listing alone for its first minute of price discovery. It also keeps the
+seat's own books (team.books) and logs their reconciliation with the venue.
 
 Run:
     TEAM_ID=midway_traders_broker python -m team.broker
@@ -34,6 +35,7 @@ from broker.broker import _print_startup
 from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              PortfolioUpdate, SessionEvent, TradeExecution,
                              parse_message)
+from team.books import Bookkeeper
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.reconnect import run_with_backoff
 from team.venue import TokenBucket
@@ -178,6 +180,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._clock = time.monotonic
         self._sleep = asyncio.sleep
         self._bucket = TokenBucket(MESSAGES_PER_SEC, MESSAGES_PER_SEC)
+        self._books = Bookkeeper(_config.TEAM_ID)
 
     # ── connection ──────────────────────────────────────────────────────
 
@@ -202,6 +205,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self.state.last_quote_prices.clear()
         try:
             await self.connect_to_exchange()
+            try:
+                self._books.on_connect()
+            except Exception:
+                logger.exception("Books could not take the connect")
             self._session_open = False
             listener = asyncio.create_task(self.listen_to_exchange())
             requoter = asyncio.create_task(self.requote_loop())
@@ -402,6 +409,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             msg = parse_message(json.loads(raw))
         except (KeyError, ValueError):
             return                     # the engine loop logs these
+        try:
+            self._books.on_message(msg)
+        except Exception:
+            logger.exception("Books could not take %s", type(msg).__name__)
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
             return
