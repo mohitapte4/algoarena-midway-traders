@@ -13,6 +13,8 @@ These books are built from the seat's own messages only:
     IPO pricing  IPO_PRICED: the offer price. No message carries the
                  allocated quantity, so it is read off the venue's position.
     dividends    DIVIDEND: amount per share × our own position
+    liquidation  LIQUIDATION of this seat: no fills are sent, so the
+                 close-out is read off the venue's update that follows it
     grants       SESSION_PREOPEN / SESSION_OPEN: the starting shares, read
                  off the venue's position like an IPO allocation
     upgrades     UPGRADE_PURCHASED: this seat's share of the price
@@ -131,6 +133,13 @@ def _table(row: dict[str, Any], key: str, kind: Callable) -> dict | None:
         return None
 
 
+@dataclass(frozen=True)
+class Liquidation:
+    tick: int | None            # the last leaderboard tick before it
+    cash_before: float
+    proceeds: float
+
+
 @dataclass
 class Books:
     cash: float
@@ -150,6 +159,7 @@ class Books:
     entry_known: bool = True
     # Futures whose entry is a settlement mark, which the venue rounds.
     marked: set[str] = field(default_factory=set)
+    liquidation: Liquidation | None = None
     anchor_tick: int | None = None          # first leaderboard on or after the seed
     # (tick, venue net worth) P&L is measured from. A starting grant moves
     # net worth without being P&L, so it restarts the measure.
@@ -252,6 +262,24 @@ class Books:
         their mark; closing them realises it back out."""
         return MARK_ROUNDING * sum(abs(self.positions.get(s, 0))
                                    for s in self.marked)
+
+    def apply_liquidation(self, realized: float, futures: set[str],
+                          tick: int | None) -> float:
+        """The venue closes every position at its own price and sends no
+        fills. `realized` is what the close realised by the venue's figures;
+        cash moves by that plus the entry cost of the shares sold (a future
+        has none). Returns the proceeds."""
+        if self.unpriced:
+            self.entry_known = False
+        proceeds = realized + sum(q * self.avg_cost.get(s, 0.0)
+                                  for s, q in self.positions.items()
+                                  if s not in futures)
+        self.liquidation = Liquidation(tick, self.cash, proceeds)
+        self.cash += proceeds
+        self.realized += realized
+        for s in list(self.positions):
+            self._set_position(s, 0)
+        return proceeds
 
     def learn_entries(self, venue: VenueState) -> list[str]:
         """Take the venue's entry price for unpriced symbols whose position
@@ -396,6 +424,15 @@ def _cash_ok(residual: float, interest: float | None, carry: float,
     return carry > MONEY_TOL or residual >= interest - slack
 
 
+def liquidation_rows(books: Books) -> list[Row]:
+    liq = books.liquidation
+    if liq is None:
+        return []
+    return [Row("liquidated", None, liq.proceeds, None,
+                f"after t{liq.tick}: the venue closed every position, "
+                f"proceeds from its update")]
+
+
 def net_worth_rows(books: Books, venue: VenueState) -> list[Row]:
     """Shown, not judged: with positions equal, own net worth differs from
     the venue's by exactly the cash residual."""
@@ -447,6 +484,7 @@ class Bookkeeper:
         self._unsettled = False
         self._update_since_boundary = False
         self._futures: set[str] = set()
+        self._liquidating = False
         self._handlers = {
             BookSnapshot: self._on_snapshot,
             TradeExecution: self._on_trade,
@@ -461,6 +499,7 @@ class Bookkeeper:
             "SESSION_OPEN": self._on_open,
             "UPGRADE_PURCHASED": self._on_upgrade,
             "FUTURES_SETTLEMENT": self._on_futures_settlement,
+            "LIQUIDATION": self._on_liquidation,
             "SESSION_CLOSED": self._on_close,
         }
 
@@ -504,7 +543,10 @@ class Bookkeeper:
     def _on_update(self, msg: PortfolioUpdate) -> None:
         if msg.team_id != self.seat:
             return
-        self._update = venue_from_update(msg)
+        venue = venue_from_update(msg)
+        if self._liquidating:
+            self._book_liquidation(venue)
+        self._update = venue
         self._unsettled = True
         self._update_since_boundary = True
 
@@ -577,6 +619,11 @@ class Bookkeeper:
             if mark:
                 self.books.settle_future(symbol, float(mark))
 
+    def _on_liquidation(self, data: dict) -> None:
+        # The venue sends LIQUIDATION before the update it causes.
+        if data.get("team_id") == self.seat and self.books is not None:
+            self._liquidating = True
+
     def _on_close(self, data: dict) -> None:
         if isinstance(data.get("tick"), int):
             self.tick = data["tick"]
@@ -609,6 +656,16 @@ class Bookkeeper:
         logger.info("BOOKS  seeded from venue (%s): cash %.2f, positions %s",
                     venue.source, venue.cash, _positions(venue.positions))
 
+    def _book_liquidation(self, after: VenueState) -> None:
+        self._liquidating = False
+        before = self._update.realized if self._update else self.books.realized
+        realized = after.realized - before
+        proceeds = self.books.apply_liquidation(realized, self._futures,
+                                                self.tick)
+        logger.warning("BOOKS  liquidated: proceeds %.2f, realized %.2f (from "
+                       "the venue's update; no fills are sent)",
+                       proceeds, realized)
+
     def _check_reconnect(self, venue: VenueState) -> None:
         recon = Recon(f"{self.seat} reconnect check vs {venue.source}",
                       (*position_rows(self.books, venue),
@@ -629,6 +686,7 @@ class Bookkeeper:
         old = self.books
         self.books = Books.seed(venue, fills=old.fills,
                                 rebases=old.rebases + 1)
+        self.books.liquidation = old.liquidation
         # The last update predates the rebase; comparing it would re-report
         # the break just repaired.
         self._update = None
@@ -643,16 +701,20 @@ class Bookkeeper:
             f"{books.rebases} rebases)",
             (*position_rows(books, venue), *pnl_rows(books, venue),
              *cash_rows(books, venue, self._interest(venue)),
-             *net_worth_rows(books, venue))))
+             *liquidation_rows(books), *net_worth_rows(books, venue))))
         self.phase = Phase.CLOSED
 
     def _interest(self, venue: VenueState) -> float | None:
-        """rate × the average of cash at the seed and now × ticks since."""
+        """rate × the average of cash at the seed and now × ticks since.
+        A liquidated seat earns nothing after the close-out."""
         books = self.books
         now = venue.tick if venue.tick is not None else self.tick
+        cash_now = books.cash
+        if books.liquidation is not None:
+            now, cash_now = books.liquidation.tick, books.liquidation.cash_before
         if now is None or books.anchor_tick is None:
             return None
-        cash = max(0.0, (books.seed_cash + books.cash) / 2)
+        cash = max(0.0, (books.seed_cash + cash_now) / 2)
         return self.interest_rate * cash * max(0, now - books.anchor_tick)
 
     def _log(self, recon: Recon) -> None:

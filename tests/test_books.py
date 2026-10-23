@@ -328,6 +328,40 @@ def test_futures_and_a_settlement_reconcile(venue):
     assert recon.row("realized").ok
 
 
+def test_liquidation_of_this_seat_reconciles(venue, caplog):
+    """A futures blow-up with cash still positive: the venue closes both
+    positions at a penalty, sends no fills, and pays no interest after."""
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("buy", "AAPL", 100, 200.0, taker=True)
+    seat.trade("buy", "ARENA10", 500, 290.0, taker=True)
+    seat.ticks(30)
+    venue.ref_prices["ARENA10"] = 80.0
+    with caplog.at_level(logging.INFO, logger="team.books"):
+        seat.ticks(1)                   # the maintenance check liquidates
+    assert venue.portfolios["me"].liquidated
+    assert "BOOKS  liquidated: proceeds" in caplog.text
+    seat.ticks(200)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("positions held").venue == 0
+    assert recon.row("realized").ok
+    assert "the venue closed every position" in recon.row("liquidated").note
+
+
+def test_liquidation_of_another_seat_changes_nothing(venue):
+    seat = Seat(venue)
+    seat.connect()
+    seat.trade("buy", "AAPL", 50, 200.0, taker=True)
+    seat.run(venue._liquidate(venue.portfolios["them"], 0.0))
+    seat.trade("buy", "MSFT", 5, 400.0, taker=False, against="other")
+    seat.ticks(5)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("pos AAPL").own == 50
+    assert not any(r.item == "liquidated" for r in recon.rows)
+
+
 def test_reconnect_with_books_intact(venue, caplog):
     seat = Seat(venue)
     seat.connect()
