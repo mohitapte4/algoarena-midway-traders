@@ -1,6 +1,6 @@
 # Week 3: pydantic message schemas
 
-Run `pytest` for the round-trip tests (`test_roundtrip.py`) and the dispatch and negative tests (`test_message_adapter.py`). With the arena exchange running (`make exchange`), run `python client.py` to stream its books for 30 s; set `EXCHANGE_URL` to point it at another venue.
+Run `pytest -v --cov=. --cov-report=term-missing` (needs `pytest-cov`) from this directory to run every test with coverage: the round-trip tests (`test_roundtrip.py`), the dispatch and negative tests (`test_message_adapter.py`) and the malformed book-level tests (`test_protocol_contract.py`). With the arena exchange running (`make exchange`), run `python client.py` to stream its books for 30 s; set `EXCHANGE_URL` to point it at another venue.
 
 ## Schema versioning
 
@@ -10,41 +10,49 @@ Renaming or removing a field, tightening a constraint or adding a required field
 
 ## Test coverage
 
-`pytest -v --cov=. --cov-report=term-missing` (needs `pytest-cov`), Python 3.13 on macOS:
+The single test command above, Python 3.13 on macOS:
 
 ```
-test_message_adapter.py::test_dispatch_by_type_tag[-Handshake] PASSED    [  5%]
-test_message_adapter.py::test_dispatch_by_type_tag[-PlaceOrder] PASSED   [ 10%]
-test_message_adapter.py::test_dispatch_by_type_tag[-OrderAck] PASSED     [ 15%]
-test_message_adapter.py::test_dispatch_by_type_tag[-BookSnapshot] PASSED [ 21%]
-test_message_adapter.py::test_unknown_type_tag_is_rejected PASSED        [ 26%]
-test_message_adapter.py::test_missing_field_is_rejected PASSED           [ 31%]
-test_message_adapter.py::test_wrong_type_is_rejected PASSED              [ 36%]
-test_message_adapter.py::test_zero_quantity_is_rejected PASSED           [ 42%]
-test_roundtrip.py::test_round_trip[Handshake0] PASSED                    [ 47%]
-test_roundtrip.py::test_round_trip[Handshake1] PASSED                    [ 52%]
-test_roundtrip.py::test_round_trip[Handshake2] PASSED                    [ 57%]
-test_roundtrip.py::test_round_trip[PlaceOrder0] PASSED                   [ 63%]
-test_roundtrip.py::test_round_trip[PlaceOrder1] PASSED                   [ 68%]
-test_roundtrip.py::test_round_trip[OrderAck0] PASSED                     [ 73%]
-test_roundtrip.py::test_round_trip[OrderAck1] PASSED                     [ 78%]
-test_roundtrip.py::test_round_trip[BookSnapshot0] PASSED                 [ 84%]
-test_roundtrip.py::test_round_trip[BookSnapshot1] PASSED                 [ 89%]
-test_roundtrip.py::test_every_model_is_covered PASSED                    [ 94%]
+test_message_adapter.py::test_dispatch_by_type_tag[-Handshake] PASSED    [  3%]
+test_message_adapter.py::test_dispatch_by_type_tag[-PlaceOrder] PASSED   [  7%]
+test_message_adapter.py::test_dispatch_by_type_tag[-OrderAck] PASSED     [ 11%]
+test_message_adapter.py::test_dispatch_by_type_tag[-BookSnapshot] PASSED [ 15%]
+test_message_adapter.py::test_unknown_type_tag_is_rejected PASSED        [ 19%]
+test_message_adapter.py::test_missing_field_is_rejected PASSED           [ 23%]
+test_message_adapter.py::test_wrong_type_is_rejected PASSED              [ 26%]
+test_message_adapter.py::test_zero_quantity_is_rejected PASSED           [ 30%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level0] PASSED [ 34%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level1] PASSED [ 38%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level2] PASSED [ 42%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level3] PASSED [ 46%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level4] PASSED [ 50%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level5] PASSED [ 53%]
+test_protocol_contract.py::test_malformed_book_level_rejected[level6] PASSED [ 57%]
+test_roundtrip.py::test_round_trip[Handshake0] PASSED                    [ 61%]
+test_roundtrip.py::test_round_trip[Handshake1] PASSED                    [ 65%]
+test_roundtrip.py::test_round_trip[Handshake2] PASSED                    [ 69%]
+test_roundtrip.py::test_round_trip[PlaceOrder0] PASSED                   [ 73%]
+test_roundtrip.py::test_round_trip[PlaceOrder1] PASSED                   [ 76%]
+test_roundtrip.py::test_round_trip[OrderAck0] PASSED                     [ 80%]
+test_roundtrip.py::test_round_trip[OrderAck1] PASSED                     [ 84%]
+test_roundtrip.py::test_round_trip[BookSnapshot0] PASSED                 [ 88%]
+test_roundtrip.py::test_round_trip[BookSnapshot1] PASSED                 [ 92%]
+test_roundtrip.py::test_every_model_is_covered PASSED                    [ 96%]
 test_roundtrip.py::test_book_levels_come_back_as_float_lists PASSED      [100%]
 
-Name                      Stmts   Miss  Cover   Missing
--------------------------------------------------------
-client.py                    27     27     0%   9-43
-models.py                    37      0   100%
-test_message_adapter.py      28      0   100%
-test_roundtrip.py            17      0   100%
--------------------------------------------------------
-TOTAL                       109     27    75%
-============================== 19 passed in 0.11s ==============================
+Name                        Stmts   Miss  Cover   Missing
+---------------------------------------------------------
+client.py                      27     27     0%   9-43
+models.py                      45      0   100%
+test_message_adapter.py        28      0   100%
+test_protocol_contract.py       7      0   100%
+test_roundtrip.py              17      0   100%
+---------------------------------------------------------
+TOTAL                         124     27    78%
+============================== 26 passed in 0.22s ==============================
 ```
 
-`models.py` is fully covered. `client.py` has no unit tests; it is checked by the live run below.
+`models.py` is fully covered. `test_protocol_contract.py` checks that `BookSnapshot` rejects malformed book levels: a level with the wrong number of entries, a negative or zero size, a negative price, and a NaN or infinite price. `client.py` has no unit tests; it is checked by the live run below.
 
 ## Client against the exchange
 
