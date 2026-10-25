@@ -92,8 +92,7 @@ for, but it was a small, controlled bet.
 ## Purchase window 1: we didn't buy anything
 
 None of the upgrades pay for themselves this phase. The best one,
-`fee_tier` ($40k), would earn our broker about $1.1k a session, or about
-$7.7k over the 7 sessions left. Adding a seat just moves money we already
+`fee_tier` ($40k), would earn our broker about $1.1k a session. Adding a seat just moves money we already
 have into another bot, and that bot would share our message quota and share
 limit. We'd rather wait for the Week 7 window, when we'll know which of our
-strategies is actually working.
+strategies is actually working. At the meantime, we'll keep improving our existing bots.
