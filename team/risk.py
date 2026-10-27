@@ -90,3 +90,36 @@ class EventLimits:
         by_value = int(self.max_symbol * net_worth // price)
         room = min(self.max_shares, by_value) - max(held, 0)
         return max(0, int(room * min(fraction, 1.0)))
+
+
+class TradingState:
+    """Exchange halts are lifted by explicit resume events, never a timer."""
+
+    def __init__(self) -> None:
+        self.symbols: set[str] = set()
+        self.market_halted = False
+        self.seat_limit: int | None = None
+
+    def event(self, event: str, data: dict) -> None:
+        symbol = data.get("symbol")
+        if event == "TRADING_HALT" and symbol:
+            self.symbols.add(symbol)
+        elif event == "TRADING_RESUMED" and symbol:
+            self.symbols.discard(symbol)
+        elif event == "MARKET_HALT":
+            self.market_halted = True
+        elif event == "MARKET_RESUMED":
+            self.market_halted = False
+        if event in ("SESSION_PREOPEN", "SESSION_OPEN"):
+            scenario = data.get("scenario") or {}
+            limit = scenario.get("position_limit")
+            if isinstance(limit, (int, float)) and limit > 0:
+                # Three seats share the team's limit. Never increase our
+                # existing caps merely because a scenario allows more.
+                self.seat_limit = max(0, int(limit) // 3)
+
+    def blocked(self, symbol: str) -> bool:
+        return self.market_halted or symbol in self.symbols
+
+    def cap(self, default: int) -> int:
+        return default if self.seat_limit is None else min(default, self.seat_limit)

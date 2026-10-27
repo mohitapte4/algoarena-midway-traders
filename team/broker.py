@@ -36,7 +36,8 @@ from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, Plac
                              parse_message)
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.reconnect import run_with_backoff
-from team.venue import TokenBucket
+from team.venue import TokenBucket, OwnOrders, Order
+from team.risk import TradingState
 
 logger = logging.getLogger(__name__)
 
@@ -165,6 +166,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # Shares an order took as a taker before its ack arrived.
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
+        self.trading_state = TradingState()
+        self._risk_orders = OwnOrders()
+        self._risk_ready = False
+        self._initial_equity: float | None = None
         self._paused_until: dict[str, float] = {}   # symbol or "*" -> time
         # Each book's levels as last snapshotted: (bids, asks) of [price, qty]
         self._levels: dict[str, tuple[list, list]] = {}
@@ -197,6 +202,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         does, would only lose track of what was left.
         """
         self._live.clear()
+        self._risk_orders.clear()
+        self._risk_ready = False
         self._taken.clear()
         self.state.resting_orders.clear()
         self.state.last_quote_prices.clear()
@@ -230,7 +237,61 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # SESSION_CLOSED); once it is closed only cancels are accepted.
         if isinstance(msg, PlaceOrder) and not self._session_open:
             return
+        if isinstance(msg, PlaceOrder):
+            # Recheck after pacing: a halt/portfolio update can arrive while
+            # waiting for the next message slot.
+            if (self.trading_state.blocked(msg.symbol)
+                    or not self._approve_risk(msg)):
+                return
+            self._risk_orders.add(Order(
+                msg.symbol, msg.side, msg.price, msg.quantity,
+                self._clock(), "broker", False))
+        elif isinstance(msg, CancelOrder):
+            for order in self._risk_orders:
+                if order.order_id == msg.order_id:
+                    order.cancel_sent_at = self._clock()
         await super()._send(msg)
+
+    def _approve_risk(self, msg: PlaceOrder) -> bool:
+        """No borrowing; reserve pending orders and leave cash/equity buffers.
+
+        Risk-reducing orders remain possible when the equity floor is hit.
+        An authoritative portfolio and prices for every holding are required.
+        """
+        if not self._risk_ready or not msg.price:
+            return False
+        self._risk_orders.expire(self._clock(), unacked=False)
+        prices = self.state.exchange_prices
+        if any(not prices.get(s) for s, q in self.state.positions.items() if q):
+            return False
+        equity = self.state.cash + sum(q * prices[s]
+                                      for s, q in self.state.positions.items() if q)
+        if equity <= 0:
+            return False
+        if self._initial_equity is None:
+            self._initial_equity = equity
+        held = self.state.positions.get(msg.symbol, 0)
+        buys = self._risk_orders.open_quantity(msg.symbol, "buy")
+        sells = self._risk_orders.open_quantity(msg.symbol, "sell")
+        cap = self.trading_state.cap(MAX_INVENTORY)
+        projected = (held + buys + msg.quantity if msg.side == "buy"
+                     else held - sells - msg.quantity)
+        if abs(projected) > cap and abs(projected) >= abs(held):
+            return False
+        reducing = ((msg.side == "sell" and 0 < msg.quantity <= max(0, held - sells))
+                    or (msg.side == "buy" and 0 < msg.quantity <= max(0, -held - buys)))
+        reserved = sum(o.quantity * o.price for o in self._risk_orders)
+        notional = msg.quantity * msg.price
+        if msg.side == "buy":
+            # Includes all outstanding buys, not just this symbol's ladder.
+            cash_room = self.state.cash - self._risk_orders.open_buy_notional() * 1.01
+            if notional * 1.01 > cash_room - (0 if reducing else equity * 0.10):
+                return False
+        if reducing:
+            return True
+        gross = sum(abs(q) * prices[s] for s, q in self.state.positions.items() if q)
+        return (equity >= (self._initial_equity or equity) * 0.80
+                and gross + reserved + notional <= equity * 0.20)
 
     # ── quoting ─────────────────────────────────────────────────────────
 
@@ -238,8 +299,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         """MAX_INVENTORY, or EVENT_MAX_INVENTORY once an event has fired in
         the name: informed flow follows an event for the rest of the block."""
         if symbol in self._event_fired or "*" in self._event_fired:
-            return EVENT_MAX_INVENTORY
-        return MAX_INVENTORY
+            return self.trading_state.cap(EVENT_MAX_INVENTORY)
+        return self.trading_state.cap(MAX_INVENTORY)
 
     def _ask_room(self, symbol: str) -> int:
         """Shares we may offer: the inventory, plus the inventory limit short
@@ -300,7 +361,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
     async def quote_symbol(self, symbol: str) -> None:
         """The engine's ladder, with each ask capped at the inventory not
         already offered on the levels inside it."""
-        if self._errors >= REJECT_BUDGET or self._paused(symbol):
+        if (self._errors >= REJECT_BUDGET or self._paused(symbol)
+                or self.trading_state.blocked(symbol)):
             return
         centre = self.quote_centre(symbol)
         if not centre:
@@ -414,12 +476,18 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     async def _on_error(self, msg: ErrorMsg) -> None:
         if msg.code == "ORDER_NOT_FOUND":
+            self._risk_orders.on_reject(msg.code, msg.message)
             # A cancel that lost the race with a fill (our own seats fade
             # into these bids as an event fires): not a rejected order.
             found = _NOT_FOUND.search(msg.message)
             if found:
                 self._live.pop(found.group(1), None)
             return
+        # STP identifies the exact resting order. Other errors (notably a
+        # throttled cancel) may not identify which request failed: keep the
+        # reservation rather than freeing money for an order still live.
+        if msg.code == "STP_CANCEL":
+            self._risk_orders.on_reject(msg.code, msg.message)
         self._errors += 1
         if msg.code == "STP_CANCEL":
             # The venue names the quote it pulled by side, symbol and price.
@@ -439,6 +507,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     def _on_portfolio(self, msg: PortfolioUpdate) -> None:
         super()._on_portfolio(msg)
+        self._risk_ready = True
+        prices = self.state.exchange_prices
+        if all(prices.get(s) for s, q in msg.positions.items() if q):
+            equity = msg.cash + sum(q * prices[s] for s, q in msg.positions.items() if q)
+            if self._initial_equity is None and equity > 0:
+                self._initial_equity = equity
         if self._opening is None and msg.positions:
             self._opening = dict(msg.positions)
             logger.info("Opening position (not skewed away): %s", self._opening)
@@ -446,6 +520,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
     def _on_order_ack(self, msg: OrderAck) -> None:
         if msg.team_id != _config.TEAM_ID:
             return
+        self._risk_orders.on_ack(msg.order_id, msg.symbol, msg.side, msg.price)
         open_qty = msg.quantity - self._taken.pop((msg.symbol, msg.side), 0)
         if open_qty > 0:
             self._live[msg.order_id] = _Quote(msg.symbol, msg.side,
@@ -473,6 +548,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         A taker fill with no such quote belongs to an order not yet acked,
         and its ack subtracts it.
         """
+        self._risk_orders.on_fill(symbol, side, qty, price, self._clock())
         sign = 1 if side == "buy" else -1
         hit = sorted((i for i, q in self._live.items()
                       if (q.symbol, q.side) == (symbol, side)
@@ -493,6 +569,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     async def _on_session_event(self, msg: SessionEvent) -> None:
         try:
+            self.trading_state.event(msg.event, msg.data or {})
             if msg.event in ("SESSION_PREOPEN", "SESSION_OPEN"):
                 flags = (msg.data.get("scenario") or {}).get("flags") or {}
                 self._shorts_allowed = flags.get("shorts_allowed") is True
