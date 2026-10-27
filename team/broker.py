@@ -10,7 +10,8 @@ Underneath, TeamBrokerBot sends only orders and cancels the venue accepts
 (asks capped at the inventory, or at MAX_INVENTORY short once shorts are
 allowed; no cancels for filled quotes; nothing after the close), stands
 aside while a scheduled event or a shock moves the price, and leaves a new
-listing alone for its first minute of price discovery.
+listing alone for its first minute of price discovery. It also keeps the
+seat's own books (team.books) and logs their reconciliation with the venue.
 
 Run:
     TEAM_ID=midway_traders_broker python -m team.broker
@@ -34,6 +35,7 @@ from broker.broker import _print_startup
 from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              PortfolioUpdate, SessionEvent, TradeExecution,
                              parse_message)
+from team.books import Bookkeeper
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.reconnect import run_with_backoff
 from team.venue import TokenBucket, OwnOrders, Order
@@ -64,6 +66,11 @@ PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 TICK = 0.01
 LISTING_PAUSE_SEC = 60.0  # an IPO opens at the offer and moves ~3% a tick
+# The venue sends an event and then the fills it set off. Pulling the quotes
+# this long after the event lets the listener book those fills first, so no
+# cancel goes to a quote that already traded (week-4 run: ORDER_NOT_FOUND on
+# AMZN). Far inside the 60 ticks the session check gives the broker to act.
+EVENT_CANCEL_GRACE_SEC = 0.05
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
 _STP = re.compile(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)")
 
@@ -183,6 +190,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._clock = time.monotonic
         self._sleep = asyncio.sleep
         self._bucket = TokenBucket(MESSAGES_PER_SEC, MESSAGES_PER_SEC)
+        self._books = Bookkeeper(_config.TEAM_ID)
+        self._pulls: set[asyncio.Task] = set()      # event cancels in their grace
 
     # ── connection ──────────────────────────────────────────────────────
 
@@ -209,14 +218,22 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self.state.last_quote_prices.clear()
         try:
             await self.connect_to_exchange()
+            try:
+                self._books.on_connect()
+            except Exception:
+                logger.exception("Books could not take the connect")
             self._session_open = False
             listener = asyncio.create_task(self.listen_to_exchange())
             requoter = asyncio.create_task(self.requote_loop())
             try:
                 await listener
             finally:
-                requoter.cancel()
-                await asyncio.wait({requoter})   # a cancel aimed at us still propagates
+                # The venue sweeps our quotes as the link drops, so the event
+                # cancels still waiting would go to orders it already pulled.
+                pending = {requoter, *self._pulls}
+                for task in pending:
+                    task.cancel()
+                await asyncio.wait(pending)   # a cancel aimed at us still propagates
         finally:
             if self._ws:
                 with contextlib.suppress(Exception):
@@ -464,6 +481,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             msg = parse_message(json.loads(raw))
         except (KeyError, ValueError):
             return                     # the engine loop logs these
+        try:
+            self._books.on_message(msg)
+        except Exception:
+            logger.exception("Books could not take %s", type(msg).__name__)
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
             return
@@ -574,9 +595,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 flags = (msg.data.get("scenario") or {}).get("flags") or {}
                 self._shorts_allowed = flags.get("shorts_allowed") is True
             elif msg.event == "CALENDAR":
-                await self._on_calendar(msg.data)
+                self._on_calendar(msg.data)
             elif msg.event in ("CALENDAR_EVENT", "SHOCK"):
-                await self._on_fire(msg.event, msg.data)
+                self._on_fire(msg.event, msg.data)
             elif msg.event == "IPO_LISTED" and msg.data.get("symbol"):
                 # Nothing rests in the name yet, so there is nothing to cancel.
                 self._paused_until[msg.data["symbol"]] = (
@@ -589,7 +610,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     # ── events ──────────────────────────────────────────────────────────
 
-    async def _on_calendar(self, data: dict) -> None:
+    def _on_calendar(self, data: dict) -> None:
         """An imminent event: out until three default ramps after it fires.
 
         The venue warns `announce_lead` ticks ahead (twice that on the early
@@ -601,10 +622,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         for ev in data.get("imminent") or []:
             key = ("*" if ev.get("market_wide") or not ev.get("symbol")
                    else ev["symbol"])
-            await self._pause(key, (lead + PAUSE_RAMPS * DEFAULT_RAMP_TICKS)
-                              * EXCHANGE_TICK_SEC, ev.get("kind", "event"))
+            self._pause(key, (lead + PAUSE_RAMPS * DEFAULT_RAMP_TICKS)
+                        * EXCHANGE_TICK_SEC, ev.get("kind", "event"))
 
-    async def _on_fire(self, event: str, data: dict) -> None:
+    def _on_fire(self, event: str, data: dict) -> None:
         """A CALENDAR_EVENT or SHOCK: out until three ramps from now.
 
         This replaces a longer pause from the warning, which assumed the
@@ -619,18 +640,30 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 [data["symbol"]] if data.get("symbol") else [])
         for key in keys:
             self._event_fired.add(key)
-            await self._pause(key, PAUSE_RAMPS * ramp * EXCHANGE_TICK_SEC, event,
-                              replace=True)
+            self._pause(key, PAUSE_RAMPS * ramp * EXCHANGE_TICK_SEC, event,
+                        replace=True)
 
-    async def _pause(self, key: str, seconds: float, reason: str, *,
-                     replace: bool = False) -> None:
+    def _pause(self, key: str, seconds: float, reason: str, *,
+               replace: bool = False) -> None:
+        """Quote nothing in `key` from now on, and pull its quotes once the
+        fills already on their way are booked (EVENT_CANCEL_GRACE_SEC)."""
         until = self._clock() + seconds
         if not replace:
             until = max(self._paused_until.get(key, 0.0), until)
         self._paused_until[key] = until
-        for symbol in list(self._quote_symbols) if key == "*" else [key]:
-            await self.cancel_quotes(symbol)
+        symbols = list(self._quote_symbols) if key == "*" else [key]
+        task = asyncio.create_task(self._pull_quotes(symbols))
+        self._pulls.add(task)
+        task.add_done_callback(self._pulls.discard)
         logger.info("EVENT %s: %s quotes pulled for %.0fs", reason, key, seconds)
+
+    async def _pull_quotes(self, symbols: list[str]) -> None:
+        await asyncio.sleep(EVENT_CANCEL_GRACE_SEC)
+        for symbol in symbols:
+            try:
+                await self.cancel_quotes(symbol)
+            except Exception:
+                logger.exception("Could not pull the quotes for %s", symbol)
 
 
 if __name__ == "__main__":

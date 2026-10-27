@@ -33,3 +33,8 @@ TRADER_IDS = ['midway_traders_trader_1', 'midway_traders_trader_2']
 
 # Capital you allocated per bot (informational — the exchange enforces it):
 CAPITAL = {'midway_traders_broker': 400000, 'midway_traders_trader_1': 300000, 'midway_traders_trader_2': 300000}
+
+# Interest the venue credits on positive cash each tick
+# (engine/exchange/config.py CASH_INTEREST_PER_TICK). No message itemizes it,
+# so team.books estimates it to explain the cash left over at reconciliation.
+CASH_INTEREST_PER_TICK = 0.000002

@@ -186,11 +186,11 @@ orders for the rest of the session.
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `momentum_trader.py`       | `MomentumTrader._signal()`: trader_1's strategy.                                                                                      |
 | `mean_reversion_trader.py` | `MeanReversionTrader._signal()`: trader_2's strategy.                                                                                 |
-| `base_trader.py`           | What both trader seats share: the event layer, the reaction bid, the stop-loss, the starter order, maker quoting, and the order gate. |
+| `base_trader.py`           | What both trader seats share: the event layer, the reaction bid, the stop-loss, the starter order, maker quoting, the ORCA bid (`on_ipo`) and the order gate. |
 | `events.py`                | Event plans: the edge-versus-fee check and the price levels.                                                                          |
 | `venue.py`                 | Own-order tracking (`OwnOrders`), and `TeamBot`, which routes acks, rejects and cancels to the trader.                                |
 | `reconnect.py`             | `run_with_backoff`, the reconnect policy both bots use.                                                                               |
-| `broker.py`                | `MyBroker` (quote width and skew) and `TeamBrokerBot` (long-only asks, inventory cap, pacing, event pauses, reject budget).           |
+| `broker.py`                | `MyBroker` (quote width) and `TeamBrokerBot`: quotes that never cross the book, inventory skew from the opening position, inventory caps (50 a name after an event), pacing, event pauses, reject budget. |
 | `risk.py`                  | `RiskLimits` (strategy limits) and `EventLimits` (event sizing).                                                                      |
 | `trader.py`                | The Level 1 single-order bot. It is not used on Fridays.                                                                              |
 
@@ -198,26 +198,89 @@ Do not edit `arena/` or `engine/`. Change behaviour by overriding in `team/`.
 
 ## Testing a change before Friday
 
-Run the unit tests:
+There are four ways to test. Only the local venue (2) runs our own seats
+under the week's rules, so use it before every Friday.
+
+### 1. Unit tests (seconds)
 
     make test
 
-To run against a local copy of the week-3 venue, use four terminals:
+The week-4 rules (IPO, shorts, the opening auction, the broker's quoting)
+are covered in `tests/test_week4.py`.
 
-    make exchange SCENARIO_PATH=season/week03.json EXCHANGE_PORT=8799
-    make momentum EXCHANGE_URL=ws://localhost:8799
-    make meanrev EXCHANGE_URL=ws://localhost:8799
-    make broker EXCHANGE_URL=ws://localhost:8799
+### 2. Local venue: the dress rehearsal (about 22 minutes)
 
-In the exchange terminal, type `open` to start the session. Type
-`shock earnings_miss` to inject a shock, and `close` to end the session. The
-NVDA earnings event fires 300 s after `open`. To test reconnecting, stop the
-exchange with Ctrl-C and start it again.
+Run the week's scenario on your own machine, in four terminals:
+
+    make exchange SCENARIO_PATH=season/week04.json EXCHANGE_PORT=8799
+    make momentum EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
+    make meanrev  EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
+    make broker   EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
 
 > **Put `EXCHANGE_URL=...` after `make`, never before it.** `make` loads
 > `.env`, which points at the hosted venue. A variable set in front of `make`
 > (`EXCHANGE_URL=... make momentum`) is overridden by `.env`, so the seat
 > connects to the real venue instead of the local one.
+
+In the exchange terminal, type `open`. The 12-tick opening auction runs,
+then the scenario's events fire on their own, one tick a second. Week 4:
+
+| Tick  | Event                    |
+|-------|--------------------------|
+| t150  | ORCA bookbuild opens     |
+| t350  | AMZN earnings            |
+| t450  | ORCA bookbuild closes, priced |
+| t550  | ORCA lists               |
+| t600  | AAPL dividend            |
+| t800  | GOOGL earnings           |
+| t1150 | econ print, market-wide  |
+
+Type `close` after the econ print has settled, about t1250. Other console
+commands: `shock earnings_miss` injects a shock.
+
+To test a reconnect, stop a seat with Ctrl-C during the bookbuild and start
+it again: the venue replays the open book and the seat re-submits its
+indication. To test a late join, start one seat after the cross.
+
+Check afterwards:
+
+* `grep "REJECT #" logs/*.log` finds nothing new.
+* Each trader log shows `IPO_SUB_RESULT` for ORCA and `ORDER` lines after
+  `AUCTION_RESULT`.
+* The exchange terminal prints `EOD RECON PASS`.
+
+The only liquidity is our own broker, which steps aside around events, so
+rides and buy-backs often find nothing to trade against. That is expected:
+this tests readiness and order handling, not profit.
+
+### 3. Season simulator (house bots only)
+
+    make season WEEK=4
+    python scripts/season_sim.py --compare-upgrade fee_tier --upgrade-target mm_aggressive --seed 1
+
+`season_sim` runs the house bots, not our code. Use it to see what a week's
+market and IPO look like, and to price a shop upgrade (`--compare-upgrade`,
+run 2–3 seeds). Do not add `--week 4` to `--compare-upgrade`: argparse
+reads it as `--weeks 4` and silently skips the comparison.
+
+### 4. Replay a recorded block
+
+The class posts each Friday's tape on Canvas. Unzip it into `sessions/`
+(ignored by git). Two tools read it:
+
+    python scripts/seat_attribution.py sessions/session_week03_20261016_204000_market.jsonl
+    make backtest FILE=sessions/<file>.jsonl.gz STRATEGY=momentum
+
+`seat_attribution.py` shows each of our seats' fills, maker share, fees,
+rebates and **P&L against doing nothing**, which is the comparison with the
+idle teams on the dashboard. Add `--team <prefix>` to read another team's
+seats, for example the winner's. On Session 3 it showed the broker losing
+$376 against idle: $304 of taker fees against $127 of rebates, and 145 NVDA
+bought from the winner's timed exit and held to the close.
+
+`event_backtest.py` (section below) replays the tape through our trader
+seats. It enforces week-3 rules (no shorts, 400-share cap) and does not run
+the IPO, so use it for event behaviour, not week-4 readiness.
 
 ## Backtest and the official score
 

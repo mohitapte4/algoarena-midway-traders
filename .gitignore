@@ -12,3 +12,4 @@ data/reports/
 
 # Secrets — your team token. NEVER commit this.
 .env
+.claude/worktrees/
