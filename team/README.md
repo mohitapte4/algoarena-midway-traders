@@ -8,10 +8,45 @@ Budget invested: $1,000,000, across three seats:
 | `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`                                    |
 | `midway_traders_broker`   | $400,000 | market maker                | `make broker` |
 
-## Friday checklist
+## Week 5 checklist — Thursday October 29
 
-Session 3 is on Fri Oct 16 (NVDA and TSLA earnings, long-only). Session 4
-is on Fri Oct 23 (the ORCA IPO).
+The graded risk block is **Thursday Oct 29, 17:00–18:00 Chicago (CDT)**.
+Pre-open starts at 17:00; the market opens at 17:10, with the 12-tick
+opening cross ending at 17:10:12. Friday Oct 30 is the online midterm,
+with no lecture or Friday live block.
+
+The Week 5 requirements are: no forced liquidation, positions inside the
+published scenario limit, and activity resuming after a trading halt.
+Both traders and the broker now track symbol and market-wide halts and
+wait for explicit resume events. A symbol resume does not lift a market
+halt. The send gates recheck halts, including after broker pacing waits.
+Existing accepted orders are retained in our bookkeeping through a halt;
+the exchange keeps them resting.
+
+Each seat uses the smaller of its existing cap and one third of the
+published team limit. With the bundled 800-share Week 5 limit, the existing
+200/200/150 long caps remain unchanged. Outstanding orders count too.
+Do not run duplicate processes for a seat: these budgets assume one process
+per seat and exactly these three seats.
+
+The broker waits for an authoritative portfolio after connecting and uses
+conservative additional entry limits: no borrowing, 10% cash reserve,
+20% gross exposure including outstanding orders, and no new exposure below
+80% of its first observed equity. Risk-reducing trades remain allowed when
+funded. Cancels retain reservations through the reconciliation grace period;
+unknown unacknowledged orders keep their reservation until reconciled or a
+reconnect. These limits reduce risk; they do not guarantee against all
+market gaps, pre-existing positions or venue changes.
+
+**Event schedule (Chicago):** NFLX earnings at 17:15:12, AMD earnings at
+17:22:42, and a market-wide economic print at 17:27:42. Direction is unknown.
+
+Run `make test`, including `tests/test_week5.py`, before launching. That file
+exercises the actual team classes through halts/resumes, pending order cash
+and position limits, and an in-process Week 5 exchange replay with an adverse
+move and maintenance enabled. `make season WEEK=5` is useful as a scenario
+smoke test, but its default population is preset bots, not our three seats.
+Neither offline test proves the hosted login or predicts the live score.
 
 **Before the block**
 
@@ -54,7 +89,7 @@ is on Fri Oct 23 (the ORCA IPO).
 2. Put the session recording from Canvas in `sessions/`, also gitignored,
    and replay it through the seats (see [Backtest](#backtest-and-the-official-score)).
 
-## What is graded, and how the seats meet it
+## Historical Phase 1 checks (Weeks 1–4)
 
 Part A is scored for each seat from the session recording.
 
@@ -286,9 +321,8 @@ difference under about 0.02 as noise.
 
 - [ ] **Bookkeeping.** Track realized P&L from fills alongside position and
       average entry. Reconcile against the dashboard at the close.
-- [ ] **The ORCA IPO** (Session 4, Oct 23). Implement `on_ipo` in the trader
-      seats. No seat overrides it yet, so each one passes silently, and the
-      grade needs a reasoned bid or a reasoned pass.
+- [x] **The ORCA IPO.** Week 4 IPO handling was merged before this change.
+      Keep the session evidence and explain the bid/pass decision in the writeup.
 - [ ] **`PHASE1.md`.** Cover how we track state, how we reconnect, and the IPO
       decision. Attach a session log that shows the handshake, acked orders,
       fills, and one survived disconnect.

@@ -53,6 +53,7 @@ from shared.messages import (  # noqa: E402  (engine module)
     CancelOrder,
     ErrorMsg,
     OrderAck,
+    PlaceOrder,
     SessionEvent,
     TradeExecution,
     parse_message,
@@ -101,6 +102,12 @@ class OwnOrders:
     def clear(self) -> None:
         """Forget everything (after a reconnect the venue state is unknown)."""
         self._orders.clear()
+
+    def discard_unsent(self, symbol: str, side: str) -> None:
+        """Release a locally blocked signal; no venue reject occurred."""
+        self._orders = [o for o in self._orders
+                        if not (o.symbol == symbol and o.side == side
+                                and o.order_id is None)]
 
     # ── venue messages ──────────────────────────────────────────────────
 
@@ -161,12 +168,13 @@ class OwnOrders:
                 return o
         return None
 
-    def expire(self, now: float) -> list[Order]:
+    def expire(self, now: float, *, unacked: bool = True) -> list[Order]:
         """Forget cancelled orders past the grace period and lost orders."""
         gone = [o for o in self._orders
                 if (o.cancel_sent_at is not None
                     and now - o.cancel_sent_at >= CANCEL_GRACE_SEC)
-                or (o.order_id is None and now - o.sent_at >= ACK_TIMEOUT_SEC)]
+                or (unacked and o.order_id is None
+                    and now - o.sent_at >= ACK_TIMEOUT_SEC)]
         for o in gone:
             self._orders.remove(o)
         return gone
@@ -248,6 +256,13 @@ class _Tap:
 
 class TeamBot(_AdaptedTraderBot):
     """The engine's trader bot with order acks, rejects and cancels wired in."""
+
+    async def _send(self, msg) -> None:
+        if isinstance(msg, PlaceOrder) and self._owner.trading_state.blocked(msg.symbol):
+            self._owner.orders.discard_unsent(msg.symbol, msg.side)
+            logger.info("Blocked queued order during halt: %s", msg.symbol)
+            return
+        await super()._send(msg)
 
     def __init__(self, owner) -> None:
         super().__init__(owner)

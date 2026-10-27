@@ -60,7 +60,7 @@ from team.events import (
     DEFAULT_OVERSHOOT, DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC, FADE, RIDE,
     EventPlan, designed_edge, size_fraction,
 )
-from team.risk import EventLimits, RiskLimits
+from team.risk import EventLimits, RiskLimits, TradingState
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
 
 logger = logging.getLogger(__name__)
@@ -130,6 +130,7 @@ class BaseTrader(Trader):
                  event_limits: EventLimits | None = None) -> None:
         super().__init__()
         self.limits = limits or RiskLimits()
+        self.trading_state = TradingState()
         self.event_limits = event_limits or EventLimits()
         self._clock = clock
         self._preopen = False
@@ -308,6 +309,7 @@ class BaseTrader(Trader):
 
     def on_event(self, event: str, message: str, data: dict) -> None:
         """Auction state, fees, the event calendar and shocks."""
+        self.trading_state.event(event, data)
         if event != "AUCTION_INDICATIVE":       # sent every pre-open tick
             logger.info("EVENT  %-14s %s", event, message)
         if event == "SESSION_PREOPEN":
@@ -909,7 +911,8 @@ class BaseTrader(Trader):
                purpose: str | None = None,
                allow_short: bool = False) -> Signal | None:
         """Build an order the venue will accept, or return None."""
-        if self._stopped or not price or qty < 1 or symbol in self.untradeable:
+        if (self._stopped or not price or qty < 1 or symbol in self.untradeable
+                or self.trading_state.blocked(symbol)):
             return None
         if now < self._paused_until or now < self._cooldown.get(symbol, 0.0):
             return None
@@ -930,7 +933,7 @@ class BaseTrader(Trader):
             qty = min(qty, self.sellable(symbol, allow_short))
         else:
             held = max(self._position(symbol), self._ledger.get(symbol, 0), 0)
-            qty = min(qty, SEAT_MAX_SHARES - held
+            qty = min(qty, self.trading_state.cap(SEAT_MAX_SHARES) - held
                       - self.orders.open_quantity(symbol, "buy"))
             cash = self._portfolio.cash if self._portfolio is not None else 0.0
             room = cash / (1 + self.taker) - self.orders.open_buy_notional()
@@ -962,6 +965,8 @@ class BaseTrader(Trader):
         venue = self._position(symbol)
         own = self._ledger.get(symbol, venue)
         room = self.short_room(symbol) if allow_short else 0
+        cap = self.trading_state.cap(SEAT_MAX_SHARES)
+        room = min(room, cap)
         return max(0, min(venue, own) + room - self.orders.open_quantity(symbol, "sell"))
 
     def short_room(self, symbol: str) -> int:
@@ -985,7 +990,7 @@ class BaseTrader(Trader):
             for s, q in self._portfolio.positions.items() if s != symbol)
         notional = min(self.limits.max_symbol * net_worth,
                        self.limits.max_gross * net_worth - other_shorts)
-        return max(0, min(self.MAX_SHORT, int(notional // mid)))
+        return max(0, min(self.trading_state.cap(self.MAX_SHORT), int(notional // mid)))
 
     def _ipo_held(self, symbol: str) -> bool:
         return symbol in self._ipo_offer and bool(self._bought.get(symbol))
