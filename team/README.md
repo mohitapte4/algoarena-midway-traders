@@ -23,6 +23,7 @@ wait for the resume event, or for the halt duration the venue announced
 duration waits for the event. A `SYMBOL_HALTED` reject blocks the symbol
 until the "Resume in Ns" it names. A symbol resume does not lift a market
 halt; the teacher's lift-all `MARKET_RESUMED` clears the symbols it lists.
+An event reaction whose symbol halts waits out the halt and bids on resume.
 The send gates recheck halts, including after broker pacing waits.
 Existing accepted orders are retained in our bookkeeping through a halt;
 the exchange keeps them resting.

@@ -50,7 +50,7 @@ import math
 import time
 from collections import Counter
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 from pathlib import Path
 
@@ -509,6 +509,12 @@ class BaseTrader(Trader):
     def _reaction_signal(self, market, now: float, halted: bool) -> Signal | None:
         """The fallback bid for events nothing else has traded since."""
         for symbol, r in list(self._reactions.items()):
+            if self.trading_state.blocked(symbol):
+                # The event's own move usually trips a halt longer than the
+                # expiry: bid once trading resumes instead of never.
+                self._reactions[symbol] = replace(
+                    r, expires=max(r.expires, now + REACTION_EXPIRY_SEC))
+                continue
             acted = self._last_order_at.get(symbol, -math.inf) >= r.t0
             if acted or now >= r.expires:
                 del self._reactions[symbol]

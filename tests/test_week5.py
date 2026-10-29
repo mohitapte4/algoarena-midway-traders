@@ -366,3 +366,17 @@ def test_broker_symbol_halted_reject_stops_quoting_the_name(monkeypatch):
     now[0] += 65
     run(b.quote_symbol('AAPL'))
     assert places(sent)
+
+
+@pytest.mark.parametrize('cls', [MomentumTrader, MeanReversionTrader])
+def test_reaction_bid_waits_out_the_halt_its_event_caused(cls):
+    from tests.test_event_layer import PX, fire, run as tick
+    t, m, p, c = setup(cls)
+    fire(t, 0.062)
+    t.on_event('TRADING_HALT', '', {'symbol': 'AAPL', 'duration': 300})
+    assert tick(t, m, p, c, 300) == []
+    t.on_event('TRADING_RESUMED', '', {'symbol': 'AAPL'})
+    out = tick(t, m, p, c, 10)
+    assert [(s.side, s.quantity) for _, s in out] == [('buy', 5)]
+    assert out[0][0] < 2
+    assert out[0][1].price <= PX * 1.062
