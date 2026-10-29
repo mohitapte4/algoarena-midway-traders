@@ -2,11 +2,11 @@
 
 Budget invested: $1,000,000, across three seats:
 
-| Seat                      | Capital  | What it runs                | Command                                           |
-| ------------------------- | -------- | --------------------------- | ------------------------------------------------- |
-| `midway_traders_trader_1` | $300,000 | momentum + event ride/fade  | `make momentum`                                   |
-| `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`                                    |
-| `midway_traders_broker`   | $400,000 | market maker                | `make broker` |
+| Seat                      | Capital  | What it runs                | Command         |
+| ------------------------- | -------- | --------------------------- | --------------- |
+| `midway_traders_trader_1` | $300,000 | momentum + event ride/fade  | `make momentum` |
+| `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`  |
+| `midway_traders_broker`   | $400,000 | market maker                | `make broker`   |
 
 ## Week 5 checklist — Thursday October 29
 
@@ -182,17 +182,17 @@ orders for the rest of the session.
 
 ## Where the code lives
 
-| File                       | What it owns                                                                                                                          |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `momentum_trader.py`       | `MomentumTrader._signal()`: trader_1's strategy.                                                                                      |
-| `mean_reversion_trader.py` | `MeanReversionTrader._signal()`: trader_2's strategy.                                                                                 |
-| `base_trader.py`           | What both trader seats share: the event layer, the reaction bid, the stop-loss, the starter order, maker quoting, the ORCA bid (`on_ipo`) and the order gate. |
-| `events.py`                | Event plans: the edge-versus-fee check and the price levels.                                                                          |
-| `venue.py`                 | Own-order tracking (`OwnOrders`), and `TeamBot`, which routes acks, rejects and cancels to the trader.                                |
-| `reconnect.py`             | `run_with_backoff`, the reconnect policy both bots use.                                                                               |
+| File                       | What it owns                                                                                                                                                                                              |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `momentum_trader.py`       | `MomentumTrader._signal()`: trader_1's strategy.                                                                                                                                                          |
+| `mean_reversion_trader.py` | `MeanReversionTrader._signal()`: trader_2's strategy.                                                                                                                                                     |
+| `base_trader.py`           | What both trader seats share: the event layer, the reaction bid, the stop-loss, the starter order, maker quoting, the ORCA bid (`on_ipo`) and the order gate.                                             |
+| `events.py`                | Event plans: the edge-versus-fee check and the price levels.                                                                                                                                              |
+| `venue.py`                 | Own-order tracking (`OwnOrders`), and `TeamBot`, which routes acks, rejects and cancels to the trader.                                                                                                    |
+| `reconnect.py`             | `run_with_backoff`, the reconnect policy both bots use.                                                                                                                                                   |
 | `broker.py`                | `MyBroker` (quote width) and `TeamBrokerBot`: quotes that never cross the book, inventory skew from the opening position, inventory caps (50 a name after an event), pacing, event pauses, reject budget. |
-| `risk.py`                  | `RiskLimits` (strategy limits) and `EventLimits` (event sizing).                                                                      |
-| `trader.py`                | The Level 1 single-order bot. It is not used on Fridays.                                                                              |
+| `risk.py`                  | `RiskLimits` (strategy limits) and `EventLimits` (event sizing).                                                                                                                                          |
+| `trader.py`                | The Level 1 single-order bot. It is not used on Fridays.                                                                                                                                                  |
 
 Do not edit `arena/` or `engine/`. Change behaviour by overriding in `team/`.
 
@@ -225,15 +225,15 @@ Run the week's scenario on your own machine, in four terminals:
 In the exchange terminal, type `open`. The 12-tick opening auction runs,
 then the scenario's events fire on their own, one tick a second. Week 4:
 
-| Tick  | Event                    |
-|-------|--------------------------|
-| t150  | ORCA bookbuild opens     |
-| t350  | AMZN earnings            |
+| Tick  | Event                         |
+| ----- | ----------------------------- |
+| t150  | ORCA bookbuild opens          |
+| t350  | AMZN earnings                 |
 | t450  | ORCA bookbuild closes, priced |
-| t550  | ORCA lists               |
-| t600  | AAPL dividend            |
-| t800  | GOOGL earnings           |
-| t1150 | econ print, market-wide  |
+| t550  | ORCA lists                    |
+| t600  | AAPL dividend                 |
+| t800  | GOOGL earnings                |
+| t1150 | econ print, market-wide       |
 
 Type `close` after the econ print has settled, about t1250. Other console
 commands: `shock earnings_miss` injects a shock.
@@ -244,10 +244,10 @@ indication. To test a late join, start one seat after the cross.
 
 Check afterwards:
 
-* `grep "REJECT #" logs/*.log` finds nothing new.
-* Each trader log shows `IPO_SUB_RESULT` for ORCA and `ORDER` lines after
+- `grep "REJECT #" logs/*.log` finds nothing new.
+- Each trader log shows `IPO_SUB_RESULT` for ORCA and `ORDER` lines after
   `AUCTION_RESULT`.
-* The exchange terminal prints `EOD RECON PASS`.
+- The exchange terminal prints `EOD RECON PASS`.
 
 The only liquidity is our own broker, which steps aside around events, so
 rides and buy-backs often find nothing to trade against. That is expected:
