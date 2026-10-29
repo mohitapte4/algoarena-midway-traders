@@ -81,7 +81,8 @@ SEAT_MAX_SHARES = 200     # per symbol: held + on order. The team limit (800
                           # from week 4) counts both seats' orders and the
                           # broker's inventory and bids (team.broker
                           # MAX_INVENTORY = 150), so 2 × 200 + 150 stays under.
-PRICE_BAND = 0.09         # venue rejects limits beyond ±10% of the mark
+PRICE_BAND = 0.09         # venue rejects limits beyond ±10% of the mark by
+                          # default; a week's LULD_BAND_PCT can tighten it
 ORDERS_PER_SEC = 4.0      # orders + cancels; the team shares 20 per tick
 QUOTE_DRIFT = 0.001       # re-quote once the touch is 10 bp away
 TICK_SIZE = 0.01
@@ -153,6 +154,8 @@ class BaseTrader(Trader):
         self._ipo_unbooked: set[str] = set()
         # listed but not equities (e.g. the index future): never ordered
         self.untradeable: set[str] = set()
+        # the venue's mark per symbol: the LULD band is measured from it
+        self.marks: dict[str, float] = {}
         self._fills = 0
         self._last_note: dict[str, str] = {}
 
@@ -1004,9 +1007,11 @@ class BaseTrader(Trader):
         return symbol in self._ipo_offer and bool(self._bought.get(symbol))
 
     def _in_band(self, symbol: str, side: str, price: float) -> float:
-        mid = self._market.mid_price(symbol) if self._market is not None else None
-        if mid:
-            price = min(max(price, mid * (1 - PRICE_BAND)), mid * (1 + PRICE_BAND))
+        mark = self.marks.get(symbol) or (
+            self._market.mid_price(symbol) if self._market is not None else None)
+        if mark:
+            band = self.trading_state.band(PRICE_BAND)
+            price = min(max(price, mark * (1 - band)), mark * (1 + band))
         # buys round down and sells up, so rounding never makes a price worse
         cents = price / TICK_SIZE
         cents = math.floor(cents + 1e-6) if side == "buy" else math.ceil(cents - 1e-6)

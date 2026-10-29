@@ -322,9 +322,12 @@ class TeamBot(_AdaptedTraderBot):
                 self._owner.on_ack(msg.order_id, msg.symbol, msg.side, msg.price)
             elif isinstance(msg, ErrorMsg):
                 self._owner.on_reject(msg.code, msg.message)
-            elif isinstance(msg, BookSnapshot) and msg.asset_type != "equity":
-                # e.g. the index future, listed before it may be traded
-                self._owner.untradeable.add(msg.symbol)
+            elif isinstance(msg, BookSnapshot):
+                if msg.ref_price > 0:
+                    self._owner.marks[msg.symbol] = msg.ref_price
+                if msg.asset_type != "equity":
+                    # e.g. the index future, listed before it may be traded
+                    self._owner.untradeable.add(msg.symbol)
         except Exception:
             logger.exception("Trader could not take %s", type(msg).__name__)
 

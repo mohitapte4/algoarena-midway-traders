@@ -356,6 +356,18 @@ def test_symbol_halted_reject_blocks_until_the_venue_resume_time():
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
 
 
+@pytest.mark.parametrize('side', ['buy', 'sell'])
+def test_limit_prices_stay_inside_the_weeks_luld_band_around_the_mark(side):
+    t, m, p, c = setup(positions={'AAPL': 50})
+    t.on_tick(m, p)
+    t.on_event('SESSION_OPEN', '', {'scenario': {'config': {'LULD_BAND_PCT': 0.08}}})
+    mark = m.mid_price('AAPL') * 0.97
+    t.marks['AAPL'] = mark
+    wild = mark * (1.2 if side == 'buy' else 0.8)
+    s = t._place('AAPL', side, 5, wild, c.t, 'test', taker=True)
+    assert mark * 0.92 <= s.price <= mark * 1.08
+
+
 def test_broker_symbol_halted_reject_stops_quoting_the_name(monkeypatch):
     from shared.messages import ErrorMsg
     b, sent, now = live_broker(monkeypatch)

@@ -96,6 +96,7 @@ class EventLimits:
 
 
 HALT_GRACE_SEC = 3.0    # past the venue's stated halt end before trying again
+BAND_MARGIN = 0.01      # inside the week's LULD band: the mark moves every tick
 
 _RESUME_IN = re.compile(r"Resume in (\d+(?:\.\d+)?)s")
 
@@ -111,6 +112,7 @@ class TradingState:
         self.symbols: dict[str, float] = {}     # symbol -> when the halt ends
         self.market_until: float | None = None
         self.seat_limit: int | None = None
+        self.luld_band: float | None = None
 
     def _until(self, data: dict) -> float:
         duration = data.get("duration")
@@ -138,6 +140,9 @@ class TradingState:
                 # Three seats share the team's limit. Never increase our
                 # existing caps merely because a scenario allows more.
                 self.seat_limit = max(0, int(limit) // 3)
+            band = (scenario.get("config") or {}).get("LULD_BAND_PCT")
+            if isinstance(band, (int, float)) and band > 0:
+                self.luld_band = float(band)
 
     def halted_reject(self, symbol: str, message: str) -> None:
         """A SYMBOL_HALTED reject: the halt began while we were not listening."""
@@ -152,3 +157,9 @@ class TradingState:
 
     def cap(self, default: int) -> int:
         return default if self.seat_limit is None else min(default, self.seat_limit)
+
+    def band(self, default: float) -> float:
+        """How far from the venue's mark a limit price may go this week."""
+        if self.luld_band is None:
+            return default
+        return min(default, self.luld_band - BAND_MARGIN)
