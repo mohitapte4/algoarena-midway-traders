@@ -18,8 +18,12 @@ with no lecture or Friday live block.
 The Week 5 requirements are: no forced liquidation, positions inside the
 published scenario limit, and activity resuming after a trading halt.
 Both traders and the broker now track symbol and market-wide halts and
-wait for explicit resume events. A symbol resume does not lift a market
-halt. The send gates recheck halts, including after broker pacing waits.
+wait for the resume event, or for the halt duration the venue announced
+(plus 3 s) when a reconnect missed the resume. A halt with no stated
+duration waits for the event. A `SYMBOL_HALTED` reject blocks the symbol
+until the "Resume in Ns" it names. A symbol resume does not lift a market
+halt; the teacher's lift-all `MARKET_RESUMED` clears the symbols it lists.
+The send gates recheck halts, including after broker pacing waits.
 Existing accepted orders are retained in our bookkeeping through a halt;
 the exchange keeps them resting.
 

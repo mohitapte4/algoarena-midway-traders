@@ -23,6 +23,9 @@ minute, with a share cap that keeps the team inside the venue's limit
 
 from __future__ import annotations
 
+import math
+import re
+from collections.abc import Callable
 from dataclasses import dataclass
 
 
@@ -92,24 +95,42 @@ class EventLimits:
         return max(0, int(room * min(fraction, 1.0)))
 
 
-class TradingState:
-    """Exchange halts are lifted by explicit resume events, never a timer."""
+HALT_GRACE_SEC = 3.0    # past the venue's stated halt end before trying again
 
-    def __init__(self) -> None:
-        self.symbols: set[str] = set()
-        self.market_halted = False
+_RESUME_IN = re.compile(r"Resume in (\d+(?:\.\d+)?)s")
+
+
+class TradingState:
+    """Exchange halts end on the venue's resume event, or once the duration
+    the venue announced has passed: a seat that dropped during the halt never
+    sees the resume. A halt that states no duration is never lifted by a guess.
+    """
+
+    def __init__(self, clock: Callable[[], float]) -> None:
+        self._clock = clock
+        self.symbols: dict[str, float] = {}     # symbol -> when the halt ends
+        self.market_until: float | None = None
         self.seat_limit: int | None = None
+
+    def _until(self, data: dict) -> float:
+        duration = data.get("duration")
+        if isinstance(duration, (int, float)):
+            return self._clock() + duration + HALT_GRACE_SEC
+        return math.inf
 
     def event(self, event: str, data: dict) -> None:
         symbol = data.get("symbol")
         if event == "TRADING_HALT" and symbol:
-            self.symbols.add(symbol)
+            self.symbols[symbol] = self._until(data)
         elif event == "TRADING_RESUMED" and symbol:
-            self.symbols.discard(symbol)
+            self.symbols.pop(symbol, None)
         elif event == "MARKET_HALT":
-            self.market_halted = True
+            self.market_until = self._until(data)
         elif event == "MARKET_RESUMED":
-            self.market_halted = False
+            # The teacher's lift resumes every halted symbol in this one event.
+            self.market_until = None
+            for s in data.get("symbols") or ():
+                self.symbols.pop(s, None)
         if event in ("SESSION_PREOPEN", "SESSION_OPEN"):
             scenario = data.get("scenario") or {}
             limit = scenario.get("position_limit")
@@ -118,8 +139,16 @@ class TradingState:
                 # existing caps merely because a scenario allows more.
                 self.seat_limit = max(0, int(limit) // 3)
 
+    def halted_reject(self, symbol: str, message: str) -> None:
+        """A SYMBOL_HALTED reject: the halt began while we were not listening."""
+        found = _RESUME_IN.search(message)
+        self.symbols[symbol] = (self._clock() + float(found.group(1)) + HALT_GRACE_SEC
+                                if found else math.inf)
+
     def blocked(self, symbol: str) -> bool:
-        return self.market_halted or symbol in self.symbols
+        now = self._clock()
+        return ((self.market_until is not None and now < self.market_until)
+                or now < self.symbols.get(symbol, -math.inf))
 
     def cap(self, default: int) -> int:
         return default if self.seat_limit is None else min(default, self.seat_limit)

@@ -73,6 +73,7 @@ LISTING_PAUSE_SEC = 60.0  # an IPO opens at the offer and moves ~3% a tick
 EVENT_CANCEL_GRACE_SEC = 0.05
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
 _STP = re.compile(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)")
+_HALTED = re.compile(r"^(\S+) trading is halted")
 
 
 def volatility_spread(price, history) -> float | None:
@@ -173,7 +174,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # Shares an order took as a taker before its ack arrived.
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
-        self.trading_state = TradingState()
+        self.trading_state = TradingState(lambda: self._clock())
         self._risk_orders = OwnOrders()
         self._risk_ready = False
         self._initial_equity: float | None = None
@@ -510,6 +511,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if msg.code == "STP_CANCEL":
             self._risk_orders.on_reject(msg.code, msg.message)
         self._errors += 1
+        halted = _HALTED.search(msg.message) if msg.code == "SYMBOL_HALTED" else None
+        if halted:
+            self.trading_state.halted_reject(halted.group(1), msg.message)
         if msg.code == "STP_CANCEL":
             # The venue names the quote it pulled by side, symbol and price.
             found = _STP.search(msg.message)

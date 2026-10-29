@@ -130,9 +130,9 @@ class BaseTrader(Trader):
                  event_limits: EventLimits | None = None) -> None:
         super().__init__()
         self.limits = limits or RiskLimits()
-        self.trading_state = TradingState()
         self.event_limits = event_limits or EventLimits()
         self._clock = clock
+        self.trading_state = TradingState(lambda: self._clock())
         self._preopen = False
         self._start_net_worth: float | None = None
         self._halt_logged = False
@@ -404,6 +404,8 @@ class BaseTrader(Trader):
         symbol = order.symbol if order else None
         if symbol:
             self._cooldown[symbol] = now + REJECT_COOLDOWN_SEC
+        if code == "SYMBOL_HALTED" and symbol:
+            self.trading_state.halted_reject(symbol, message)
         if code in ("SSR_RESTRICTED", "BORROW_UNAVAILABLE") and symbol:
             # The rule holds until the next open; retrying spends the budget.
             self._no_short.add(symbol)

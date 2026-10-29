@@ -311,3 +311,58 @@ def test_unknown_unacked_broker_order_keeps_budget_reserved(monkeypatch):
     run(b._send(PlaceOrder(order_type='limit', team_id='me', symbol='AMD',
                           side='buy', price=100, quantity=15)))
     assert len(sent) == 1
+
+
+@pytest.mark.parametrize('cls', [MomentumTrader, MeanReversionTrader])
+def test_halt_lifts_after_venue_duration_when_resume_is_missed(cls):
+    t, m, p, c = setup(cls)
+    t.on_tick(m, p)
+    t.on_event('TRADING_HALT', '', {'symbol': 'AAPL', 'duration': 300})
+    t.on_connect()  # the seat dropped and missed TRADING_RESUMED
+    c.t += 299
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
+    c.t += 5
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
+
+
+def test_broker_halt_lifts_after_venue_duration(monkeypatch):
+    b, sent, now = live_broker(monkeypatch)
+    run(b._on_session_event(event('TRADING_HALT', symbol='AAPL', duration=300)))
+    now[0] += 299
+    run(b.quote_symbol('AAPL'))
+    assert not places(sent)
+    now[0] += 5
+    run(b.quote_symbol('AAPL'))
+    assert places(sent)
+
+
+def test_teacher_lift_resumes_halted_symbols():
+    t, m, p, c = setup()
+    t.on_tick(m, p)
+    t.on_event('TRADING_HALT', '', {'symbol': 'AAPL'})
+    t.on_event('MARKET_RESUMED', '', {'symbols': ['AAPL']})
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
+
+
+def test_symbol_halted_reject_blocks_until_the_venue_resume_time():
+    t, m, p, c = setup()
+    t.on_tick(m, p)
+    t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False)
+    t.on_reject('SYMBOL_HALTED', 'AAPL trading is halted. Resume in 120s')
+    assert t.rejects['SYMBOL_HALTED'] == 1
+    c.t += 100
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
+    c.t += 25
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
+
+
+def test_broker_symbol_halted_reject_stops_quoting_the_name(monkeypatch):
+    from shared.messages import ErrorMsg
+    b, sent, now = live_broker(monkeypatch)
+    run(b._on_error(ErrorMsg(code='SYMBOL_HALTED',
+                             message='AAPL trading is halted. Resume in 60s')))
+    run(b.quote_symbol('AAPL'))
+    assert not places(sent)
+    now[0] += 65
+    run(b.quote_symbol('AAPL'))
+    assert places(sent)
