@@ -1,0 +1,88 @@
+-- queries_duckdb.sql — HW4 questions in DuckDB over build/tape.parquet. Same answers as
+-- queries_sqlite.sql. {W} is the warehouse and OWN our three seats (run_hw4_queries.py).
+
+-- name: views
+CREATE OR REPLACE VIEW book   AS SELECT * FROM read_parquet('{W}/book_snapshot/**/*.parquet',   hive_partitioning = true);
+CREATE OR REPLACE VIEW trades AS SELECT * FROM read_parquet('{W}/trade_execution/**/*.parquet', hive_partitioning = true);
+CREATE OR REPLACE VIEW events AS SELECT * FROM read_parquet('{W}/session_event/**/*.parquet',   hive_partitioning = true);
+-- The end-of-tick book: one row per (week, symbol, t), the last snapshot by seq.
+CREATE OR REPLACE VIEW book_eot AS
+SELECT * FROM book QUALIFY row_number() OVER (PARTITION BY week, symbol, t ORDER BY seq DESC) = 1;
+
+-- name: q1_event_window
+-- Backward as-of: the latest end-of-tick book at or before each tick.
+WITH ev AS (
+    SELECT e.week, e.t AS ev_t, e.kind, e.pct, s.symbol
+    FROM events e, LATERAL (SELECT unnest(CAST(json_extract_string(e.data, '$.affected') AS VARCHAR[])) AS symbol) s
+    WHERE e.event = 'CALENDAR_EVENT'),
+grid AS (SELECT ev.*, k FROM ev, (VALUES (-1), (5), (15), (60)) v(k)),
+px AS (
+    SELECT g.*, b.mid FROM grid g ASOF JOIN book_eot b
+    ON g.week = b.week AND g.symbol = b.symbol AND g.ev_t + g.k >= b.t),
+w AS (
+    SELECT week, kind, symbol, ev_t, any_value(pct) AS pct,
+           max(mid) FILTER (k = -1) AS pre, max(mid) FILTER (k = 5) AS m5,
+           max(mid) FILTER (k = 15) AS m15, max(mid) FILTER (k = 60) AS m60
+    FROM px GROUP BY ALL)
+SELECT week, kind, symbol, ev_t, round(100 * pct, 2) AS announced_pct, round(pre, 4) AS pre,
+       round(m5, 4) AS m5, round(m15, 4) AS m15, round(m60, 4) AS m60,
+       round(100 * (m5 / pre - 1), 3) AS ret5, round(100 * (m15 / pre - 1), 3) AS ret15,
+       round(100 * (m60 / pre - 1), 3) AS ret60
+FROM w ORDER BY week, ev_t, symbol;
+
+-- name: q2a_paid_vs_touch
+-- BACKWARD as-of on seq: the last book of the symbol written strictly before the fill's line.
+WITH own AS (
+    SELECT week, seq, symbol, price, quantity, buyer_id AS seat, 1 AS sgn,
+           CASE WHEN buyer_id = taker_id THEN 1 ELSE 0 END AS is_taker FROM trades WHERE buyer_id IN (OWN)
+    UNION ALL
+    SELECT week, seq, symbol, price, quantity, seller_id, -1,
+           CASE WHEN seller_id = taker_id THEN 1 ELSE 0 END FROM trades WHERE seller_id IN (OWN)),
+m AS (
+    SELECT o.*, (b.best_bid + b.best_ask) / 2 AS touch_mid
+    FROM own o ASOF LEFT JOIN book b
+    ON o.week = b.week AND o.symbol = b.symbol AND o.seq > b.seq)
+SELECT week, seat, count(*) AS fills, sum(is_taker) AS taker_fills, count(touch_mid) AS two_sided,
+       round(avg(1e4 * sgn * (price - touch_mid) / touch_mid), 4) AS paid_vs_mid_bp,
+       round(avg(CASE WHEN is_taker = 1 THEN 1e4 * sgn * (price - touch_mid) / touch_mid END), 4)
+           AS taker_paid_bp,
+       round(avg(CASE WHEN is_taker = 0 THEN 1e4 * sgn * (price - touch_mid) / touch_mid END), 4)
+           AS maker_paid_bp
+FROM m GROUP BY week, seat ORDER BY week, seat;
+
+-- name: q2b_markout_60
+-- FORWARD as-of to the end-of-tick book of the first tick at or after t + 60.
+WITH own AS (
+    SELECT week, t, symbol, price, quantity, buyer_id AS seat, 1 AS sgn
+    FROM trades WHERE buyer_id IN (OWN)
+    UNION ALL
+    SELECT week, t, symbol, price, quantity, seller_id, -1
+    FROM trades WHERE seller_id IN (OWN)),
+m AS (
+    SELECT o.*, b.mid AS mid60 FROM own o ASOF JOIN book_eot b
+    ON o.week = b.week AND o.symbol = b.symbol AND b.t >= o.t + 60)
+SELECT week, seat, count(*) AS fills,
+       round(avg(1e4 * sgn * (mid60 - price) / price), 4) AS markout60_bp,
+       round(sum(sgn * (mid60 - price) * quantity), 2) AS markout60_usd
+FROM m GROUP BY week, seat ORDER BY week, seat;
+
+-- name: q3_full_scan
+SELECT week, symbol, count(*) AS snapshots,
+       round(avg(1e4 * spread / mid), 4) AS spread_bp,
+       round(avg(best_bid_qty + best_ask_qty), 4) AS top_depth
+FROM book WHERE spread IS NOT NULL
+GROUP BY week, symbol ORDER BY week, symbol;
+
+-- name: q4a_point_book_depth
+WITH b AS (SELECT * FROM book WHERE week = 4 AND symbol = 'AAPL' AND t = 300
+           ORDER BY seq DESC LIMIT 1),
+l AS (
+    SELECT seq, 'A' AS side, generate_subscripts(ask_px, 1) - 1 AS lvl,
+           unnest(ask_px) AS px, unnest(ask_qty) AS qty FROM b
+    UNION ALL
+    SELECT seq, 'B', generate_subscripts(bid_px, 1) - 1, unnest(bid_px), unnest(bid_qty) FROM b)
+SELECT seq, side, lvl, px, qty FROM l ORDER BY side, lvl;
+
+-- name: q4b_point_book_top
+SELECT seq, best_bid, best_ask, mid FROM book
+WHERE week = 4 AND symbol = 'AAPL' AND t = 300 ORDER BY seq DESC LIMIT 1;
