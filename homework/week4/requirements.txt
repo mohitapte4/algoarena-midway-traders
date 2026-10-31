@@ -1,0 +1,8 @@
+# HW4: stores, queries, backtest, and the clock page's replay of our bot.
+duckdb==1.5.6
+pyarrow==26.0.0
+polars==2.0.0
+numpy
+pydantic
+rich
+websockets

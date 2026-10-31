@@ -1,0 +1,93 @@
+-- queries_sqlite.sql — HW4 questions over build/tape.sqlite. Same answers as queries_duckdb.sql.
+-- Every as-of key includes week: seq and t restart in each tape.
+-- OWN stands for our three seats; run_hw4_queries.py substitutes it.
+
+-- name: q1_event_window
+-- Backward as-of on the logical clock: the end-of-tick book at or before each tick.
+-- pre = the latest book in a tick before the event; windows are ticks, never seconds.
+WITH ev AS (
+    SELECT e.week, e.t AS ev_t, e.kind, e.pct, a.value AS symbol
+    FROM session_event e, json_each(e.data, '$.affected') a
+    WHERE e.event = 'CALENDAR_EVENT'),
+px AS (
+    SELECT ev.*,
+      (SELECT mid FROM book b WHERE b.week = ev.week AND b.symbol = ev.symbol AND b.t <= ev.ev_t - 1
+       ORDER BY b.t DESC, b.seq DESC LIMIT 1) AS pre,
+      (SELECT mid FROM book b WHERE b.week = ev.week AND b.symbol = ev.symbol AND b.t <= ev.ev_t + 5
+       ORDER BY b.t DESC, b.seq DESC LIMIT 1) AS m5,
+      (SELECT mid FROM book b WHERE b.week = ev.week AND b.symbol = ev.symbol AND b.t <= ev.ev_t + 15
+       ORDER BY b.t DESC, b.seq DESC LIMIT 1) AS m15,
+      (SELECT mid FROM book b WHERE b.week = ev.week AND b.symbol = ev.symbol AND b.t <= ev.ev_t + 60
+       ORDER BY b.t DESC, b.seq DESC LIMIT 1) AS m60
+    FROM ev)
+SELECT week, kind, symbol, ev_t, round(100 * pct, 2) AS announced_pct, round(pre, 4) AS pre,
+       round(m5, 4) AS m5, round(m15, 4) AS m15, round(m60, 4) AS m60,
+       round(100 * (m5 / pre - 1), 3) AS ret5, round(100 * (m15 / pre - 1), 3) AS ret15,
+       round(100 * (m60 / pre - 1), 3) AS ret60
+FROM px ORDER BY week, ev_t, symbol;
+
+-- name: q2a_paid_vs_touch
+-- BACKWARD as-of: the last book of the symbol written strictly before the fill's line
+-- (b.seq < f.seq). Joined on seq, not tick: a snapshot later in the same tick already
+-- contains this fill, so it is not the book we traded against. seq is unique, so no ties.
+WITH own AS (
+    SELECT week, seq, symbol, price, quantity, buyer_id AS seat, 1 AS sgn,
+           buyer_id = taker_id AS is_taker FROM trade WHERE buyer_id IN (OWN)
+    UNION ALL
+    SELECT week, seq, symbol, price, quantity, seller_id, -1,
+           seller_id = taker_id FROM trade WHERE seller_id IN (OWN)),
+j AS (
+    SELECT o.*, (SELECT max(b.seq) FROM book b
+                 WHERE b.week = o.week AND b.symbol = o.symbol AND b.seq < o.seq) AS bseq
+    FROM own o),
+m AS (
+    SELECT j.*, (b.best_bid + b.best_ask) / 2 AS touch_mid
+    FROM j LEFT JOIN book b ON b.week = j.week AND b.seq = j.bseq)
+SELECT week, seat, count(*) AS fills, sum(is_taker) AS taker_fills, count(touch_mid) AS two_sided,
+       round(avg(1e4 * sgn * (price - touch_mid) / touch_mid), 4) AS paid_vs_mid_bp,
+       round(avg(CASE WHEN is_taker = 1 THEN 1e4 * sgn * (price - touch_mid) / touch_mid END), 4)
+           AS taker_paid_bp,
+       round(avg(CASE WHEN is_taker = 0 THEN 1e4 * sgn * (price - touch_mid) / touch_mid END), 4)
+           AS maker_paid_bp
+FROM m GROUP BY week, seat ORDER BY week, seat;
+
+-- name: q2b_markout_60
+-- FORWARD as-of (post-trade report only; a look-ahead if a decision read it): the first tick
+-- at or after t + 60 with a book of the symbol, and that tick's LAST snapshot by seq
+-- (the end-of-tick book), since one tick can hold several. Fills with no such book drop out.
+WITH own AS (
+    SELECT week, t, symbol, price, quantity, buyer_id AS seat, 1 AS sgn
+    FROM trade WHERE buyer_id IN (OWN)
+    UNION ALL
+    SELECT week, t, symbol, price, quantity, seller_id, -1
+    FROM trade WHERE seller_id IN (OWN)),
+m AS (
+    SELECT o.*, (SELECT b.mid FROM book b
+                 WHERE b.week = o.week AND b.symbol = o.symbol AND b.t >= o.t + 60
+                 ORDER BY b.t ASC, b.seq DESC LIMIT 1) AS mid60
+    FROM own o)
+SELECT week, seat, count(*) AS fills,
+       round(avg(1e4 * sgn * (mid60 - price) / price), 4) AS markout60_bp,
+       round(sum(sgn * (mid60 - price) * quantity), 2) AS markout60_usd
+FROM m WHERE mid60 IS NOT NULL GROUP BY week, seat ORDER BY week, seat;
+
+-- name: q3_full_scan
+-- Spread and top-of-book depth by week and symbol, two-sided books only.
+SELECT week, symbol, count(*) AS snapshots,
+       round(avg(1e4 * spread / mid), 4) AS spread_bp,
+       round(avg(best_bid_qty + best_ask_qty), 4) AS top_depth
+FROM book WHERE spread IS NOT NULL
+GROUP BY week, symbol ORDER BY week, symbol;
+
+-- name: q4a_point_book_depth
+-- One book: AAPL's end-of-tick snapshot at week 4, t300, every level.
+WITH b AS (SELECT week, seq FROM book WHERE week = 4 AND symbol = 'AAPL' AND t = 300
+           ORDER BY seq DESC LIMIT 1)
+SELECT l.seq, l.side, l.lvl, l.px, l.qty
+FROM b JOIN book_level l ON l.week = b.week AND l.seq = b.seq
+ORDER BY l.side, l.lvl;
+
+-- name: q4b_point_book_top
+-- The same tick, top of book only.
+SELECT seq, best_bid, best_ask, mid FROM book
+WHERE week = 4 AND symbol = 'AAPL' AND t = 300 ORDER BY seq DESC LIMIT 1;
