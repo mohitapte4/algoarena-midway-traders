@@ -28,8 +28,8 @@ import re
 import time
 from dataclasses import dataclass
 
-import broker.config as _config
-from arena import Broker
+from arena import Broker                # first: puts engine/ on sys.path
+import broker.config as _config         # noqa: E402  (engine module)
 from arena.broker import _AdaptedBrokerBot
 from broker.broker import _print_startup
 from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
