@@ -1,0 +1,442 @@
+{
+  "tape": "sessions/session_week05_20261029_221018_market.jsonl.gz",
+  "fees": {
+    "taker": 0.003,
+    "maker_rebate": 0.0005
+  },
+  "cash": 300000.0,
+  "seed_shares": 20,
+  "whole": {
+    "live bot": {
+      "pnl": 2556.476977327373,
+      "vs_do_nothing": 2431.1841440402204,
+      "max_dd": 1372.9070825185045,
+      "taker_fills": 26,
+      "maker_fills": 71,
+      "fees": 321.12564000000003,
+      "rebates": 45.11571499999999,
+      "round_trips": 60,
+      "wins": 45,
+      "rejects": {}
+    },
+    "signal only": {
+      "pnl": -97.95388029731112,
+      "vs_do_nothing": -223.24671358446358,
+      "max_dd": 2594.935401844792,
+      "taker_fills": 9,
+      "maker_fills": 46,
+      "fees": 75.12372,
+      "rebates": 22.54671,
+      "round_trips": 30,
+      "wins": 14,
+      "rejects": {
+        "ORDER_NOT_FOUND": 1
+      }
+    },
+    "do nothing": {
+      "pnl": 125.29283328715246,
+      "vs_do_nothing": 0.0,
+      "max_dd": 3007.988596216135,
+      "taker_fills": 0,
+      "maker_fills": 0,
+      "fees": 0.0,
+      "rebates": 0.0,
+      "round_trips": 0,
+      "wins": 0,
+      "rejects": {}
+    },
+    "signal, 1 update old": {
+      "pnl": 329.2932751168264,
+      "vs_do_nothing": 204.00044182967395,
+      "max_dd": 2093.044131134404,
+      "taker_fills": 8,
+      "maker_fills": 47,
+      "fees": 61.22712,
+      "rebates": 24.21669000000001,
+      "round_trips": 28,
+      "wins": 16,
+      "rejects": {}
+    },
+    "signal, 1 update ahead (look-ahead)": {
+      "pnl": -395.88437520782463,
+      "vs_do_nothing": -521.1772084949771,
+      "max_dd": 2494.356060873717,
+      "taker_fills": 9,
+      "maker_fills": 48,
+      "fees": 71.59017000000001,
+      "rebates": 25.969265000000007,
+      "round_trips": 27,
+      "wins": 10,
+      "rejects": {
+        "ORDER_NOT_FOUND": 1,
+        "PRICE_BAND": 1
+      }
+    }
+  },
+  "blocks": {
+    "0": {
+      "live bot": {
+        "pnl": 3089.158163201064,
+        "max_dd": 207.17137916467618
+      },
+      "signal only": {
+        "pnl": 1103.8203572566854,
+        "max_dd": 207.17137916467618
+      },
+      "do nothing": {
+        "pnl": 1151.9930709122564,
+        "max_dd": 197.759915032133
+      }
+    },
+    "1": {
+      "live bot": {
+        "pnl": -467.99058205331676,
+        "max_dd": 629.1571491019567
+      },
+      "signal only": {
+        "pnl": -467.99058205331676,
+        "max_dd": 629.1571491019567
+      },
+      "do nothing": {
+        "pnl": -395.06700062029995,
+        "max_dd": 588.6905482003931
+      }
+    },
+    "2": {
+      "live bot": {
+        "pnl": -934.6425506381784,
+        "max_dd": 1396.340218405181
+      },
+      "signal only": {
+        "pnl": -1975.8905303020147,
+        "max_dd": 2785.6650431987364
+      },
+      "do nothing": {
+        "pnl": -1241.6871436493238,
+        "max_dd": 2714.9799825652153
+      }
+    },
+    "3": {
+      "live bot": {
+        "pnl": 3402.3345729809953,
+        "max_dd": 89.60532456095098
+      },
+      "signal only": {
+        "pnl": 3402.3345729809953,
+        "max_dd": 89.60532456095098
+      },
+      "do nothing": {
+        "pnl": 3405.2132140134345,
+        "max_dd": 89.57152682985179
+      }
+    },
+    "4": {
+      "live bot": {
+        "pnl": 306.2901893592789,
+        "max_dd": 36.61736434017075
+      },
+      "signal only": {
+        "pnl": 306.2901893592789,
+        "max_dd": 36.61736434017075
+      },
+      "do nothing": {
+        "pnl": 310.0333571625524,
+        "max_dd": 36.44278632721398
+      }
+    }
+  },
+  "block_summary": {
+    "live bot": {
+      "mean": 432.9328590062447,
+      "sd": 763.5536420516236,
+      "positive": 2,
+      "n": 5,
+      "values": [
+        1937.1650922888075,
+        -72.9235814330168,
+        307.0445930111455,
+        -2.878641032439191,
+        -3.7431678032735363
+      ]
+    },
+    "signal only": {
+      "mean": -172.38429811539828,
+      "sd": 282.1820826126084,
+      "positive": 0,
+      "n": 5,
+      "values": [
+        -48.17271365557099,
+        -72.9235814330168,
+        -734.2033866526908,
+        -2.878641032439191,
+        -3.7431678032735363
+      ]
+    }
+  },
+  "forward_edge": {
+    "as live (mids up to t)": {
+      "entries": 109,
+      "mean_bps": -37.597109161784616,
+      "t_stat": -1.2954578540011932
+    },
+    "1 update old (up to t-1)": {
+      "entries": 109,
+      "mean_bps": 12.886922053782824,
+      "t_stat": 0.51654118802045
+    },
+    "1 update ahead (up to t+1)": {
+      "entries": 109,
+      "mean_bps": 7.319038032097088,
+      "t_stat": 0.316807473217101
+    },
+    "planted bug: 20 updates ahead": {
+      "entries": 107,
+      "mean_bps": 110.7375717454251,
+      "t_stat": 2.740717725563412
+    }
+  },
+  "next_move_corr": {
+    "as live": {
+      "pairs": 45391,
+      "corr": -0.18768390136421553
+    },
+    "1 update old": {
+      "pairs": 45391,
+      "corr": -0.09215538767067055
+    },
+    "1 update ahead": {
+      "pairs": 45391,
+      "corr": -0.08640665614266992
+    }
+  },
+  "placebo": {
+    "summary": {
+      "mean": -14.410209875357396,
+      "sd": 107.4269574799935,
+      "positive": 1,
+      "n": 10
+    },
+    "seeds": [
+      {
+        "seed": 0,
+        "pnl": 0.0,
+        "max_dd": 0.0,
+        "fills": 0
+      },
+      {
+        "seed": 1,
+        "pnl": 0.0,
+        "max_dd": 0.0,
+        "fills": 0
+      },
+      {
+        "seed": 2,
+        "pnl": 262.0615217689774,
+        "max_dd": 81.32981221204682,
+        "fills": 10
+      },
+      {
+        "seed": 3,
+        "pnl": -82.48981861291395,
+        "max_dd": 94.58897448735661,
+        "fills": 4
+      },
+      {
+        "seed": 4,
+        "pnl": 0.0,
+        "max_dd": 0.0,
+        "fills": 0
+      },
+      {
+        "seed": 5,
+        "pnl": 0.0,
+        "max_dd": 0.0,
+        "fills": 0
+      },
+      {
+        "seed": 6,
+        "pnl": -40.18918698321795,
+        "max_dd": 65.37627016777697,
+        "fills": 5
+      },
+      {
+        "seed": 7,
+        "pnl": 0.0,
+        "max_dd": 0.0,
+        "fills": 0
+      },
+      {
+        "seed": 8,
+        "pnl": -151.84943004028173,
+        "max_dd": 214.08600708706945,
+        "fills": 8
+      },
+      {
+        "seed": 9,
+        "pnl": -131.63518488613772,
+        "max_dd": 196.8986956544104,
+        "fills": 13
+      }
+    ]
+  },
+  "live_vs_replay": {
+    "live (from the tape)": {
+      "fills": 84,
+      "buys": 55,
+      "trading_pnl": -291.9570150000018,
+      "fees": 205.01331,
+      "rebates": 84.246295,
+      "symbols": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "GOOGL",
+        "INTC",
+        "META",
+        "MSFT",
+        "NFLX",
+        "ORCA"
+      ],
+      "round_trips": 59,
+      "wins": 12,
+      "by_symbol": {
+        "AAPL": -193.0017000000023,
+        "AMD": -50.78930000000037,
+        "AMZN": -68.15706999999941,
+        "GOOGL": -13.190674999999942,
+        "INTC": 17.496200000000044,
+        "META": 267.8978249999991,
+        "MSFT": -90.7634549999998,
+        "NFLX": -169.25681500000064,
+        "ORCA": 7.807974999999999
+      },
+      "events": [
+        {
+          "event": "Earnings: NFLX moving +7.6%",
+          "fills": 4,
+          "first_after_s": 0.15,
+          "shares_bought": 53,
+          "shares_sold": 32
+        },
+        {
+          "event": "Earnings: AMD moving -8.3%",
+          "fills": 0,
+          "first_after_s": null,
+          "shares_bought": 0,
+          "shares_sold": 0
+        },
+        {
+          "event": "Econ Print: market-wide moving -3.0%",
+          "fills": 30,
+          "first_after_s": 0.22,
+          "shares_bought": 133,
+          "shares_sold": 205
+        }
+      ]
+    },
+    "replay: live bot": {
+      "fills": 97,
+      "buys": 51,
+      "trading_pnl": 2349.3250750000007,
+      "fees": 321.12564000000003,
+      "rebates": 45.115715,
+      "symbols": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "GOOGL",
+        "INTC",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCA",
+        "TSLA"
+      ],
+      "round_trips": 60,
+      "wins": 45,
+      "by_symbol": {
+        "AAPL": -31.577670000000808,
+        "AMD": -193.10904999999957,
+        "AMZN": 30.450705000000198,
+        "GOOGL": 27.914099999999962,
+        "INTC": 25.022775000000024,
+        "META": 115.53577499999938,
+        "MSFT": -57.59723000000122,
+        "NFLX": 2260.5090900000014,
+        "NVDA": 43.287750000000756,
+        "ORCA": 3.665850000000006,
+        "TSLA": 125.22297999999898
+      },
+      "events": [
+        {
+          "event": "Earnings: NFLX moving +7.6%",
+          "fills": 3,
+          "first_after_s": 0.1,
+          "shares_bought": 30,
+          "shares_sold": 30
+        },
+        {
+          "event": "Earnings: AMD moving -8.3%",
+          "fills": 0,
+          "first_after_s": null,
+          "shares_bought": 0,
+          "shares_sold": 0
+        },
+        {
+          "event": "Econ Print: market-wide moving -3.0%",
+          "fills": 54,
+          "first_after_s": 0.29,
+          "shares_bought": 145,
+          "shares_sold": 144
+        }
+      ]
+    },
+    "replay: signal only": {
+      "fills": 55,
+      "buys": 21,
+      "trading_pnl": -273.7070100000037,
+      "fees": 75.12372,
+      "rebates": 22.54671,
+      "symbols": [
+        "AAPL",
+        "AMD",
+        "INTC",
+        "NFLX",
+        "NVDA"
+      ],
+      "round_trips": 30,
+      "wins": 14,
+      "by_symbol": {
+        "AAPL": -60.100310000000036,
+        "AMD": -273.61979999999994,
+        "INTC": 13.084875000000011,
+        "NFLX": 25.316619999999602,
+        "NVDA": 21.611605000000054
+      },
+      "events": [
+        {
+          "event": "Earnings: NFLX moving +7.6%",
+          "fills": 0,
+          "first_after_s": null,
+          "shares_bought": 0,
+          "shares_sold": 0
+        },
+        {
+          "event": "Earnings: AMD moving -8.3%",
+          "fills": 0,
+          "first_after_s": null,
+          "shares_bought": 0,
+          "shares_sold": 0
+        },
+        {
+          "event": "Econ Print: market-wide moving -3.0%",
+          "fills": 11,
+          "first_after_s": 40.3,
+          "shares_bought": 14,
+          "shares_sold": 15
+        }
+      ]
+    }
+  }
+}
