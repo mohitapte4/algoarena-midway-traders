@@ -8,51 +8,62 @@ Budget invested: $1,000,000, across three seats:
 | `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`  |
 | `midway_traders_broker`   | $400,000 | market maker                | `make broker`   |
 
-## Week 5 checklist — Thursday October 29
+## Week 6 checklist — Friday November 6
 
-The graded risk block is **Thursday Oct 29, 17:00–18:00 Chicago (CDT)**.
-Pre-open starts at 17:00; the market opens at 17:10, with the 12-tick
-opening cross ending at 17:10:12. Friday Oct 30 is the online midterm,
-with no lecture or Friday live block.
+The graded block is **Friday Nov 6, 15:30–16:30 Chicago (CST)**. The
+scenario switches in at 15:30:20 with the market closed, the opening
+auction runs from 15:40:00, and continuous trading starts after the
+12-tick cross at 15:40:12. The block ends on a 10-tick closing cross at
+16:30, the first week with one.
 
-The Week 5 requirements are: no forced liquidation, positions inside the
-published scenario limit, and activity resuming after a trading halt.
-Both traders and the broker now track symbol and market-wide halts and
-wait for the resume event, or for the halt duration the venue announced
-(plus 3 s) when a reconnect missed the resume. A halt with no stated
-duration waits for the event. A `SYMBOL_HALTED` reject blocks the symbol
-until the "Resume in Ns" it names. A symbol resume does not lift a market
-halt; the teacher's lift-all `MARKET_RESUMED` clears the symbols it lists.
-An event reaction whose symbol halts waits out the halt and bids on resume.
-Limit prices stay 1 point inside the week's `LULD_BAND_PCT` (8% in Week 5)
-around the venue's mark. The send gates recheck halts, including after broker pacing waits.
-Existing accepted orders are retained in our bookkeeping through a halt;
-the exchange keeps them resting.
+The Week 6 requirements are everything from Oct 30 (no forced liquidation,
+positions inside the scenario limit, trading resumes after a halt), a bid
+in the VLTA bookbuild, and staying connected for at least 80% of the block.
 
-Each seat uses the smaller of its existing cap and one third of the
-published team limit. With the bundled 800-share Week 5 limit, the existing
-200/200/150 long caps remain unchanged. Outstanding orders count too.
-Do not run duplicate processes for a seat: these budgets assume one process
-per seat and exactly these three seats.
+When the VLTA book opens, each trader indicates 200 shares at the top of
+the range ($34). The venue sends the open book again to a seat that
+connects or reconnects during the bookbuild, so a seat that starts late
+still bids, as long as it is connected before the book closes at 15:47:12.
+An allocation is offered at 1.12× the offer price once VLTA lists, with a
+stop 8% below it. The broker leaves VLTA alone for 60 s after listing.
 
-The broker waits for an authoritative portfolio after connecting and uses
-conservative additional entry limits: no borrowing, 10% cash reserve,
-20% gross exposure including outstanding orders, and no new exposure below
-80% of its first observed equity. Risk-reducing trades remain allowed when
-funded. Cancels retain reservations through the reconciliation grace period;
-unknown unacknowledged orders keep their reservation until reconciled or a
-reconnect. These limits reduce risk; they do not guarantee against all
-market gaps, pre-existing positions or venue changes.
+The limit is 1,000 shares per symbol for the team, so each seat's cap is
+333; the existing 200/200/150 caps don't change. Two 200-share VLTA
+allocations put the team at 400.
 
-**Event schedule (Chicago):** NFLX earnings at 17:15:12, AMD earnings at
-17:22:42, and a market-wide economic print at 17:27:42. Direction is unknown.
+The closing auction takes limit orders only, and all our orders are
+limits. Nothing in the bots needed changing for it.
 
-Run `make test`, including `tests/test_week5.py`, before launching. That file
-exercises the actual team classes through halts/resumes, pending order cash
-and position limits, and an in-process Week 5 exchange replay with an adverse
-move and maintenance enabled. `make season WEEK=5` is useful as a scenario
-smoke test, but its default population is preset bots, not our three seats.
-Neither offline test proves the hosted login or predicts the live score.
+**Event schedule (Chicago):**
+
+| Time     | Tick | Event                                     |
+| -------- | ---- | ----------------------------------------- |
+| 15:42:42 | t150 | VLTA bookbuild opens                      |
+| 15:44:22 | t250 | INTC earnings, 3–8%                       |
+| 15:47:12 | t420 | VLTA bookbuild closes and is priced       |
+| 15:48:52 | t520 | VLTA lists                                |
+| 15:50:12 | t600 | MSFT earnings, 3–7%                       |
+| 15:53:32 | t800 | NVDA dividend, $0.30 a share              |
+| 15:56:02 | t950 | econ print, market-wide, 1.5–3%           |
+
+Direction is unknown for all of them.
+
+We ran a compressed Week 6 rehearsal on Nov 5 (same rules, events moved
+earlier): both traders' VLTA indications were recorded (400 shares, 2
+bidders) and allocated, the INTC and MSFT halts passed with every seat
+still connected, the closing cross ran cleanly, the broker's books matched
+the venue at the close, and there were no rejects.
+
+On Windows, set `PYTHONUTF8=1` before starting a seat (the startup banner
+can't be printed in the default code page), and if `make` isn't available,
+start the seats directly:
+
+    $env:PYTHONUTF8 = "1"; $env:TICK_INTERVAL = "0.1"
+    $env:TEAM_ID = "midway_traders_trader_1"; python -m team.momentum_trader
+    $env:TEAM_ID = "midway_traders_trader_2"; python -m team.mean_reversion_trader
+    $env:TEAM_ID = "midway_traders_broker";   python -m team.broker
+
+(one seat per terminal; set `TEAM_ID` in each).
 
 **Before the block**
 
@@ -218,10 +229,10 @@ are covered in `tests/test_week4.py`.
 
 Run the week's scenario on your own machine, in four terminals:
 
-    make exchange SCENARIO_PATH=season/week04.json EXCHANGE_PORT=8799
-    make momentum EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
-    make meanrev  EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
-    make broker   EXCHANGE_URL=ws://localhost:8799 EXCHANGE_URLS=ws://localhost:8799
+    make exchange SCENARIO_PATH=season/week06.json EXCHANGE_PORT=8799
+    make momentum EXCHANGE_URL=ws://127.0.0.1:8799 EXCHANGE_URLS=ws://127.0.0.1:8799
+    make meanrev  EXCHANGE_URL=ws://127.0.0.1:8799 EXCHANGE_URLS=ws://127.0.0.1:8799
+    make broker   EXCHANGE_URL=ws://127.0.0.1:8799 EXCHANGE_URLS=ws://127.0.0.1:8799
 
 > **Put `EXCHANGE_URL=...` after `make`, never before it.** `make` loads
 > `.env`, which points at the hosted venue. A variable set in front of `make`
@@ -229,19 +240,22 @@ Run the week's scenario on your own machine, in four terminals:
 > connects to the real venue instead of the local one.
 
 In the exchange terminal, type `open`. The 12-tick opening auction runs,
-then the scenario's events fire on their own, one tick a second. Week 4:
+then the scenario's events fire on their own, one tick a second. Week 6:
 
-| Tick  | Event                         |
-| ----- | ----------------------------- |
-| t150  | ORCA bookbuild opens          |
-| t350  | AMZN earnings                 |
-| t450  | ORCA bookbuild closes, priced |
-| t550  | ORCA lists                    |
-| t600  | AAPL dividend                 |
-| t800  | GOOGL earnings                |
-| t1150 | econ print, market-wide       |
+| Tick | Event                         |
+| ---- | ----------------------------- |
+| t150 | VLTA bookbuild opens          |
+| t250 | INTC earnings                 |
+| t420 | VLTA bookbuild closes, priced |
+| t520 | VLTA lists                    |
+| t600 | MSFT earnings                 |
+| t800 | NVDA dividend                 |
+| t950 | econ print, market-wide       |
 
-Type `close` after the econ print has settled, about t1250. Other console
+Type `close` after the econ print has settled, about t1050; the closing
+auction then runs for 10 ticks. Use `127.0.0.1`, not `localhost`: on
+Windows `localhost` tries IPv6 first, the local venue only listens on IPv4,
+and the seats time out connecting. Other console
 commands: `shock earnings_miss` injects a shock.
 
 To test a reconnect, stop a seat with Ctrl-C during the bookbuild and start
@@ -251,7 +265,7 @@ indication. To test a late join, start one seat after the cross.
 Check afterwards:
 
 - `grep "REJECT #" logs/*.log` finds nothing new.
-- Each trader log shows `IPO_SUB_RESULT` for ORCA and `ORDER` lines after
+- Each trader log shows `IPO_SUB_RESULT` for VLTA and `ORDER` lines after
   `AUCTION_RESULT`.
 - The exchange terminal prints `EOD RECON PASS`.
 
