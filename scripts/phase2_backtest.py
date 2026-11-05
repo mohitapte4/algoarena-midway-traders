@@ -18,9 +18,9 @@ the venue's rejects) at the fee schedule Session 5 actually charged, and runs:
   2. Dispersion: the same three bots on five independent 10-minute blocks,
      each started fresh.
   3. Look-ahead check: the signal fed the book mids one update older (a real
-     edge should shrink a little) and one update ahead (look-ahead: a
-     windfall a genuine backtest must not see). Measured on trades and on
-     the signal's forward returns.
+     edge should shrink a little), one update ahead, and 20 updates ahead
+     (a planted look-ahead bug the check should catch). Measured on trades
+     and on the signal's forward returns.
   4. Placebo: the same crossover rule in the house simulator across ten price
      seeds. Its prices are a random walk, so any edge must disappear.
   5. Live comparison: trader_1's live fills, read from the public tape,
@@ -254,8 +254,8 @@ def next_move_corr(index: MidIndex, shift: int) -> tuple[int, float]:
 
     The feature is short MA / long MA - 1 built from mids up to t - shift;
     the move is mid[t+1] / mid[t] - 1. A feature that has seen mid[t+1]
-    (shift -1) is correlated with that move by construction: the textbook
-    look-ahead signature. Pooled across symbols.
+    (shift -1) already contains part of that move, which is what look-ahead
+    looks like. Pooled across symbols.
     """
     xs, ys = [], []
     for sym, mids in index.mid.items():
