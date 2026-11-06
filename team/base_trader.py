@@ -73,7 +73,7 @@ STARTER_QUANTITY = 5
 STARTER_RETRY_SEC = 30.0  # re-send the starter if it has not filled by then
 STARTER_MAX_ATTEMPTS = 3
 
-DEFAULT_TAKER = 0.003     # hosted venue, until FEE_SCHEDULE says otherwise
+DEFAULT_TAKER = 0.004     # house venue from Nov 6, until FEE_SCHEDULE says otherwise
 DEFAULT_REBATE = 0.0
 EDGE_MARGIN = 1.25        # a signal must clear its cost by this factor
 

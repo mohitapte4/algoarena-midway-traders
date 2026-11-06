@@ -1,14 +1,20 @@
 """
 Midway Traders — momentum trader (seat: midway_traders_trader_1).
 
-Strategy: a moving-average crossover. When the average of the last 5 mid
-prices is more than 0.3% above the average of the last 20, the symbol is
+Strategy: a moving-average crossover. When the average of the last 10 mid
+prices is more than 0.3% above the average of the last 40, the symbol is
 treated as trending up and a bid rests at the touch; when it is more than
 0.3% below, shares are offered at the touch: those held and, once the
 venue allows shorts, up to MAX_SHORT more. The buffer keeps the bot
 out of calm, noisy markets, where a short-horizon trend signal does not
 cover its trading costs; it is raised automatically if the venue's fees make
 0.3% too thin (BaseTrader.min_edge).
+
+The windows were 5/20 until Week 6. At that speed the signal lost to doing
+nothing on the Session 5 tape (BACKTEST.md): the next mid move runs against
+it, mostly bid-ask bounce. Replayed at the Nov 6 house fees (40 bp taker, no
+rebate), 10/40 was the only setting ahead of doing nothing on both the
+Week 5 and Week 3 tapes (+$688, +$207), though within one session's noise.
 
 Scheduled events are traded from the message, not the chart: this seat
 rides good news and fades bad news (team.events); with shorts allowed the
@@ -33,8 +39,8 @@ from team.events import FADE, RIDE
 
 logger = logging.getLogger(__name__)
 
-SHORT_WINDOW = 5
-LONG_WINDOW = 20
+SHORT_WINDOW = 10
+LONG_WINDOW = 40
 BUFFER = 0.003            # 0.3% band around the long average
 QUANTITY = 5              # shares per quote
 
@@ -47,7 +53,7 @@ class MomentumTrader(BaseTrader):
 
     def _signal(self, market, portfolio, net_worth: float, now: float,
                 halted: bool) -> Signal | None:
-        """5/20 moving-average crossover with a fee-aware buffer."""
+        """10/40 moving-average crossover with a fee-aware buffer."""
         buffer = max(BUFFER, self.min_edge())
         for symbol in sorted(market.symbols()):
             if self._in_window(symbol, now):

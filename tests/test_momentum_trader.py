@@ -7,7 +7,7 @@ import logging
 import pytest
 
 from team.base_trader import QUOTE_DRIFT, STARTER_MAX_ATTEMPTS, STARTER_RETRY_SEC
-from team.momentum_trader import MomentumTrader
+from team.momentum_trader import LONG_WINDOW, MomentumTrader
 from team.risk import RiskLimits
 
 logging.disable(logging.CRITICAL)
@@ -63,11 +63,11 @@ class Clock:
         return self.t
 
 
-def flat(n: int = 25, px: float = 100.0) -> list[float]:
+def flat(n: int = LONG_WINDOW + 5, px: float = 100.0) -> list[float]:
     return [px] * n
 
 
-def trend(n: int = 25, px: float = 100.0, step: float = 0.001) -> list[float]:
+def trend(n: int = LONG_WINDOW + 5, px: float = 100.0, step: float = 0.001) -> list[float]:
     return [px * (1 + step) ** i for i in range(n)]
 
 
