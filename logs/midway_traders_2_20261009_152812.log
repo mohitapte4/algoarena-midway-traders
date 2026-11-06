@@ -1,0 +1,46 @@
+2026-10-09 15:28:12,030 INFO    team.logs: Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_2_20261009_152812.log
+
+2026-10-09 15:28:12 ╔══════════════════════════════════════════════╗
+2026-10-09 15:28:12 ║       AlgoArena — Trader Bot                 ║
+2026-10-09 15:28:12 ╠══════════════════════════════════════════════╣
+2026-10-09 15:28:12 ║  Team:     midway_traders_2                  ║
+2026-10-09 15:28:12 ║  Exchange: wss://feed.algoarena-st.duckdns.org║
+2026-10-09 15:28:12 ║  Cash:     set at connect  Tick: 0.5s        ║
+2026-10-09 15:28:12 ╚══════════════════════════════════════════════╝
+
+2026-10-09 15:28:12,033 INFO    trader.trader: Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from the shell)
+2026-10-09 15:28:12,249 INFO    trader.trader: Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_2 (trader)
+2026-10-09 15:28:12,284 WARNING trader.trader: Exchange error [AUTH_FAILED]: Invalid or missing token for 'midway_traders_2' — register your team first (make register) and set ARENA_TOKEN
+2026-10-09 15:28:12,306 WARNING trader.trader: Exchange closed the connection — reconnecting in 3s
+2026-10-09 15:28:15,505 INFO    trader.trader: Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_2 (trader)
+2026-10-09 15:28:15,536 WARNING trader.trader: Exchange error [AUTH_FAILED]: Invalid or missing token for 'midway_traders_2' — register your team first (make register) and set ARENA_TOKEN
+2026-10-09 15:28:15,595 WARNING trader.trader: Exchange closed the connection — reconnecting in 3s
+2026-10-09 15:28:16 Traceback (most recent call last):
+2026-10-09 15:28:16   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 118, in run
+2026-10-09 15:28:16     return self._loop.run_until_complete(task)
+2026-10-09 15:28:16            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-09 15:28:16   File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+2026-10-09 15:28:16     return future.result()
+2026-10-09 15:28:16            ^^^^^^^^^^^^^^^
+2026-10-09 15:28:16   File "/Users/amywang/algoarena-midway-traders/engine/trader/trader.py", line 894, in run
+2026-10-09 15:28:16     await asyncio.sleep(retry_delay)
+2026-10-09 15:28:16   File "/opt/anaconda3/lib/python3.12/asyncio/tasks.py", line 665, in sleep
+2026-10-09 15:28:16     return await future
+2026-10-09 15:28:16            ^^^^^^^^^^^^
+2026-10-09 15:28:16 asyncio.exceptions.CancelledError
+
+2026-10-09 15:28:16 During handling of the above exception, another exception occurred:
+
+2026-10-09 15:28:16 Traceback (most recent call last):
+2026-10-09 15:28:16   File "<frozen runpy>", line 198, in _run_module_as_main
+2026-10-09 15:28:16   File "<frozen runpy>", line 88, in _run_code
+2026-10-09 15:28:16   File "/Users/amywang/algoarena-midway-traders/team/trader.py", line 111, in <module>
+2026-10-09 15:28:16     MyTrader().run()
+2026-10-09 15:28:16   File "/Users/amywang/algoarena-midway-traders/arena/trader.py", line 95, in run
+2026-10-09 15:28:16     asyncio.run(_AdaptedTraderBot(self).run())
+2026-10-09 15:28:16   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 194, in run
+2026-10-09 15:28:16     return runner.run(main)
+2026-10-09 15:28:16            ^^^^^^^^^^^^^^^^
+2026-10-09 15:28:16   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 123, in run
+2026-10-09 15:28:16     raise KeyboardInterrupt()
+2026-10-09 15:28:16 KeyboardInterrupt

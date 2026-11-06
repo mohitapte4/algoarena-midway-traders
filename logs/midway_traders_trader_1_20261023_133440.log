@@ -1,0 +1,127 @@
+13:34:40  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_1_20261023_133440.log
+13:34:40  INFO    Connecting to ws://localhost:8798 (EXCHANGE_URLS from the shell)
+13:34:40  INFO    Connected to ws://localhost:8798 as midway_traders_trader_1 (trader)
+13:34:40  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+13:34:40  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+13:34:48  DEBUG   Portfolio: net_worth=158015.34
+13:34:48  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+13:34:48  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+13:34:48  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+13:34:49  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+13:34:50  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+13:34:51  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+13:34:52  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+13:34:53  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+13:34:54  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+13:34:55  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+13:34:56  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+13:34:57  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+13:34:58  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+13:34:59  INFO    Session event: CALENDAR — 4 scheduled event(s) this session
+13:34:59  INFO    EVENT  CALENDAR       4 scheduled event(s) this session
+13:34:59  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+13:34:59  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+13:34:59  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+13:34:59  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+13:34:59  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+13:34:59  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+13:34:59  INFO    RISK   session reference net worth 158015.34
+13:34:59  INFO    ORDER  sell 5 MSFT @ 416.19 take (notional 2080.95) — starter 1/3, buys blocked by risk limits
+13:34:59  DEBUG   Placed: sell 5 MSFT @ 416.1900
+13:34:59  DEBUG   Ack: sell 5 MSFT @ 416.1900
+13:34:59  INFO    Fill: sold   5 MSFT @ 416.1900 (fee=1.5607)
+13:34:59  INFO    FILL   #1 sell   5 MSFT   @   416.19  notional   2080.95  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+13:34:59  DEBUG   Portfolio: net_worth=158148.88
+13:34:59  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+13:35:02  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+13:35:06  INFO    ORDER  sell 5 NFLX @ 715.47 rest (notional 3577.35) — short 716.57 / long 718.79
+13:35:06  DEBUG   Placed: sell 5 NFLX @ 715.4700
+13:35:06  DEBUG   Ack: sell 5 NFLX @ 715.4700
+13:35:17  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+13:35:18  INFO    CANCEL sell 5 NFLX @ 715.47 (quote)
+13:35:18  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+13:35:18  INFO    ORDER  sell 5 NFLX @ 710.45 rest (notional 3552.25) — short 710.80 / long 713.58
+13:35:18  DEBUG   Placed: sell 5 NFLX @ 710.4500
+13:35:18  DEBUG   Ack: sell 5 NFLX @ 710.4500
+13:35:32  INFO    CANCEL sell 5 NFLX @ 710.45 (quote)
+13:35:33  INFO    ORDER  sell 5 NFLX @ 707.01 rest (notional 3535.05) — short 706.86 / long 709.34
+13:35:33  DEBUG   Placed: sell 5 NFLX @ 707.0100
+13:35:33  DEBUG   Ack: sell 5 NFLX @ 707.0100
+13:35:47  INFO    CANCEL sell 5 NFLX @ 707.01 (quote)
+13:37:29  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+13:37:29  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+13:37:29  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+13:37:29  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+13:37:29  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+13:38:08  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.8s (attempt 1)
+13:38:08  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 2.3s (attempt 2)
+13:38:11  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 4.6s (attempt 3)
+13:38:15  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 7.9s (attempt 4)
+13:38:23  INFO    Connected to ws://localhost:8798 as midway_traders_trader_1 (trader)
+13:38:23  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+13:38:23  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+13:38:23  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+13:38:23  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+13:38:23  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe before t450
+13:38:23  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+13:38:23  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe before t450
+13:38:23  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+13:38:23  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+13:38:44  INFO    ORDER  sell 5 NFLX @ 711.78 rest (notional 3558.90) — short 711.83 / long 714.18
+13:38:45  DEBUG   Placed: sell 5 NFLX @ 711.7800
+13:38:45  DEBUG   Ack: sell 5 NFLX @ 711.7800
+13:38:49  INFO    Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+13:38:49  INFO    EVENT  CALENDAR       Upcoming: earnings AMZN @ t350
+13:38:49  INFO    EVENT  window AMZN: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+13:38:56  INFO    ORDER  sell 5 INTC @ 22.91 rest (notional 114.55) — short 22.36 / long 22.45
+13:38:56  DEBUG   Placed: sell 5 INTC @ 22.9100
+13:38:56  DEBUG   Ack: sell 5 INTC @ 22.9100
+13:38:56  INFO    CANCEL sell 5 NFLX @ 711.78 (quote)
+13:38:57  INFO    ORDER  sell 5 NFLX @ 707.12 rest (notional 3535.60) — short 706.96 / long 709.73
+13:38:57  DEBUG   Placed: sell 5 NFLX @ 707.1200
+13:38:57  DEBUG   Ack: sell 5 NFLX @ 707.1200
+13:39:08  INFO    CANCEL sell 5 NFLX @ 707.12 (quote)
+13:39:22  INFO    ORDER  sell 5 NFLX @ 701.26 rest (notional 3506.30) — short 701.11 / long 703.29
+13:39:22  DEBUG   Placed: sell 5 NFLX @ 701.2600
+13:39:22  DEBUG   Ack: sell 5 NFLX @ 701.2600
+13:40:49  INFO    Session event: CALENDAR_EVENT — Earnings: AMZN moving -6.7%
+13:40:49  INFO    EVENT  CALENDAR_EVENT Earnings: AMZN moving -6.7%
+13:40:49  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 183.39 in 15s
+13:40:49  INFO    EVENT  AMZN fade-extra leg edge 2.00% — not traded
+13:40:49  INFO    EVENT  AMZN -6.67%: fade edge 5.34% vs round trip 0.30% — FADE 60 shares: sell down to 189.94, buy back after 15s at no more than 183.39
+13:40:49  INFO    ORDER  sell 60 AMZN @ 189.95 take (notional 11397.00) — fade sell
+13:40:49  DEBUG   Placed: sell 60 AMZN @ 189.9500
+13:40:49  DEBUG   Ack: sell 60 AMZN @ 189.9500
+13:40:49  INFO    Fill: sold   30 AMZN @ 196.0400 (fee=4.4109)
+13:40:49  INFO    FILL   #2 sell  30 AMZN   @   196.04  notional   5881.20  vs limit +6.0900 (fade sell, taker)  | bought and held 0, avg entry 0.0000, short 10 avg 196.0400
+13:40:49  DEBUG   Portfolio: net_worth=158246.36
+13:41:01  INFO    Session event: SSR_ON — AMZN is now under the short-sale rule — shorts must add liquidity above the bid
+13:41:01  INFO    EVENT  SSR_ON         AMZN is now under the short-sale rule — shorts must add liquidity above the bid
+13:41:04  INFO    CANCEL sell 30 AMZN @ 189.95 (fade sell)
+13:41:05  INFO    ORDER  buy  30 AMZN @ 183.38 rest (notional 5501.40) — fade rebuy (resting)
+13:41:05  DEBUG   Placed: buy 30 AMZN @ 183.3800
+13:41:05  DEBUG   Ack: buy 30 AMZN @ 183.3800
+13:41:34  INFO    CANCEL buy 30 AMZN @ 183.38 (fade rebuy (resting))
+13:41:35  INFO    ORDER  buy  30 AMZN @ 185.01 take (notional 5550.30) — fade rebuy (time)
+13:41:35  DEBUG   Placed: buy 30 AMZN @ 185.0100
+13:41:35  DEBUG   Ack: buy 30 AMZN @ 185.0100
+13:41:35  INFO    Fill: bought 10 AMZN @ 185.0100 (fee=1.3876)
+13:41:35  INFO    FILL   #3 buy   10 AMZN   @   185.01  notional   1850.10  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+13:41:35  DEBUG   Portfolio: net_worth=158352.01
+13:42:30  DEBUG   Portfolio: net_worth=158288.81
+13:42:30  INFO    Session event: IPO_PRICED — ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+13:42:30  INFO    EVENT  IPO_PRICED     ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+13:42:30  INFO    IPO    ORCA allocation 200 @ 24.00 booked (cost 4800.00): offered at 26.88 once listed, stop 22.08
+13:43:00  INFO    Session event: CALENDAR — Upcoming: dividend AAPL @ t600
+13:43:00  INFO    EVENT  CALENDAR       Upcoming: dividend AAPL @ t600
+13:43:00  INFO    EVENT  window AAPL: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+13:43:08  INFO    ORDER  sell 5 AMD @ 181.67 rest (notional 908.35) — short 179.95 / long 180.50
+13:43:08  DEBUG   Placed: sell 5 AMD @ 181.6700
+13:43:08  DEBUG   Ack: sell 5 AMD @ 181.6700
+13:44:10  INFO    Session event: IPO_LISTED — ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+13:44:10  INFO    EVENT  IPO_LISTED     ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+13:45:00  DEBUG   Portfolio: net_worth=158325.74
+13:45:00  INFO    Session event: DIVIDEND — AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+13:45:00  INFO    EVENT  DIVIDEND       AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+13:45:08  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+13:45:08  INFO    SESSION closed: positions are marked at the close, no close-out orders sent

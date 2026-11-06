@@ -1,0 +1,125 @@
+14:11:50  INFO    Logging to /Users/amywang/algoarena-midway-traders/.claude/worktrees/agent-a82fabeb86cb02f52/logs/midway_traders_trader_2_20261023_141150.log
+14:11:50  INFO    Connecting to ws://localhost:8798 (EXCHANGE_URLS from the shell)
+14:11:50  INFO    Connected to ws://localhost:8798 as midway_traders_trader_2 (trader)
+14:11:50  INFO    BOOKS  seeded from venue (leaderboard t5): cash 100000.00, positions none
+14:11:50  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+14:11:50  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+14:11:58  DEBUG   Portfolio: net_worth=158015.34
+14:11:58  INFO    BOOKS  starting grant AAPL 20, AMD 20, AMZN 20, GOOGL 20, INTC 20, META 20, MSFT 20, NFLX 20, NVDA 20, TSLA 20 (quantities from the venue's positions)
+14:11:58  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+14:11:58  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+14:11:58  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+14:11:59  INFO    BOOKS  entry prices from the leaderboard t13: AAPL 219.9604, AMD 164.9608, AMZN 194.7365, GOOGL 174.9140, INTC 21.9947, META 579.9421, MSFT 414.4152, NFLX 719.9841, NVDA 130.3941, TSLA 279.4651
+14:11:59  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+14:12:00  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+14:12:01  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+14:12:02  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+14:12:03  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+14:12:04  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+14:12:05  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+14:12:06  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+14:12:07  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+14:12:08  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+14:12:09  INFO    Session event: CALENDAR — 4 scheduled event(s) this session
+14:12:09  INFO    EVENT  CALENDAR       4 scheduled event(s) this session
+14:12:09  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+14:12:09  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+14:12:09  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+14:12:09  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+14:12:09  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+14:12:09  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+14:12:09  INFO    RISK   session reference net worth 158015.34
+14:12:09  INFO    ORDER  sell 5 MSFT @ 416.19 take (notional 2080.95) — starter 1/3, buys blocked by risk limits
+14:12:09  DEBUG   Placed: sell 5 MSFT @ 416.1900
+14:12:09  DEBUG   Ack: sell 5 MSFT @ 416.1900
+14:12:09  INFO    Fill: sold   5 MSFT @ 416.1900 (fee=1.5607)
+14:12:09  INFO    FILL   #1 sell   5 MSFT   @   416.19  notional   2080.95  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+14:12:09  DEBUG   Portfolio: net_worth=158148.88
+14:12:16  INFO    RISK   NFLX: buy cut to 0 by gross exposure limit
+14:13:10  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+14:13:12  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+14:14:33  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+14:14:40  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+14:14:40  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+14:14:40  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+14:14:40  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+14:14:40  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+14:15:18  WARNING trader midway_traders_trader_2: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:15:19  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 2.3s (attempt 2)
+14:15:22  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 4.5s (attempt 3)
+14:15:26  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 8.5s (attempt 4)
+14:15:35  INFO    Connected to ws://localhost:8798 as midway_traders_trader_2 (trader)
+14:15:35  INFO    BOOKS  reconnect check PASS: books survived the drop
+14:15:35  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+14:15:35  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+14:15:35  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:15:35  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:15:35  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe before t450
+14:15:35  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+14:15:35  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe before t450
+14:15:35  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+14:15:35  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+14:16:00  INFO    Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+14:16:00  INFO    EVENT  CALENDAR       Upcoming: earnings AMZN @ t350
+14:16:00  INFO    EVENT  window AMZN: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+14:32:48  INFO    Session event: CALENDAR_EVENT — Earnings: AMZN moving -4.2%
+14:32:48  INFO    EVENT  CALENDAR_EVENT Earnings: AMZN moving -4.2%
+14:32:48  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 186.39 in 15s
+14:32:48  INFO    EVENT  AMZN fade-extra leg edge 1.27% — not traded
+14:32:48  INFO    EVENT  AMZN -4.23%: fade edge 3.38% vs round trip 0.30% — FADE 20 shares: sell down to 190.50, buy back after 15s at no more than 186.39
+14:33:03  INFO    EVENT  FADE AMZN done: bought 0, sold 0, gross P&L +0.00
+14:33:03  INFO    ORDER  buy  5 AMZN @ 186.38 rest (notional 931.90) — event reaction
+14:33:03  INFO    EVENT  AMZN reaction: bid 5 @ 186.38 (settle 186.39)
+14:33:03  DEBUG   Placed: buy 5 AMZN @ 186.3800
+14:33:03  DEBUG   Ack: buy 5 AMZN @ 186.3800
+14:36:03  DEBUG   Portfolio: net_worth=158055.29
+14:36:03  INFO    BOOKS  IPO ORCA +200 @ 24.00 (quantity from the venue's position)
+14:36:03  INFO    Session event: IPO_PRICED — ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+14:36:03  INFO    EVENT  IPO_PRICED     ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+14:36:03  INFO    IPO    ORCA allocation 200 @ 24.00 booked (cost 4800.00): offered at 26.88 once listed, stop 22.08
+14:36:33  INFO    Session event: CALENDAR — Upcoming: dividend AAPL @ t600
+14:36:33  INFO    EVENT  CALENDAR       Upcoming: dividend AAPL @ t600
+14:36:33  INFO    EVENT  window AAPL: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+14:37:44  INFO    Session event: IPO_LISTED — ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+14:37:44  INFO    EVENT  IPO_LISTED     ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+14:38:34  DEBUG   Portfolio: net_worth=158101.08
+14:38:34  INFO    Session event: DIVIDEND — AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+14:38:34  INFO    EVENT  DIVIDEND       AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+14:38:41  INFO    RECON  midway_traders_trader_2 positions at SESSION_CLOSED vs the last portfolio update: PASS
+14:38:41  INFO    RECON    item                           own         venue        diff
+14:38:41  INFO    RECON    positions held                  11            11           0  ok
+14:38:41  INFO    RECON    pos AAPL                        20            20           0  ok
+14:38:41  INFO    RECON    pos AMD                         20            20           0  ok
+14:38:41  INFO    RECON    pos AMZN                        20            20           0  ok
+14:38:41  INFO    RECON    pos GOOGL                       20            20           0  ok
+14:38:41  INFO    RECON    pos INTC                        20            20           0  ok
+14:38:41  INFO    RECON    pos META                        20            20           0  ok
+14:38:41  INFO    RECON    pos MSFT                        15            15           0  ok
+14:38:41  INFO    RECON    pos NFLX                        20            20           0  ok
+14:38:41  INFO    RECON    pos NVDA                        20            20           0  ok
+14:38:41  INFO    RECON    pos ORCA                       200           200           0  ok
+14:38:41  INFO    RECON    pos TSLA                        20            20           0  ok
+14:38:41  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+14:38:41  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+14:38:41  INFO    RECON  midway_traders_trader_2 close vs leaderboard t631 (1 fills, 0 rebases): PASS
+14:38:41  INFO    RECON    item                           own         venue        diff
+14:38:41  INFO    RECON    positions held                  11            11           0  ok
+14:38:41  INFO    RECON    pos AAPL                        20            20           0  ok
+14:38:41  INFO    RECON    pos AMD                         20            20           0  ok
+14:38:41  INFO    RECON    pos AMZN                        20            20           0  ok
+14:38:41  INFO    RECON    pos GOOGL                       20            20           0  ok
+14:38:41  INFO    RECON    pos INTC                        20            20           0  ok
+14:38:41  INFO    RECON    pos META                        20            20           0  ok
+14:38:41  INFO    RECON    pos MSFT                        15            15           0  ok
+14:38:41  INFO    RECON    pos NFLX                        20            20           0  ok
+14:38:41  INFO    RECON    pos NVDA                        20            20           0  ok
+14:38:41  INFO    RECON    pos ORCA                       200           200           0  ok
+14:38:41  INFO    RECON    pos TSLA                        20            20           0  ok
+14:38:41  INFO    RECON    fees                          3.12          3.12        0.00  ok
+14:38:41  INFO    RECON    rebates                       0.00          0.00        0.00  ok
+14:38:41  INFO    RECON    realized                      8.87          8.87        0.00  ok
+14:38:41  INFO    RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:38:41  INFO    RECON    cash                     97,282.83     97,405.51      122.68  ok  diff is interest on idle cash
+14:38:41  INFO    RECON    interest (est)              123.50        122.68       -0.82  rate x cash x ticks
+14:38:41  INFO    RECON    net worth               157,957.68    158,080.36      122.68  
+14:38:41  INFO    RECON    P&L since t13               -91.56         31.12      122.68  

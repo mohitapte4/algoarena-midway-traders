@@ -1,0 +1,167 @@
+20:48:29  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_1_20261015_204829.log
+20:48:29  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+20:48:29  INFO    Connected to ws://localhost:8799 as midway_traders_trader_1 (trader)
+20:48:29  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:48:29  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:48:35  DEBUG   Portfolio: net_worth=158017.14
+20:48:35  INFO    Session event: CALENDAR — 2 scheduled event(s) this session
+20:48:35  INFO    EVENT  CALENDAR       2 scheduled event(s) this session
+20:48:35  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+20:48:35  INFO    RISK   session reference net worth 158017.14
+20:48:36  INFO    ORDER  sell 5 MSFT @ 415.23 take (notional 2076.15) — starter 1/3, buys blocked by risk limits
+20:48:36  DEBUG   Placed: sell 5 MSFT @ 415.2300
+20:48:36  DEBUG   Ack: sell 5 MSFT @ 415.2300
+20:48:36  INFO    Fill: sold   5 MSFT @ 415.2300 (fee=1.5571)
+20:48:36  INFO    FILL   #1 sell   5 MSFT   @   415.23  notional   2076.15  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+20:48:36  DEBUG   Portfolio: net_worth=158014.96
+20:48:39  INFO    RISK   AAPL: buy cut to 0 by gross exposure limit
+20:48:39  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+20:48:44  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+20:48:53  INFO    ORDER  sell 5 NFLX @ 714.68 rest (notional 3573.40) — short 716.51 / long 719.13
+20:48:53  DEBUG   Placed: sell 5 NFLX @ 714.6800
+20:48:53  DEBUG   Ack: sell 5 NFLX @ 714.6800
+20:49:03  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+20:49:03  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+20:49:03  INFO    CANCEL sell 5 NFLX @ 714.68 (quote)
+20:49:04  INFO    ORDER  sell 5 NFLX @ 710.48 rest (notional 3552.40) — short 710.75 / long 713.58
+20:49:04  DEBUG   Placed: sell 5 NFLX @ 710.4800
+20:49:04  DEBUG   Ack: sell 5 NFLX @ 710.4800
+20:49:15  INFO    CANCEL sell 5 NFLX @ 710.48 (quote)
+20:49:16  INFO    ORDER  sell 5 NFLX @ 707.01 rest (notional 3535.05) — short 706.86 / long 709.36
+20:49:16  DEBUG   Placed: sell 5 NFLX @ 707.0100
+20:49:16  DEBUG   Ack: sell 5 NFLX @ 707.0100
+20:49:26  INFO    CANCEL sell 5 NFLX @ 707.01 (quote)
+20:49:27  INFO    ORDER  sell 5 NFLX @ 704.12 rest (notional 3520.60) — short 703.96 / long 706.09
+20:49:27  DEBUG   Placed: sell 5 NFLX @ 704.1200
+20:49:27  DEBUG   Ack: sell 5 NFLX @ 704.1200
+20:49:35  INFO    Session event: SHOCK — Amazon.com Inc. earnings miss: -4.3%
+20:49:35  INFO    EVENT  SHOCK          Amazon.com Inc. earnings miss: -4.3%
+20:49:35  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 186.19 in 15s
+20:49:35  INFO    EVENT  AMZN fade-extra leg edge 1.57% — not traded
+20:49:35  INFO    EVENT  AMZN -5.22%: fade edge 4.18% vs round trip 0.30% — FADE 20 shares: sell down to 191.32, buy back after 15s at no more than 186.19
+20:49:35  INFO    ORDER  sell 20 AMZN @ 191.32 take (notional 3826.40) — fade sell
+20:49:35  DEBUG   Placed: sell 20 AMZN @ 191.3200
+20:49:35  DEBUG   Ack: sell 20 AMZN @ 191.3200
+20:49:35  INFO    Fill: sold   20 AMZN @ 196.1400 (fee=2.9421)
+20:49:35  INFO    FILL   #2 sell  20 AMZN   @   196.14  notional   3922.80  vs limit +4.8200 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+20:49:35  DEBUG   Portfolio: net_worth=158307.12
+20:49:42  INFO    ORDER  sell 5 AAPL @ 224.29 rest (notional 1121.45) — short 222.96 / long 223.69
+20:49:42  DEBUG   Placed: sell 5 AAPL @ 224.2900
+20:49:42  DEBUG   Ack: sell 5 AAPL @ 224.2900
+20:49:43  INFO    ORDER  sell 5 NVDA @ 133.13 rest (notional 665.65) — short 132.60 / long 133.08
+20:49:43  DEBUG   Placed: sell 5 NVDA @ 133.1300
+20:49:43  DEBUG   Ack: sell 5 NVDA @ 133.1300
+20:49:44  INFO    ORDER  sell 5 TSLA @ 280.80 rest (notional 1404.00) — short 280.24 / long 281.24
+20:49:44  DEBUG   Placed: sell 5 TSLA @ 280.8000
+20:49:44  DEBUG   Ack: sell 5 TSLA @ 280.8000
+20:49:45  INFO    ORDER  sell 5 GOOGL @ 178.87 rest (notional 894.35) — short 178.92 / long 180.05
+20:49:45  DEBUG   Placed: sell 5 GOOGL @ 178.8700
+20:49:45  DEBUG   Ack: sell 5 GOOGL @ 178.8700
+20:49:47  INFO    Fill: sold   5 NFLX @ 704.1200 (fee=2.6404)
+20:49:47  INFO    FILL   #3 sell   5 NFLX   @   704.12  notional   3520.60  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:49:47  DEBUG   Portfolio: net_worth=157929.03
+20:49:47  INFO    RISK   NFLX: buy cut to 0 by gross exposure limit
+20:49:49  INFO    ORDER  sell 5 AMD @ 167.99 rest (notional 839.95) — short 169.97 / long 172.49
+20:49:49  DEBUG   Placed: sell 5 AMD @ 167.9900
+20:49:49  DEBUG   Ack: sell 5 AMD @ 167.9900
+20:49:50  INFO    ORDER  sell 5 INTC @ 22.46 rest (notional 112.30) — short 23.29 / long 23.49
+20:49:50  DEBUG   Placed: sell 5 INTC @ 22.4600
+20:49:50  DEBUG   Ack: sell 5 INTC @ 22.4600
+20:49:51  INFO    CANCEL sell 5 AAPL @ 224.29 (quote)
+20:49:52  INFO    ORDER  sell 5 AAPL @ 221.47 rest (notional 1107.35) — short 221.13 / long 222.64
+20:49:52  DEBUG   Placed: sell 5 AAPL @ 221.4700
+20:49:52  DEBUG   Ack: sell 5 AAPL @ 221.4700
+20:49:53  INFO    ORDER  sell 5 MSFT @ 416.04 rest (notional 2080.20) — short 416.11 / long 417.44
+20:49:53  DEBUG   Placed: sell 5 MSFT @ 416.0400
+20:49:53  DEBUG   Ack: sell 5 MSFT @ 416.0400
+20:49:54  INFO    CANCEL sell 5 NVDA @ 133.13 (quote)
+20:49:54  INFO    ORDER  sell 5 NVDA @ 130.84 rest (notional 654.20) — short 130.88 / long 131.82
+20:49:54  DEBUG   Placed: sell 5 NVDA @ 130.8400
+20:49:54  DEBUG   Ack: sell 5 NVDA @ 130.8400
+20:49:56  INFO    CANCEL sell 5 TSLA @ 280.80 (quote)
+20:49:57  INFO    ORDER  sell 5 TSLA @ 278.55 rest (notional 1392.75) — short 278.21 / long 279.24
+20:49:57  DEBUG   Placed: sell 5 TSLA @ 278.5500
+20:49:57  INFO    CANCEL sell 5 GOOGL @ 178.87 (quote)
+20:49:57  DEBUG   Ack: sell 5 TSLA @ 278.5500
+20:49:57  INFO    ORDER  sell 5 GOOGL @ 176.70 rest (notional 883.50) — short 176.12 / long 177.19
+20:49:57  DEBUG   Placed: sell 5 GOOGL @ 176.7000
+20:49:57  DEBUG   Ack: sell 5 GOOGL @ 176.7000
+20:50:01  INFO    Fill: sold   5 INTC @ 22.4600 (fee=0.0842)
+20:50:01  INFO    FILL   #4 sell   5 INTC   @    22.46  notional    112.30  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:01  DEBUG   Portfolio: net_worth=157941.72
+20:50:11  INFO    Fill: sold   5 AMD @ 167.9900 (fee=0.6300)
+20:50:11  INFO    FILL   #5 sell   5 AMD    @   167.99  notional    839.95  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:11  DEBUG   Portfolio: net_worth=158027.86
+20:50:12  INFO    ORDER  sell 5 NFLX @ 710.34 rest (notional 3551.70) — short 711.17 / long 713.56
+20:50:12  DEBUG   Placed: sell 5 NFLX @ 710.3400
+20:50:12  DEBUG   Ack: sell 5 NFLX @ 710.3400
+20:50:15  INFO    Fill: sold   5 MSFT @ 416.0400 (fee=1.5601)
+20:50:15  INFO    FILL   #6 sell   5 MSFT   @   416.04  notional   2080.20  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:15  DEBUG   Portfolio: net_worth=158050.11
+20:50:16  INFO    Fill: sold   5 NVDA @ 130.8400 (fee=0.4906)
+20:50:16  INFO    FILL   #7 sell   5 NVDA   @   130.84  notional    654.20  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:16  DEBUG   Portfolio: net_worth=158074.53
+20:50:17  INFO    Fill: sold   5 TSLA @ 278.5500 (fee=1.0446)
+20:50:17  INFO    FILL   #8 sell   5 TSLA   @   278.55  notional   1392.75  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:17  DEBUG   Portfolio: net_worth=158087.04
+20:50:18  INFO    Fill: sold   5 GOOGL @ 176.7000 (fee=0.6626)
+20:50:18  INFO    FILL   #9 sell   5 GOOGL  @   176.70  notional    883.50  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:18  DEBUG   Portfolio: net_worth=158099.00
+20:50:23  INFO    CANCEL sell 5 NFLX @ 710.34 (quote)
+20:50:24  INFO    ORDER  sell 5 NFLX @ 706.91 rest (notional 3534.55) — short 706.75 / long 709.25
+20:50:24  DEBUG   Placed: sell 5 NFLX @ 706.9100
+20:50:24  DEBUG   Ack: sell 5 NFLX @ 706.9100
+20:50:25  INFO    Fill: sold   5 AAPL @ 221.4700 (fee=0.8305)
+20:50:25  INFO    FILL   #10 sell   5 AAPL   @   221.47  notional   1107.35  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+20:50:25  DEBUG   Portfolio: net_worth=158104.94
+20:50:29  INFO    ORDER  buy  20 AMZN @ 187.79 take (notional 3755.80) — fade rebuy (time)
+20:50:29  DEBUG   Placed: buy 20 AMZN @ 187.7900
+20:50:29  DEBUG   Ack: buy 20 AMZN @ 187.7900
+20:50:29  INFO    Fill: bought 10 AMZN @ 187.7900 (fee=1.4084)
+20:50:29  INFO    FILL   #11 buy   10 AMZN   @   187.79  notional   1877.90  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+20:50:29  DEBUG   Portfolio: net_worth=158139.54
+20:50:36  INFO    CANCEL sell 5 NFLX @ 706.91 (quote)
+20:51:35  INFO    Session event: CALENDAR — Upcoming: earnings NVDA @ t300
+20:51:35  INFO    EVENT  CALENDAR       Upcoming: earnings NVDA @ t300
+20:51:35  INFO    EVENT  window NVDA: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+20:53:35  INFO    Session event: CALENDAR_EVENT — Earnings: NVDA moving -7.6%
+20:53:35  INFO    EVENT  CALENDAR_EVENT Earnings: NVDA moving -7.6%
+20:53:35  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 120.23 in 15s
+20:53:35  INFO    EVENT  NVDA fade-extra leg edge 2.28% — not traded
+20:53:35  INFO    EVENT  NVDA -7.60%: fade edge 6.08% vs round trip 0.30% — FADE 15 shares: sell down to 125.17, buy back after 15s at no more than 120.23
+20:53:50  INFO    EVENT  FADE NVDA done: bought 0, sold 0, gross P&L +0.00
+20:53:50  INFO    ORDER  buy  5 NVDA @ 120.22 rest (notional 601.10) — event reaction
+20:53:50  INFO    EVENT  NVDA reaction: bid 5 @ 120.22 (settle 120.23)
+20:53:50  DEBUG   Placed: buy 5 NVDA @ 120.2200
+20:53:50  DEBUG   Ack: buy 5 NVDA @ 120.2200
+20:54:27  INFO    ORDER  sell 5 INTC @ 25.53 rest (notional 127.65) — short 25.37 / long 25.46
+20:54:27  DEBUG   Placed: sell 5 INTC @ 25.5300
+20:54:27  DEBUG   Ack: sell 5 INTC @ 25.5300
+20:54:30  INFO    CANCEL buy 5 NVDA @ 120.22 (reaction)
+20:54:45  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+20:54:46  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 2.1s (attempt 2)
+20:54:49  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 3.2s (attempt 3)
+20:54:52  WARNING trader midway_traders_trader_1: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 9.2s (attempt 4)
+20:55:01  INFO    Connected to ws://localhost:8799 as midway_traders_trader_1 (trader)
+20:55:01  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:55:01  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:55:33  DEBUG   Portfolio: net_worth=158012.37
+20:55:33  INFO    Session event: CALENDAR — 2 scheduled event(s) this session
+20:55:33  INFO    EVENT  CALENDAR       2 scheduled event(s) this session
+20:55:33  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+20:55:41  INFO    ORDER  buy  10 AMZN @ 194.83 take (notional 1948.30) — fade rebuy (time)
+20:55:41  DEBUG   Placed: buy 10 AMZN @ 194.8300
+20:55:41  DEBUG   Ack: buy 10 AMZN @ 194.8300
+20:55:41  INFO    Fill: bought 10 AMZN @ 194.8300 (fee=1.4612)
+20:55:41  INFO    FILL   #12 buy   10 AMZN   @   194.83  notional   1948.30  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+20:55:41  DEBUG   Portfolio: net_worth=158108.59
+20:55:41  INFO    EVENT  FADE AMZN done: bought 20, sold 20, gross P&L +96.60
+20:55:51  INFO    ORDER  sell 5 NFLX @ 715.44 rest (notional 3577.20) — short 717.27 / long 719.70
+20:55:51  DEBUG   Placed: sell 5 NFLX @ 715.4400
+20:55:51  DEBUG   Ack: sell 5 NFLX @ 715.4400
+20:56:01  INFO    CANCEL sell 5 NFLX @ 715.44 (quote)
+20:56:02  INFO    ORDER  sell 5 NFLX @ 711.23 rest (notional 3556.15) — short 711.08 / long 714.23
+20:56:02  DEBUG   Placed: sell 5 NFLX @ 711.2300
+20:56:02  DEBUG   Ack: sell 5 NFLX @ 711.2300
+20:56:04  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+20:56:04  INFO    SESSION closed: positions are marked at the close, no close-out orders sent

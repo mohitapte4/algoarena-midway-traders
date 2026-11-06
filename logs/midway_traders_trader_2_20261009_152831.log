@@ -1,0 +1,224 @@
+2026-10-09 15:28:31,625 INFO    team.logs: Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261009_152831.log
+
+2026-10-09 15:28:31 ╔══════════════════════════════════════════════╗
+2026-10-09 15:28:31 ║       AlgoArena — Trader Bot                 ║
+2026-10-09 15:28:31 ╠══════════════════════════════════════════════╣
+2026-10-09 15:28:31 ║  Team:     midway_traders_trader_2           ║
+2026-10-09 15:28:31 ║  Exchange: wss://feed.algoarena-st.duckdns.org║
+2026-10-09 15:28:31 ║  Cash:     set at connect  Tick: 0.5s        ║
+2026-10-09 15:28:31 ╚══════════════════════════════════════════════╝
+
+2026-10-09 15:28:31,629 INFO    trader.trader: Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from the shell)
+2026-10-09 15:28:31,784 INFO    trader.trader: Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+2026-10-09 15:28:31 Tick 823522  rank=#?  net_worth=$509,001.86  realized_pnl=+0.00
+2026-10-09 15:28:31,839 INFO    trader.trader: Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+2026-10-09 15:28:31 Session: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+2026-10-09 15:28:31,839 INFO    trader.trader: Session event: SESSION_OPEN — Session already open — you joined mid-session.
+2026-10-09 15:28:31 ▶  Session open — trading begins
+2026-10-09 15:28:32,285 INFO    __main__: ORDER  buy 5 AAPL @ 196.42 limit (notional 982.10)
+2026-10-09 15:28:32,286 DEBUG   trader.trader: Placed: buy 5 AAPL @ 196.4200
+2026-10-09 15:28:32,338 DEBUG   trader.trader: Ack: buy 5 AAPL @ 196.4200
+2026-10-09 15:28:32,339 INFO    trader.trader: Fill: bought 5 AAPL @ 196.4200 (fee=1.4731)
+2026-10-09 15:28:32,339 INFO    __main__: FILL   #1 buy    5 AAPL   @   196.42  notional    982.10  vs limit +0.0000
+2026-10-09 15:28:32,339 INFO    __main__:        position 5 shares, vwap 196.4200, cost 982.10
+2026-10-09 15:28:32,339 DEBUG   trader.trader: Portfolio: net_worth=509002.03
+2026-10-09 15:28:33 Tick 823523  rank=#?  net_worth=$509,000.51  realized_pnl=+0.00
+2026-10-09 15:28:35 Tick 823525  rank=#?  net_worth=$509,002.69  realized_pnl=+0.00
+2026-10-09 15:28:37 Tick 823527  rank=#?  net_worth=$509,005.12  realized_pnl=+0.00
+2026-10-09 15:28:39 Tick 823530  rank=#?  net_worth=$509,007.13  realized_pnl=+0.00
+2026-10-09 15:28:41 Tick 823532  rank=#?  net_worth=$509,009.56  realized_pnl=+0.00
+2026-10-09 15:28:43 Tick 823534  rank=#?  net_worth=$509,012.22  realized_pnl=+0.00
+2026-10-09 15:28:45 Tick 823536  rank=#?  net_worth=$509,016.03  realized_pnl=+0.00
+2026-10-09 15:28:47 Tick 823538  rank=#?  net_worth=$509,018.03  realized_pnl=+0.00
+2026-10-09 15:28:49 Tick 823540  rank=#?  net_worth=$509,019.98  realized_pnl=+0.00
+2026-10-09 15:28:51 Tick 823542  rank=#?  net_worth=$509,023.42  realized_pnl=+0.00
+2026-10-09 15:28:53 Tick 823544  rank=#?  net_worth=$509,024.82  realized_pnl=+0.00
+2026-10-09 15:28:56 Tick 823546  rank=#?  net_worth=$509,026.77  realized_pnl=+0.00
+2026-10-09 15:28:58 Tick 823548  rank=#?  net_worth=$509,028.46  realized_pnl=+0.00
+2026-10-09 15:29:00 Tick 823550  rank=#?  net_worth=$509,030.41  realized_pnl=+0.00
+2026-10-09 15:29:02 Tick 823552  rank=#?  net_worth=$509,032.95  realized_pnl=+0.00
+2026-10-09 15:29:04 Tick 823554  rank=#?  net_worth=$509,035.69  realized_pnl=+0.00
+2026-10-09 15:29:06 Tick 823557  rank=#?  net_worth=$509,038.60  realized_pnl=+0.00
+2026-10-09 15:29:08 Tick 823559  rank=#?  net_worth=$509,037.79  realized_pnl=+0.00
+2026-10-09 15:29:10 Tick 823561  rank=#?  net_worth=$509,039.73  realized_pnl=+0.00
+2026-10-09 15:29:12 Tick 823563  rank=#?  net_worth=$509,041.67  realized_pnl=+0.00
+2026-10-09 15:29:14 Tick 823565  rank=#?  net_worth=$509,043.68  realized_pnl=+0.00
+2026-10-09 15:29:17 Tick 823567  rank=#?  net_worth=$509,046.28  realized_pnl=+0.00
+2026-10-09 15:29:19 Tick 823569  rank=#?  net_worth=$509,048.23  realized_pnl=+0.00
+2026-10-09 15:29:21 Tick 823571  rank=#?  net_worth=$509,050.53  realized_pnl=+0.00
+2026-10-09 15:29:23 Tick 823573  rank=#?  net_worth=$509,055.42  realized_pnl=+0.00
+2026-10-09 15:29:25 Tick 823575  rank=#?  net_worth=$509,057.36  realized_pnl=+0.00
+2026-10-09 15:29:27 Tick 823577  rank=#?  net_worth=$509,059.31  realized_pnl=+0.00
+2026-10-09 15:29:29 Tick 823579  rank=#?  net_worth=$509,065.33  realized_pnl=+0.00
+2026-10-09 15:29:31 Tick 823581  rank=#?  net_worth=$509,067.27  realized_pnl=+0.00
+2026-10-09 15:29:33 Tick 823583  rank=#?  net_worth=$509,068.92  realized_pnl=+0.00
+2026-10-09 15:29:35 Tick 823585  rank=#?  net_worth=$509,070.86  realized_pnl=+0.00
+2026-10-09 15:29:38 Tick 823587  rank=#?  net_worth=$509,080.01  realized_pnl=+0.00
+2026-10-09 15:29:40 Tick 823589  rank=#?  net_worth=$509,081.95  realized_pnl=+0.00
+2026-10-09 15:29:42 Tick 823591  rank=#?  net_worth=$509,084.01  realized_pnl=+0.00
+2026-10-09 15:29:44 Tick 823594  rank=#?  net_worth=$509,086.92  realized_pnl=+0.00
+2026-10-09 15:29:46 Tick 823596  rank=#?  net_worth=$509,088.99  realized_pnl=+0.00
+2026-10-09 15:29:48 Tick 823598  rank=#?  net_worth=$509,090.93  realized_pnl=+0.00
+2026-10-09 15:29:50 Tick 823600  rank=#?  net_worth=$509,097.20  realized_pnl=+0.00
+2026-10-09 15:29:52 Tick 823602  rank=#?  net_worth=$509,098.90  realized_pnl=+0.00
+2026-10-09 15:29:54 Tick 823604  rank=#?  net_worth=$509,099.59  realized_pnl=+0.00
+2026-10-09 15:29:56 Tick 823606  rank=#?  net_worth=$509,101.71  realized_pnl=+0.00
+2026-10-09 15:29:59 Tick 823608  rank=#?  net_worth=$509,103.65  realized_pnl=+0.00
+2026-10-09 15:29:59,563 INFO    trader.trader: Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+2026-10-09 15:29:59 ■  Session closed — flattening positions
+2026-10-09 15:29:59,566 INFO    trader.trader: Flattening: sell 11 AAPL at market
+2026-10-09 15:29:59,567 INFO    trader.trader: Flattening: sell 6 MSFT at market
+2026-10-09 15:29:59,568 INFO    trader.trader: Flattening: sell 6 NVDA at market
+2026-10-09 15:29:59,569 INFO    trader.trader: Flattening: sell 6 TSLA at market
+2026-10-09 15:29:59,571 INFO    trader.trader: Flattening: sell 6 AMZN at market
+2026-10-09 15:29:59,571 INFO    trader.trader: Flattening: sell 6 GOOGL at market
+2026-10-09 15:29:59,572 INFO    trader.trader: Flattening: sell 6 META at market
+2026-10-09 15:29:59,573 INFO    trader.trader: Flattening: sell 6 NFLX at market
+2026-10-09 15:29:59,573 INFO    trader.trader: Flattening: sell 6 AMD at market
+2026-10-09 15:29:59,573 INFO    trader.trader: Flattening: sell 6 INTC at market
+2026-10-09 15:29:59 Tick 823609  rank=#?  net_worth=$509,103.91  realized_pnl=+0.00
+2026-10-09 15:29:59,786 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:29:59,787 WARNING trader.trader: Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+2026-10-09 15:30:01 Tick 823610  rank=#?  net_worth=$509,177.25  realized_pnl=+0.00
+2026-10-09 15:30:03 Tick 823612  rank=#?  net_worth=$509,210.00  realized_pnl=+0.00
+2026-10-09 15:30:05 Tick 823615  rank=#?  net_worth=$509,258.89  realized_pnl=+0.00
+2026-10-09 15:30:07 Tick 823617  rank=#?  net_worth=$509,284.97  realized_pnl=+0.00
+2026-10-09 15:30:10 Tick 823619  rank=#?  net_worth=$509,309.53  realized_pnl=+0.00
+2026-10-09 15:30:12 Tick 823621  rank=#?  net_worth=$509,330.89  realized_pnl=+0.00
+2026-10-09 15:30:14 Tick 823623  rank=#?  net_worth=$509,351.27  realized_pnl=+0.00
+2026-10-09 15:30:16 Tick 823625  rank=#?  net_worth=$509,369.24  realized_pnl=+0.00
+2026-10-09 15:30:18 Tick 823627  rank=#?  net_worth=$509,384.56  realized_pnl=+0.00
+2026-10-09 15:30:19,558 INFO    trader.trader: Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:30:19 Session: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:30:19,562 INFO    trader.trader: Session event: CALENDAR — No scheduled events this session
+2026-10-09 15:30:19 Session: CALENDAR — No scheduled events this session
+2026-10-09 15:30:19 Tick 823629  rank=#?  net_worth=$509,398.67  realized_pnl=+0.00
+2026-10-09 15:30:20 Tick 823629  rank=#?  net_worth=$509,398.67  realized_pnl=+0.00
+2026-10-09 15:30:22 Tick 823631  rank=#?  net_worth=$509,410.21  realized_pnl=+0.00
+2026-10-09 15:30:25 Tick 823633  rank=#?  net_worth=$509,422.40  realized_pnl=+0.00
+2026-10-09 15:30:27 Tick 823636  rank=#?  net_worth=$509,438.72  realized_pnl=+0.00
+2026-10-09 15:30:29 Tick 823638  rank=#?  net_worth=$509,448.56  realized_pnl=+0.00
+2026-10-09 15:30:31 Tick 823640  rank=#?  net_worth=$509,456.57  realized_pnl=+0.00
+2026-10-09 15:30:33 Tick 823642  rank=#?  net_worth=$509,465.05  realized_pnl=+0.00
+2026-10-09 15:30:35 Tick 823644  rank=#?  net_worth=$509,470.75  realized_pnl=+0.00
+2026-10-09 15:30:37 Tick 823646  rank=#?  net_worth=$509,477.09  realized_pnl=+0.00
+2026-10-09 15:30:40 Tick 823648  rank=#?  net_worth=$509,482.30  realized_pnl=+0.00
+2026-10-09 15:30:42 Tick 823650  rank=#?  net_worth=$509,487.41  realized_pnl=+0.00
+2026-10-09 15:30:51 Tick 823660  rank=#?  net_worth=$509,508.14  realized_pnl=+0.00
+2026-10-09 15:30:54 Tick 823662  rank=#?  net_worth=$509,508.99  realized_pnl=+0.00
+2026-10-09 15:30:56 Tick 823664  rank=#?  net_worth=$509,510.62  realized_pnl=+0.00
+2026-10-09 15:30:58 Tick 823666  rank=#?  net_worth=$509,514.40  realized_pnl=+0.00
+2026-10-09 15:31:00 Tick 823668  rank=#?  net_worth=$509,515.47  realized_pnl=+0.00
+2026-10-09 15:31:02 Tick 823670  rank=#?  net_worth=$509,517.19  realized_pnl=+0.00
+2026-10-09 15:31:04 Tick 823672  rank=#?  net_worth=$509,520.53  realized_pnl=+0.00
+2026-10-09 15:31:06 Tick 823675  rank=#?  net_worth=$509,522.46  realized_pnl=+0.00
+2026-10-09 15:31:08 Tick 823677  rank=#?  net_worth=$509,523.70  realized_pnl=+0.00
+2026-10-09 15:31:10 Tick 823679  rank=#?  net_worth=$509,525.17  realized_pnl=+0.00
+2026-10-09 15:31:12 Tick 823681  rank=#?  net_worth=$509,526.26  realized_pnl=+0.00
+2026-10-09 15:31:15 Tick 823683  rank=#?  net_worth=$509,529.49  realized_pnl=+0.00
+2026-10-09 15:31:17 Tick 823685  rank=#?  net_worth=$509,530.51  realized_pnl=+0.00
+2026-10-09 15:31:19 Tick 823687  rank=#?  net_worth=$509,529.50  realized_pnl=+0.00
+2026-10-09 15:31:21 Tick 823689  rank=#?  net_worth=$509,529.57  realized_pnl=+0.00
+2026-10-09 15:31:21,595 INFO    trader.trader: Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:31:21 Session: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:31:21,596 INFO    trader.trader: Session event: CALENDAR — No scheduled events this session
+2026-10-09 15:31:21 Session: CALENDAR — No scheduled events this session
+2026-10-09 15:31:21 Tick 823690  rank=#?  net_worth=$509,529.96  realized_pnl=+0.00
+2026-10-09 15:31:23 Tick 823691  rank=#?  net_worth=$509,530.01  realized_pnl=+0.00
+2026-10-09 15:31:25 Tick 823693  rank=#?  net_worth=$509,529.68  realized_pnl=+0.00
+2026-10-09 15:31:27 Tick 823695  rank=#?  net_worth=$509,529.15  realized_pnl=+0.00
+2026-10-09 15:31:29 Tick 823698  rank=#?  net_worth=$509,529.09  realized_pnl=+0.00
+2026-10-09 15:31:31 Tick 823700  rank=#?  net_worth=$509,530.04  realized_pnl=+0.00
+2026-10-09 15:31:34 Tick 823702  rank=#?  net_worth=$509,528.93  realized_pnl=+0.00
+2026-10-09 15:31:36 Tick 823704  rank=#?  net_worth=$509,529.95  realized_pnl=+0.00
+2026-10-09 15:31:38 Tick 823706  rank=#?  net_worth=$509,529.24  realized_pnl=+0.00
+2026-10-09 15:31:40 Tick 823708  rank=#?  net_worth=$509,528.06  realized_pnl=+0.00
+2026-10-09 15:31:42 Tick 823710  rank=#?  net_worth=$509,527.10  realized_pnl=+0.00
+2026-10-09 15:31:44 Tick 823712  rank=#?  net_worth=$509,525.34  realized_pnl=+0.00
+2026-10-09 15:31:46 Tick 823714  rank=#?  net_worth=$509,525.01  realized_pnl=+0.00
+2026-10-09 15:31:48 Tick 823716  rank=#?  net_worth=$509,526.10  realized_pnl=+0.00
+2026-10-09 15:31:50 Tick 823718  rank=#?  net_worth=$509,524.98  realized_pnl=+0.00
+2026-10-09 15:31:52 Tick 823720  rank=#?  net_worth=$509,524.19  realized_pnl=+0.00
+2026-10-09 15:31:55 Tick 823723  rank=#?  net_worth=$509,522.39  realized_pnl=+0.00
+2026-10-09 15:31:57 Tick 823725  rank=#?  net_worth=$509,521.98  realized_pnl=+0.00
+2026-10-09 15:31:59 Tick 823727  rank=#?  net_worth=$509,521.23  realized_pnl=+0.00
+2026-10-09 15:32:01 Tick 823729  rank=#?  net_worth=$509,519.74  realized_pnl=+0.00
+2026-10-09 15:32:03 Tick 823731  rank=#?  net_worth=$509,517.98  realized_pnl=+0.00
+2026-10-09 15:32:05 Tick 823733  rank=#?  net_worth=$509,515.94  realized_pnl=+0.00
+2026-10-09 15:32:08 Tick 823735  rank=#?  net_worth=$509,514.18  realized_pnl=+0.00
+2026-10-09 15:32:10 Tick 823737  rank=#?  net_worth=$509,511.99  realized_pnl=+0.00
+2026-10-09 15:32:12 Tick 823739  rank=#?  net_worth=$509,509.57  realized_pnl=+0.00
+2026-10-09 15:32:14 Tick 823741  rank=#?  net_worth=$509,506.61  realized_pnl=+0.00
+2026-10-09 15:32:16 Tick 823743  rank=#?  net_worth=$509,506.54  realized_pnl=+0.00
+2026-10-09 15:32:18 Tick 823746  rank=#?  net_worth=$509,502.68  realized_pnl=+0.00
+2026-10-09 15:32:20 Tick 823748  rank=#?  net_worth=$509,501.81  realized_pnl=+0.00
+2026-10-09 15:32:24 Tick 823751  rank=#?  net_worth=$509,499.52  realized_pnl=+0.00
+2026-10-09 15:32:26 Tick 823753  rank=#?  net_worth=$509,499.03  realized_pnl=+0.00
+2026-10-09 15:32:28 Tick 823755  rank=#?  net_worth=$509,498.75  realized_pnl=+0.00
+2026-10-09 15:32:30 Tick 823757  rank=#?  net_worth=$509,497.07  realized_pnl=+0.00
+2026-10-09 15:32:32 Tick 823760  rank=#?  net_worth=$509,495.42  realized_pnl=+0.00
+2026-10-09 15:32:34 Tick 823762  rank=#?  net_worth=$509,493.53  realized_pnl=+0.00
+2026-10-09 15:32:36 Tick 823764  rank=#?  net_worth=$509,492.41  realized_pnl=+0.00
+2026-10-09 15:32:38 Tick 823766  rank=#?  net_worth=$509,489.76  realized_pnl=+0.00
+2026-10-09 15:32:41 Tick 823768  rank=#?  net_worth=$509,485.96  realized_pnl=+0.00
+2026-10-09 15:32:43 Tick 823770  rank=#?  net_worth=$509,484.52  realized_pnl=+0.00
+2026-10-09 15:32:45 Tick 823772  rank=#?  net_worth=$509,483.59  realized_pnl=+0.00
+2026-10-09 15:32:47 Tick 823774  rank=#?  net_worth=$509,481.61  realized_pnl=+0.00
+2026-10-09 15:32:49 Tick 823776  rank=#?  net_worth=$509,479.91  realized_pnl=+0.00
+2026-10-09 15:32:51 Tick 823778  rank=#?  net_worth=$509,478.83  realized_pnl=+0.00
+2026-10-09 15:32:53 Tick 823780  rank=#?  net_worth=$509,476.48  realized_pnl=+0.00
+2026-10-09 15:32:53,822 INFO    trader.trader: Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:32:53 Session: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+2026-10-09 15:32:53,837 INFO    trader.trader: Session event: CALENDAR — No scheduled events this session
+2026-10-09 15:32:53 Session: CALENDAR — No scheduled events this session
+2026-10-09 15:32:53 Tick 823781  rank=#?  net_worth=$509,475.67  realized_pnl=+0.00
+2026-10-09 15:32:55 Tick 823783  rank=#?  net_worth=$509,473.56  realized_pnl=+0.00
+2026-10-09 15:32:57 Tick 823785  rank=#?  net_worth=$509,471.94  realized_pnl=+0.00
+2026-10-09 15:33:00 Tick 823787  rank=#?  net_worth=$509,469.87  realized_pnl=+0.00
+2026-10-09 15:33:01 Traceback (most recent call last):
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 118, in run
+2026-10-09 15:33:01     return self._loop.run_until_complete(task)
+2026-10-09 15:33:01            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+2026-10-09 15:33:01     return future.result()
+2026-10-09 15:33:01            ^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/Users/amywang/algoarena-midway-traders/engine/trader/trader.py", line 873, in run
+2026-10-09 15:33:01     await listener
+2026-10-09 15:33:01   File "/Users/amywang/algoarena-midway-traders/engine/trader/trader.py", line 690, in listen
+2026-10-09 15:33:01     async for raw in self._ws:
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/site-packages/websockets/asyncio/connection.py", line 242, in __aiter__
+2026-10-09 15:33:01     yield await self.recv()
+2026-10-09 15:33:01           ^^^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/site-packages/websockets/asyncio/connection.py", line 303, in recv
+2026-10-09 15:33:01     return await self.recv_messages.get(decode)
+2026-10-09 15:33:01            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/site-packages/websockets/asyncio/messages.py", line 159, in get
+2026-10-09 15:33:01     frame = await self.frames.get(not self.closed)
+2026-10-09 15:33:01             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/site-packages/websockets/asyncio/messages.py", line 51, in get
+2026-10-09 15:33:01     await self.get_waiter
+2026-10-09 15:33:01 asyncio.exceptions.CancelledError
+
+2026-10-09 15:33:01 During handling of the above exception, another exception occurred:
+
+2026-10-09 15:33:01 Traceback (most recent call last):
+2026-10-09 15:33:01   File "<frozen runpy>", line 198, in _run_module_as_main
+2026-10-09 15:33:01   File "<frozen runpy>", line 88, in _run_code
+2026-10-09 15:33:01   File "/Users/amywang/algoarena-midway-traders/team/trader.py", line 111, in <module>
+2026-10-09 15:33:01     MyTrader().run()
+2026-10-09 15:33:01   File "/Users/amywang/algoarena-midway-traders/arena/trader.py", line 95, in run
+2026-10-09 15:33:01     asyncio.run(_AdaptedTraderBot(self).run())
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 194, in run
+2026-10-09 15:33:01     return runner.run(main)
+2026-10-09 15:33:01            ^^^^^^^^^^^^^^^^
+2026-10-09 15:33:01   File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 123, in run
+2026-10-09 15:33:01     raise KeyboardInterrupt()
+2026-10-09 15:33:01 KeyboardInterrupt

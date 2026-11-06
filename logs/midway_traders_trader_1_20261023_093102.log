@@ -1,0 +1,47 @@
+09:31:02  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_1_20261023_093102.log
+09:31:02  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+09:31:02  INFO    Connected to ws://localhost:8799 as midway_traders_trader_1 (trader)
+09:31:02  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+09:31:02  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+09:31:03  DEBUG   Portfolio: net_worth=158040.00
+09:31:03  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+09:31:03  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+09:31:03  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+09:31:04  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+09:31:05  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+09:31:06  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+09:31:07  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+09:31:08  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+09:31:09  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+09:31:10  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+09:31:11  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+09:31:12  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+09:31:13  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+09:31:14  INFO    Session event: CALENDAR — 4 scheduled event(s) this session
+09:31:14  INFO    EVENT  CALENDAR       4 scheduled event(s) this session
+09:31:14  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+09:31:14  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+09:31:14  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+09:31:14  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+09:31:14  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+09:31:14  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+09:31:14  INFO    RISK   session reference net worth 158040.00
+09:31:14  INFO    ORDER  sell 5 MSFT @ 415.79 take (notional 2078.95) — starter 1/3, buys blocked by risk limits
+09:31:14  DEBUG   Placed: sell 5 MSFT @ 415.7900
+09:31:14  DEBUG   Ack: sell 5 MSFT @ 415.7900
+09:31:14  INFO    Fill: sold   5 MSFT @ 415.7900 (fee=1.5592)
+09:31:14  INFO    FILL   #1 sell   5 MSFT   @   415.79  notional   2078.95  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+09:31:14  DEBUG   Portfolio: net_worth=158127.48
+09:31:14  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+09:31:15  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+09:31:24  INFO    ORDER  sell 5 NFLX @ 715.10 rest (notional 3575.50) — short 717.02 / long 719.28
+09:31:24  DEBUG   Placed: sell 5 NFLX @ 715.1000
+09:31:24  DEBUG   Ack: sell 5 NFLX @ 715.1000
+09:31:36  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+09:31:36  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+09:31:50  INFO    CANCEL sell 5 NFLX @ 715.10 (quote)
+09:31:51  INFO    ORDER  sell 5 NFLX @ 710.46 rest (notional 3552.30) — short 709.54 / long 711.75
+09:31:51  DEBUG   Placed: sell 5 NFLX @ 710.4600
+09:31:51  DEBUG   Ack: sell 5 NFLX @ 710.4600
+09:32:03  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+09:32:03  INFO    SESSION closed: positions are marked at the close, no close-out orders sent

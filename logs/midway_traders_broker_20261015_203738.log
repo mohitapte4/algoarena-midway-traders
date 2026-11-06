@@ -1,0 +1,144 @@
+2026-10-15 20:37:38,775 INFO    team.logs: Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_broker_20261015_203738.log
+
+2026-10-15 20:37:38 ╔══════════════════════════════════════════════╗
+2026-10-15 20:37:38 ║         AlgoArena — Broker Bot               ║
+2026-10-15 20:37:38 ╠══════════════════════════════════════════════╣
+2026-10-15 20:37:38 ║  Team:     midway_traders_broker             ║
+2026-10-15 20:37:38 ║  Exchange: ws://localhost:8799               ║
+2026-10-15 20:37:38 ║  Symbols:  AAPL, MSFT, NVDA, TSLA, AMZN, GOOGL, META, NFLX, AMD, INTC║
+2026-10-15 20:37:38 ║  Spread:   $0.30  Qty: 10                       ║
+2026-10-15 20:37:38 ║  Feed:     Yahoo Finance (every 5s)             ║
+2026-10-15 20:37:38 ╚══════════════════════════════════════════════╝
+
+2026-10-15 20:37:38,775 INFO    broker.broker: Yahoo Finance feed started for ['AAPL', 'MSFT', 'NVDA', 'TSLA', 'AMZN', 'GOOGL', 'META', 'NFLX', 'AMD', 'INTC'] (every 5 s)
+2026-10-15 20:37:38,776 INFO    broker.broker: Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+2026-10-15 20:37:38,908 INFO    broker.broker: Connected to ws://localhost:8799 as midway_traders_broker (broker)
+2026-10-15 20:37:38,910 INFO    broker.broker: Leaderboard tick=11 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-15 20:37:38,910 INFO    broker.broker: Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+2026-10-15 20:37:39,217 INFO    numexpr.utils: Note: NumExpr detected 11 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2026-10-15 20:37:39,217 INFO    numexpr.utils: NumExpr defaulting to 8 threads.
+2026-10-15 20:37:39,403 INFO    broker.broker: Leaderboard tick=11 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-15 20:37:41,406 INFO    broker.broker: Leaderboard tick=13 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-15 20:37:43,408 INFO    broker.broker: Leaderboard tick=15 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-15 20:37:44,528 INFO    broker.broker: Session event: CALENDAR — 2 scheduled event(s) this session
+2026-10-15 20:37:44,529 INFO    broker.broker: Session open — quoting begins
+2026-10-15 20:37:44,928 INFO    __main__: Quoted AAPL bid=220.82 x60 ask=221.13 x20 centre=220.9794
+2026-10-15 20:37:44,930 INFO    __main__: Quoted MSFT bid=414.94 x60 ask=415.25 x20 centre=415.0945
+2026-10-15 20:37:45,039 INFO    broker.broker: Fill: bought  5 MSFT @ 414.9400 (fee=1.5560, remaining=55)
+2026-10-15 20:37:45,056 INFO    broker.broker: Fill: bought  5 MSFT @ 414.9400 (fee=1.5560, remaining=50)
+2026-10-15 20:37:45,413 INFO    broker.broker: Leaderboard tick=17 | realized=0.00 fills=2 net_worth=158039.25
+2026-10-15 20:37:45,432 INFO    __main__: Quoted NVDA bid=130.90 x60 ask=131.21 x20 centre=131.0506
+2026-10-15 20:37:45,433 INFO    __main__: Quoted TSLA bid=279.75 x60 ask=280.45 x20 centre=280.1008
+2026-10-15 20:37:45,939 INFO    __main__: Quoted AAPL bid=220.83 x60 ask=222.00 x20 centre=221.4161
+2026-10-15 20:37:45,941 INFO    __main__: Quoted MSFT bid=415.05 x60 ask=416.76 x30 centre=415.9080
+2026-10-15 20:37:45,943 INFO    __main__: Quoted NVDA bid=131.00 x60 ask=131.62 x20 centre=131.3094
+2026-10-15 20:37:45,945 INFO    __main__: Quoted TSLA bid=279.97 x60 ask=281.32 x20 centre=280.6453
+2026-10-15 20:37:45,946 INFO    __main__: Quoted AMZN bid=194.96 x60 ask=195.27 x20 centre=195.1159
+2026-10-15 20:37:45,947 INFO    __main__: Quoted GOOGL bid=176.13 x60 ask=176.44 x20 centre=176.2848
+2026-10-15 20:37:46,450 INFO    __main__: Quoted META bid=581.46 x60 ask=581.77 x20 centre=581.6118
+2026-10-15 20:37:46,451 INFO    __main__: Quoted NFLX bid=715.23 x60 ask=715.54 x20 centre=715.3826
+2026-10-15 20:37:46,956 INFO    __main__: Quoted AAPL bid=220.83 x60 ask=222.88 x20 centre=221.8537
+2026-10-15 20:37:46,957 INFO    __main__: Quoted MSFT bid=415.05 x60 ask=418.10 x30 centre=416.5727
+2026-10-15 20:37:46,959 INFO    __main__: Quoted NVDA bid=131.00 x60 ask=132.14 x20 centre=131.5687
+2026-10-15 20:37:46,960 INFO    __main__: Quoted TSLA bid=280.02 x60 ask=282.12 x20 centre=281.0687
+2026-10-15 20:37:46,961 INFO    __main__: Quoted AMZN bid=195.11 x60 ask=195.90 x20 centre=195.5022
+2026-10-15 20:37:46,962 INFO    __main__: Quoted GOOGL bid=176.25 x60 ask=177.02 x20 centre=176.6320
+2026-10-15 20:37:46,963 INFO    __main__: Quoted AMD bid=167.58 x60 ask=167.89 x20 centre=167.7332
+2026-10-15 20:37:46,963 INFO    __main__: Quoted INTC bid=22.52 x60 ask=22.59 x20 centre=22.5535
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,965 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,965 ERROR   __main__: 8 venue errors this session (last [RATE_LIMITED] Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.): cancelling every quote and quoting nothing more
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,967 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,968 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,969 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,969 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,969 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,969 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,969 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick. Slow your requoting or buy a quota increase.
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,970 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,971 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:46,972 WARNING broker.broker: Exchange error [RATE_LIMITED]: Message quota exceeded — you may send 20 order/cancel messages per tick
+2026-10-15 20:37:47,417 INFO    broker.broker: Leaderboard tick=19 | realized=0.00 fills=2 net_worth=158025.51
+2026-10-15 20:37:49,422 INFO    broker.broker: Leaderboard tick=21 | realized=0.00 fills=2 net_worth=158026.28
+2026-10-15 20:37:51,424 INFO    broker.broker: Leaderboard tick=23 | realized=0.00 fills=2 net_worth=158024.99
+2026-10-15 20:37:53,426 INFO    broker.broker: Leaderboard tick=25 | realized=0.00 fills=2 net_worth=158023.71
+2026-10-15 20:37:55,430 INFO    broker.broker: Leaderboard tick=27 | realized=0.00 fills=2 net_worth=158023.83
+2026-10-15 20:37:57,432 INFO    broker.broker: Leaderboard tick=29 | realized=0.00 fills=2 net_worth=158023.34
+2026-10-15 20:37:59,435 INFO    broker.broker: Leaderboard tick=31 | realized=0.00 fills=2 net_worth=158021.23
+2026-10-15 20:38:01,438 INFO    broker.broker: Leaderboard tick=33 | realized=0.00 fills=2 net_worth=158022.05
+2026-10-15 20:38:03,441 INFO    broker.broker: Leaderboard tick=35 | realized=0.00 fills=2 net_worth=158021.36
+2026-10-15 20:38:05,445 INFO    broker.broker: Leaderboard tick=37 | realized=0.00 fills=2 net_worth=158022.63
+2026-10-15 20:38:07,447 INFO    broker.broker: Leaderboard tick=39 | realized=0.00 fills=2 net_worth=158026.90
+2026-10-15 20:38:09,451 INFO    broker.broker: Leaderboard tick=41 | realized=0.00 fills=2 net_worth=158027.81
+2026-10-15 20:38:11,453 INFO    broker.broker: Leaderboard tick=43 | realized=0.00 fills=2 net_worth=158029.27
+2026-10-15 20:38:13,457 INFO    broker.broker: Leaderboard tick=45 | realized=0.00 fills=2 net_worth=158028.13
+2026-10-15 20:38:15,459 INFO    broker.broker: Leaderboard tick=47 | realized=0.00 fills=2 net_worth=158026.91
+2026-10-15 20:38:17,461 INFO    broker.broker: Leaderboard tick=49 | realized=0.00 fills=2 net_worth=158029.42
+2026-10-15 20:38:19,464 INFO    broker.broker: Leaderboard tick=51 | realized=0.00 fills=2 net_worth=158030.04
+2026-10-15 20:38:21,465 INFO    broker.broker: Leaderboard tick=53 | realized=0.00 fills=2 net_worth=158029.89
+2026-10-15 20:38:23,466 INFO    broker.broker: Leaderboard tick=55 | realized=0.00 fills=2 net_worth=158030.47
+2026-10-15 20:38:25,471 INFO    broker.broker: Leaderboard tick=57 | realized=0.00 fills=2 net_worth=158030.07
+2026-10-15 20:38:27,472 INFO    broker.broker: Leaderboard tick=59 | realized=0.00 fills=2 net_worth=158026.02
+2026-10-15 20:38:29,476 INFO    broker.broker: Leaderboard tick=61 | realized=0.00 fills=2 net_worth=158027.16
+2026-10-15 20:38:31,478 INFO    broker.broker: Leaderboard tick=63 | realized=0.00 fills=2 net_worth=158025.85
+2026-10-15 20:38:33,484 INFO    broker.broker: Leaderboard tick=65 | realized=0.00 fills=2 net_worth=158025.85
+2026-10-15 20:38:35,489 INFO    broker.broker: Leaderboard tick=67 | realized=0.00 fills=2 net_worth=158022.76
+2026-10-15 20:38:37,490 INFO    broker.broker: Leaderboard tick=69 | realized=0.00 fills=2 net_worth=158020.99
+2026-10-15 20:38:39,494 INFO    broker.broker: Leaderboard tick=71 | realized=0.00 fills=2 net_worth=158020.06

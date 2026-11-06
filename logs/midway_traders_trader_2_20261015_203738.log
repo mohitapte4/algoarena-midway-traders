@@ -1,0 +1,16 @@
+20:37:38  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261015_203738.log
+20:37:38  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+20:37:38  INFO    Connected to ws://localhost:8799 as midway_traders_trader_2 (trader)
+20:37:38  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:37:38  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:37:44  DEBUG   Portfolio: net_worth=158007.94
+20:37:44  INFO    Session event: CALENDAR — 2 scheduled event(s) this session
+20:37:44  INFO    EVENT  CALENDAR       2 scheduled event(s) this session
+20:37:44  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+20:37:44  INFO    RISK   session reference net worth 158007.94
+20:37:45  INFO    ORDER  sell 5 MSFT @ 414.94 take (notional 2074.70) — starter 1/3, buys blocked by risk limits
+20:37:45  DEBUG   Placed: sell 5 MSFT @ 414.9400
+20:37:45  DEBUG   Ack: sell 5 MSFT @ 414.9400
+20:37:45  INFO    Fill: sold   5 MSFT @ 414.9400 (fee=1.5560)
+20:37:45  INFO    FILL   #1 sell   5 MSFT   @   414.94  notional   2074.70  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+20:37:45  DEBUG   Portfolio: net_worth=158008.86

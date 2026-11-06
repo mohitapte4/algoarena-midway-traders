@@ -1,0 +1,188 @@
+21:10:05  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261105_211005.log
+21:10:05  INFO    Connecting to ws://127.0.0.1:8799 (EXCHANGE_URLS from the shell)
+21:10:05  INFO    Connected to ws://127.0.0.1:8799 as midway_traders_trader_2 (trader)
+21:10:05  INFO    BOOKS  seeded from venue (leaderboard t7): cash 100000.00, positions none
+21:10:05  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+21:10:05  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+21:10:20  DEBUG   Portfolio: net_worth=158010.80
+21:10:20  INFO    BOOKS  starting grant AAPL 20, AMD 20, AMZN 20, GOOGL 20, INTC 20, META 20, MSFT 20, NFLX 20, NVDA 20, TSLA 20 (quantities from the venue's positions)
+21:10:20  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+21:10:20  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+21:10:20  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+21:10:21  INFO    BOOKS  entry prices from the leaderboard t23: AAPL 219.9573, AMD 164.6093, AMZN 194.6013, GOOGL 174.9620, INTC 21.9926, META 580.5595, MSFT 414.0178, NFLX 720.1113, NVDA 130.3968, TSLA 279.3319
+21:10:21  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+21:10:22  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+21:10:23  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+21:10:24  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+21:10:25  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+21:10:26  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+21:10:27  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+21:10:28  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+21:10:29  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+21:10:30  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+21:10:31  INFO    Session event: CALENDAR — 4 scheduled event(s) this session
+21:10:31  INFO    EVENT  CALENDAR       4 scheduled event(s) this session
+21:10:31  INFO    Session event: IPO_ANNOUNCE — IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+21:10:31  INFO    EVENT  IPO_ANNOUNCE   IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+21:10:31  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+21:10:31  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+21:10:31  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+21:10:31  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+21:10:31  INFO    RISK   session reference net worth 158010.80
+21:12:41  INFO    Session event: CALENDAR — Upcoming: earnings INTC @ t250
+21:12:41  INFO    EVENT  CALENDAR       Upcoming: earnings INTC @ t250
+21:12:41  INFO    EVENT  window INTC: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+21:13:01  INFO    Session event: IPO_OPEN — VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+21:13:01  INFO    IPO    VLTA: indicate 200 of 3500 shares up to $34.00 (range $30.00-34.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+21:13:01  INFO    EVENT  IPO_OPEN       VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+21:13:01  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 VLTA up to $34.00
+21:13:01  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 VLTA up to $34.00
+21:14:42  INFO    Session event: CALENDAR_EVENT — Earnings: INTC moving +4.0%
+21:14:42  INFO    EVENT  CALENDAR_EVENT Earnings: INTC moving +4.0%
+21:14:42  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 22.76 in 15s
+21:14:42  INFO    EVENT  INTC +3.96%: ride edge 2.65% vs round trip 0.30% — not this seat's leg
+21:14:57  INFO    ORDER  buy  5 INTC @ 22.75 rest (notional 113.75) — event reaction
+21:14:57  INFO    EVENT  INTC reaction: bid 5 @ 22.75 (settle 22.76)
+21:14:57  DEBUG   Placed: buy 5 INTC @ 22.7500
+21:14:57  DEBUG   Ack: buy 5 INTC @ 22.7500
+21:17:32  DEBUG   Portfolio: net_worth=157861.46
+21:17:32  INFO    BOOKS  IPO VLTA +200 @ 30.00 (quantity from the venue's position)
+21:17:32  INFO    Session event: IPO_PRICED — VLTA priced at $30.00 — 400 shares subscribed for 3,500 offered; lists t520
+21:17:32  INFO    EVENT  IPO_PRICED     VLTA priced at $30.00 — 400 shares subscribed for 3,500 offered; lists t520
+21:17:32  INFO    IPO    VLTA allocation 200 @ 30.00 booked (cost 6000.00): offered at 33.60 once listed, stop 27.60
+21:18:32  INFO    Session event: CALENDAR — Upcoming: earnings MSFT @ t600
+21:18:32  INFO    EVENT  CALENDAR       Upcoming: earnings MSFT @ t600
+21:18:32  INFO    EVENT  window MSFT: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+21:19:12  INFO    Session event: IPO_LISTED — VLTA is now trading — offered at $30.00. Where it belongs is yours to discover.
+21:19:12  INFO    EVENT  IPO_LISTED     VLTA is now trading — offered at $30.00. Where it belongs is yours to discover.
+21:20:32  INFO    Session event: CALENDAR_EVENT — Earnings: MSFT moving -4.5%
+21:20:32  INFO    EVENT  CALENDAR_EVENT Earnings: MSFT moving -4.5%
+21:20:32  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 394.85 in 15s
+21:20:32  INFO    EVENT  MSFT fade-extra leg edge 1.36% — not traded
+21:20:32  INFO    EVENT  MSFT -4.55%: fade edge 3.64% vs round trip 0.30% — FADE 20 shares: sell down to 404.26, buy back after 15s at no more than 394.85
+21:20:45  INFO    Session event: TRADING_HALT — Trading halted on MSFT: MSFT velocity halt: 5.3% move in 60s (threshold 5.0%)
+21:20:45  INFO    EVENT  TRADING_HALT   Trading halted on MSFT: MSFT velocity halt: 5.3% move in 60s (threshold 5.0%)
+21:20:47  INFO    Session event: SSR_ON — MSFT is now under the short-sale rule — shorts must add liquidity above the bid
+21:20:47  INFO    EVENT  SSR_ON         MSFT is now under the short-sale rule — shorts must add liquidity above the bid
+21:20:47  INFO    EVENT  FADE MSFT done: bought 0, sold 0, gross P&L +0.00
+21:21:52  INFO    Session event: CALENDAR — Upcoming: dividend NVDA @ t800
+21:21:52  INFO    EVENT  CALENDAR       Upcoming: dividend NVDA @ t800
+21:21:52  INFO    EVENT  window NVDA: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+21:23:52  DEBUG   Portfolio: net_worth=157695.14
+21:23:52  INFO    Session event: DIVIDEND — NVDA pays $0.30/share — longs credited, shorts debited, price marked down ex-dividend
+21:23:52  INFO    EVENT  DIVIDEND       NVDA pays $0.30/share — longs credited, shorts debited, price marked down ex-dividend
+21:24:23  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t950
+21:24:23  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t950
+21:24:23  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+21:25:45  INFO    Session event: TRADING_RESUMED — Trading resumed on MSFT
+21:25:45  INFO    EVENT  TRADING_RESUMED Trading resumed on MSFT
+21:25:45  INFO    ORDER  buy  5 MSFT @ 394.84 rest (notional 1974.20) — event reaction
+21:25:45  INFO    EVENT  MSFT reaction: bid 5 @ 394.84 (settle 394.85)
+21:25:45  DEBUG   Placed: buy 5 MSFT @ 394.8400
+21:25:45  DEBUG   Ack: buy 5 MSFT @ 394.8400
+21:26:23  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving +1.8%
+21:26:23  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving +1.8%
+21:26:23  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 224.65 in 15s
+21:26:23  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 400.90 in 15s
+21:26:23  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 130.94 in 15s
+21:26:23  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 286.06 in 15s
+21:26:23  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 197.73 in 15s
+21:26:23  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 177.38 in 15s
+21:26:23  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 587.66 in 15s
+21:26:23  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 734.51 in 15s
+21:26:23  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 166.20 in 15s
+21:26:23  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 22.89 in 15s
+21:26:23  INFO    CANCEL buy 5 MSFT @ 394.84 (reaction)
+21:26:23  INFO    CANCEL buy 5 INTC @ 22.75 (reaction)
+21:26:23  INFO    EVENT  AAPL +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  MSFT +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  NVDA +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  TSLA +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  AMZN +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  GOOGL +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  META +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  NFLX +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  AMD +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:23  INFO    EVENT  INTC +1.77%: ride edge 1.18% vs round trip 0.30% — not this seat's leg
+21:26:38  INFO    ORDER  buy  5 AAPL @ 224.65 rest (notional 1123.25) — event reaction
+21:26:38  INFO    EVENT  AAPL reaction: bid 5 @ 224.65 (settle 224.65)
+21:26:38  DEBUG   Placed: buy 5 AAPL @ 224.6500
+21:26:38  DEBUG   Ack: buy 5 AAPL @ 224.6500
+21:26:38  INFO    ORDER  buy  5 MSFT @ 400.90 rest (notional 2004.50) — event reaction
+21:26:38  INFO    EVENT  MSFT reaction: bid 5 @ 400.90 (settle 400.90)
+21:26:38  DEBUG   Placed: buy 5 MSFT @ 400.9000
+21:26:38  DEBUG   Ack: buy 5 MSFT @ 400.9000
+21:26:38  INFO    ORDER  buy  5 NVDA @ 130.93 rest (notional 654.65) — event reaction
+21:26:38  INFO    EVENT  NVDA reaction: bid 5 @ 130.93 (settle 130.94)
+21:26:38  DEBUG   Placed: buy 5 NVDA @ 130.9300
+21:26:38  DEBUG   Ack: buy 5 NVDA @ 130.9300
+21:26:38  INFO    ORDER  buy  5 TSLA @ 286.05 rest (notional 1430.25) — event reaction
+21:26:38  INFO    EVENT  TSLA reaction: bid 5 @ 286.05 (settle 286.06)
+21:26:38  DEBUG   Placed: buy 5 TSLA @ 286.0500
+21:26:38  DEBUG   Ack: buy 5 TSLA @ 286.0500
+21:26:38  INFO    ORDER  buy  5 AMZN @ 197.73 rest (notional 988.65) — event reaction
+21:26:38  INFO    EVENT  AMZN reaction: bid 5 @ 197.73 (settle 197.73)
+21:26:38  DEBUG   Placed: buy 5 AMZN @ 197.7300
+21:26:38  DEBUG   Ack: buy 5 AMZN @ 197.7300
+21:26:38  INFO    ORDER  buy  5 GOOGL @ 177.38 rest (notional 886.90) — event reaction
+21:26:38  INFO    EVENT  GOOGL reaction: bid 5 @ 177.38 (settle 177.38)
+21:26:38  DEBUG   Placed: buy 5 GOOGL @ 177.3800
+21:26:38  DEBUG   Ack: buy 5 GOOGL @ 177.3800
+21:26:39  INFO    ORDER  buy  5 META @ 587.65 rest (notional 2938.25) — event reaction
+21:26:39  INFO    EVENT  META reaction: bid 5 @ 587.65 (settle 587.66)
+21:26:39  DEBUG   Placed: buy 5 META @ 587.6500
+21:26:39  DEBUG   Ack: buy 5 META @ 587.6500
+21:26:39  INFO    ORDER  buy  5 NFLX @ 734.51 rest (notional 3672.55) — event reaction
+21:26:39  INFO    EVENT  NFLX reaction: bid 5 @ 734.51 (settle 734.51)
+21:26:39  DEBUG   Placed: buy 5 NFLX @ 734.5100
+21:26:39  DEBUG   Ack: buy 5 NFLX @ 734.5100
+21:26:39  INFO    ORDER  buy  5 AMD @ 166.19 rest (notional 830.95) — event reaction
+21:26:39  INFO    EVENT  AMD reaction: bid 5 @ 166.19 (settle 166.20)
+21:26:39  DEBUG   Placed: buy 5 AMD @ 166.1900
+21:26:39  DEBUG   Ack: buy 5 AMD @ 166.1900
+21:26:39  INFO    ORDER  buy  5 INTC @ 22.89 rest (notional 114.45) — event reaction
+21:26:39  INFO    EVENT  INTC reaction: bid 5 @ 22.89 (settle 22.89)
+21:26:39  DEBUG   Placed: buy 5 INTC @ 22.8900
+21:26:39  DEBUG   Ack: buy 5 INTC @ 22.8900
+21:28:15  INFO    Session event: SESSION_PRECLOSE — Closing auction: limit orders only — the market closes on the cross in 10 ticks
+21:28:15  INFO    EVENT  SESSION_PRECLOSE Closing auction: limit orders only — the market closes on the cross in 10 ticks
+21:28:24  INFO    Session event: AUCTION_RESULT — Closing auction complete
+21:28:24  INFO    EVENT  AUCTION_RESULT Closing auction complete
+21:28:24  INFO    RECON  midway_traders_trader_2 positions at SESSION_CLOSED vs the last portfolio update: PASS
+21:28:24  INFO    RECON    item                           own         venue        diff
+21:28:24  INFO    RECON    positions held                  11            11           0  ok
+21:28:24  INFO    RECON    pos AAPL                        20            20           0  ok
+21:28:24  INFO    RECON    pos AMD                         20            20           0  ok
+21:28:24  INFO    RECON    pos AMZN                        20            20           0  ok
+21:28:24  INFO    RECON    pos GOOGL                       20            20           0  ok
+21:28:24  INFO    RECON    pos INTC                        20            20           0  ok
+21:28:24  INFO    RECON    pos META                        20            20           0  ok
+21:28:24  INFO    RECON    pos MSFT                        20            20           0  ok
+21:28:24  INFO    RECON    pos NFLX                        20            20           0  ok
+21:28:24  INFO    RECON    pos NVDA                        20            20           0  ok
+21:28:24  INFO    RECON    pos TSLA                        20            20           0  ok
+21:28:24  INFO    RECON    pos VLTA                       200           200           0  ok
+21:28:24  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+21:28:24  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+21:28:24  INFO    RECON  midway_traders_trader_2 close vs leaderboard t1105 (0 fills, 0 rebases): PASS
+21:28:24  INFO    RECON    item                           own         venue        diff
+21:28:24  INFO    RECON    positions held                  11            11           0  ok
+21:28:24  INFO    RECON    pos AAPL                        20            20           0  ok
+21:28:24  INFO    RECON    pos AMD                         20            20           0  ok
+21:28:24  INFO    RECON    pos AMZN                        20            20           0  ok
+21:28:24  INFO    RECON    pos GOOGL                       20            20           0  ok
+21:28:24  INFO    RECON    pos INTC                        20            20           0  ok
+21:28:24  INFO    RECON    pos META                        20            20           0  ok
+21:28:24  INFO    RECON    pos MSFT                        20            20           0  ok
+21:28:24  INFO    RECON    pos NFLX                        20            20           0  ok
+21:28:24  INFO    RECON    pos NVDA                        20            20           0  ok
+21:28:24  INFO    RECON    pos TSLA                        20            20           0  ok
+21:28:24  INFO    RECON    pos VLTA                       200           200           0  ok
+21:28:24  INFO    RECON    fees                          0.00          0.00        0.00  ok
+21:28:24  INFO    RECON    rebates                       0.00          0.00        0.00  ok
+21:28:24  INFO    RECON    realized                      0.00          0.00        0.00  ok
+21:28:24  INFO    RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+21:28:24  INFO    RECON    cash                     94,006.00     94,212.62      206.62  ok  diff is interest on idle cash
+21:28:24  INFO    RECON    interest (est)              213.02        206.62       -6.40  rate x cash x ticks
+21:28:24  INFO    RECON    net worth               158,597.64    158,804.26      206.62  
+21:28:24  INFO    RECON    P&L since t23               605.50        812.12      206.62  

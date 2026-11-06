@@ -1,0 +1,754 @@
+2026-10-23 13:34:40,263 INFO    team.logs: Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_broker_20261023_133440.log
+
+2026-10-23 13:34:40 ╔══════════════════════════════════════════════╗
+2026-10-23 13:34:40 ║         AlgoArena — Broker Bot               ║
+2026-10-23 13:34:40 ╠══════════════════════════════════════════════╣
+2026-10-23 13:34:40 ║  Team:     midway_traders_broker             ║
+2026-10-23 13:34:40 ║  Exchange: ws://localhost:8798               ║
+2026-10-23 13:34:40 ║  Symbols:  AAPL, MSFT, NVDA, TSLA, AMZN, GOOGL, META, NFLX, AMD, INTC║
+2026-10-23 13:34:40 ║  Spread:   $0.30  Qty: 10                       ║
+2026-10-23 13:34:40 ║  Feed:     Yahoo Finance (every 5s)             ║
+2026-10-23 13:34:40 ╚══════════════════════════════════════════════╝
+
+2026-10-23 13:34:40,264 INFO    broker.broker: Yahoo Finance feed started for ['AAPL', 'MSFT', 'NVDA', 'TSLA', 'AMZN', 'GOOGL', 'META', 'NFLX', 'AMD', 'INTC'] (every 5 s)
+2026-10-23 13:34:40,264 INFO    broker.broker: Connecting to ws://localhost:8798 (EXCHANGE_URLS from the shell)
+2026-10-23 13:34:40,351 INFO    broker.broker: Connected to ws://localhost:8798 as midway_traders_broker (broker)
+2026-10-23 13:34:40,363 INFO    broker.broker: Leaderboard tick=5 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-23 13:34:40,363 INFO    broker.broker: Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+2026-10-23 13:34:40,604 INFO    numexpr.utils: Note: NumExpr detected 11 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2026-10-23 13:34:40,605 INFO    numexpr.utils: NumExpr defaulting to 8 threads.
+2026-10-23 13:34:41,216 INFO    broker.broker: Leaderboard tick=5 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-23 13:34:43,223 INFO    broker.broker: Leaderboard tick=7 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-23 13:34:45,222 INFO    broker.broker: Leaderboard tick=9 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-23 13:34:47,225 INFO    broker.broker: Leaderboard tick=11 | realized=0.00 fills=0 net_worth=100000.00
+2026-10-23 13:34:48,048 INFO    __main__: Opening position (not skewed away): {'AAPL': 20, 'MSFT': 20, 'NVDA': 20, 'TSLA': 20, 'AMZN': 20, 'GOOGL': 20, 'META': 20, 'NFLX': 20, 'AMD': 20, 'INTC': 20}
+2026-10-23 13:34:48,049 INFO    broker.broker: Pre-open — quoting into the opening auction
+2026-10-23 13:34:48,226 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+2026-10-23 13:34:48,372 INFO    __main__: Quoted AAPL bid=220.69 x60 ask=221.19 x20 centre=220.9360 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:48,625 INFO    __main__: Quoted MSFT bid=414.93 x60 ask=415.24 x20 centre=415.0876 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:49,232 INFO    broker.broker: Leaderboard tick=13 | realized=0.00 fills=0 net_worth=158049.24
+2026-10-23 13:34:49,234 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+2026-10-23 13:34:49,254 INFO    __main__: Quoted NVDA bid=130.88 x60 ask=131.23 x20 centre=131.0544 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:49,895 INFO    __main__: Quoted TSLA bid=279.90 x60 ask=280.21 x20 centre=280.0516 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:50,234 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+2026-10-23 13:34:51,156 INFO    __main__: Quoted AAPL bid=220.68 x60 ask=222.82 x20 centre=221.7499 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:51,234 INFO    broker.broker: Leaderboard tick=15 | realized=0.00 fills=0 net_worth=158058.88
+2026-10-23 13:34:51,236 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+2026-10-23 13:34:52,239 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+2026-10-23 13:34:52,424 INFO    __main__: Quoted MSFT bid=415.06 x60 ask=416.50 x20 centre=415.7823 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:53,236 INFO    broker.broker: Leaderboard tick=17 | realized=0.00 fills=0 net_worth=158060.23
+2026-10-23 13:34:53,241 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+2026-10-23 13:34:53,691 INFO    __main__: Quoted NVDA bid=131.01 x60 ask=132.14 x20 centre=131.5752 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:54,245 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+2026-10-23 13:34:54,969 INFO    __main__: Quoted TSLA bid=280.02 x60 ask=281.34 x20 centre=280.6789 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:55,238 INFO    broker.broker: Leaderboard tick=19 | realized=0.00 fills=0 net_worth=158078.33
+2026-10-23 13:34:55,246 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+2026-10-23 13:34:55,613 INFO    __main__: Quoted AMZN bid=194.91 x60 ask=195.22 x20 centre=195.0622 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:56,136 INFO    __main__: Quoted GOOGL bid=175.95 x60 ask=176.26 x20 centre=176.1072 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:56,249 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+2026-10-23 13:34:57,240 INFO    broker.broker: Leaderboard tick=21 | realized=0.00 fills=0 net_worth=158122.92
+2026-10-23 13:34:57,250 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+2026-10-23 13:34:57,396 INFO    __main__: Quoted AAPL bid=222.16 x60 ask=222.71 x20 centre=222.4347 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:58,254 INFO    broker.broker: Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+2026-10-23 13:34:58,664 INFO    __main__: Quoted MSFT bid=416.19 x60 ask=416.50 x20 centre=416.3451 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:34:59,244 INFO    broker.broker: Leaderboard tick=23 | realized=0.00 fills=0 net_worth=158111.18
+2026-10-23 13:34:59,259 INFO    broker.broker: Session event: CALENDAR — 4 scheduled event(s) this session
+2026-10-23 13:34:59,261 INFO    broker.broker: Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+2026-10-23 13:34:59,262 INFO    broker.broker: Session open — quoting begins
+2026-10-23 13:34:59,263 INFO    broker.broker: Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+2026-10-23 13:34:59,310 INFO    broker.broker: Fill: bought  5 MSFT @ 416.1900 (fee=1.5607, remaining=55)
+2026-10-23 13:34:59,310 INFO    broker.broker: Fill: bought  5 MSFT @ 416.1900 (fee=1.5607, remaining=50)
+2026-10-23 13:35:00,063 INFO    __main__: Quoted NVDA bid=131.54 x60 ask=132.48 x60 centre=132.0106 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:01,246 INFO    broker.broker: Leaderboard tick=25 | realized=0.00 fills=2 net_worth=158165.31
+2026-10-23 13:35:01,457 INFO    __main__: Quoted TSLA bid=280.99 x60 ask=281.30 x60 centre=281.1408 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:02,848 INFO    __main__: Quoted AMZN bid=195.24 x60 ask=195.55 x60 centre=195.3909 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:03,248 INFO    broker.broker: Leaderboard tick=27 | realized=0.00 fills=2 net_worth=158158.93
+2026-10-23 13:35:04,243 INFO    __main__: Quoted GOOGL bid=176.78 x60 ask=177.30 x60 centre=177.0394 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:04,879 INFO    __main__: Quoted META bid=580.73 x60 ask=581.04 x60 centre=580.8828 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:05,251 INFO    broker.broker: Leaderboard tick=29 | realized=0.00 fills=2 net_worth=158076.01
+2026-10-23 13:35:05,640 INFO    __main__: Quoted NFLX bid=713.66 x60 ask=715.47 x60 centre=714.5665 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:07,030 INFO    __main__: Quoted AAPL bid=222.82 x60 ask=223.13 x60 centre=222.9753 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:07,254 INFO    broker.broker: Leaderboard tick=31 | realized=0.00 fills=2 net_worth=158087.10
+2026-10-23 13:35:08,319 INFO    __main__: Quoted MSFT bid=416.73 x60 ask=417.04 x60 centre=416.9062 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:35:09,277 INFO    broker.broker: Leaderboard tick=33 | realized=0.00 fills=2 net_worth=158121.62
+2026-10-23 13:35:09,857 INFO    __main__: Quoted NVDA bid=132.19 x60 ask=132.50 x60 centre=132.3478 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:11,251 INFO    __main__: Quoted TSLA bid=281.32 x60 ask=281.63 x60 centre=281.4768 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:11,258 INFO    broker.broker: Leaderboard tick=35 | realized=0.00 fills=2 net_worth=158127.53
+2026-10-23 13:35:12,787 INFO    __main__: Quoted AMZN bid=195.51 x60 ask=195.82 x60 centre=195.6660 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:13,262 INFO    broker.broker: Leaderboard tick=37 | realized=0.00 fills=2 net_worth=158124.00
+2026-10-23 13:35:14,309 INFO    __main__: Quoted GOOGL bid=177.69 x60 ask=178.00 x60 centre=177.8419 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:15,263 INFO    broker.broker: Leaderboard tick=39 | realized=0.00 fills=2 net_worth=158166.27
+2026-10-23 13:35:15,830 INFO    __main__: Quoted META bid=581.21 x60 ask=581.52 x60 centre=581.3604 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:17,268 INFO    broker.broker: Leaderboard tick=41 | realized=0.00 fills=2 net_worth=158096.78
+2026-10-23 13:35:17,353 INFO    __main__: Quoted NFLX bid=710.14 x60 ask=710.45 x60 centre=710.2928 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:18,115 INFO    __main__: Quoted AMD bid=166.95 x60 ask=167.59 x60 centre=167.2698 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:18,751 INFO    __main__: Quoted INTC bid=22.51 x60 ask=22.57 x60 centre=22.5401 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:19,273 INFO    broker.broker: Leaderboard tick=43 | realized=0.00 fills=2 net_worth=158148.80
+2026-10-23 13:35:20,268 INFO    __main__: Quoted AAPL bid=223.34 x60 ask=223.65 x60 centre=223.4916 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:21,275 INFO    broker.broker: Leaderboard tick=45 | realized=0.00 fills=2 net_worth=158181.19
+2026-10-23 13:35:21,833 INFO    __main__: Quoted MSFT bid=417.25 x60 ask=417.56 x60 centre=417.4253 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:35:23,256 INFO    __main__: Quoted NVDA bid=132.50 x60 ask=132.81 x60 centre=132.6575 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:23,278 INFO    broker.broker: Leaderboard tick=47 | realized=0.00 fills=2 net_worth=158187.77
+2026-10-23 13:35:24,777 INFO    __main__: Quoted TSLA bid=281.55 x60 ask=281.86 x60 centre=281.7069 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:25,283 INFO    broker.broker: Leaderboard tick=49 | realized=0.00 fills=2 net_worth=158186.55
+2026-10-23 13:35:26,298 INFO    __main__: Quoted AMZN bid=195.71 x60 ask=196.02 x60 centre=195.8672 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:27,287 INFO    broker.broker: Leaderboard tick=51 | realized=0.00 fills=2 net_worth=158210.94
+2026-10-23 13:35:27,819 INFO    __main__: Quoted GOOGL bid=178.38 x60 ask=178.69 x60 centre=178.5359 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:29,292 INFO    broker.broker: Leaderboard tick=53 | realized=0.00 fills=2 net_worth=158218.72
+2026-10-23 13:35:29,337 INFO    __main__: Quoted META bid=581.58 x60 ask=581.89 x60 centre=581.7305 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:30,859 INFO    __main__: Quoted NFLX bid=706.70 x60 ask=707.01 x60 centre=706.8594 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:31,295 INFO    broker.broker: Leaderboard tick=55 | realized=0.00 fills=2 net_worth=158137.70
+2026-10-23 13:35:32,252 INFO    __main__: Quoted AMD bid=169.41 x60 ask=169.72 x60 centre=169.5664 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:33,298 INFO    broker.broker: Leaderboard tick=57 | realized=0.00 fills=2 net_worth=158208.09
+2026-10-23 13:35:33,772 INFO    __main__: Quoted INTC bid=22.92 x60 ask=22.99 x60 centre=22.9524 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:35,302 INFO    __main__: Quoted AAPL bid=223.80 x60 ask=224.11 x60 centre=223.9583 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:35,304 INFO    broker.broker: Leaderboard tick=59 | realized=0.00 fills=2 net_worth=158217.67
+2026-10-23 13:35:36,842 INFO    __main__: Quoted MSFT bid=417.73 x60 ask=418.04 x60 centre=417.9020 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:35:37,307 INFO    broker.broker: Leaderboard tick=61 | realized=0.00 fills=2 net_worth=158226.25
+2026-10-23 13:35:38,366 INFO    __main__: Quoted NVDA bid=132.75 x60 ask=133.06 x60 centre=132.9076 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:39,308 INFO    broker.broker: Leaderboard tick=63 | realized=0.00 fills=2 net_worth=158241.24
+2026-10-23 13:35:39,760 INFO    __main__: Quoted TSLA bid=281.72 x60 ask=282.03 x60 centre=281.8782 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:41,279 INFO    __main__: Quoted AMZN bid=195.90 x60 ask=196.21 x60 centre=196.0537 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:41,311 INFO    broker.broker: Leaderboard tick=65 | realized=0.00 fills=2 net_worth=158245.42
+2026-10-23 13:35:42,797 INFO    __main__: Quoted GOOGL bid=178.94 x60 ask=179.25 x60 centre=179.0995 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:43,313 INFO    broker.broker: Leaderboard tick=67 | realized=0.00 fills=2 net_worth=158251.00
+2026-10-23 13:35:44,320 INFO    __main__: Quoted META bid=581.95 x60 ask=582.26 x60 centre=582.1052 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:45,316 INFO    broker.broker: Leaderboard tick=69 | realized=0.00 fills=2 net_worth=158203.99
+2026-10-23 13:35:45,840 INFO    __main__: Quoted NFLX bid=703.66 x60 ask=703.97 x60 centre=703.8162 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:47,320 INFO    broker.broker: Leaderboard tick=71 | realized=0.00 fills=2 net_worth=158241.37
+2026-10-23 13:35:47,362 INFO    __main__: Quoted AMD bid=171.26 x60 ask=171.57 x60 centre=171.4137 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:48,769 INFO    __main__: Quoted INTC bid=23.27 x60 ask=23.33 x60 centre=23.3008 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:49,320 INFO    broker.broker: Leaderboard tick=73 | realized=0.00 fills=2 net_worth=158242.75
+2026-10-23 13:35:50,286 INFO    __main__: Quoted AAPL bid=224.15 x60 ask=224.46 x60 centre=224.3076 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:51,324 INFO    broker.broker: Leaderboard tick=75 | realized=0.00 fills=2 net_worth=158267.84
+2026-10-23 13:35:51,806 INFO    __main__: Quoted MSFT bid=418.12 x60 ask=418.43 x60 centre=418.2968 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:35:53,325 INFO    __main__: Quoted NVDA bid=132.96 x60 ask=133.27 x60 centre=133.1103 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:53,327 INFO    broker.broker: Leaderboard tick=77 | realized=0.00 fills=2 net_worth=158272.42
+2026-10-23 13:35:54,845 INFO    __main__: Quoted AMZN bid=196.08 x60 ask=196.39 x60 centre=196.2312 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:55,329 INFO    broker.broker: Leaderboard tick=79 | realized=0.00 fills=2 net_worth=158270.41
+2026-10-23 13:35:56,364 INFO    __main__: Quoted GOOGL bid=179.37 x60 ask=179.68 x60 centre=179.5257 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:57,335 INFO    broker.broker: Leaderboard tick=81 | realized=0.00 fills=2 net_worth=158236.19
+2026-10-23 13:35:57,758 INFO    __main__: Quoted NFLX bid=701.20 x60 ask=701.51 x60 centre=701.3552 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:59,278 INFO    __main__: Quoted AMD bid=172.81 x60 ask=173.12 x60 centre=172.9618 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:35:59,338 INFO    broker.broker: Leaderboard tick=83 | realized=0.00 fills=2 net_worth=158267.57
+2026-10-23 13:36:00,798 INFO    __main__: Quoted INTC bid=23.55 x60 ask=23.62 x60 centre=23.5885 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:01,342 INFO    broker.broker: Leaderboard tick=85 | realized=0.00 fills=2 net_worth=158267.56
+2026-10-23 13:36:02,321 INFO    __main__: Quoted AAPL bid=224.44 x60 ask=224.75 x60 centre=224.5930 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:03,344 INFO    broker.broker: Leaderboard tick=87 | realized=0.00 fills=2 net_worth=158289.94
+2026-10-23 13:36:03,865 INFO    __main__: Quoted MSFT bid=418.46 x60 ask=418.77 x60 centre=418.6356 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:36:05,261 INFO    __main__: Quoted NVDA bid=133.14 x60 ask=133.45 x60 centre=133.2914 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:05,347 INFO    broker.broker: Leaderboard tick=89 | realized=0.00 fills=2 net_worth=158293.72
+2026-10-23 13:36:06,783 INFO    __main__: Quoted AMZN bid=196.25 x60 ask=196.56 x60 centre=196.4045 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:07,352 INFO    broker.broker: Leaderboard tick=91 | realized=0.00 fills=2 net_worth=158291.51
+2026-10-23 13:36:08,305 INFO    __main__: Quoted GOOGL bid=179.72 x60 ask=180.03 x60 centre=179.8799 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:09,354 INFO    broker.broker: Leaderboard tick=93 | realized=0.00 fills=2 net_worth=158311.69
+2026-10-23 13:36:09,830 INFO    __main__: Quoted META bid=582.29 x60 ask=582.60 x60 centre=582.4448 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:11,350 INFO    __main__: Quoted NFLX bid=699.27 x60 ask=699.58 x60 centre=699.4293 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:11,356 INFO    broker.broker: Leaderboard tick=95 | realized=0.00 fills=2 net_worth=158273.47
+2026-10-23 13:36:12,870 INFO    __main__: Quoted AMD bid=174.09 x60 ask=174.40 x60 centre=174.2460 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:13,358 INFO    broker.broker: Leaderboard tick=97 | realized=0.00 fills=2 net_worth=158298.26
+2026-10-23 13:36:14,263 INFO    __main__: Quoted INTC bid=23.79 x60 ask=23.86 x60 centre=23.8283 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:15,371 INFO    broker.broker: Leaderboard tick=99 | realized=0.00 fills=2 net_worth=158309.04
+2026-10-23 13:36:15,780 INFO    __main__: Quoted AAPL bid=224.66 x60 ask=224.97 x60 centre=224.8123 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:17,306 INFO    __main__: Quoted MSFT bid=418.78 x60 ask=419.09 x60 centre=418.9577 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:36:17,367 INFO    broker.broker: Leaderboard tick=101 | realized=0.00 fills=2 net_worth=158319.02
+2026-10-23 13:36:18,822 INFO    __main__: Quoted NVDA bid=133.26 x60 ask=133.57 x60 centre=133.4133 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:19,369 INFO    broker.broker: Leaderboard tick=103 | realized=0.00 fills=2 net_worth=158316.01
+2026-10-23 13:36:20,343 INFO    __main__: Quoted TSLA bid=281.69 x60 ask=282.00 x60 centre=281.8433 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:21,372 INFO    broker.broker: Leaderboard tick=105 | realized=0.00 fills=2 net_worth=158325.19
+2026-10-23 13:36:21,860 INFO    __main__: Quoted AMZN bid=196.42 x60 ask=196.73 x60 centre=196.5798 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:23,252 INFO    __main__: Quoted GOOGL bid=180.05 x60 ask=180.36 x60 centre=180.2059 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:23,374 INFO    broker.broker: Leaderboard tick=107 | realized=0.00 fills=2 net_worth=158332.17
+2026-10-23 13:36:24,776 INFO    __main__: Quoted NFLX bid=697.72 x60 ask=698.03 x60 centre=697.8723 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:25,378 INFO    broker.broker: Leaderboard tick=109 | realized=0.00 fills=2 net_worth=158295.56
+2026-10-23 13:36:26,293 INFO    __main__: Quoted AMD bid=175.16 x60 ask=175.47 x60 centre=175.3146 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:27,382 INFO    broker.broker: Leaderboard tick=111 | realized=0.00 fills=2 net_worth=158327.54
+2026-10-23 13:36:27,815 INFO    __main__: Quoted INTC bid=24.00 x60 ask=24.07 x60 centre=24.0324 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:29,329 INFO    __main__: Quoted AAPL bid=224.86 x60 ask=225.17 x60 centre=225.0176 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:29,387 INFO    broker.broker: Leaderboard tick=113 | realized=0.00 fills=2 net_worth=158331.92
+2026-10-23 13:36:30,850 INFO    __main__: Quoted MSFT bid=419.09 x60 ask=419.40 x60 centre=419.2640 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:36:31,391 INFO    broker.broker: Leaderboard tick=115 | realized=0.00 fills=2 net_worth=158335.41
+2026-10-23 13:36:32,267 INFO    __main__: Quoted NVDA bid=133.38 x60 ask=133.69 x60 centre=133.5396 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:33,392 INFO    broker.broker: Leaderboard tick=117 | realized=0.00 fills=2 net_worth=158347.79
+2026-10-23 13:36:33,788 INFO    __main__: Quoted AMZN bid=196.59 x60 ask=196.90 x60 centre=196.7490 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:35,307 INFO    __main__: Quoted GOOGL bid=180.35 x60 ask=180.66 x60 centre=180.5007 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:35,398 INFO    broker.broker: Leaderboard tick=119 | realized=0.00 fills=2 net_worth=158354.17
+2026-10-23 13:36:36,827 INFO    __main__: Quoted META bid=582.63 x60 ask=582.94 x60 centre=582.7838 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:37,401 INFO    broker.broker: Leaderboard tick=121 | realized=0.00 fills=2 net_worth=158355.36
+2026-10-23 13:36:38,347 INFO    __main__: Quoted NFLX bid=696.33 x60 ask=696.64 x60 centre=696.4883 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:39,405 INFO    broker.broker: Leaderboard tick=123 | realized=0.00 fills=2 net_worth=158351.54
+2026-10-23 13:36:39,864 INFO    __main__: Quoted AMD bid=176.04 x60 ask=176.35 x60 centre=176.1933 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:41,255 INFO    __main__: Quoted INTC bid=24.17 x60 ask=24.24 x60 centre=24.2053 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:41,410 INFO    broker.broker: Leaderboard tick=125 | realized=0.00 fills=2 net_worth=158355.32
+2026-10-23 13:36:42,773 INFO    __main__: Quoted AAPL bid=225.09 x60 ask=225.40 x60 centre=225.2473 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:43,413 INFO    broker.broker: Leaderboard tick=127 | realized=0.00 fills=2 net_worth=158349.59
+2026-10-23 13:36:44,297 INFO    __main__: Quoted MSFT bid=419.37 x60 ask=419.68 x60 centre=419.5419 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:36:45,417 INFO    broker.broker: Leaderboard tick=129 | realized=0.00 fills=2 net_worth=158370.89
+2026-10-23 13:36:45,835 INFO    __main__: Quoted NVDA bid=133.47 x60 ask=133.78 x60 centre=133.6223 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:47,262 INFO    __main__: Quoted AMZN bid=196.73 x60 ask=197.04 x60 centre=196.8897 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:47,419 INFO    broker.broker: Leaderboard tick=131 | realized=0.00 fills=2 net_worth=158371.07
+2026-10-23 13:36:48,782 INFO    __main__: Quoted GOOGL bid=180.58 x60 ask=180.89 x60 centre=180.7345 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:49,420 INFO    broker.broker: Leaderboard tick=133 | realized=0.00 fills=2 net_worth=158458.61
+2026-10-23 13:36:50,300 INFO    __main__: Quoted NFLX bid=695.29 x60 ask=695.60 x60 centre=695.4416 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:51,422 INFO    broker.broker: Leaderboard tick=135 | realized=0.00 fills=2 net_worth=158373.24
+2026-10-23 13:36:51,818 INFO    __main__: Quoted AMD bid=176.77 x60 ask=177.08 x60 centre=176.9274 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:53,269 INFO    __main__: Quoted INTC bid=24.31 x60 ask=24.38 x60 centre=24.3485 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:53,425 INFO    broker.broker: Leaderboard tick=137 | realized=0.00 fills=2 net_worth=158376.42
+2026-10-23 13:36:54,781 INFO    __main__: Quoted AAPL bid=225.29 x60 ask=225.60 x60 centre=225.4438 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:55,429 INFO    broker.broker: Leaderboard tick=139 | realized=0.00 fills=2 net_worth=158373.14
+2026-10-23 13:36:56,301 INFO    __main__: Quoted NVDA bid=133.54 x60 ask=133.85 x60 centre=133.6980 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:57,433 INFO    broker.broker: Leaderboard tick=141 | realized=0.00 fills=2 net_worth=158381.59
+2026-10-23 13:36:57,821 INFO    __main__: Quoted TSLA bid=281.65 x60 ask=281.96 x60 centre=281.8068 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:59,356 INFO    __main__: Quoted AMZN bid=196.84 x60 ask=197.15 x60 centre=196.9929 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:36:59,436 INFO    broker.broker: Leaderboard tick=143 | realized=0.00 fills=2 net_worth=158384.18
+2026-10-23 13:37:00,752 INFO    __main__: Quoted GOOGL bid=180.76 x60 ask=181.07 x60 centre=180.9117 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:01,442 INFO    broker.broker: Leaderboard tick=145 | realized=0.00 fills=2 net_worth=158470.30
+2026-10-23 13:37:02,270 INFO    __main__: Quoted NFLX bid=694.34 x60 ask=694.65 x60 centre=694.4968 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:03,445 INFO    broker.broker: Leaderboard tick=147 | realized=0.00 fills=2 net_worth=158381.54
+2026-10-23 13:37:03,788 INFO    __main__: Quoted AMD bid=177.37 x60 ask=177.68 x60 centre=177.5223 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:05,305 INFO    __main__: Quoted INTC bid=24.43 x60 ask=24.50 x60 centre=24.4646 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:05,449 INFO    broker.broker: Leaderboard tick=149 | realized=0.00 fills=2 net_worth=158384.33
+2026-10-23 13:37:06,825 INFO    __main__: Quoted AAPL bid=225.45 x60 ask=225.76 x60 centre=225.6071 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:07,454 INFO    broker.broker: Leaderboard tick=151 | realized=0.00 fills=2 net_worth=158381.91
+2026-10-23 13:37:08,343 INFO    __main__: Quoted AMZN bid=196.97 x60 ask=197.28 x60 centre=197.1241 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:09,459 INFO    broker.broker: Leaderboard tick=153 | realized=0.00 fills=2 net_worth=158393.69
+2026-10-23 13:37:09,866 INFO    __main__: Quoted GOOGL bid=180.90 x60 ask=181.21 x60 centre=181.0534 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:11,261 INFO    __main__: Quoted META bid=582.76 x60 ask=583.07 x60 centre=582.9151 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:11,464 INFO    broker.broker: Leaderboard tick=155 | realized=0.00 fills=2 net_worth=158393.68
+2026-10-23 13:37:12,783 INFO    __main__: Quoted NFLX bid=693.45 x60 ask=693.76 x60 centre=693.6097 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:13,466 INFO    broker.broker: Leaderboard tick=157 | realized=0.00 fills=2 net_worth=158339.60
+2026-10-23 13:37:14,303 INFO    __main__: Quoted AMD bid=177.86 x60 ask=178.17 x60 centre=178.0163 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:15,470 INFO    broker.broker: Leaderboard tick=159 | realized=0.00 fills=2 net_worth=158391.44
+2026-10-23 13:37:15,823 INFO    __main__: Quoted INTC bid=24.53 x60 ask=24.60 x60 centre=24.5631 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:17,338 INFO    __main__: Quoted AAPL bid=225.57 x60 ask=225.88 x60 centre=225.7268 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:17,473 INFO    broker.broker: Leaderboard tick=161 | realized=0.00 fills=2 net_worth=158389.73
+2026-10-23 13:37:18,858 INFO    __main__: Quoted MSFT bid=419.49 x60 ask=419.80 x60 centre=419.6621 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:37:19,474 INFO    broker.broker: Leaderboard tick=163 | realized=0.00 fills=2 net_worth=158395.49
+2026-10-23 13:37:20,258 INFO    __main__: Quoted AMZN bid=197.07 x60 ask=197.38 x60 centre=197.2291 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:21,479 INFO    broker.broker: Leaderboard tick=165 | realized=0.00 fills=2 net_worth=158403.99
+2026-10-23 13:37:21,782 INFO    __main__: Quoted GOOGL bid=181.07 x60 ask=181.38 x60 centre=181.2222 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:23,307 INFO    __main__: Quoted NFLX bid=692.80 x60 ask=693.11 x60 centre=692.9575 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:23,482 INFO    broker.broker: Leaderboard tick=167 | realized=0.00 fills=2 net_worth=158388.38
+2026-10-23 13:37:24,832 INFO    __main__: Quoted AMD bid=178.21 x60 ask=178.52 x60 centre=178.3652 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:25,486 INFO    broker.broker: Leaderboard tick=169 | realized=0.00 fills=2 net_worth=158391.61
+2026-10-23 13:37:26,354 INFO    __main__: Quoted INTC bid=24.62 x60 ask=24.69 x60 centre=24.6527 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:27,489 INFO    broker.broker: Leaderboard tick=171 | realized=0.00 fills=2 net_worth=158403.34
+2026-10-23 13:37:27,867 INFO    __main__: Quoted AAPL bid=225.69 x60 ask=226.00 x60 centre=225.8443 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:29,260 INFO    __main__: Quoted NVDA bid=133.56 x60 ask=133.87 x60 centre=133.7191 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:29,492 INFO    broker.broker: Leaderboard tick=173 | realized=0.00 fills=2 net_worth=158401.33
+2026-10-23 13:37:29,534 INFO    broker.broker: Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+2026-10-23 13:37:30,781 INFO    __main__: Quoted TSLA bid=281.58 x60 ask=281.89 x60 centre=281.7331 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:31,496 INFO    broker.broker: Leaderboard tick=175 | realized=0.00 fills=2 net_worth=158387.77
+2026-10-23 13:37:32,304 INFO    __main__: Quoted GOOGL bid=181.22 x60 ask=181.53 x60 centre=181.3783 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:33,499 INFO    broker.broker: Leaderboard tick=177 | realized=0.00 fills=2 net_worth=158395.69
+2026-10-23 13:37:33,823 INFO    __main__: Quoted NFLX bid=692.25 x60 ask=692.56 x60 centre=692.4031 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:35,343 INFO    __main__: Quoted AMD bid=178.55 x60 ask=178.86 x60 centre=178.7078 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:35,501 INFO    broker.broker: Leaderboard tick=179 | realized=0.00 fills=2 net_worth=158402.08
+2026-10-23 13:37:36,864 INFO    __main__: Quoted INTC bid=24.69 x60 ask=24.76 x60 centre=24.7290 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:37,505 INFO    broker.broker: Leaderboard tick=181 | realized=0.00 fills=2 net_worth=158388.63
+2026-10-23 13:37:38,256 INFO    __main__: Quoted GOOGL bid=181.11 x60 ask=181.89 x60 centre=181.5033 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:39,510 INFO    broker.broker: Leaderboard tick=183 | realized=0.00 fills=2 net_worth=158391.04
+2026-10-23 13:37:39,776 INFO    __main__: Quoted NFLX bid=691.66 x60 ask=691.97 x60 centre=691.8125 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:41,297 INFO    __main__: Quoted AMD bid=178.34 x60 ask=179.61 x60 centre=178.9783 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:41,515 INFO    broker.broker: Leaderboard tick=185 | realized=0.00 fills=2 net_worth=158386.43
+2026-10-23 13:37:42,820 INFO    __main__: Quoted INTC bid=24.75 x60 ask=24.82 x60 centre=24.7877 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:43,518 INFO    broker.broker: Leaderboard tick=187 | realized=0.00 fills=2 net_worth=158377.34
+2026-10-23 13:37:44,339 INFO    __main__: Quoted GOOGL bid=181.47 x60 ask=181.78 x60 centre=181.6206 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:45,521 INFO    broker.broker: Leaderboard tick=189 | realized=0.00 fills=2 net_worth=158400.40
+2026-10-23 13:37:45,857 INFO    __main__: Quoted META bid=582.96 x60 ask=583.27 x60 centre=583.1111 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:47,248 INFO    __main__: Quoted NFLX bid=691.19 x60 ask=691.50 x60 centre=691.3428 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:47,522 INFO    broker.broker: Leaderboard tick=191 | realized=0.00 fills=2 net_worth=158378.78
+2026-10-23 13:37:48,768 INFO    __main__: Quoted AMD bid=178.97 x60 ask=179.43 x60 centre=179.1974 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:49,528 INFO    broker.broker: Leaderboard tick=193 | realized=0.00 fills=2 net_worth=158396.56
+2026-10-23 13:37:50,294 INFO    __main__: Quoted INTC bid=24.80 x60 ask=24.88 x60 centre=24.8397 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:51,531 INFO    broker.broker: Leaderboard tick=195 | realized=0.00 fills=2 net_worth=158407.55
+2026-10-23 13:37:51,811 INFO    __main__: Quoted MSFT bid=419.55 x60 ask=419.86 x60 centre=419.7263 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:37:53,331 INFO    __main__: Quoted AMZN bid=197.18 x60 ask=197.49 x60 centre=197.3343 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:53,534 INFO    broker.broker: Leaderboard tick=197 | realized=0.00 fills=2 net_worth=158407.13
+2026-10-23 13:37:54,853 INFO    __main__: Quoted GOOGL bid=181.58 x60 ask=181.89 x60 centre=181.7332 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:55,536 INFO    broker.broker: Leaderboard tick=199 | realized=0.00 fills=2 net_worth=158503.48
+2026-10-23 13:37:56,254 INFO    __main__: Quoted NFLX bid=690.78 x60 ask=691.09 x60 centre=690.9373 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:57,540 INFO    broker.broker: Leaderboard tick=201 | realized=0.00 fills=2 net_worth=158410.10
+2026-10-23 13:37:57,792 INFO    __main__: Quoted AMD bid=179.23 x60 ask=179.54 x60 centre=179.3840 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:59,320 INFO    __main__: Quoted INTC bid=24.85 x60 ask=24.92 x60 centre=24.8825 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:37:59,544 INFO    broker.broker: Leaderboard tick=203 | realized=0.00 fills=2 net_worth=158411.48
+2026-10-23 13:38:00,838 INFO    __main__: Quoted AAPL bid=225.78 x60 ask=226.09 x60 centre=225.9310 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:01,545 INFO    broker.broker: Leaderboard tick=205 | realized=0.00 fills=2 net_worth=158403.36
+2026-10-23 13:38:02,359 INFO    __main__: Quoted NVDA bid=133.49 x60 ask=133.80 x60 centre=133.6426 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:03,549 INFO    broker.broker: Leaderboard tick=207 | realized=0.00 fills=2 net_worth=158411.85
+2026-10-23 13:38:03,758 INFO    __main__: Quoted TSLA bid=281.54 x60 ask=281.85 x60 centre=281.6940 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:05,276 INFO    __main__: Quoted GOOGL bid=181.68 x60 ask=181.99 x60 centre=181.8373 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:05,552 INFO    broker.broker: Leaderboard tick=209 | realized=0.00 fills=2 net_worth=158411.23
+2026-10-23 13:38:06,795 INFO    __main__: Quoted NFLX bid=690.41 x60 ask=690.72 x60 centre=690.5653 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:07,566 INFO    broker.broker: Leaderboard tick=211 | realized=0.00 fills=2 net_worth=158360.86
+2026-10-23 13:38:08,070 WARNING team.reconnect: broker midway_traders_broker ws://localhost:8798: connection dropped (no close frame received or sent) — reconnecting in 0.8s (attempt 1)
+2026-10-23 13:38:08,925 WARNING team.reconnect: broker midway_traders_broker ws://localhost:8798: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 2.1s (attempt 2)
+2026-10-23 13:38:10,990 WARNING team.reconnect: broker midway_traders_broker ws://localhost:8798: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 4.1s (attempt 3)
+2026-10-23 13:38:15,136 WARNING team.reconnect: broker midway_traders_broker ws://localhost:8798: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8798, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8798)) — reconnecting in 8.1s (attempt 4)
+2026-10-23 13:38:23,278 INFO    broker.broker: Connected to ws://localhost:8798 as midway_traders_broker (broker)
+2026-10-23 13:38:23,280 INFO    broker.broker: Leaderboard tick=227 | realized=0.00 fills=2 net_worth=158225.31
+2026-10-23 13:38:23,280 INFO    broker.broker: Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+2026-10-23 13:38:23,281 INFO    broker.broker: Session open — quoting begins
+2026-10-23 13:38:23,281 INFO    broker.broker: Session event: IPO_OPEN — ORCA book is OPEN — subscribe before t450
+2026-10-23 13:38:23,577 INFO    broker.broker: Leaderboard tick=227 | realized=0.00 fills=2 net_worth=158225.31
+2026-10-23 13:38:23,781 INFO    __main__: Quoted AAPL bid=221.62 x60 ask=224.96 x60 centre=223.2919 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:24,289 INFO    __main__: Quoted MSFT bid=415.22 x60 ask=419.47 x60 centre=417.6261 inventory +30 (traded +10) skew -0.28
+2026-10-23 13:38:25,580 INFO    broker.broker: Leaderboard tick=229 | realized=0.00 fills=2 net_worth=158153.25
+2026-10-23 13:38:25,807 INFO    __main__: Quoted AAPL bid=221.49 x60 ask=224.83 x60 centre=223.1616 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:27,327 INFO    __main__: Quoted MSFT bid=415.42 x60 ask=419.77 x60 centre=417.8857 inventory +30 (traded +10) skew -0.29
+2026-10-23 13:38:27,584 INFO    broker.broker: Leaderboard tick=231 | realized=0.00 fills=2 net_worth=158141.31
+2026-10-23 13:38:28,088 INFO    __main__: Quoted NVDA bid=130.43 x60 ask=132.40 x60 centre=131.4153 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:28,847 INFO    __main__: Quoted TSLA bid=278.69 x60 ask=279.57 x60 centre=279.1278 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:29,590 INFO    broker.broker: Leaderboard tick=233 | realized=0.00 fills=2 net_worth=158165.18
+2026-10-23 13:38:30,365 INFO    __main__: Quoted AAPL bid=223.14 x60 ask=224.13 x60 centre=223.6361 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:31,592 INFO    broker.broker: Leaderboard tick=235 | realized=0.00 fills=2 net_worth=158190.06
+2026-10-23 13:38:31,880 INFO    __main__: Quoted NVDA bid=131.40 x60 ask=132.07 x60 centre=131.7350 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:33,402 INFO    __main__: Quoted TSLA bid=279.11 x60 ask=279.97 x60 centre=279.5390 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:33,597 INFO    broker.broker: Leaderboard tick=237 | realized=0.00 fills=2 net_worth=158194.10
+2026-10-23 13:38:34,037 INFO    __main__: Quoted AMZN bid=195.84 x60 ask=196.15 x60 centre=195.9989 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:34,796 INFO    __main__: Quoted GOOGL bid=177.29 x60 ask=178.17 x60 centre=177.7266 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:35,599 INFO    broker.broker: Leaderboard tick=239 | realized=0.00 fills=2 net_worth=158198.76
+2026-10-23 13:38:36,308 INFO    __main__: Quoted AAPL bid=223.89 x60 ask=224.20 x60 centre=224.0414 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:37,600 INFO    broker.broker: Leaderboard tick=241 | realized=0.00 fills=2 net_worth=158218.76
+2026-10-23 13:38:37,827 INFO    __main__: Quoted NVDA bid=131.88 x60 ask=132.19 x60 centre=132.0305 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:39,350 INFO    __main__: Quoted TSLA bid=279.44 x60 ask=280.37 x60 centre=279.9086 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:39,602 INFO    broker.broker: Leaderboard tick=243 | realized=0.00 fills=2 net_worth=158214.75
+2026-10-23 13:38:40,870 INFO    __main__: Quoted AMZN bid=195.96 x60 ask=196.56 x60 centre=196.2586 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:41,606 INFO    broker.broker: Leaderboard tick=245 | realized=0.00 fills=2 net_worth=158219.01
+2026-10-23 13:38:42,390 INFO    __main__: Quoted GOOGL bid=178.27 x60 ask=178.58 x60 centre=178.4268 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:43,151 INFO    __main__: Quoted META bid=581.54 x60 ask=581.85 x60 centre=581.6953 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:43,611 INFO    broker.broker: Leaderboard tick=247 | realized=0.00 fills=2 net_worth=158128.25
+2026-10-23 13:38:43,794 INFO    __main__: Quoted NFLX bid=709.89 x60 ask=711.78 x60 centre=710.8347 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:45,332 INFO    __main__: Quoted AAPL bid=224.25 x60 ask=224.56 x60 centre=224.4040 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:45,614 INFO    broker.broker: Leaderboard tick=249 | realized=0.00 fills=2 net_worth=158126.24
+2026-10-23 13:38:46,851 INFO    __main__: Quoted NVDA bid=132.11 x60 ask=132.42 x60 centre=132.2654 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:47,615 INFO    broker.broker: Leaderboard tick=251 | realized=0.00 fills=2 net_worth=158129.16
+2026-10-23 13:38:48,372 INFO    __main__: Quoted TSLA bid=280.06 x60 ask=280.37 x60 centre=280.2173 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:49,618 INFO    broker.broker: Leaderboard tick=253 | realized=0.00 fills=2 net_worth=158142.82
+2026-10-23 13:38:50,050 INFO    __main__: EVENT earnings: AMZN quotes pulled for 165s
+2026-10-23 13:38:50,051 INFO    broker.broker: Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+2026-10-23 13:38:50,397 INFO    __main__: Quoted AMZN bid=196.34 x60 ask=196.65 x60 centre=196.4946 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:51,622 INFO    broker.broker: Leaderboard tick=255 | realized=0.00 fills=2 net_worth=158143.81
+2026-10-23 13:38:51,804 INFO    __main__: Quoted GOOGL bid=178.84 x60 ask=179.15 x60 centre=178.9991 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:53,361 INFO    __main__: Quoted META bid=582.01 x60 ask=582.32 x60 centre=582.1605 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:53,624 INFO    broker.broker: Leaderboard tick=257 | realized=0.00 fills=2 net_worth=158130.38
+2026-10-23 13:38:54,882 INFO    __main__: Quoted NFLX bid=706.81 x60 ask=707.12 x60 centre=706.9617 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:55,627 INFO    broker.broker: Leaderboard tick=259 | realized=0.00 fills=2 net_worth=158134.82
+2026-10-23 13:38:55,643 INFO    __main__: Quoted AMD bid=166.87 x60 ask=167.37 x60 centre=167.1190 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:56,402 INFO    __main__: Quoted INTC bid=22.57 x60 ask=22.91 x60 centre=22.7408 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:57,632 INFO    broker.broker: Leaderboard tick=261 | realized=0.00 fills=2 net_worth=158149.10
+2026-10-23 13:38:57,792 INFO    __main__: Quoted AAPL bid=224.62 x60 ask=224.93 x60 centre=224.7766 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:38:59,312 INFO    __main__: Quoted MSFT bid=417.88 x60 ask=418.19 x60 centre=418.0594 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:38:59,634 INFO    broker.broker: Leaderboard tick=263 | realized=0.00 fills=2 net_worth=158220.29
+2026-10-23 13:39:00,854 INFO    __main__: Quoted NVDA bid=132.37 x60 ask=132.68 x60 centre=132.5225 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:01,638 INFO    broker.broker: Leaderboard tick=265 | realized=0.00 fills=2 net_worth=158223.21
+2026-10-23 13:39:02,374 INFO    __main__: Quoted TSLA bid=280.33 x60 ask=280.64 x60 centre=280.4815 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:03,642 INFO    broker.broker: Leaderboard tick=267 | realized=0.00 fills=2 net_worth=158244.05
+2026-10-23 13:39:03,896 INFO    __main__: Quoted GOOGL bid=179.31 x60 ask=179.62 x60 centre=179.4675 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:05,301 INFO    __main__: Quoted META bid=582.37 x60 ask=582.68 x60 centre=582.5212 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:05,646 INFO    broker.broker: Leaderboard tick=269 | realized=0.00 fills=2 net_worth=158248.64
+2026-10-23 13:39:06,882 INFO    __main__: Quoted NFLX bid=703.73 x60 ask=704.04 x60 centre=703.8863 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:07,650 INFO    broker.broker: Leaderboard tick=271 | realized=0.00 fills=2 net_worth=158184.03
+2026-10-23 13:39:08,403 INFO    __main__: Quoted AMD bid=169.09 x60 ask=169.40 x60 centre=169.2450 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:09,655 INFO    broker.broker: Leaderboard tick=273 | realized=0.00 fills=2 net_worth=158241.80
+2026-10-23 13:39:09,797 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.12 x60 centre=23.0813 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:11,312 INFO    __main__: Quoted AAPL bid=224.95 x60 ask=225.26 x60 centre=225.1051 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:11,659 INFO    broker.broker: Leaderboard tick=275 | realized=0.00 fills=2 net_worth=158244.29
+2026-10-23 13:39:12,835 INFO    __main__: Quoted MSFT bid=418.19 x60 ask=418.50 x60 centre=418.3652 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:39:13,662 INFO    broker.broker: Leaderboard tick=277 | realized=0.00 fills=2 net_worth=158254.06
+2026-10-23 13:39:14,364 INFO    __main__: Quoted NVDA bid=132.59 x60 ask=132.90 x60 centre=132.7449 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:15,667 INFO    broker.broker: Leaderboard tick=279 | realized=0.00 fills=2 net_worth=158267.05
+2026-10-23 13:39:15,885 INFO    __main__: Quoted TSLA bid=280.53 x60 ask=280.84 x60 centre=280.6815 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:17,280 INFO    __main__: Quoted GOOGL bid=179.72 x60 ask=180.03 x60 centre=179.8759 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:17,670 INFO    broker.broker: Leaderboard tick=281 | realized=0.00 fills=2 net_worth=158269.64
+2026-10-23 13:39:18,805 INFO    __main__: Quoted META bid=582.72 x60 ask=583.03 x60 centre=582.8751 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:19,672 INFO    broker.broker: Leaderboard tick=283 | realized=0.00 fills=2 net_worth=158329.00
+2026-10-23 13:39:20,330 INFO    __main__: Quoted NFLX bid=700.95 x60 ask=701.26 x60 centre=701.1020 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:21,677 INFO    broker.broker: Leaderboard tick=285 | realized=0.00 fills=2 net_worth=158264.40
+2026-10-23 13:39:21,851 INFO    __main__: Quoted AMD bid=170.92 x60 ask=171.23 x60 centre=171.0729 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:23,373 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.28 x60 centre=23.2461 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:23,681 INFO    broker.broker: Leaderboard tick=287 | realized=0.00 fills=2 net_worth=158264.79
+2026-10-23 13:39:24,890 INFO    __main__: Quoted AAPL bid=225.19 x60 ask=225.50 x60 centre=225.3402 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:25,683 INFO    broker.broker: Leaderboard tick=289 | realized=0.00 fills=2 net_worth=158256.52
+2026-10-23 13:39:26,303 INFO    __main__: Quoted MSFT bid=418.41 x60 ask=418.72 x60 centre=418.5811 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:39:27,686 INFO    broker.broker: Leaderboard tick=291 | realized=0.00 fills=2 net_worth=158280.96
+2026-10-23 13:39:27,823 INFO    __main__: Quoted NVDA bid=132.79 x60 ask=133.10 x60 centre=132.9462 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:29,346 INFO    __main__: Quoted TSLA bid=280.78 x60 ask=281.09 x60 centre=280.9305 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:29,688 INFO    broker.broker: Leaderboard tick=293 | realized=0.00 fills=2 net_worth=158283.34
+2026-10-23 13:39:30,864 INFO    __main__: Quoted GOOGL bid=180.05 x60 ask=180.36 x60 centre=180.2088 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:31,691 INFO    broker.broker: Leaderboard tick=295 | realized=0.00 fills=2 net_worth=158293.39
+2026-10-23 13:39:32,409 INFO    __main__: Quoted META bid=583.06 x60 ask=583.37 x60 centre=583.2148 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:33,695 INFO    broker.broker: Leaderboard tick=297 | realized=0.00 fills=2 net_worth=158253.51
+2026-10-23 13:39:33,819 INFO    __main__: Quoted NFLX bid=698.61 x60 ask=698.92 x60 centre=698.7690 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:35,343 INFO    __main__: Quoted AMD bid=172.45 x60 ask=172.76 x60 centre=172.6048 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:35,699 INFO    broker.broker: Leaderboard tick=299 | realized=0.00 fills=2 net_worth=158284.49
+2026-10-23 13:39:36,861 INFO    __main__: Quoted AAPL bid=225.41 x60 ask=225.72 x60 centre=225.5679 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:37,704 INFO    broker.broker: Leaderboard tick=301 | realized=0.00 fills=2 net_worth=158284.06
+2026-10-23 13:39:38,392 INFO    __main__: Quoted NVDA bid=132.98 x60 ask=133.29 x60 centre=133.1361 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:39,708 INFO    broker.broker: Leaderboard tick=303 | realized=0.00 fills=2 net_worth=158299.46
+2026-10-23 13:39:39,785 INFO    __main__: Quoted TSLA bid=281.09 x60 ask=281.40 x60 centre=281.2449 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:41,307 INFO    __main__: Quoted GOOGL bid=180.36 x60 ask=180.67 x60 centre=180.5153 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:41,712 INFO    broker.broker: Leaderboard tick=305 | realized=0.00 fills=2 net_worth=158300.04
+2026-10-23 13:39:42,830 INFO    __main__: Quoted NFLX bid=696.60 x60 ask=696.91 x60 centre=696.7521 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:43,717 INFO    broker.broker: Leaderboard tick=307 | realized=0.00 fills=2 net_worth=158242.57
+2026-10-23 13:39:44,362 INFO    __main__: Quoted AMD bid=173.31 x60 ask=174.54 x60 centre=173.9261 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:45,720 INFO    broker.broker: Leaderboard tick=309 | realized=0.00 fills=2 net_worth=158287.21
+2026-10-23 13:39:45,890 INFO    __main__: Quoted AAPL bid=225.58 x60 ask=225.89 x60 centre=225.7389 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:47,297 INFO    __main__: Quoted NVDA bid=133.16 x60 ask=133.47 x60 centre=133.3117 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:47,724 INFO    broker.broker: Leaderboard tick=311 | realized=0.00 fills=2 net_worth=158285.39
+2026-10-23 13:39:48,818 INFO    __main__: Quoted TSLA bid=281.34 x60 ask=281.65 x60 centre=281.4989 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:49,729 INFO    broker.broker: Leaderboard tick=313 | realized=0.00 fills=2 net_worth=158301.97
+2026-10-23 13:39:50,337 INFO    __main__: Quoted GOOGL bid=180.62 x60 ask=180.93 x60 centre=180.7777 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:51,747 INFO    broker.broker: Leaderboard tick=315 | realized=0.00 fills=2 net_worth=158267.96
+2026-10-23 13:39:51,874 INFO    __main__: Quoted NFLX bid=694.88 x60 ask=695.19 x60 centre=695.0326 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:53,398 INFO    __main__: Quoted AMD bid=174.59 x60 ask=175.42 x60 centre=175.0084 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:53,738 INFO    broker.broker: Leaderboard tick=317 | realized=0.00 fills=2 net_worth=158293.34
+2026-10-23 13:39:54,793 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.28 x60 centre=23.2420 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:55,742 INFO    broker.broker: Leaderboard tick=319 | realized=0.00 fills=2 net_worth=158297.33
+2026-10-23 13:39:56,312 INFO    __main__: Quoted AAPL bid=225.73 x60 ask=226.04 x60 centre=225.8874 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:57,746 INFO    broker.broker: Leaderboard tick=321 | realized=0.00 fills=2 net_worth=158305.21
+2026-10-23 13:39:57,837 INFO    __main__: Quoted MSFT bid=418.66 x60 ask=418.97 x60 centre=418.8373 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:39:59,363 INFO    __main__: Quoted NVDA bid=133.30 x60 ask=133.61 x60 centre=133.4541 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:39:59,750 INFO    broker.broker: Leaderboard tick=323 | realized=0.00 fills=2 net_worth=158302.39
+2026-10-23 13:40:00,884 INFO    __main__: Quoted TSLA bid=281.65 x60 ask=281.96 x60 centre=281.8034 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:01,754 INFO    broker.broker: Leaderboard tick=325 | realized=0.00 fills=2 net_worth=158299.99
+2026-10-23 13:40:02,402 INFO    __main__: Quoted GOOGL bid=180.80 x60 ask=181.11 x60 centre=180.9568 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:03,759 INFO    broker.broker: Leaderboard tick=327 | realized=0.00 fills=2 net_worth=158290.56
+2026-10-23 13:40:03,795 INFO    __main__: Quoted NFLX bid=693.46 x60 ask=693.77 x60 centre=693.6188 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:05,315 INFO    __main__: Quoted AMD bid=175.77 x60 ask=176.08 x60 centre=175.9251 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:05,762 INFO    broker.broker: Leaderboard tick=329 | realized=0.00 fills=2 net_worth=158314.54
+2026-10-23 13:40:06,828 INFO    __main__: Quoted MSFT bid=418.90 x60 ask=419.21 x60 centre=419.0780 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:40:07,767 INFO    broker.broker: Leaderboard tick=331 | realized=0.00 fills=2 net_worth=158324.93
+2026-10-23 13:40:08,356 INFO    __main__: Quoted NVDA bid=133.45 x60 ask=133.76 x60 centre=133.6090 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:09,768 INFO    broker.broker: Leaderboard tick=333 | realized=0.00 fills=2 net_worth=158330.31
+2026-10-23 13:40:09,896 INFO    __main__: Quoted TSLA bid=281.89 x60 ask=282.20 x60 centre=282.0482 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:11,292 INFO    __main__: Quoted GOOGL bid=180.98 x60 ask=181.29 x60 centre=181.1338 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:11,772 INFO    broker.broker: Leaderboard tick=335 | realized=0.00 fills=2 net_worth=158328.49
+2026-10-23 13:40:12,815 INFO    __main__: Quoted META bid=582.93 x60 ask=583.24 x60 centre=583.0882 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:13,775 INFO    broker.broker: Leaderboard tick=337 | realized=0.00 fills=2 net_worth=158305.48
+2026-10-23 13:40:14,334 INFO    __main__: Quoted NFLX bid=692.13 x60 ask=692.44 x60 centre=692.2809 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:15,778 INFO    broker.broker: Leaderboard tick=339 | realized=0.00 fills=2 net_worth=158321.26
+2026-10-23 13:40:15,855 INFO    __main__: Quoted AMD bid=176.54 x60 ask=176.85 x60 centre=176.6992 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:17,383 INFO    __main__: Quoted NVDA bid=133.54 x60 ask=133.85 x60 centre=133.6969 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:17,780 INFO    broker.broker: Leaderboard tick=341 | realized=0.00 fills=2 net_worth=158317.45
+2026-10-23 13:40:18,904 INFO    __main__: Quoted TSLA bid=282.04 x60 ask=282.35 x60 centre=282.1995 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:19,781 INFO    broker.broker: Leaderboard tick=343 | realized=0.00 fills=2 net_worth=158329.83
+2026-10-23 13:40:20,292 INFO    __main__: Quoted GOOGL bid=181.12 x60 ask=181.43 x60 centre=181.2724 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:21,785 INFO    broker.broker: Leaderboard tick=345 | realized=0.00 fills=2 net_worth=158285.41
+2026-10-23 13:40:21,810 INFO    __main__: Quoted NFLX bid=689.89 x60 ask=692.31 x60 centre=691.0997 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:23,328 INFO    __main__: Quoted AMD bid=177.21 x60 ask=177.52 x60 centre=177.3644 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:23,787 INFO    broker.broker: Leaderboard tick=347 | realized=0.00 fills=2 net_worth=158299.20
+2026-10-23 13:40:24,842 INFO    __main__: Quoted NVDA bid=133.64 x60 ask=133.95 x60 centre=133.7907 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:25,789 INFO    broker.broker: Leaderboard tick=349 | realized=0.00 fills=2 net_worth=158303.38
+2026-10-23 13:40:26,358 INFO    __main__: Quoted GOOGL bid=181.22 x60 ask=181.53 x60 centre=181.3792 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:27,798 INFO    broker.broker: Leaderboard tick=351 | realized=0.00 fills=2 net_worth=158287.36
+2026-10-23 13:40:27,881 INFO    __main__: Quoted NFLX bid=689.07 x60 ask=691.13 x60 centre=690.1014 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:29,405 INFO    __main__: Quoted AMD bid=177.69 x60 ask=178.15 x60 centre=177.9230 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:29,799 INFO    broker.broker: Leaderboard tick=353 | realized=0.00 fills=2 net_worth=158296.15
+2026-10-23 13:40:30,797 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.28 x60 centre=23.2503 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:31,803 INFO    broker.broker: Leaderboard tick=355 | realized=0.00 fills=2 net_worth=158300.13
+2026-10-23 13:40:32,311 INFO    __main__: Quoted AAPL bid=225.85 x60 ask=226.16 x60 centre=226.0020 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:33,805 INFO    broker.broker: Leaderboard tick=357 | realized=0.00 fills=2 net_worth=158302.11
+2026-10-23 13:40:33,830 INFO    __main__: Quoted NVDA bid=133.71 x60 ask=134.02 x60 centre=133.8649 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:35,348 INFO    __main__: Quoted NFLX bid=689.13 x60 ask=689.44 x60 centre=689.2858 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:35,806 INFO    broker.broker: Leaderboard tick=359 | realized=0.00 fills=2 net_worth=158294.50
+2026-10-23 13:40:36,865 INFO    __main__: Quoted AMD bid=177.89 x60 ask=178.89 x60 centre=178.3897 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:37,809 INFO    broker.broker: Leaderboard tick=361 | realized=0.00 fills=2 net_worth=158312.58
+2026-10-23 13:40:38,379 INFO    __main__: Quoted MSFT bid=419.05 x60 ask=419.36 x60 centre=419.2231 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:40:39,811 INFO    broker.broker: Leaderboard tick=363 | realized=0.00 fills=2 net_worth=158314.97
+2026-10-23 13:40:39,898 INFO    __main__: Quoted GOOGL bid=181.32 x60 ask=181.63 x60 centre=181.4761 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:41,291 INFO    __main__: Quoted NFLX bid=688.41 x60 ask=688.72 x60 centre=688.5610 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:41,824 INFO    broker.broker: Leaderboard tick=365 | realized=0.00 fills=2 net_worth=158280.95
+2026-10-23 13:40:42,824 INFO    __main__: Quoted AMD bid=178.38 x60 ask=179.25 x60 centre=178.8161 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:43,820 INFO    broker.broker: Leaderboard tick=367 | realized=0.00 fills=2 net_worth=158308.13
+2026-10-23 13:40:44,342 INFO    __main__: Quoted META bid=582.77 x60 ask=583.08 x60 centre=582.9276 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:45,824 INFO    broker.broker: Leaderboard tick=369 | realized=0.00 fills=2 net_worth=158294.92
+2026-10-23 13:40:45,864 INFO    __main__: Quoted NFLX bid=687.73 x60 ask=688.04 x60 centre=687.8820 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:47,384 INFO    __main__: Quoted AMD bid=178.81 x60 ask=179.61 x60 centre=179.2087 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:47,826 INFO    broker.broker: Leaderboard tick=371 | realized=0.00 fills=2 net_worth=158303.90
+2026-10-23 13:40:48,799 INFO    __main__: Quoted AAPL bid=225.98 x60 ask=226.29 x60 centre=226.1392 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:49,830 INFO    broker.broker: Leaderboard tick=373 | realized=0.00 fills=2 net_worth=158308.48
+2026-10-23 13:40:50,319 INFO    __main__: Quoted NVDA bid=133.79 x60 ask=134.10 x60 centre=133.9494 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:51,838 INFO    __main__: Quoted TSLA bid=282.06 x60 ask=282.37 x60 centre=282.2160 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:53,302 INFO    __main__: Quoted NFLX bid=687.18 x60 ask=687.49 x60 centre=687.3319 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:54,825 INFO    __main__: Quoted AMD bid=178.86 x60 ask=180.26 x60 centre=179.5595 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:55,081 INFO    __main__: EVENT CALENDAR_EVENT: AMZN quotes pulled for 45s
+2026-10-23 13:40:55,081 INFO    broker.broker: Session event: CALENDAR_EVENT — Earnings: AMZN moving -6.7%
+2026-10-23 13:40:55,081 INFO    broker.broker: Fill: bought  30 AMZN @ 196.0400 (fee=4.4109, remaining=0)
+2026-10-23 13:40:55,084 INFO    broker.broker: Leaderboard tick=375 | realized=0.00 fills=3 net_worth=158209.30
+2026-10-23 13:40:55,085 INFO    broker.broker: Leaderboard tick=377 | realized=0.00 fills=3 net_worth=158069.29
+2026-10-23 13:40:55,086 WARNING broker.broker: Exchange error [ORDER_NOT_FOUND]: Order '6ee29850-5454-4809-a987-a07783c5b262' not found or not owned by midway_traders_broker
+2026-10-23 13:40:55,839 INFO    broker.broker: Leaderboard tick=379 | realized=0.00 fills=3 net_worth=157960.15
+2026-10-23 13:40:56,595 INFO    __main__: Quoted AAPL bid=226.10 x60 ask=226.41 x60 centre=226.2532 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:57,843 INFO    broker.broker: Leaderboard tick=381 | realized=0.00 fills=3 net_worth=157855.64
+2026-10-23 13:40:58,119 INFO    __main__: Quoted NFLX bid=686.83 x60 ask=687.14 x60 centre=686.9882 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:59,637 INFO    __main__: Quoted AMD bid=179.61 x60 ask=180.29 x60 centre=179.9496 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:40:59,847 INFO    broker.broker: Leaderboard tick=383 | realized=0.00 fills=3 net_worth=157757.60
+2026-10-23 13:41:01,156 INFO    __main__: Quoted AAPL bid=226.02 x60 ask=226.73 x60 centre=226.3715 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:01,851 INFO    broker.broker: Leaderboard tick=385 | realized=0.00 fills=3 net_worth=157630.43
+2026-10-23 13:41:01,899 INFO    broker.broker: Session event: SSR_ON — AMZN is now under the short-sale rule — shorts must add liquidity above the bid
+2026-10-23 13:41:02,550 INFO    __main__: Quoted META bid=582.48 x60 ask=582.79 x60 centre=582.6335 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:03,857 INFO    broker.broker: Leaderboard tick=387 | realized=0.00 fills=3 net_worth=157523.32
+2026-10-23 13:41:04,070 INFO    __main__: Quoted AMD bid=179.57 x60 ask=180.95 x60 centre=180.2601 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:05,589 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.28 x60 centre=23.2512 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:05,862 INFO    broker.broker: Leaderboard tick=389 | realized=0.00 fills=3 net_worth=157676.86
+2026-10-23 13:41:07,105 INFO    __main__: Quoted NVDA bid=133.87 x60 ask=134.18 x60 centre=134.0264 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:07,867 INFO    broker.broker: Leaderboard tick=391 | realized=0.00 fills=3 net_worth=157646.03
+2026-10-23 13:41:08,624 INFO    __main__: Quoted AMD bid=180.24 x60 ask=180.83 x60 centre=180.5344 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:09,872 INFO    broker.broker: Leaderboard tick=393 | realized=0.00 fills=3 net_worth=157695.88
+2026-10-23 13:41:10,149 INFO    __main__: Quoted MSFT bid=419.16 x60 ask=419.47 x60 centre=419.3313 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:41:11,544 INFO    __main__: Quoted NVDA bid=133.96 x60 ask=134.27 x60 centre=134.1127 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:11,875 INFO    broker.broker: Leaderboard tick=395 | realized=0.00 fills=3 net_worth=157695.04
+2026-10-23 13:41:13,063 INFO    __main__: Quoted GOOGL bid=181.33 x60 ask=181.64 x60 centre=181.4878 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:13,879 INFO    broker.broker: Leaderboard tick=397 | realized=0.00 fills=3 net_worth=157685.87
+2026-10-23 13:41:14,583 INFO    __main__: Quoted META bid=582.17 x60 ask=582.48 x60 centre=582.3212 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:15,881 INFO    broker.broker: Leaderboard tick=399 | realized=0.00 fills=3 net_worth=157699.56
+2026-10-23 13:41:16,103 INFO    __main__: Quoted AMD bid=180.59 x60 ask=180.90 x60 centre=180.7468 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:17,614 INFO    __main__: Quoted NVDA bid=134.05 x60 ask=134.36 x60 centre=134.2087 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:17,882 INFO    broker.broker: Leaderboard tick=401 | realized=0.00 fills=3 net_worth=157698.72
+2026-10-23 13:41:19,140 INFO    __main__: Quoted AMD bid=180.74 x60 ask=181.05 x60 centre=180.8975 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:19,888 INFO    broker.broker: Leaderboard tick=403 | realized=0.00 fills=3 net_worth=157697.81
+2026-10-23 13:41:20,530 INFO    __main__: Quoted NVDA bid=134.05 x60 ask=134.52 x60 centre=134.2840 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:21,893 INFO    broker.broker: Leaderboard tick=405 | realized=0.00 fills=3 net_worth=157699.44
+2026-10-23 13:41:22,050 INFO    __main__: Quoted META bid=581.86 x60 ask=582.17 x60 centre=582.0153 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:23,569 INFO    __main__: Quoted AMD bid=180.88 x60 ask=181.19 x60 centre=181.0304 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:23,898 INFO    broker.broker: Leaderboard tick=407 | realized=0.00 fills=3 net_worth=157702.60
+2026-10-23 13:41:25,097 INFO    __main__: Quoted NVDA bid=134.13 x60 ask=134.61 x60 centre=134.3724 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:25,900 INFO    broker.broker: Leaderboard tick=409 | realized=0.00 fills=3 net_worth=157696.50
+2026-10-23 13:41:26,632 INFO    __main__: Quoted TSLA bid=282.19 x60 ask=282.50 x60 centre=282.3415 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:27,900 INFO    broker.broker: Leaderboard tick=411 | realized=0.00 fills=3 net_worth=157700.72
+2026-10-23 13:41:28,148 INFO    __main__: Quoted META bid=581.52 x60 ask=581.83 x60 centre=581.6758 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:29,540 INFO    __main__: Quoted NFLX bid=686.52 x60 ask=686.83 x60 centre=686.6710 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:29,903 INFO    broker.broker: Leaderboard tick=413 | realized=0.00 fills=3 net_worth=157691.88
+2026-10-23 13:41:31,058 INFO    __main__: Quoted AMD bid=180.99 x60 ask=181.30 x60 centre=181.1404 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:31,919 INFO    broker.broker: Leaderboard tick=415 | realized=0.00 fills=3 net_worth=157687.61
+2026-10-23 13:41:32,576 INFO    __main__: Quoted AAPL bid=226.30 x60 ask=226.61 x60 centre=226.4566 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:33,911 INFO    broker.broker: Leaderboard tick=417 | realized=0.00 fills=3 net_worth=157707.00
+2026-10-23 13:41:34,098 INFO    __main__: Quoted TSLA bid=282.37 x60 ask=282.68 x60 centre=282.5225 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:35,101 INFO    __main__: Quoted AMZN bid=184.47 x0 ask=185.01 x60 centre=185.0554 inventory +50 (traded +30) skew -0.32
+2026-10-23 13:41:35,574 INFO    broker.broker: Fill: sold    10 AMZN @ 185.0100 (fee=1.3876, remaining=50)
+2026-10-23 13:41:35,604 INFO    __main__: Quoted AMZN bid=184.54 x10 ask=185.06 x60 centre=185.0002 inventory +40 (traded +20) skew -0.20
+2026-10-23 13:41:35,916 INFO    broker.broker: Leaderboard tick=419 | realized=-105.09 fills=4 net_worth=157789.51
+2026-10-23 13:41:36,870 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.29 x60 centre=23.2557 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:37,879 INFO    __main__: Quoted AMZN bid=184.76 x10 ask=185.35 x60 centre=185.2852 inventory +40 (traded +20) skew -0.23
+2026-10-23 13:41:37,916 INFO    broker.broker: Leaderboard tick=421 | realized=-105.09 fills=4 net_worth=157791.08
+2026-10-23 13:41:39,462 INFO    __main__: Quoted META bid=581.20 x60 ask=581.51 x60 centre=581.3551 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:39,921 INFO    broker.broker: Leaderboard tick=423 | realized=-105.09 fills=4 net_worth=157779.04
+2026-10-23 13:41:40,856 INFO    __main__: Quoted NFLX bid=686.16 x60 ask=686.47 x60 centre=686.3119 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:41,924 INFO    broker.broker: Leaderboard tick=425 | realized=-105.09 fills=4 net_worth=157780.91
+2026-10-23 13:41:42,372 INFO    __main__: Quoted MSFT bid=419.25 x60 ask=419.56 x60 centre=419.4205 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:41:43,386 INFO    __main__: Quoted AMZN bid=185.17 x10 ask=185.48 x60 centre=185.4498 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:41:43,929 INFO    broker.broker: Leaderboard tick=427 | realized=-105.09 fills=4 net_worth=157781.68
+2026-10-23 13:41:44,920 INFO    __main__: Quoted GOOGL bid=181.36 x60 ask=181.67 x60 centre=181.5147 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:45,933 INFO    broker.broker: Leaderboard tick=429 | realized=-105.09 fills=4 net_worth=157790.85
+2026-10-23 13:41:46,447 INFO    __main__: Quoted AMD bid=181.10 x60 ask=181.41 x60 centre=181.2560 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:47,451 INFO    __main__: Quoted AMZN bid=185.27 x10 ask=185.58 x60 centre=185.5486 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:41:47,935 INFO    broker.broker: Leaderboard tick=431 | realized=-105.09 fills=4 net_worth=157795.22
+2026-10-23 13:41:48,962 INFO    __main__: Quoted TSLA bid=282.23 x60 ask=282.54 x60 centre=282.3804 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:49,939 INFO    broker.broker: Leaderboard tick=433 | realized=-105.09 fills=4 net_worth=157785.78
+2026-10-23 13:41:50,478 INFO    __main__: Quoted NFLX bid=685.81 x60 ask=686.12 x60 centre=685.9689 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:51,513 INFO    __main__: Quoted AMZN bid=185.37 x10 ask=185.68 x60 centre=185.6434 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:41:51,950 INFO    broker.broker: Leaderboard tick=435 | realized=-105.09 fills=4 net_worth=157790.15
+2026-10-23 13:41:53,946 INFO    broker.broker: Leaderboard tick=437 | realized=-105.09 fills=4 net_worth=157783.32
+2026-10-23 13:41:54,031 INFO    __main__: Quoted NFLX bid=685.45 x60 ask=685.76 x60 centre=685.6048 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:55,950 INFO    broker.broker: Leaderboard tick=439 | realized=-105.09 fills=4 net_worth=157786.09
+2026-10-23 13:41:56,039 INFO    __main__: Quoted NVDA bid=134.25 x60 ask=134.56 x60 centre=134.4055 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:57,554 INFO    __main__: Quoted TSLA bid=282.05 x60 ask=282.36 x60 centre=282.2026 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:57,955 INFO    broker.broker: Leaderboard tick=441 | realized=-105.09 fills=4 net_worth=157776.85
+2026-10-23 13:41:59,074 INFO    __main__: Quoted NFLX bid=685.10 x60 ask=685.41 x60 centre=685.2542 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:41:59,959 INFO    broker.broker: Leaderboard tick=443 | realized=-105.09 fills=4 net_worth=157776.22
+2026-10-23 13:42:01,088 INFO    __main__: Quoted NFLX bid=684.72 x60 ask=685.03 x60 centre=684.8790 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:01,964 INFO    broker.broker: Leaderboard tick=445 | realized=-105.09 fills=4 net_worth=157768.99
+2026-10-23 13:42:03,102 INFO    __main__: Quoted AAPL bid=226.38 x60 ask=226.69 x60 centre=226.5330 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:03,967 INFO    broker.broker: Leaderboard tick=447 | realized=-105.09 fills=4 net_worth=157756.95
+2026-10-23 13:42:04,622 INFO    __main__: Quoted TSLA bid=281.89 x60 ask=282.20 x60 centre=282.0422 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:05,970 INFO    broker.broker: Leaderboard tick=449 | realized=-105.09 fills=4 net_worth=157761.12
+2026-10-23 13:42:06,156 INFO    __main__: Quoted NFLX bid=684.37 x60 ask=684.68 x60 centre=684.5291 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:07,674 INFO    __main__: Quoted TSLA bid=281.48 x60 ask=282.18 x60 centre=281.8332 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:07,974 INFO    broker.broker: Leaderboard tick=451 | realized=-105.09 fills=4 net_worth=157752.69
+2026-10-23 13:42:09,194 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.29 x60 centre=23.2531 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:09,976 INFO    broker.broker: Leaderboard tick=453 | realized=-105.09 fills=4 net_worth=157743.85
+2026-10-23 13:42:10,706 INFO    __main__: Quoted TSLA bid=281.53 x60 ask=281.84 x60 centre=281.6848 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:11,977 INFO    broker.broker: Leaderboard tick=455 | realized=-105.09 fills=4 net_worth=157750.03
+2026-10-23 13:42:12,097 INFO    __main__: Quoted META bid=580.96 x60 ask=581.27 x60 centre=581.1116 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:13,607 INFO    __main__: Quoted MSFT bid=419.30 x60 ask=419.61 x60 centre=419.4761 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:42:13,978 INFO    broker.broker: Leaderboard tick=457 | realized=-105.09 fills=4 net_worth=157751.89
+2026-10-23 13:42:15,621 INFO    __main__: Quoted GOOGL bid=181.39 x60 ask=181.70 x60 centre=181.5488 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:15,981 INFO    broker.broker: Leaderboard tick=459 | realized=-105.09 fills=4 net_worth=157752.86
+2026-10-23 13:42:17,130 INFO    __main__: Quoted AMD bid=181.10 x60 ask=181.41 x60 centre=181.2504 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:17,984 INFO    broker.broker: Leaderboard tick=461 | realized=-105.09 fills=4 net_worth=157753.23
+2026-10-23 13:42:19,987 INFO    broker.broker: Leaderboard tick=463 | realized=-105.09 fills=4 net_worth=157753.60
+2026-10-23 13:42:21,650 INFO    __main__: Quoted AMZN bid=185.42 x10 ask=185.73 x60 centre=185.6950 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:42:21,989 INFO    broker.broker: Leaderboard tick=465 | realized=-105.09 fills=4 net_worth=157755.96
+2026-10-23 13:42:23,994 INFO    broker.broker: Leaderboard tick=467 | realized=-105.09 fills=4 net_worth=157749.53
+2026-10-23 13:42:24,165 INFO    __main__: Quoted NFLX bid=684.03 x60 ask=684.34 x60 centre=684.1858 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:25,996 INFO    broker.broker: Leaderboard tick=469 | realized=-105.09 fills=4 net_worth=157749.90
+2026-10-23 13:42:26,693 INFO    __main__: Quoted NVDA bid=134.27 x60 ask=134.58 x60 centre=134.4293 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:27,997 INFO    broker.broker: Leaderboard tick=471 | realized=-105.09 fills=4 net_worth=157750.67
+2026-10-23 13:42:30,000 INFO    broker.broker: Leaderboard tick=473 | realized=-105.09 fills=4 net_worth=157751.03
+2026-10-23 13:42:30,059 INFO    broker.broker: Session event: IPO_PRICED — ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+2026-10-23 13:42:31,712 INFO    __main__: Quoted NFLX bid=683.67 x60 ask=683.98 x60 centre=683.8274 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:32,004 INFO    broker.broker: Leaderboard tick=475 | realized=-105.09 fills=4 net_worth=157744.20
+2026-10-23 13:42:33,227 INFO    __main__: Quoted TSLA bid=281.39 x60 ask=281.70 x60 centre=281.5428 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:34,006 INFO    broker.broker: Leaderboard tick=477 | realized=-105.09 fills=4 net_worth=157728.57
+2026-10-23 13:42:34,754 INFO    __main__: Quoted AAPL bid=226.48 x60 ask=226.79 x60 centre=226.6357 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:36,010 INFO    broker.broker: Leaderboard tick=479 | realized=-105.09 fills=4 net_worth=157744.34
+2026-10-23 13:42:36,767 INFO    __main__: Quoted TSLA bid=281.24 x60 ask=281.55 x60 centre=281.3959 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:38,015 INFO    broker.broker: Leaderboard tick=481 | realized=-105.09 fills=4 net_worth=157735.71
+2026-10-23 13:42:38,281 INFO    __main__: Quoted TSLA bid=280.94 x60 ask=281.55 x60 centre=281.2430 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:39,795 INFO    __main__: Quoted TSLA bid=280.70 x60 ask=281.46 x60 centre=281.0801 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:40,017 INFO    broker.broker: Leaderboard tick=483 | realized=-105.09 fills=4 net_worth=157730.67
+2026-10-23 13:42:41,311 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.28 x60 centre=23.2483 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:42,018 INFO    broker.broker: Leaderboard tick=485 | realized=-105.09 fills=4 net_worth=157731.64
+2026-10-23 13:42:42,817 INFO    __main__: Quoted META bid=580.93 x60 ask=581.24 x60 centre=581.0867 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:44,020 INFO    broker.broker: Leaderboard tick=487 | realized=-105.09 fills=4 net_worth=157733.01
+2026-10-23 13:42:44,326 INFO    __main__: Quoted MSFT bid=419.36 x60 ask=419.67 x60 centre=419.5382 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:42:45,840 INFO    __main__: Quoted TSLA bid=280.78 x60 ask=281.09 x60 centre=280.9318 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:46,021 INFO    broker.broker: Leaderboard tick=489 | realized=-105.09 fills=4 net_worth=157731.58
+2026-10-23 13:42:47,353 INFO    __main__: Quoted GOOGL bid=181.43 x60 ask=181.74 x60 centre=181.5847 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:48,023 INFO    broker.broker: Leaderboard tick=491 | realized=-105.09 fills=4 net_worth=157686.74
+2026-10-23 13:42:48,878 INFO    __main__: Quoted AMD bid=181.07 x60 ask=181.38 x60 centre=181.2245 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:50,026 INFO    broker.broker: Leaderboard tick=493 | realized=-105.09 fills=4 net_worth=157724.71
+2026-10-23 13:42:50,397 INFO    __main__: Quoted AMD bid=180.52 x60 ask=181.25 x60 centre=180.8867 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:51,905 INFO    __main__: Quoted AMZN bid=185.48 x10 ask=185.79 x60 centre=185.7509 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:42:52,030 INFO    broker.broker: Leaderboard tick=495 | realized=-105.09 fills=4 net_worth=157727.48
+2026-10-23 13:42:54,032 INFO    broker.broker: Leaderboard tick=497 | realized=-105.09 fills=4 net_worth=157725.05
+2026-10-23 13:42:54,415 INFO    __main__: Quoted TSLA bid=280.63 x60 ask=280.94 x60 centre=280.7812 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:55,924 INFO    __main__: Quoted AMD bid=180.69 x60 ask=181.27 x60 centre=180.9804 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:56,033 INFO    broker.broker: Leaderboard tick=499 | realized=-105.09 fills=4 net_worth=157728.81
+2026-10-23 13:42:57,434 INFO    __main__: Quoted AMD bid=180.26 x60 ask=180.99 x60 centre=180.6264 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:42:58,035 INFO    broker.broker: Leaderboard tick=501 | realized=-105.09 fills=4 net_worth=157714.58
+2026-10-23 13:42:58,946 INFO    __main__: Quoted NVDA bid=134.22 x60 ask=134.53 x60 centre=134.3718 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:00,039 INFO    broker.broker: Leaderboard tick=503 | realized=-105.09 fills=4 net_worth=157723.35
+2026-10-23 13:43:00,470 INFO    __main__: Quoted AMD bid=180.43 x60 ask=181.15 x60 centre=180.7909 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:01,255 INFO    __main__: EVENT dividend: AAPL quotes pulled for 165s
+2026-10-23 13:43:01,255 INFO    broker.broker: Session event: CALENDAR — Upcoming: dividend AAPL @ t600
+2026-10-23 13:43:02,044 INFO    broker.broker: Leaderboard tick=505 | realized=-105.09 fills=4 net_worth=157666.19
+2026-10-23 13:43:02,742 INFO    __main__: Quoted AMD bid=180.72 x60 ask=181.13 x60 centre=180.9234 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:04,045 INFO    broker.broker: Leaderboard tick=507 | realized=-105.09 fills=4 net_worth=157702.28
+2026-10-23 13:43:04,256 INFO    __main__: Quoted NFLX bid=683.59 x60 ask=683.90 x60 centre=683.7482 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:05,770 INFO    __main__: Quoted TSLA bid=280.47 x60 ask=280.78 x60 centre=280.6232 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:06,048 INFO    broker.broker: Leaderboard tick=509 | realized=-105.09 fills=4 net_worth=157685.75
+2026-10-23 13:43:07,286 INFO    __main__: Quoted AMD bid=180.56 x60 ask=181.50 x60 centre=181.0298 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:08,051 INFO    broker.broker: Leaderboard tick=511 | realized=-105.09 fills=4 net_worth=157679.07
+2026-10-23 13:43:08,672 INFO    __main__: Quoted AMD bid=180.57 x60 ask=181.67 x60 centre=181.1221 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:10,055 INFO    broker.broker: Leaderboard tick=513 | realized=-105.09 fills=4 net_worth=157669.22
+2026-10-23 13:43:10,187 INFO    __main__: Quoted NVDA bid=134.14 x60 ask=134.45 x60 centre=134.2962 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:11,699 INFO    __main__: Quoted NVDA bid=134.07 x60 ask=134.38 x60 centre=134.2239 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:12,056 INFO    broker.broker: Leaderboard tick=515 | realized=-105.09 fills=4 net_worth=157661.21
+2026-10-23 13:43:13,217 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.27 x60 centre=23.2398 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:14,058 INFO    broker.broker: Leaderboard tick=517 | realized=-105.09 fills=4 net_worth=157645.56
+2026-10-23 13:43:14,732 INFO    __main__: Quoted NVDA bid=133.87 x60 ask=134.45 x60 centre=134.1561 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:16,061 INFO    broker.broker: Leaderboard tick=519 | realized=-105.09 fills=4 net_worth=157648.03
+2026-10-23 13:43:16,254 INFO    __main__: Quoted META bid=580.99 x60 ask=581.30 x60 centre=581.1404 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:17,770 INFO    __main__: Quoted MSFT bid=419.46 x60 ask=419.77 x60 centre=419.6345 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:43:18,066 INFO    broker.broker: Leaderboard tick=521 | realized=-105.09 fills=4 net_worth=157643.19
+2026-10-23 13:43:19,180 INFO    __main__: Quoted GOOGL bid=181.51 x60 ask=181.82 x60 centre=181.6629 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:20,067 INFO    broker.broker: Leaderboard tick=523 | realized=-105.09 fills=4 net_worth=157644.22
+2026-10-23 13:43:22,069 INFO    broker.broker: Leaderboard tick=525 | realized=-105.09 fills=4 net_worth=157640.21
+2026-10-23 13:43:22,189 INFO    __main__: Quoted AMZN bid=185.52 x10 ask=185.83 x60 centre=185.7967 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:43:24,076 INFO    broker.broker: Leaderboard tick=527 | realized=-105.09 fills=4 net_worth=157638.33
+2026-10-23 13:43:26,081 INFO    broker.broker: Leaderboard tick=529 | realized=-105.09 fills=4 net_worth=157635.60
+2026-10-23 13:43:28,084 INFO    broker.broker: Leaderboard tick=531 | realized=-105.09 fills=4 net_worth=157632.76
+2026-10-23 13:43:29,214 INFO    __main__: Quoted NVDA bid=133.93 x60 ask=134.24 x60 centre=134.0880 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:30,088 INFO    broker.broker: Leaderboard tick=533 | realized=-105.09 fills=4 net_worth=157631.96
+2026-10-23 13:43:32,091 INFO    broker.broker: Leaderboard tick=535 | realized=-105.09 fills=4 net_worth=157628.65
+2026-10-23 13:43:32,227 INFO    __main__: Quoted NVDA bid=133.86 x60 ask=134.17 x60 centre=134.0166 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:34,095 INFO    broker.broker: Leaderboard tick=537 | realized=-105.09 fills=4 net_worth=157626.54
+2026-10-23 13:43:35,242 INFO    __main__: Quoted NFLX bid=683.52 x60 ask=683.83 x60 centre=683.6716 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:36,105 INFO    broker.broker: Leaderboard tick=539 | realized=-105.09 fills=4 net_worth=157623.15
+2026-10-23 13:43:36,750 INFO    __main__: Quoted TSLA bid=280.40 x60 ask=280.71 x60 centre=280.5588 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:38,103 INFO    broker.broker: Leaderboard tick=541 | realized=-105.09 fills=4 net_worth=157620.14
+2026-10-23 13:43:39,263 INFO    __main__: Quoted AMD bid=180.90 x60 ask=181.21 x60 centre=181.0511 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:40,108 INFO    broker.broker: Leaderboard tick=543 | realized=-105.09 fills=4 net_worth=157625.49
+2026-10-23 13:43:42,110 INFO    broker.broker: Leaderboard tick=545 | realized=-105.09 fills=4 net_worth=157624.65
+2026-10-23 13:43:43,787 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.27 x60 centre=23.2371 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:44,110 INFO    broker.broker: Leaderboard tick=547 | realized=-105.09 fills=4 net_worth=157624.11
+2026-10-23 13:43:45,310 INFO    __main__: Quoted NVDA bid=133.79 x60 ask=134.10 x60 centre=133.9432 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:46,116 INFO    broker.broker: Leaderboard tick=549 | realized=-105.09 fills=4 net_worth=157622.31
+2026-10-23 13:43:46,822 INFO    __main__: Quoted META bid=581.00 x60 ask=581.31 x60 centre=581.1568 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:48,118 INFO    broker.broker: Leaderboard tick=551 | realized=-105.09 fills=4 net_worth=157620.22
+2026-10-23 13:43:48,327 INFO    __main__: Quoted MSFT bid=419.39 x60 ask=419.70 x60 centre=419.5649 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:43:49,835 INFO    __main__: Quoted GOOGL bid=181.56 x60 ask=181.87 x60 centre=181.7198 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:43:50,122 INFO    broker.broker: Leaderboard tick=553 | realized=-105.09 fills=4 net_worth=157620.01
+2026-10-23 13:43:52,128 INFO    broker.broker: Leaderboard tick=555 | realized=-105.09 fills=4 net_worth=157618.42
+2026-10-23 13:43:52,343 INFO    __main__: Quoted AMZN bid=185.61 x10 ask=185.92 x60 centre=185.8810 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:43:54,132 INFO    broker.broker: Leaderboard tick=557 | realized=-105.09 fills=4 net_worth=157621.32
+2026-10-23 13:43:56,140 INFO    broker.broker: Leaderboard tick=559 | realized=-105.09 fills=4 net_worth=157620.91
+2026-10-23 13:43:58,141 INFO    broker.broker: Leaderboard tick=561 | realized=-105.09 fills=4 net_worth=157619.42
+2026-10-23 13:44:00,145 INFO    broker.broker: Leaderboard tick=563 | realized=-105.09 fills=4 net_worth=157617.98
+2026-10-23 13:44:02,161 INFO    broker.broker: Leaderboard tick=565 | realized=-105.09 fills=4 net_worth=157616.97
+2026-10-23 13:44:04,157 INFO    broker.broker: Leaderboard tick=567 | realized=-105.09 fills=4 net_worth=157616.02
+2026-10-23 13:44:05,888 INFO    __main__: Quoted NFLX bid=683.42 x60 ask=683.73 x60 centre=683.5744 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:06,162 INFO    broker.broker: Leaderboard tick=569 | realized=-105.09 fills=4 net_worth=157612.99
+2026-10-23 13:44:07,400 INFO    __main__: Quoted TSLA bid=280.45 x60 ask=280.76 x60 centre=280.6095 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:08,162 INFO    broker.broker: Leaderboard tick=571 | realized=-105.09 fills=4 net_worth=157613.87
+2026-10-23 13:44:09,938 INFO    __main__: Quoted AMD bid=180.93 x60 ask=181.24 x60 centre=181.0838 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:10,166 INFO    broker.broker: Leaderboard tick=573 | realized=-105.09 fills=4 net_worth=157613.52
+2026-10-23 13:44:10,227 INFO    __main__: IPO ORCA listed: no quotes for 60s
+2026-10-23 13:44:10,228 INFO    broker.broker: Session event: IPO_LISTED — ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+2026-10-23 13:44:12,170 INFO    broker.broker: Leaderboard tick=575 | realized=-105.09 fills=4 net_worth=157612.81
+2026-10-23 13:44:14,171 INFO    broker.broker: Leaderboard tick=577 | realized=-105.09 fills=4 net_worth=157612.25
+2026-10-23 13:44:14,463 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.27 x60 centre=23.2409 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:15,978 INFO    __main__: Quoted NVDA bid=133.76 x60 ask=134.07 x60 centre=133.9173 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:16,174 INFO    broker.broker: Leaderboard tick=579 | realized=-105.09 fills=4 net_worth=157611.76
+2026-10-23 13:44:17,490 INFO    __main__: Quoted META bid=580.91 x60 ask=581.22 x60 centre=581.0608 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:18,177 INFO    broker.broker: Leaderboard tick=581 | realized=-105.09 fills=4 net_worth=157609.56
+2026-10-23 13:44:19,000 INFO    __main__: Quoted MSFT bid=419.19 x60 ask=419.50 x60 centre=419.3700 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:44:20,182 INFO    broker.broker: Leaderboard tick=583 | realized=-105.09 fills=4 net_worth=157603.87
+2026-10-23 13:44:20,509 INFO    __main__: Quoted GOOGL bid=181.61 x60 ask=181.92 x60 centre=181.7674 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:22,187 INFO    broker.broker: Leaderboard tick=585 | realized=-105.09 fills=4 net_worth=157603.37
+2026-10-23 13:44:22,517 INFO    __main__: Quoted AMZN bid=185.65 x10 ask=185.96 x60 centre=185.9250 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:44:24,192 INFO    broker.broker: Leaderboard tick=587 | realized=-105.09 fills=4 net_worth=157605.25
+2026-10-23 13:44:26,197 INFO    broker.broker: Leaderboard tick=589 | realized=-105.09 fills=4 net_worth=157605.29
+2026-10-23 13:44:28,200 INFO    broker.broker: Leaderboard tick=591 | realized=-105.09 fills=4 net_worth=157604.78
+2026-10-23 13:44:30,039 INFO    __main__: Quoted TSLA bid=280.60 x60 ask=280.91 x60 centre=280.7521 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:30,204 INFO    broker.broker: Leaderboard tick=593 | realized=-105.09 fills=4 net_worth=157607.06
+2026-10-23 13:44:31,555 INFO    __main__: Quoted TSLA bid=280.75 x60 ask=281.06 x60 centre=280.9061 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:32,208 INFO    broker.broker: Leaderboard tick=595 | realized=-105.09 fills=4 net_worth=157609.83
+2026-10-23 13:44:33,065 INFO    __main__: Quoted TSLA bid=280.73 x60 ask=281.37 x60 centre=281.0493 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:34,213 INFO    broker.broker: Leaderboard tick=597 | realized=-105.09 fills=4 net_worth=157609.41
+2026-10-23 13:44:35,077 INFO    __main__: Quoted NVDA bid=133.69 x60 ask=134.00 x60 centre=133.8497 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:36,214 INFO    broker.broker: Leaderboard tick=599 | realized=-105.09 fills=4 net_worth=157610.33
+2026-10-23 13:44:36,586 INFO    __main__: Quoted NFLX bid=683.55 x60 ask=683.86 x60 centre=683.7075 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:38,097 INFO    __main__: Quoted NVDA bid=133.62 x60 ask=133.93 x60 centre=133.7790 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:38,217 INFO    broker.broker: Leaderboard tick=601 | realized=-105.09 fills=4 net_worth=157609.72
+2026-10-23 13:44:40,221 INFO    broker.broker: Leaderboard tick=603 | realized=-105.09 fills=4 net_worth=157609.78
+2026-10-23 13:44:40,610 INFO    __main__: Quoted AMD bid=180.92 x60 ask=181.23 x60 centre=181.0764 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:42,226 INFO    broker.broker: Leaderboard tick=605 | realized=-105.09 fills=4 net_worth=157610.29
+2026-10-23 13:44:44,232 INFO    broker.broker: Leaderboard tick=607 | realized=-105.09 fills=4 net_worth=157610.32
+2026-10-23 13:44:45,127 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.27 x60 centre=23.2323 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:46,235 INFO    broker.broker: Leaderboard tick=609 | realized=-105.09 fills=4 net_worth=157610.96
+2026-10-23 13:44:48,145 INFO    __main__: Quoted META bid=580.80 x60 ask=581.11 x60 centre=580.9597 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:48,237 INFO    broker.broker: Leaderboard tick=611 | realized=-105.09 fills=4 net_worth=157609.07
+2026-10-23 13:44:49,655 INFO    __main__: Quoted MSFT bid=419.06 x60 ask=419.37 x60 centre=419.2383 inventory +30 (traded +10) skew -0.02
+2026-10-23 13:44:50,242 INFO    broker.broker: Leaderboard tick=613 | realized=-105.09 fills=4 net_worth=157605.52
+2026-10-23 13:44:51,165 INFO    __main__: Quoted GOOGL bid=181.66 x60 ask=181.97 x60 centre=181.8103 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:44:52,246 INFO    broker.broker: Leaderboard tick=615 | realized=-105.09 fills=4 net_worth=157607.62
+2026-10-23 13:44:52,675 INFO    __main__: Quoted AMZN bid=185.70 x10 ask=186.01 x60 centre=185.9771 inventory +40 (traded +20) skew -0.12
+2026-10-23 13:44:54,247 INFO    broker.broker: Leaderboard tick=617 | realized=-105.09 fills=4 net_worth=157610.17
+2026-10-23 13:44:56,251 INFO    broker.broker: Leaderboard tick=619 | realized=-105.09 fills=4 net_worth=157611.03
+2026-10-23 13:44:58,255 INFO    broker.broker: Leaderboard tick=621 | realized=-105.09 fills=4 net_worth=157611.04
+2026-10-23 13:45:00,258 INFO    broker.broker: Leaderboard tick=623 | realized=-105.09 fills=4 net_worth=157611.47
+2026-10-23 13:45:00,316 INFO    broker.broker: Session event: DIVIDEND — AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+2026-10-23 13:45:02,213 INFO    __main__: Quoted AMD bid=180.82 x60 ask=181.13 x60 centre=180.9767 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:45:02,264 INFO    broker.broker: Leaderboard tick=625 | realized=-105.09 fills=4 net_worth=157613.66
+2026-10-23 13:45:03,725 INFO    __main__: Quoted TSLA bid=280.91 x60 ask=281.22 x60 centre=281.0688 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:45:04,270 INFO    broker.broker: Leaderboard tick=627 | realized=-105.09 fills=4 net_worth=157611.11
+2026-10-23 13:45:05,267 INFO    __main__: Quoted AMD bid=180.73 x60 ask=181.04 x60 centre=180.8837 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:45:06,270 INFO    broker.broker: Leaderboard tick=629 | realized=-105.09 fills=4 net_worth=157615.33
+2026-10-23 13:45:06,785 INFO    __main__: Quoted INTC bid=22.90 x60 ask=23.25 x60 centre=23.2194 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:45:08,102 INFO    broker.broker: Session closed — flattening all positions
+2026-10-23 13:45:13,718 INFO    __main__: Quoted NFLX bid=683.74 x60 ask=684.05 x60 centre=683.8985 inventory +20 (traded +0) skew -0.00
+2026-10-23 13:45:14,564 INFO    __main__: Session closed: quotes cancelled, no close-out orders (the venue marks positions at the close)
+2026-10-23 13:45:14,565 INFO    broker.broker: Leaderboard tick=631 | realized=-105.09 fills=4 net_worth=157619.27
+2026-10-23 13:45:14,565 INFO    broker.broker: Leaderboard tick=631 | realized=-105.09 fills=4 net_worth=157614.77
+2026-10-23 13:45:14,567 INFO    broker.broker: Leaderboard tick=633 | realized=-105.09 fills=4 net_worth=157570.91
+2026-10-23 13:45:14,568 INFO    broker.broker: Leaderboard tick=635 | realized=-105.09 fills=4 net_worth=157489.64
+2026-10-23 13:45:14,568 INFO    broker.broker: Leaderboard tick=637 | realized=-105.09 fills=4 net_worth=157525.52
+2026-10-23 13:45:16,288 INFO    broker.broker: Leaderboard tick=639 | realized=-105.09 fills=4 net_worth=157522.30
+2026-10-23 13:45:18,289 INFO    broker.broker: Leaderboard tick=641 | realized=-105.09 fills=4 net_worth=157520.30
+2026-10-23 13:45:20,290 INFO    broker.broker: Leaderboard tick=643 | realized=-105.09 fills=4 net_worth=157516.78
+2026-10-23 13:45:22,294 INFO    broker.broker: Leaderboard tick=645 | realized=-105.09 fills=4 net_worth=157509.78
+2026-10-23 13:45:24,296 INFO    broker.broker: Leaderboard tick=647 | realized=-105.09 fills=4 net_worth=157501.63
+2026-10-23 13:45:26,301 INFO    broker.broker: Leaderboard tick=649 | realized=-105.09 fills=4 net_worth=157495.72

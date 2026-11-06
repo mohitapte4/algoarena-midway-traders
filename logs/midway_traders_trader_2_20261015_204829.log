@@ -1,0 +1,69 @@
+20:48:29  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261015_204829.log
+20:48:29  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+20:48:29  INFO    Connected to ws://localhost:8799 as midway_traders_trader_2 (trader)
+20:48:29  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:48:29  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:48:35  DEBUG   Portfolio: net_worth=158017.14
+20:48:35  INFO    Session event: CALENDAR — 2 scheduled event(s) this session
+20:48:35  INFO    EVENT  CALENDAR       2 scheduled event(s) this session
+20:48:35  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+20:48:35  INFO    RISK   session reference net worth 158017.14
+20:48:36  INFO    ORDER  sell 5 MSFT @ 415.23 take (notional 2076.15) — starter 1/3, buys blocked by risk limits
+20:48:36  DEBUG   Placed: sell 5 MSFT @ 415.2300
+20:48:36  DEBUG   Ack: sell 5 MSFT @ 415.2300
+20:48:36  INFO    Fill: sold   5 MSFT @ 415.2300 (fee=1.5571)
+20:48:36  INFO    FILL   #1 sell   5 MSFT   @   415.23  notional   2076.15  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+20:48:36  DEBUG   Portfolio: net_worth=158014.89
+20:48:52  INFO    RISK   NFLX: buy cut to 0 by gross exposure limit
+20:49:35  INFO    Session event: SHOCK — Amazon.com Inc. earnings miss: -4.3%
+20:49:35  INFO    EVENT  SHOCK          Amazon.com Inc. earnings miss: -4.3%
+20:49:35  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 186.19 in 15s
+20:49:35  INFO    EVENT  AMZN fade-extra leg edge 1.57% — not traded
+20:49:35  INFO    EVENT  AMZN -5.22%: fade edge 4.18% vs round trip 0.30% — FADE 20 shares: sell down to 191.32, buy back after 15s at no more than 186.19
+20:49:35  INFO    ORDER  sell 20 AMZN @ 191.32 take (notional 3826.40) — fade sell
+20:49:35  DEBUG   Placed: sell 20 AMZN @ 191.3200
+20:49:35  DEBUG   Ack: sell 20 AMZN @ 191.3200
+20:49:35  INFO    Fill: sold   20 AMZN @ 195.9800 (fee=2.9397)
+20:49:35  INFO    FILL   #2 sell  20 AMZN   @   195.98  notional   3919.60  vs limit +4.6600 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+20:49:35  DEBUG   Portfolio: net_worth=158303.93
+20:49:43  INFO    RISK   TSLA: buy cut to 0 by gross exposure limit
+20:49:45  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+20:49:46  INFO    RISK   META: buy cut to 0 by gross exposure limit
+20:49:48  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+20:49:50  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+20:49:51  INFO    RISK   AAPL: buy cut to 0 by gross exposure limit
+20:49:52  INFO    RISK   MSFT: buy cut to 0 by gross exposure limit
+20:49:54  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+20:50:29  INFO    ORDER  buy  20 AMZN @ 187.94 take (notional 3758.80) — fade rebuy (time)
+20:50:29  DEBUG   Placed: buy 20 AMZN @ 187.9400
+20:50:29  DEBUG   Ack: buy 20 AMZN @ 187.9400
+20:50:29  INFO    Fill: bought 20 AMZN @ 187.9400 (fee=2.8191)
+20:50:29  INFO    FILL   #3 buy   20 AMZN   @   187.94  notional   3758.80  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+20:50:29  DEBUG   Portfolio: net_worth=158170.49
+20:50:30  INFO    EVENT  FADE AMZN done: bought 20, sold 20, gross P&L +160.80
+20:51:35  INFO    Session event: CALENDAR — Upcoming: earnings NVDA @ t300
+20:51:35  INFO    EVENT  CALENDAR       Upcoming: earnings NVDA @ t300
+20:51:35  INFO    EVENT  window NVDA: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+20:53:35  INFO    Session event: CALENDAR_EVENT — Earnings: NVDA moving -7.6%
+20:53:35  INFO    EVENT  CALENDAR_EVENT Earnings: NVDA moving -7.6%
+20:53:35  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 120.23 in 15s
+20:53:35  INFO    EVENT  NVDA fade-extra leg edge 2.28% — not traded
+20:53:35  INFO    EVENT  NVDA -7.60%: fade edge 6.08% vs round trip 0.30% — FADE 20 shares: sell down to 125.17, buy back after 15s at no more than 120.23
+20:53:50  INFO    EVENT  FADE NVDA done: bought 0, sold 0, gross P&L +0.00
+20:53:50  INFO    ORDER  buy  5 NVDA @ 120.22 rest (notional 601.10) — event reaction
+20:53:50  INFO    EVENT  NVDA reaction: bid 5 @ 120.22 (settle 120.23)
+20:53:50  DEBUG   Placed: buy 5 NVDA @ 120.2200
+20:53:50  DEBUG   Ack: buy 5 NVDA @ 120.2200
+20:54:45  WARNING trader midway_traders_trader_2: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+20:54:47  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 1.7s (attempt 2)
+20:54:48  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 3.3s (attempt 3)
+20:54:51  WARNING trader midway_traders_trader_2: cannot connect (OSError: Multiple exceptions: [Errno 61] Connect call failed ('::1', 8799, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8799)) — reconnecting in 6.8s (attempt 4)
+20:54:58  INFO    Connected to ws://localhost:8799 as midway_traders_trader_2 (trader)
+20:54:58  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:54:58  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+20:55:33  DEBUG   Portfolio: net_worth=158012.37
+20:55:33  INFO    Session event: CALENDAR — 2 scheduled event(s) this session
+20:55:33  INFO    EVENT  CALENDAR       2 scheduled event(s) this session
+20:55:33  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+20:56:04  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+20:56:04  INFO    SESSION closed: positions are marked at the close, no close-out orders sent

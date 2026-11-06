@@ -1,0 +1,531 @@
+15:33:08  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261009_153308.log
+15:33:08  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from the shell)
+15:33:09  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+15:33:09  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:33:09  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:34:26  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:34:26  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:34:26  INFO    Session event: CALENDAR — No scheduled events this session
+15:34:26  INFO    EVENT  CALENDAR       No scheduled events this session
+15:35:58  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:35:58  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:35:58  INFO    Session event: CALENDAR — No scheduled events this session
+15:35:58  INFO    EVENT  CALENDAR       No scheduled events this session
+15:37:30  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:37:30  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:37:30  INFO    Session event: CALENDAR — No scheduled events this session
+15:37:30  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:02  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:39:02  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:39:02  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:02  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:59  DEBUG   Portfolio: net_worth=531559.01
+15:39:59  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:59  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:59  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+15:40:00  INFO    RISK   session reference net worth 531559.01
+15:40:00  INFO    ORDER  buy  5 AAPL @ 196.50 limit (notional 982.50) — starter 1/3
+15:40:00  DEBUG   Placed: buy 5 AAPL @ 196.5000
+15:40:00  DEBUG   Ack: buy 5 AAPL @ 196.5000
+15:40:01  INFO    Fill: bought 1 AAPL @ 196.5000 (fee=0.2948)
+15:40:01  INFO    FILL   #1 buy    1 AAPL   @   196.50  notional    196.50  vs limit +0.0000  | bought and held 1, avg entry 196.5000
+15:40:01  DEBUG   Portfolio: net_worth=531556.91
+15:40:02  INFO    ORDER  buy  5 NFLX @ 1389.20 limit (notional 6946.00) — mid 1389.09 / mean 1399.05, z -4.34
+15:40:02  DEBUG   Placed: buy 5 NFLX @ 1389.2000
+15:40:02  DEBUG   Ack: buy 5 NFLX @ 1389.2000
+15:40:02  INFO    Fill: bought 5 NFLX @ 1389.2000 (fee=10.4190)
+15:40:02  INFO    FILL   #2 buy    5 NFLX   @  1389.20  notional   6946.00  vs limit +0.0000  | bought and held 5, avg entry 1389.2000
+15:40:02  DEBUG   Portfolio: net_worth=531606.66
+15:40:03  INFO    RISK   NFLX: buy cut to 2 by concentration limit
+15:40:03  INFO    ORDER  buy  2 NFLX @ 1389.20 limit (notional 2778.40) — mid 1389.09 / mean 1398.51, z -2.99
+15:40:03  DEBUG   Placed: buy 2 NFLX @ 1389.2000
+15:40:03  DEBUG   Ack: buy 2 NFLX @ 1389.2000
+15:40:03  INFO    Fill: bought 2 NFLX @ 1389.2000 (fee=4.1676)
+15:40:03  INFO    FILL   #3 buy    2 NFLX   @  1389.20  notional   2778.40  vs limit +0.0000  | bought and held 7, avg entry 1389.2000
+15:40:03  DEBUG   Portfolio: net_worth=531557.87
+15:40:03  INFO    RISK   NFLX: buy cut to 0 by concentration limit
+15:40:10  INFO    Fill: bought 3 AAPL @ 196.5000 (fee=0.8842)
+15:40:10  INFO    FILL   #4 buy    3 AAPL   @   196.50  notional    589.50  vs limit +0.0000  | bought and held 4, avg entry 196.5000
+15:40:10  DEBUG   Portfolio: net_worth=531429.77
+15:40:20  WARNING ORDER  buy 1 AAPL @ 196.50 not filled after 20s
+15:40:26  WARNING Exchange error [STP_CANCEL]: Your resting buy 1 AAPL @ 196.5 was cancelled by self-trade prevention (your own order crossed it)
+15:40:37  WARNING RISK   stop-loss NFLX: bid 1366.42 is 1.64% below average entry 1389.2000
+15:40:37  INFO    ORDER  sell 7 NFLX @ 1366.42 limit (notional 9564.94) — stop-loss
+15:40:37  DEBUG   Placed: sell 7 NFLX @ 1366.4200
+15:40:37  DEBUG   Ack: sell 7 NFLX @ 1366.4200
+15:40:37  INFO    Fill: sold   7 NFLX @ 1366.4200 (fee=14.3474)
+15:40:37  INFO    FILL   #5 sell   7 NFLX   @  1366.42  notional   9564.94  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:40:37  DEBUG   Portfolio: net_worth=531189.49
+15:40:38  INFO    ORDER  buy  5 NFLX @ 1363.60 limit (notional 6818.00) — mid 1362.81 / mean 1372.78, z -2.40
+15:40:38  DEBUG   Placed: buy 5 NFLX @ 1363.6000
+15:40:38  DEBUG   Ack: buy 5 NFLX @ 1363.6000
+15:40:40  WARNING Exchange error [STP_CANCEL]: Your resting buy 5 NFLX @ 1363.6 was cancelled by self-trade prevention (your own order crossed it)
+15:40:58  WARNING ORDER  buy 5 NFLX @ 1363.60 not filled after 20s
+15:41:05  INFO    ORDER  buy  5 NVDA @ 116.37 limit (notional 581.85) — mid 116.34 / mean 116.93, z -2.08
+15:41:05  DEBUG   Placed: buy 5 NVDA @ 116.3700
+15:41:05  DEBUG   Ack: buy 5 NVDA @ 116.3700
+15:41:05  INFO    Fill: bought 5 NVDA @ 116.3700 (fee=0.8728)
+15:41:05  INFO    FILL   #6 buy    5 NVDA   @   116.37  notional    581.85  vs limit +0.0000  | bought and held 5, avg entry 116.3700
+15:41:05  DEBUG   Portfolio: net_worth=530974.71
+15:41:37  INFO    ORDER  sell 4 AAPL @ 195.14 limit (notional 780.56) — mid 195.22 / mean 195.18, z +4.36, back at the mean
+15:41:37  DEBUG   Placed: sell 4 AAPL @ 195.1400
+15:41:37  DEBUG   Ack: sell 4 AAPL @ 195.1400
+15:41:37  INFO    Fill: sold   4 AAPL @ 195.1400 (fee=1.1708)
+15:41:37  INFO    FILL   #7 sell   4 AAPL   @   195.14  notional    780.56  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:41:37  DEBUG   Portfolio: net_worth=530975.47
+15:41:41  INFO    ORDER  sell 5 NVDA @ 115.54 limit (notional 577.70) — mid 115.59 / mean 115.57, z +2.03, back at the mean
+15:41:41  DEBUG   Placed: sell 5 NVDA @ 115.5400
+15:41:41  DEBUG   Ack: sell 5 NVDA @ 115.5400
+15:41:41  INFO    Fill: sold   5 NVDA @ 115.5400 (fee=0.8666)
+15:41:41  INFO    FILL   #8 sell   5 NVDA   @   115.54  notional    577.70  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:41:41  DEBUG   Portfolio: net_worth=530976.18
+15:44:46  INFO    Session event: CALENDAR — Upcoming: earnings AAPL @ t400
+15:44:46  INFO    EVENT  CALENDAR       Upcoming: earnings AAPL @ t400
+15:46:51  INFO    Session event: CALENDAR_EVENT — Earnings: AAPL moving +6.2%
+15:46:51  INFO    EVENT  CALENDAR_EVENT Earnings: AAPL moving +6.2%
+15:53:27  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t900
+15:53:27  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t900
+15:55:32  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.0%
+15:55:32  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.0%
+15:55:35  INFO    ORDER  buy  5 NFLX @ 1382.25 limit (notional 6911.25) — mid 1382.21 / mean 1393.52, z -2.74
+15:55:35  DEBUG   Placed: buy 5 NFLX @ 1382.2500
+15:55:35  DEBUG   Ack: buy 5 NFLX @ 1382.2500
+15:55:35  INFO    Fill: bought 3 NFLX @ 1382.2500 (fee=6.2201)
+15:55:35  INFO    FILL   #9 buy    3 NFLX   @  1382.25  notional   4146.75  vs limit +0.0000  | bought and held 3, avg entry 1382.2500
+15:55:35  DEBUG   Portfolio: net_worth=532167.47
+15:55:35  INFO    Fill: bought 2 NFLX @ 1382.2500 (fee=4.1467)
+15:55:35  INFO    FILL   #10 buy    2 NFLX   @  1382.25  notional   2764.50  vs limit +0.0000  | bought and held 5, avg entry 1382.2500
+15:55:35  DEBUG   Portfolio: net_worth=532177.28
+15:55:37  INFO    ORDER  buy  5 GOOGL @ 177.32 limit (notional 886.60) — mid 177.01 / mean 178.29, z -3.92
+15:55:37  DEBUG   Placed: buy 5 GOOGL @ 177.3200
+15:55:37  DEBUG   Ack: buy 5 GOOGL @ 177.3200
+15:55:37  INFO    Fill: bought 5 GOOGL @ 177.3200 (fee=1.3299)
+15:55:37  INFO    FILL   #11 buy    5 GOOGL  @   177.32  notional    886.60  vs limit +0.0000  | bought and held 5, avg entry 177.3200
+15:55:37  DEBUG   Portfolio: net_worth=531987.69
+15:55:38  INFO    ORDER  buy  5 GOOGL @ 177.32 limit (notional 886.60) — mid 177.00 / mean 178.22, z -2.84
+15:55:38  DEBUG   Placed: buy 5 GOOGL @ 177.3200
+15:55:38  DEBUG   Ack: buy 5 GOOGL @ 177.3200
+15:55:38  INFO    Fill: bought 5 GOOGL @ 177.0300 (fee=1.3277)
+15:55:38  INFO    FILL   #12 buy    5 GOOGL  @   177.03  notional    885.15  vs limit -0.2900  | bought and held 10, avg entry 177.1750
+15:55:38  DEBUG   Portfolio: net_worth=531977.06
+15:55:38  INFO    ORDER  buy  5 GOOGL @ 176.68 limit (notional 883.40) — mid 176.53 / mean 178.03, z -2.29
+15:55:38  DEBUG   Placed: buy 5 GOOGL @ 176.6800
+15:55:38  DEBUG   Ack: buy 5 GOOGL @ 176.6800
+15:55:39  INFO    ORDER  buy  5 INTC @ 20.00 limit (notional 100.00) — mid 19.99 / mean 20.19, z -2.72
+15:55:39  DEBUG   Placed: buy 5 INTC @ 20.0000
+15:55:39  DEBUG   Ack: buy 5 INTC @ 20.0000
+15:55:39  INFO    Fill: bought 2 INTC @ 20.0000 (fee=0.0600)
+15:55:39  INFO    FILL   #13 buy    2 INTC   @    20.00  notional     40.00  vs limit +0.0000  | bought and held 2, avg entry 20.0000
+15:55:39  DEBUG   Portfolio: net_worth=531883.73
+15:55:39  INFO    Fill: bought 1 GOOGL @ 176.6800 (fee=0.2650)
+15:55:39  INFO    FILL   #14 buy    1 GOOGL  @   176.68  notional    176.68  vs limit +0.0000  | bought and held 11, avg entry 177.1300
+15:55:39  DEBUG   Portfolio: net_worth=531882.30
+15:55:39  INFO    ORDER  buy  5 AMD @ 228.02 limit (notional 1140.10) — mid 227.63 / mean 229.34, z -2.09
+15:55:39  DEBUG   Placed: buy 5 AMD @ 228.0200
+15:55:39  DEBUG   Ack: buy 5 AMD @ 228.0200
+15:55:39  INFO    Fill: bought 5 AMD @ 228.0200 (fee=1.7102)
+15:55:39  INFO    FILL   #15 buy    5 AMD    @   228.02  notional   1140.10  vs limit +0.0000  | bought and held 5, avg entry 228.0200
+15:55:39  DEBUG   Portfolio: net_worth=531768.40
+15:55:40  INFO    ORDER  buy  5 META @ 714.27 limit (notional 3571.35) — mid 713.26 / mean 718.27, z -2.11
+15:55:40  DEBUG   Placed: buy 5 META @ 714.2700
+15:55:40  DEBUG   Ack: buy 5 META @ 714.2700
+15:55:40  INFO    Fill: bought 5 META @ 714.2700 (fee=5.3570)
+15:55:40  INFO    FILL   #16 buy    5 META   @   714.27  notional   3571.35  vs limit +0.0000  | bought and held 5, avg entry 714.2700
+15:55:40  DEBUG   Portfolio: net_worth=531740.18
+15:55:40  INFO    ORDER  buy  5 MSFT @ 400.24 limit (notional 2001.20) — mid 399.51 / mean 403.37, z -2.54
+15:55:40  DEBUG   Placed: buy 5 MSFT @ 400.2400
+15:55:40  DEBUG   Ack: buy 5 MSFT @ 400.2400
+15:55:40  INFO    Fill: bought 5 MSFT @ 399.5600 (fee=2.9967)
+15:55:40  INFO    FILL   #17 buy    5 MSFT   @   399.56  notional   1997.80  vs limit -0.6800  | bought and held 5, avg entry 399.5600
+15:55:40  DEBUG   Portfolio: net_worth=531623.13
+15:55:41  INFO    Fill: bought 4 GOOGL @ 176.6800 (fee=1.0601)
+15:55:41  INFO    FILL   #18 buy    4 GOOGL  @   176.68  notional    706.72  vs limit +0.0000  | bought and held 15, avg entry 177.0100
+15:55:41  DEBUG   Portfolio: net_worth=531614.89
+15:55:41  INFO    ORDER  buy  5 AAPL @ 207.29 limit (notional 1036.45) — mid 207.10 / mean 208.90, z -2.67
+15:55:41  DEBUG   Placed: buy 5 AAPL @ 207.2900
+15:55:41  DEBUG   Ack: buy 5 AAPL @ 207.2900
+15:55:41  INFO    ORDER  buy  5 TSLA @ 295.86 limit (notional 1479.30) — mid 295.81 / mean 298.36, z -2.28
+15:55:41  DEBUG   Placed: buy 5 TSLA @ 295.8600
+15:55:41  INFO    Fill: bought 1 AAPL @ 207.2900 (fee=0.3109)
+15:55:41  INFO    FILL   #19 buy    1 AAPL   @   207.29  notional    207.29  vs limit +0.0000  | bought and held 1, avg entry 207.2900
+15:55:41  DEBUG   Portfolio: net_worth=531613.20
+15:55:41  DEBUG   Ack: buy 5 TSLA @ 295.8600
+15:55:41  INFO    Fill: bought 5 TSLA @ 295.8600 (fee=2.2189)
+15:55:41  INFO    FILL   #20 buy    5 TSLA   @   295.86  notional   1479.30  vs limit +0.0000  | bought and held 5, avg entry 295.8600
+15:55:41  DEBUG   Portfolio: net_worth=531496.48
+15:55:42  INFO    ORDER  buy  5 AMZN @ 153.07 limit (notional 765.35) — mid 152.88 / mean 154.14, z -2.35
+15:55:42  DEBUG   Placed: buy 5 AMZN @ 153.0700
+15:55:42  DEBUG   Ack: buy 5 AMZN @ 153.0700
+15:55:42  INFO    Fill: bought 5 AMZN @ 152.8200 (fee=1.1462)
+15:55:42  INFO    FILL   #21 buy    5 AMZN   @   152.82  notional    764.10  vs limit -0.2500  | bought and held 5, avg entry 152.8200
+15:55:42  DEBUG   Portfolio: net_worth=531488.40
+15:55:42  INFO    Fill: bought 4 AAPL @ 207.2900 (fee=1.2437)
+15:55:42  INFO    FILL   #22 buy    4 AAPL   @   207.29  notional    829.16  vs limit +0.0000  | bought and held 5, avg entry 207.2900
+15:55:42  DEBUG   Portfolio: net_worth=531481.87
+15:55:43  WARNING RISK   stop-loss NFLX: bid 1361.21 is 1.52% below average entry 1382.2500
+15:55:43  INFO    ORDER  sell 5 NFLX @ 1361.21 limit (notional 6806.05) — stop-loss
+15:55:43  DEBUG   Placed: sell 5 NFLX @ 1361.2100
+15:55:43  DEBUG   Ack: sell 5 NFLX @ 1361.2100
+15:55:43  INFO    Fill: sold   5 NFLX @ 1361.2100 (fee=10.2091)
+15:55:43  INFO    FILL   #23 sell   5 NFLX   @  1361.21  notional   6806.05  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:43  DEBUG   Portfolio: net_worth=531307.53
+15:55:43  INFO    Fill: bought 3 INTC @ 20.0000 (fee=0.0900)
+15:55:43  INFO    FILL   #24 buy    3 INTC   @    20.00  notional     60.00  vs limit +0.0000  | bought and held 5, avg entry 20.0000
+15:55:43  DEBUG   Portfolio: net_worth=531304.90
+15:55:43  INFO    ORDER  buy  5 NFLX @ 1361.21 limit (notional 6806.05) — mid 1360.71 / mean 1376.20, z -2.17
+15:55:43  DEBUG   Placed: buy 5 NFLX @ 1361.2100
+15:55:44  DEBUG   Ack: buy 5 NFLX @ 1361.2100
+15:55:44  INFO    Fill: bought 5 NFLX @ 1361.2100 (fee=10.2091)
+15:55:44  INFO    FILL   #25 buy    5 NFLX   @  1361.21  notional   6806.05  vs limit +0.0000  | bought and held 5, avg entry 1361.2100
+15:55:44  DEBUG   Portfolio: net_worth=531327.40
+15:55:44  INFO    ORDER  buy  5 AMZN @ 152.56 limit (notional 762.80) — mid 152.28 / mean 153.70, z -2.11
+15:55:44  DEBUG   Placed: buy 5 AMZN @ 152.5600
+15:55:44  DEBUG   Ack: buy 5 AMZN @ 152.5600
+15:55:44  INFO    Fill: bought 5 AMZN @ 152.5600 (fee=1.1442)
+15:55:44  INFO    FILL   #26 buy    5 AMZN   @   152.56  notional    762.80  vs limit +0.0000  | bought and held 10, avg entry 152.6900
+15:55:44  DEBUG   Portfolio: net_worth=531208.07
+15:55:45  INFO    ORDER  buy  5 AMD @ 225.71 limit (notional 1128.55) — mid 225.36 / mean 227.60, z -2.05
+15:55:45  DEBUG   Placed: buy 5 AMD @ 225.7100
+15:55:45  DEBUG   Ack: buy 5 AMD @ 225.7100
+15:55:45  INFO    Fill: bought 5 AMD @ 225.7100 (fee=1.6928)
+15:55:45  INFO    FILL   #27 buy    5 AMD    @   225.71  notional   1128.55  vs limit +0.0000  | bought and held 10, avg entry 226.8650
+15:55:45  DEBUG   Portfolio: net_worth=531076.25
+15:55:46  INFO    ORDER  buy  5 INTC @ 19.84 limit (notional 99.20) — mid 19.81 / mean 20.00, z -2.39
+15:55:46  DEBUG   Placed: buy 5 INTC @ 19.8400
+15:55:46  DEBUG   Ack: buy 5 INTC @ 19.8400
+15:55:46  INFO    Fill: bought 5 INTC @ 19.8400 (fee=0.1488)
+15:55:46  INFO    FILL   #28 buy    5 INTC   @    19.84  notional     99.20  vs limit +0.0000  | bought and held 10, avg entry 19.9200
+15:55:46  DEBUG   Portfolio: net_worth=530958.52
+15:55:46  WARNING RISK   stop-loss GOOGL: bid 174.32 is 1.52% below average entry 177.0100
+15:55:46  INFO    ORDER  sell 15 GOOGL @ 174.32 limit (notional 2614.80) — stop-loss
+15:55:46  DEBUG   Placed: sell 15 GOOGL @ 174.3200
+15:55:46  DEBUG   Ack: sell 15 GOOGL @ 174.3200
+15:55:46  INFO    Fill: sold   10 GOOGL @ 174.3200 (fee=2.6148)
+15:55:46  INFO    FILL   #29 sell  10 GOOGL  @   174.32  notional   1743.20  vs limit +0.0000  | bought and held 5, avg entry 177.0100
+15:55:46  DEBUG   Portfolio: net_worth=530966.05
+15:55:47  WARNING RISK   stop-loss META: bid 702.73 is 1.62% below average entry 714.2700
+15:55:47  INFO    ORDER  sell 5 META @ 702.73 limit (notional 3513.65) — stop-loss
+15:55:47  DEBUG   Placed: sell 5 META @ 702.7300
+15:55:47  DEBUG   Ack: sell 5 META @ 702.7300
+15:55:47  INFO    Fill: sold   5 META @ 702.7300 (fee=5.2705)
+15:55:47  INFO    FILL   #30 sell   5 META   @   702.73  notional   3513.65  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:47  DEBUG   Portfolio: net_worth=530847.26
+15:55:48  INFO    ORDER  buy  5 INTC @ 19.78 limit (notional 98.90) — mid 19.77 / mean 19.96, z -2.49
+15:55:48  DEBUG   Placed: buy 5 INTC @ 19.7800
+15:55:48  DEBUG   Ack: buy 5 INTC @ 19.7800
+15:55:48  INFO    Fill: bought 5 INTC @ 19.7800 (fee=0.1484)
+15:55:48  INFO    FILL   #31 buy    5 INTC   @    19.78  notional     98.90  vs limit +0.0000  | bought and held 15, avg entry 19.8733
+15:55:48  DEBUG   Portfolio: net_worth=530843.30
+15:55:48  INFO    ORDER  sell 5 AAPL @ 207.02 limit (notional 1035.10) — mid 207.16 / mean 206.96, z +0.30, back at the mean
+15:55:48  DEBUG   Placed: sell 5 AAPL @ 207.0200
+15:55:48  DEBUG   Ack: sell 5 AAPL @ 207.0200
+15:55:48  INFO    Fill: sold   2 AAPL @ 207.0200 (fee=0.6211)
+15:55:48  INFO    FILL   #32 sell   2 AAPL   @   207.02  notional    414.04  vs limit +0.0000  | bought and held 3, avg entry 207.2900
+15:55:48  DEBUG   Portfolio: net_worth=530901.89
+15:55:48  INFO    Fill: sold   1 AAPL @ 207.0200 (fee=0.3105)
+15:55:48  INFO    FILL   #33 sell   1 AAPL   @   207.02  notional    207.02  vs limit +0.0000  | bought and held 2, avg entry 207.2900
+15:55:48  DEBUG   Portfolio: net_worth=530904.98
+15:55:54  INFO    Fill: sold   5 GOOGL @ 174.3200 (fee=1.3074)
+15:55:54  INFO    FILL   #34 sell   5 GOOGL  @   174.32  notional    871.60  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:54  DEBUG   Portfolio: net_worth=531173.81
+15:55:55  INFO    ORDER  sell 5 MSFT @ 395.73 limit (notional 1978.65) — mid 395.96 / mean 395.69, z +0.44, back at the mean
+15:55:55  DEBUG   Placed: sell 5 MSFT @ 395.7300
+15:55:56  DEBUG   Ack: sell 5 MSFT @ 395.7300
+15:55:56  INFO    Fill: sold   5 MSFT @ 395.7300 (fee=2.9680)
+15:55:56  INFO    FILL   #35 sell   5 MSFT   @   395.73  notional   1978.65  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:56  DEBUG   Portfolio: net_worth=531196.36
+15:55:56  INFO    ORDER  sell 10 AMZN @ 151.82 limit (notional 1518.20) — mid 151.94 / mean 151.93, z +0.04, back at the mean
+15:55:56  DEBUG   Placed: sell 10 AMZN @ 151.8200
+15:55:56  DEBUG   Ack: sell 10 AMZN @ 151.8200
+15:55:56  INFO    Fill: sold   10 AMZN @ 151.8200 (fee=2.2773)
+15:55:56  INFO    FILL   #36 sell  10 AMZN   @   151.82  notional   1518.20  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:56  DEBUG   Portfolio: net_worth=531193.55
+15:55:56  INFO    ORDER  sell 5 TSLA @ 293.39 limit (notional 1466.95) — mid 293.61 / mean 293.44, z +0.36, back at the mean
+15:55:56  DEBUG   Placed: sell 5 TSLA @ 293.3900
+15:55:57  DEBUG   Ack: sell 5 TSLA @ 293.3900
+15:55:57  INFO    Fill: sold   5 TSLA @ 293.3900 (fee=2.2004)
+15:55:57  INFO    FILL   #37 sell   5 TSLA   @   293.39  notional   1466.95  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:57  DEBUG   Portfolio: net_worth=531174.53
+15:55:57  INFO    ORDER  sell 10 AMD @ 225.45 limit (notional 2254.50) — mid 225.59 / mean 225.57, z +0.04, back at the mean
+15:55:57  DEBUG   Placed: sell 10 AMD @ 225.4500
+15:55:58  DEBUG   Ack: sell 10 AMD @ 225.4500
+15:55:58  INFO    Fill: sold   10 AMD @ 226.3500 (fee=3.3952)
+15:55:58  INFO    FILL   #38 sell  10 AMD    @   226.35  notional   2263.50  vs limit +0.9000  | bought and held 0, avg entry 0.0000
+15:55:58  DEBUG   Portfolio: net_worth=531192.26
+15:55:58  INFO    ORDER  sell 15 INTC @ 19.89 limit (notional 298.35) — mid 19.89 / mean 19.85, z +0.72, back at the mean
+15:55:58  DEBUG   Placed: sell 15 INTC @ 19.8900
+15:55:59  DEBUG   Ack: sell 15 INTC @ 19.8900
+15:55:59  INFO    Fill: sold   10 INTC @ 19.8900 (fee=0.2984)
+15:55:59  INFO    FILL   #39 sell  10 INTC   @    19.89  notional    198.90  vs limit +0.0000  | bought and held 5, avg entry 19.8733
+15:55:59  DEBUG   Portfolio: net_worth=531173.97
+15:55:59  INFO    Fill: sold   5 INTC @ 19.8900 (fee=0.1492)
+15:55:59  INFO    FILL   #40 sell   5 INTC   @    19.89  notional     99.45  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:59  DEBUG   Portfolio: net_worth=531176.88
+15:55:59  INFO    ORDER  sell 5 NFLX @ 1354.39 limit (notional 6771.95) — mid 1357.22 / mean 1357.19, z +0.02, back at the mean
+15:55:59  DEBUG   Placed: sell 5 NFLX @ 1354.3900
+15:55:59  DEBUG   Ack: sell 5 NFLX @ 1354.3900
+15:55:59  INFO    Fill: sold   5 NFLX @ 1354.3900 (fee=10.1579)
+15:55:59  INFO    FILL   #41 sell   5 NFLX   @  1354.39  notional   6771.95  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:59  DEBUG   Portfolio: net_worth=531137.51
+15:56:00  INFO    Fill: sold   2 AAPL @ 207.0200 (fee=0.6211)
+15:56:00  INFO    FILL   #42 sell   2 AAPL   @   207.02  notional    414.04  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:56:00  DEBUG   Portfolio: net_worth=531139.01
+16:01:19  INFO    ORDER  buy  5 NFLX @ 1359.00 limit (notional 6795.00) — mid 1358.55 / mean 1367.35, z -2.38
+16:01:19  DEBUG   Placed: buy 5 NFLX @ 1359.0000
+16:01:19  DEBUG   Ack: buy 5 NFLX @ 1359.0000
+16:01:19  INFO    Fill: bought 5 NFLX @ 1359.0000 (fee=10.1925)
+16:01:19  INFO    FILL   #43 buy    5 NFLX   @  1359.00  notional   6795.00  vs limit +0.0000  | bought and held 5, avg entry 1359.0000
+16:01:19  DEBUG   Portfolio: net_worth=532093.98
+16:01:20  INFO    RISK   NFLX: buy cut to 2 by concentration limit
+16:01:20  INFO    ORDER  buy  2 NFLX @ 1359.00 limit (notional 2718.00) — mid 1358.55 / mean 1366.83, z -2.00
+16:01:20  DEBUG   Placed: buy 2 NFLX @ 1359.0000
+16:01:20  DEBUG   Ack: buy 2 NFLX @ 1359.0000
+16:01:20  INFO    Fill: bought 1 NFLX @ 1359.0000 (fee=2.0385)
+16:01:20  INFO    FILL   #44 buy    1 NFLX   @  1359.00  notional   1359.00  vs limit +0.0000  | bought and held 6, avg entry 1359.0000
+16:01:20  DEBUG   Portfolio: net_worth=532051.02
+16:01:20  INFO    Fill: bought 1 NFLX @ 1359.0000 (fee=2.0385)
+16:01:20  INFO    FILL   #45 buy    1 NFLX   @  1359.00  notional   1359.00  vs limit +0.0000  | bought and held 7, avg entry 1359.0000
+16:01:20  DEBUG   Portfolio: net_worth=532058.88
+16:01:28  WARNING RISK   stop-loss NFLX: bid 1337.25 is 1.60% below average entry 1359.0000
+16:01:28  INFO    ORDER  sell 7 NFLX @ 1337.25 limit (notional 9360.75) — stop-loss
+16:01:28  DEBUG   Placed: sell 7 NFLX @ 1337.2500
+16:01:28  DEBUG   Ack: sell 7 NFLX @ 1337.2500
+16:01:35  INFO    Fill: sold   3 NFLX @ 1337.2500 (fee=6.0176)
+16:01:35  INFO    FILL   #46 sell   3 NFLX   @  1337.25  notional   4011.75  vs limit +0.0000  | bought and held 4, avg entry 1359.0000
+16:01:35  DEBUG   Portfolio: net_worth=531566.71
+16:01:48  WARNING ORDER  sell 4 NFLX @ 1337.25 not filled after 20s
+16:01:48  WARNING RISK   stop-loss NFLX: bid 1329.53 is 2.17% below average entry 1359.0000
+16:01:48  INFO    ORDER  sell 4 NFLX @ 1329.53 limit (notional 5318.12) — stop-loss
+16:01:48  DEBUG   Placed: sell 4 NFLX @ 1329.5300
+16:01:49  DEBUG   Ack: sell 4 NFLX @ 1329.5300
+16:01:49  INFO    Fill: sold   4 NFLX @ 1329.5300 (fee=7.9772)
+16:01:49  INFO    FILL   #47 sell   4 NFLX   @  1329.53  notional   5318.12  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:01:49  DEBUG   Portfolio: net_worth=531518.04
+16:01:52  INFO    ORDER  buy  5 NFLX @ 1321.94 limit (notional 6609.70) — mid 1321.79 / mean 1329.88, z -2.28
+16:01:52  DEBUG   Placed: buy 5 NFLX @ 1321.9400
+16:01:52  DEBUG   Ack: buy 5 NFLX @ 1321.9400
+16:01:52  INFO    Fill: bought 5 NFLX @ 1321.9400 (fee=9.9146)
+16:01:52  INFO    FILL   #48 buy    5 NFLX   @  1321.94  notional   6609.70  vs limit +0.0000  | bought and held 5, avg entry 1321.9400
+16:01:52  DEBUG   Portfolio: net_worth=531415.38
+16:01:54  INFO    RISK   NFLX: buy cut to 3 by concentration limit
+16:01:54  INFO    ORDER  buy  3 NFLX @ 1317.12 limit (notional 3951.36) — mid 1316.96 / mean 1327.19, z -2.11
+16:01:54  DEBUG   Placed: buy 3 NFLX @ 1317.1200
+16:01:54  DEBUG   Ack: buy 3 NFLX @ 1317.1200
+16:01:54  INFO    Fill: bought 3 NFLX @ 1317.1200 (fee=5.9270)
+16:01:54  INFO    FILL   #49 buy    3 NFLX   @  1317.12  notional   3951.36  vs limit +0.0000  | bought and held 8, avg entry 1320.1325
+16:01:54  DEBUG   Portfolio: net_worth=531359.09
+16:01:57  INFO    ORDER  sell 8 NFLX @ 1320.23 limit (notional 10561.84) — mid 1324.88 / mean 1323.78, z +0.28, back at the mean
+16:01:57  DEBUG   Placed: sell 8 NFLX @ 1320.2300
+16:01:57  DEBUG   Ack: sell 8 NFLX @ 1320.2300
+16:01:57  INFO    Fill: sold   8 NFLX @ 1320.2300 (fee=15.8428)
+16:01:57  INFO    FILL   #50 sell   8 NFLX   @  1320.23  notional  10561.84  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:01:57  DEBUG   Portfolio: net_worth=531390.10
+16:04:42  WARNING Exchange error [STP_CANCEL]: Your resting sell 4 NFLX @ 1337.25 was cancelled by self-trade prevention (your own order crossed it)
+16:08:10  INFO    ORDER  buy  5 NFLX @ 1349.86 limit (notional 6749.30) — mid 1349.63 / mean 1360.91, z -4.36
+16:08:10  DEBUG   Placed: buy 5 NFLX @ 1349.8600
+16:08:10  DEBUG   Ack: buy 5 NFLX @ 1349.8600
+16:08:10  INFO    Fill: bought 5 NFLX @ 1349.8600 (fee=10.1240)
+16:08:10  INFO    FILL   #51 buy    5 NFLX   @  1349.86  notional   6749.30  vs limit +0.0000  | bought and held 5, avg entry 1349.8600
+16:08:10  DEBUG   Portfolio: net_worth=532104.44
+16:08:10  INFO    RISK   NFLX: buy cut to 2 by concentration limit
+16:08:10  INFO    ORDER  buy  2 NFLX @ 1349.86 limit (notional 2699.72) — mid 1349.63 / mean 1359.72, z -2.38
+16:08:10  DEBUG   Placed: buy 2 NFLX @ 1349.8600
+16:08:10  DEBUG   Ack: buy 2 NFLX @ 1349.8600
+16:08:10  INFO    Fill: bought 2 NFLX @ 1349.8600 (fee=4.0496)
+16:08:10  INFO    FILL   #52 buy    2 NFLX   @  1349.86  notional   2699.72  vs limit +0.0000  | bought and held 7, avg entry 1349.8600
+16:08:10  DEBUG   Portfolio: net_worth=532063.78
+16:08:11  INFO    ORDER  sell 7 NFLX @ 1348.43 limit (notional 9439.01) — mid 1358.82 / mean 1358.75, z +0.01, back at the mean
+16:08:11  DEBUG   Placed: sell 7 NFLX @ 1348.4300
+16:08:11  DEBUG   Ack: sell 7 NFLX @ 1348.4300
+16:08:11  INFO    Fill: sold   7 NFLX @ 1348.4300 (fee=14.1585)
+16:08:11  INFO    FILL   #53 sell   7 NFLX   @  1348.43  notional   9439.01  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:08:11  DEBUG   Portfolio: net_worth=532011.67
+16:08:42  INFO    ORDER  buy  5 NFLX @ 1358.42 limit (notional 6792.10) — mid 1358.26 / mean 1367.54, z -3.14
+16:08:42  DEBUG   Placed: buy 5 NFLX @ 1358.4200
+16:08:42  DEBUG   Ack: buy 5 NFLX @ 1358.4200
+16:08:42  INFO    Fill: bought 4 NFLX @ 1358.4200 (fee=8.1505)
+16:08:42  INFO    FILL   #54 buy    4 NFLX   @  1358.42  notional   5433.68  vs limit +0.0000  | bought and held 4, avg entry 1358.4200
+16:08:42  DEBUG   Portfolio: net_worth=532168.35
+16:08:42  WARNING Exchange error [STP_CANCEL]: Your resting buy 1 NFLX @ 1358.42 was cancelled by self-trade prevention (your own order crossed it)
+16:09:02  WARNING ORDER  buy 1 NFLX @ 1358.42 not filled after 20s
+16:09:02  INFO    ORDER  sell 4 NFLX @ 1363.44 limit (notional 5453.76) — mid 1373.65 / mean 1372.15, z +1.60, back at the mean
+16:09:02  DEBUG   Placed: sell 4 NFLX @ 1363.4400
+16:09:02  DEBUG   Ack: sell 4 NFLX @ 1363.4400
+16:09:02  INFO    Fill: sold   4 NFLX @ 1363.4400 (fee=8.1806)
+16:09:02  INFO    FILL   #55 sell   4 NFLX   @  1363.44  notional   5453.76  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:09:02  DEBUG   Portfolio: net_worth=532219.94
+16:21:59  INFO    ORDER  buy  5 NFLX @ 1376.89 limit (notional 6884.45) — mid 1376.26 / mean 1385.04, z -4.33
+16:21:59  DEBUG   Placed: buy 5 NFLX @ 1376.8900
+16:21:59  DEBUG   Ack: buy 5 NFLX @ 1376.8900
+16:21:59  INFO    Fill: bought 2 NFLX @ 1376.8900 (fee=4.1307)
+16:21:59  INFO    FILL   #56 buy    2 NFLX   @  1376.89  notional   2753.78  vs limit +0.0000  | bought and held 2, avg entry 1376.8900
+16:21:59  DEBUG   Portfolio: net_worth=532992.49
+16:22:00  WARNING Exchange error [STP_CANCEL]: Your resting buy 3 NFLX @ 1376.89 was cancelled by self-trade prevention (your own order crossed it)
+16:22:19  WARNING ORDER  buy 3 NFLX @ 1376.89 not filled after 20s
+16:22:31  INFO    ORDER  sell 2 NFLX @ 1365.29 limit (notional 2730.58) — mid 1371.09 / mean 1370.44, z +4.36, back at the mean
+16:22:31  DEBUG   Placed: sell 2 NFLX @ 1365.2900
+16:22:31  DEBUG   Ack: sell 2 NFLX @ 1365.2900
+16:22:31  INFO    Fill: sold   2 NFLX @ 1365.2900 (fee=4.0959)
+16:22:31  INFO    FILL   #57 sell   2 NFLX   @  1365.29  notional   2730.58  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:22:31  DEBUG   Portfolio: net_worth=532843.43
+16:30:01  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+16:30:01  INFO    Flattening: sell 17 AAPL at market
+16:30:01  INFO    Flattening: sell 12 MSFT at market
+16:30:01  INFO    Flattening: sell 12 NVDA at market
+16:30:01  INFO    Flattening: sell 12 TSLA at market
+16:30:01  INFO    Flattening: sell 12 AMZN at market
+16:30:01  INFO    Flattening: sell 12 GOOGL at market
+16:30:01  INFO    Flattening: sell 12 META at market
+16:30:01  INFO    Flattening: sell 12 NFLX at market
+16:30:01  INFO    Flattening: sell 12 AMD at market
+16:30:01  INFO    Flattening: sell 12 INTC at market
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:02  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:19  INFO    Session event: WEEK_CHANGED — Week 0: Open play
+16:30:19  INFO    EVENT  WEEK_CHANGED   Week 0: Open play
+16:30:19  INFO    Session event: CALENDAR — No scheduled events this session
+16:30:19  INFO    EVENT  CALENDAR       No scheduled events this session
+16:30:20  DEBUG   Portfolio: net_worth=555939.90
+16:30:20  INFO    Session event: CALENDAR — No scheduled events this session
+16:30:20  INFO    EVENT  CALENDAR       No scheduled events this session
+16:30:20  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+16:30:25  INFO    RISK   NFLX: buy cut to 1 by concentration limit
+16:30:25  INFO    ORDER  buy  1 NFLX @ 1390.44 limit (notional 1390.44) — mid 1390.29 / mean 1399.23, z -4.24
+16:30:25  DEBUG   Placed: buy 1 NFLX @ 1390.4400
+16:30:25  DEBUG   Ack: buy 1 NFLX @ 1390.4400
+16:30:25  INFO    Fill: bought 1 NFLX @ 1390.4400 (fee=2.0857)
+16:30:25  INFO    FILL   #58 buy    1 NFLX   @  1390.44  notional   1390.44  vs limit +0.0000  | bought and held 1, avg entry 1390.4400
+16:30:25  DEBUG   Portfolio: net_worth=555924.55
+16:30:25  INFO    RISK   NFLX: buy cut to 0 by concentration limit
+16:30:50  WARNING RISK   stop-loss NFLX: bid 1368.08 is 1.61% below average entry 1390.4400
+16:30:50  INFO    ORDER  sell 1 NFLX @ 1368.08 limit (notional 1368.08) — stop-loss
+16:30:50  DEBUG   Placed: sell 1 NFLX @ 1368.0800
+16:30:51  DEBUG   Ack: sell 1 NFLX @ 1368.0800
+16:31:10  WARNING ORDER  sell 1 NFLX @ 1368.08 not filled after 20s
+16:31:10  WARNING RISK   stop-loss NFLX: bid 1341.17 is 3.54% below average entry 1390.4400
+16:31:10  INFO    ORDER  sell 1 NFLX @ 1341.17 limit (notional 1341.17) — stop-loss
+16:31:10  DEBUG   Placed: sell 1 NFLX @ 1341.1700
+16:31:10  DEBUG   Ack: sell 1 NFLX @ 1341.1700
+16:31:10  INFO    Fill: sold   1 NFLX @ 1341.1700 (fee=2.0118)
+16:31:10  INFO    FILL   #59 sell   1 NFLX   @  1341.17  notional   1341.17  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:31:10  DEBUG   Portfolio: net_worth=555258.54
+17:10:46  INFO    ORDER  buy  5 GOOGL @ 183.75 limit (notional 918.75) — mid 183.69 / mean 184.70, z -2.75
+17:10:46  DEBUG   Placed: buy 5 GOOGL @ 183.7500
+17:10:46  DEBUG   Ack: buy 5 GOOGL @ 183.7500
+17:10:46  INFO    Fill: bought 3 GOOGL @ 183.7500 (fee=0.8269)
+17:10:46  INFO    FILL   #60 buy    3 GOOGL  @   183.75  notional    551.25  vs limit +0.0000  | bought and held 3, avg entry 183.7500
+17:10:46  DEBUG   Portfolio: net_worth=557560.79
+17:10:47  INFO    Fill: bought 2 GOOGL @ 183.7500 (fee=0.5513)
+17:10:47  INFO    FILL   #61 buy    2 GOOGL  @   183.75  notional    367.50  vs limit +0.0000  | bought and held 5, avg entry 183.7500
+17:10:47  DEBUG   Portfolio: net_worth=557561.15
+17:24:11  WARNING Exchange connection closed: sent 1011 (internal error) keepalive ping timeout; no close frame received — reconnecting in 3s
+17:24:14  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+17:24:15  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:24:15  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:24:15  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+17:29:10  WARNING Exchange connection closed: no close frame received or sent — reconnecting in 3s
+17:29:13  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+17:29:16  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+17:29:19  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+17:29:22  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+17:29:25  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+17:44:26  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:00:30  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:00:33  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:02:09  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:02:12  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:02:15  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:02:18  WARNING Could not reach exchange: [Errno 8] nodename nor servname provided, or not known — retrying in 3s
+18:02:22  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+18:02:22  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:02:22  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:02:22  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+18:02:31  INFO    ORDER  sell 5 GOOGL @ 182.56 limit (notional 912.80) — mid 182.66 / mean 182.61, z +0.73, back at the mean
+18:02:31  DEBUG   Placed: sell 5 GOOGL @ 182.5600
+18:02:31  DEBUG   Ack: sell 5 GOOGL @ 182.5600
+18:02:31  INFO    Fill: sold   3 GOOGL @ 182.5600 (fee=0.8215)
+18:02:31  INFO    FILL   #62 sell   3 GOOGL  @   182.56  notional    547.68  vs limit +0.0000  | bought and held 2, avg entry 183.7500
+18:02:31  DEBUG   Portfolio: net_worth=542486.11
+18:02:52  WARNING ORDER  sell 2 GOOGL @ 182.56 not filled after 20s
+18:04:07  WARNING Exchange connection closed: no close frame received or sent — reconnecting in 3s
+18:04:10  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+18:04:11  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:04:11  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:04:11  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+18:04:20  INFO    ORDER  sell 2 GOOGL @ 182.44 limit (notional 364.88) — mid 182.47 / mean 182.39, z +2.00, back at the mean
+18:04:20  DEBUG   Placed: sell 2 GOOGL @ 182.4400
+18:04:20  DEBUG   Ack: sell 2 GOOGL @ 182.4400
+18:04:20  INFO    Fill: sold   1 GOOGL @ 182.4400 (fee=0.2737)
+18:04:20  INFO    FILL   #63 sell   1 GOOGL  @   182.44  notional    182.44  vs limit +0.0000  | bought and held 1, avg entry 183.7500
+18:04:20  DEBUG   Portfolio: net_worth=542604.86
+18:04:40  WARNING ORDER  sell 1 GOOGL @ 182.44 not filled after 20s
+18:04:47  INFO    ORDER  sell 1 GOOGL @ 182.40 limit (notional 182.40) — mid 182.42 / mean 182.38, z +4.36, back at the mean
+18:04:47  DEBUG   Placed: sell 1 GOOGL @ 182.4000
+18:04:47  DEBUG   Ack: sell 1 GOOGL @ 182.4000
+18:04:47  INFO    Fill: sold   1 GOOGL @ 182.4000 (fee=0.2736)
+18:04:47  INFO    FILL   #64 sell   1 GOOGL  @   182.40  notional    182.40  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+18:04:47  DEBUG   Portfolio: net_worth=542649.92
+18:04:48  INFO    Fill: sold   1 GOOGL @ 182.4400 (fee=0.2737)
+18:04:48  INFO    FILL   #65 sell   1 GOOGL  @   182.44  notional    182.44  | bought and held 0, avg entry 0.0000
+18:04:48  DEBUG   Portfolio: net_worth=542652.45
+18:16:02  INFO    ORDER  buy  5 TSLA @ 278.94 limit (notional 1394.70) — mid 278.76 / mean 280.19, z -2.22
+18:16:02  DEBUG   Placed: buy 5 TSLA @ 278.9400
+18:16:02  DEBUG   Ack: buy 5 TSLA @ 278.9400
+18:16:02  INFO    Fill: bought 2 TSLA @ 278.9400 (fee=0.8368)
+18:16:02  INFO    FILL   #66 buy    2 TSLA   @   278.94  notional    557.88  vs limit +0.0000  | bought and held 2, avg entry 278.9400
+18:16:02  DEBUG   Portfolio: net_worth=543290.88
+18:16:09  INFO    Fill: bought 3 TSLA @ 278.9400 (fee=1.2552)
+18:16:09  INFO    FILL   #67 buy    3 TSLA   @   278.94  notional    836.82  vs limit +0.0000  | bought and held 5, avg entry 278.9400
+18:16:09  DEBUG   Portfolio: net_worth=543276.16
+18:17:33  INFO    ORDER  sell 5 TSLA @ 277.30 limit (notional 1386.50) — mid 277.47 / mean 277.35, z +4.36, back at the mean
+18:17:33  DEBUG   Placed: sell 5 TSLA @ 277.3000
+18:17:33  DEBUG   Ack: sell 5 TSLA @ 277.3000
+18:17:33  INFO    Fill: sold   5 TSLA @ 277.3000 (fee=2.0798)
+18:17:33  INFO    FILL   #68 sell   5 TSLA   @   277.30  notional   1386.50  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+18:17:33  DEBUG   Portfolio: net_worth=543308.25
+18:33:49  WARNING Exchange connection closed: no close frame received or sent — reconnecting in 3s
+18:33:52  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+18:33:52  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:33:52  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+18:33:52  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+18:34:06  INFO    ORDER  buy  5 NFLX @ 703.16 limit (notional 3515.80) — mid 700.33 / mean 707.61, z -2.01
+18:34:06  DEBUG   Placed: buy 5 NFLX @ 703.1600
+18:34:06  DEBUG   Ack: buy 5 NFLX @ 703.1600
+18:34:06  INFO    Fill: bought 5 NFLX @ 703.1600 (fee=5.2737)
+18:34:06  INFO    FILL   #69 buy    5 NFLX   @   703.16  notional   3515.80  vs limit +0.0000  | bought and held 5, avg entry 703.1600
+18:34:06  DEBUG   Portfolio: net_worth=317483.88
+18:34:06  WARNING RISK   session loss limit reached (net worth 317483.88 vs 531559.01 at the open): no new positions, exits only
+18:34:13  WARNING RISK   stop-loss NFLX: bid 691.75 is 1.62% below average entry 703.1600
+18:34:13  INFO    ORDER  sell 5 NFLX @ 691.75 limit (notional 3458.75) — stop-loss
+18:34:13  DEBUG   Placed: sell 5 NFLX @ 691.7500
+18:34:13  DEBUG   Ack: sell 5 NFLX @ 691.7500
+18:34:33  WARNING ORDER  sell 5 NFLX @ 691.75 not filled after 20s
+18:34:33  WARNING RISK   stop-loss NFLX: bid 687.17 is 2.27% below average entry 703.1600
+18:34:33  INFO    ORDER  sell 5 NFLX @ 687.17 limit (notional 3435.85) — stop-loss
+18:34:33  DEBUG   Placed: sell 5 NFLX @ 687.1700
+18:34:33  DEBUG   Ack: sell 5 NFLX @ 687.1700
+18:34:33  INFO    Fill: sold   5 NFLX @ 687.1700 (fee=5.1538)
+18:34:33  INFO    FILL   #70 sell   5 NFLX   @   687.17  notional   3435.85  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+18:34:33  DEBUG   Portfolio: net_worth=317398.90
+18:40:52  INFO    Fill: sold   1 NFLX @ 691.7500 (fee=1.0376)
+18:40:52  INFO    FILL   #71 sell   1 NFLX   @   691.75  notional    691.75  | bought and held 0, avg entry 0.0000
+18:40:52  DEBUG   Portfolio: net_worth=317491.62
+18:41:59  INFO    Fill: sold   3 NFLX @ 691.7500 (fee=3.1129)
+18:41:59  INFO    FILL   #72 sell   3 NFLX   @   691.75  notional   2075.25  | bought and held 0, avg entry 0.0000
+18:41:59  DEBUG   Portfolio: net_worth=317482.66
+18:42:04  INFO    Fill: sold   1 NFLX @ 691.7500 (fee=1.0376)
+18:42:04  INFO    FILL   #73 sell   1 NFLX   @   691.75  notional    691.75  | bought and held 0, avg entry 0.0000
+18:42:04  DEBUG   Portfolio: net_worth=317477.94
+19:27:15  WARNING Exchange connection closed: no close frame received or sent — reconnecting in 3s
+19:27:18  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+19:27:18  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+19:27:18  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+19:27:18  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.

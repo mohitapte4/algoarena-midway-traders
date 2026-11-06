@@ -1,0 +1,770 @@
+15:30:50  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261023_153050.log
+15:30:51  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from the shell)
+15:30:51  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+15:30:51  INFO    BOOKS  seeded from venue (leaderboard t1541346): cash 300437.96, positions AAPL 23, AMD 18, AMZN 18, GOOGL 18, INTC 18, META 18, MSFT 18, NFLX 18, NVDA 18, TSLA 18
+15:30:51  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:30:51  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:31:53  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:31:53  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:31:53  INFO    Session event: CALENDAR — No scheduled events this session
+15:31:53  INFO    EVENT  CALENDAR       No scheduled events this session
+15:33:26  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:33:26  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:33:26  INFO    Session event: CALENDAR — No scheduled events this session
+15:33:26  INFO    EVENT  CALENDAR       No scheduled events this session
+15:34:43  INFO    Session event: SEAT_PURCHASED — SMO hired smo_trader_smo_trader_4 with $50,000 of capital, debited pro-rata from its existing bots
+15:34:43  INFO    EVENT  SEAT_PURCHASED SMO hired smo_trader_smo_trader_4 with $50,000 of capital, debited pro-rata from its existing bots
+15:34:59  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:34:59  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:34:59  INFO    Session event: CALENDAR — No scheduled events this session
+15:34:59  INFO    EVENT  CALENDAR       No scheduled events this session
+15:36:01  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 0.9s (attempt 1)
+15:36:02  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+15:36:02  WARNING RECON  midway_traders_trader_2 reconnect check vs leaderboard t1541614: BREAK
+15:36:02  WARNING RECON    item                           own         venue        diff
+15:36:02  WARNING RECON    positions held                  10            10           0  ok
+15:36:02  WARNING RECON    pos AAPL                        23            23           0  ok
+15:36:02  WARNING RECON    pos AMD                         18            18           0  ok
+15:36:02  WARNING RECON    pos AMZN                        18            18           0  ok
+15:36:02  WARNING RECON    pos GOOGL                       18            18           0  ok
+15:36:02  WARNING RECON    pos INTC                        18            18           0  ok
+15:36:02  WARNING RECON    pos META                        18            18           0  ok
+15:36:02  WARNING RECON    pos MSFT                        18            18           0  ok
+15:36:02  WARNING RECON    pos NFLX                        18            18           0  ok
+15:36:02  WARNING RECON    pos NVDA                        18            18           0  ok
+15:36:02  WARNING RECON    pos TSLA                        18            18           0  ok
+15:36:02  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+15:36:02  WARNING RECON    cash                    300,437.96    300,437.96        0.00  BREAK  diff is interest on idle cash
+15:36:02  WARNING RECON    interest (est)              161.03          0.00     -161.03  rate x cash x ticks
+15:36:02  WARNING BOOKS  rebased on the venue (leaderboard t1541614): cash 300437.96, positions AAPL 23, AMD 18, AMZN 18, GOOGL 18, INTC 18, META 18, MSFT 18, NFLX 18, NVDA 18, TSLA 18, rebase 1
+15:36:02  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:36:02  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:36:11  INFO    Session event: UPGRADE_PURCHASED — Group 8 bought Securities lending desk for $35,000 — +2,000 shares/symbol of private short locate
+15:36:11  INFO    EVENT  UPGRADE_PURCHASED Group 8 bought Securities lending desk for $35,000 — +2,000 shares/symbol of private short locate
+15:36:32  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:36:32  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:36:32  INFO    Session event: CALENDAR — No scheduled events this session
+15:36:32  INFO    EVENT  CALENDAR       No scheduled events this session
+15:38:05  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:38:05  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:38:05  INFO    Session event: CALENDAR — No scheduled events this session
+15:38:05  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:38  INFO    Session event: WEEK_CHANGED — Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:39:38  INFO    EVENT  WEEK_CHANGED   Week 4: Market making — shorts unlock, post-only, opening auction, the ORCA IPO, purchase window 1
+15:39:38  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:38  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:00  DEBUG   Portfolio: net_worth=368090.40
+15:40:00  INFO    BOOKS  starting grant AAPL 6, AMD 6, AMZN 6, GOOGL 6, INTC 6, META 6, MSFT 6, NFLX 6, NVDA 6, TSLA 6 (quantities from the venue's positions)
+15:40:00  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:00  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:04  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+15:40:08  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+15:40:09  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+15:40:10  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+15:40:12  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+15:40:13  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+15:40:14  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+15:40:16  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+15:40:17  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+15:40:18  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+15:40:19  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+15:40:25  INFO    Session event: CALENDAR — No scheduled events this session
+15:40:25  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:25  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+15:40:25  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+15:40:25  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+15:40:25  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+15:40:25  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+15:40:25  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+15:40:25  INFO    RISK   session reference net worth 368090.40
+15:40:25  INFO    ORDER  buy  5 AAPL @ 219.79 take (notional 1098.95) — starter 1/3
+15:40:25  DEBUG   Placed: buy 5 AAPL @ 219.7900
+15:40:25  DEBUG   Ack: buy 5 AAPL @ 219.7900
+15:40:25  INFO    Fill: bought 5 AAPL @ 219.7900 (fee=1.6484)
+15:40:25  INFO    FILL   #1 buy    5 AAPL   @   219.79  notional   1098.95  vs limit +0.0000 (starter 1/3, taker)  | bought and held 5, avg entry 219.7900
+15:40:25  DEBUG   Portfolio: net_worth=367901.68
+15:40:40  INFO    ORDER  buy  5 NFLX @ 564.12 rest (notional 2820.60) — mid 564.13 / mean 566.98, z -3.36
+15:40:41  DEBUG   Placed: buy 5 NFLX @ 564.1200
+15:40:41  DEBUG   Ack: buy 5 NFLX @ 564.1200
+15:40:42  INFO    CANCEL buy 5 NFLX @ 564.12 (quote)
+15:40:52  INFO    ORDER  sell 5 AAPL @ 219.78 rest (notional 1098.90) — mid 219.78 / mean 219.70, z +1.74, back at the mean
+15:40:52  DEBUG   Placed: sell 5 AAPL @ 219.7800
+15:40:52  DEBUG   Ack: sell 5 AAPL @ 219.7800
+15:40:52  INFO    ORDER  buy  5 NFLX @ 558.24 rest (notional 2791.20) — mid 559.07 / mean 562.96, z -2.40
+15:40:52  DEBUG   Placed: buy 5 NFLX @ 558.2400
+15:40:52  DEBUG   Ack: buy 5 NFLX @ 558.2400
+15:40:54  INFO    CANCEL buy 5 NFLX @ 558.24 (quote)
+15:41:08  INFO    Fill: sold   2 AAPL @ 219.7800 (fee=0.6593)
+15:41:08  INFO    FILL   #2 sell   2 AAPL   @   219.78  notional    439.56  vs limit +0.0000 (quote, maker)  | bought and held 3, avg entry 219.7900
+15:41:08  DEBUG   Portfolio: net_worth=367896.27
+15:42:04  INFO    Fill: sold   1 AAPL @ 219.7800 (fee=0.3297)
+15:42:04  INFO    FILL   #3 sell   1 AAPL   @   219.78  notional    219.78  vs limit +0.0000 (quote, maker)  | bought and held 2, avg entry 219.7900
+15:42:04  DEBUG   Portfolio: net_worth=367950.67
+15:42:05  INFO    Fill: sold   1 AAPL @ 219.7800 (fee=0.3297)
+15:42:05  INFO    FILL   #4 sell   1 AAPL   @   219.78  notional    219.78  vs limit +0.0000 (quote, maker)  | bought and held 1, avg entry 219.7900
+15:42:05  DEBUG   Portfolio: net_worth=367951.72
+15:42:39  INFO    Fill: sold   1 AAPL @ 219.7800 (fee=0.3297)
+15:42:39  INFO    FILL   #5 sell   1 AAPL   @   219.78  notional    219.78  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+15:42:39  DEBUG   Portfolio: net_worth=367971.07
+15:43:27  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+15:43:27  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+15:43:27  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+15:43:27  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+15:43:27  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+15:45:05  INFO    Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+15:45:05  INFO    EVENT  CALENDAR       Upcoming: earnings AMZN @ t350
+15:45:05  INFO    EVENT  window AMZN: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:47:41  INFO    Session event: CALENDAR_EVENT — Earnings: AMZN moving -7.9%
+15:47:41  INFO    EVENT  CALENDAR_EVENT Earnings: AMZN moving -7.9%
+15:47:41  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 163.15 in 15s
+15:47:42  INFO    EVENT  AMZN fade-extra leg edge 2.37% — not traded
+15:47:42  INFO    EVENT  AMZN -7.91%: fade edge 6.33% vs round trip 0.60% — FADE 24 shares: sell down to 170.16, buy back after 15s at no more than 163.15
+15:47:42  INFO    ORDER  sell 24 AMZN @ 170.16 take (notional 4083.84) — fade sell
+15:47:42  DEBUG   Placed: sell 24 AMZN @ 170.1600
+15:47:42  DEBUG   Ack: sell 24 AMZN @ 170.1600
+15:47:45  INFO    Fill: sold   4 AMZN @ 170.1600 (fee=1.0210)
+15:47:45  INFO    FILL   #6 sell   4 AMZN   @   170.16  notional    680.64  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+15:47:45  DEBUG   Portfolio: net_worth=368127.13
+15:47:45  INFO    Fill: sold   5 AMZN @ 170.1600 (fee=1.2762)
+15:47:45  INFO    FILL   #7 sell   5 AMZN   @   170.16  notional    850.80  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+15:47:45  DEBUG   Portfolio: net_worth=368112.07
+15:47:46  INFO    Fill: sold   15 AMZN @ 170.1600 (fee=3.8286)
+15:47:46  INFO    FILL   #8 sell  15 AMZN   @   170.16  notional   2552.40  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+15:47:46  DEBUG   Portfolio: net_worth=368066.95
+15:47:54  INFO    Session event: SSR_ON — AMZN is now under the short-sale rule — shorts must add liquidity above the bid
+15:47:54  INFO    EVENT  SSR_ON         AMZN is now under the short-sale rule — shorts must add liquidity above the bid
+15:47:57  INFO    ORDER  buy  24 AMZN @ 163.15 rest (notional 3915.60) — fade rebuy (resting)
+15:47:57  DEBUG   Placed: buy 24 AMZN @ 163.1500
+15:47:57  DEBUG   Ack: buy 24 AMZN @ 163.1500
+15:48:00  INFO    Fill: bought 10 AMZN @ 163.1500 (fee=2.4472)
+15:48:00  INFO    FILL   #9 buy   10 AMZN   @   163.15  notional   1631.50  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+15:48:00  DEBUG   Portfolio: net_worth=368027.48
+15:48:00  INFO    Fill: bought 14 AMZN @ 163.1500 (fee=3.4261)
+15:48:00  INFO    FILL   #10 buy   14 AMZN   @   163.15  notional   2284.10  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+15:48:00  DEBUG   Portfolio: net_worth=367966.24
+15:48:00  INFO    EVENT  FADE AMZN done: bought 24, sold 24, gross P&L +168.24
+15:48:00  INFO    ORDER  buy  5 AMZN @ 159.13 rest (notional 795.65) — mid 160.22 / mean 164.01, z -2.17
+15:48:00  DEBUG   Placed: buy 5 AMZN @ 159.1300
+15:48:00  DEBUG   Ack: buy 5 AMZN @ 159.1300
+15:48:00  INFO    CANCEL buy 5 AMZN @ 159.13 (quote)
+15:49:50  DEBUG   Portfolio: net_worth=368168.57
+15:49:50  INFO    BOOKS  IPO ORCA +143 @ 28.00 (quantity from the venue's position)
+15:49:50  INFO    Session event: IPO_PRICED — ORCA priced at $28.00 — 5,917 shares subscribed for 4,000 offered; lists t550
+15:49:50  INFO    EVENT  IPO_PRICED     ORCA priced at $28.00 — 5,917 shares subscribed for 4,000 offered; lists t550
+15:49:50  INFO    IPO    ORCA allocation 143 @ 28.00 booked (cost 4004.00): offered at 31.36 once listed, stop 25.76
+15:50:29  INFO    Session event: CALENDAR — Upcoming: dividend AAPL @ t600
+15:50:29  INFO    EVENT  CALENDAR       Upcoming: dividend AAPL @ t600
+15:50:29  INFO    EVENT  window AAPL: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:51:58  INFO    Session event: IPO_LISTED — ORCA is now trading — offered at $28.00. Where it belongs is yours to discover.
+15:51:58  INFO    EVENT  IPO_LISTED     ORCA is now trading — offered at $28.00. Where it belongs is yours to discover.
+15:52:08  INFO    ORDER  sell 143 ORCA @ 30.54 rest (notional 4367.22) — ipo exit
+15:52:08  DEBUG   Placed: sell 143 ORCA @ 30.5400
+15:52:08  DEBUG   Ack: sell 143 ORCA @ 30.5400
+15:52:56  DEBUG   Portfolio: net_worth=368320.50
+15:52:56  INFO    Session event: DIVIDEND — AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+15:52:56  INFO    EVENT  DIVIDEND       AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+15:54:37  INFO    Session event: CALENDAR — Upcoming: earnings GOOGL @ t800
+15:54:37  INFO    EVENT  CALENDAR       Upcoming: earnings GOOGL @ t800
+15:54:37  INFO    EVENT  window GOOGL: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:57:09  INFO    Session event: CALENDAR_EVENT — Earnings: GOOGL moving -5.7%
+15:57:09  INFO    EVENT  CALENDAR_EVENT Earnings: GOOGL moving -5.7%
+15:57:09  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 164.11 in 15s
+15:57:09  INFO    EVENT  GOOGL fade-extra leg edge 1.70% — not traded
+15:57:09  INFO    EVENT  GOOGL -5.66%: fade edge 4.53% vs round trip 0.60% — FADE 24 shares: sell down to 169.03, buy back after 15s at no more than 164.11
+15:57:09  INFO    ORDER  sell 24 GOOGL @ 169.03 take (notional 4056.72) — fade sell
+15:57:09  DEBUG   Placed: sell 24 GOOGL @ 169.0300
+15:57:09  DEBUG   Ack: sell 24 GOOGL @ 169.0300
+15:57:10  INFO    Fill: sold   20 GOOGL @ 169.0300 (fee=5.0709)
+15:57:10  INFO    FILL   #11 sell  20 GOOGL  @   169.03  notional   3380.60  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+15:57:10  DEBUG   Portfolio: net_worth=368431.73
+15:57:10  INFO    Fill: sold   4 GOOGL @ 169.0300 (fee=1.0142)
+15:57:10  INFO    FILL   #12 sell   4 GOOGL  @   169.03  notional    676.12  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+15:57:10  DEBUG   Portfolio: net_worth=368419.80
+15:57:24  INFO    ORDER  buy  24 GOOGL @ 160.76 rest (notional 3858.24) — fade rebuy (resting)
+15:57:24  DEBUG   Placed: buy 24 GOOGL @ 160.7600
+15:57:24  DEBUG   Ack: buy 24 GOOGL @ 160.7600
+15:57:25  INFO    CANCEL buy 24 GOOGL @ 160.76 (fade rebuy (resting))
+15:57:25  INFO    ORDER  buy  24 GOOGL @ 164.10 rest (notional 3938.40) — fade rebuy (resting)
+15:57:25  DEBUG   Placed: buy 24 GOOGL @ 164.1000
+15:57:26  DEBUG   Ack: buy 24 GOOGL @ 164.1000
+15:57:26  INFO    Fill: bought 10 GOOGL @ 164.1000 (fee=2.4615)
+15:57:26  INFO    FILL   #13 buy   10 GOOGL  @   164.10  notional   1641.00  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+15:57:26  DEBUG   Portfolio: net_worth=368400.08
+15:57:26  INFO    Fill: bought 12 GOOGL @ 164.1000 (fee=2.9538)
+15:57:26  INFO    FILL   #14 buy   12 GOOGL  @   164.10  notional   1969.20  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+15:57:26  DEBUG   Portfolio: net_worth=368364.30
+15:57:26  INFO    Fill: bought 2 GOOGL @ 164.1000 (fee=0.4923)
+15:57:26  INFO    FILL   #15 buy    2 GOOGL  @   164.10  notional    328.20  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+15:57:26  DEBUG   Portfolio: net_worth=368358.23
+15:57:26  INFO    EVENT  FADE GOOGL done: bought 24, sold 24, gross P&L +118.32
+16:01:51  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t1150
+16:01:51  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t1150
+16:01:51  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+16:04:17  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.5%
+16:04:17  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.5%
+16:04:17  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 217.65 in 15s
+16:04:17  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 409.97 in 15s
+16:04:17  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 110.05 in 15s
+16:04:17  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 232.41 in 15s
+16:04:17  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 162.48 in 15s
+16:04:17  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 165.56 in 15s
+16:04:17  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 646.94 in 15s
+16:04:17  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 534.91 in 15s
+16:04:17  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 189.10 in 15s
+16:04:17  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 23.77 in 15s
+16:04:17  INFO    EVENT  AAPL fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  AAPL -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 29 shares: sell down to 220.43, buy back after 15s at no more than 217.65
+16:04:17  INFO    EVENT  MSFT fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  MSFT -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 415.20, buy back after 15s at no more than 409.97
+16:04:17  INFO    EVENT  NVDA fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  NVDA -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 111.45, buy back after 15s at no more than 110.05
+16:04:17  INFO    EVENT  TSLA fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  TSLA -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 235.38, buy back after 15s at no more than 232.41
+16:04:17  INFO    EVENT  AMZN fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  AMZN -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 164.55, buy back after 15s at no more than 162.48
+16:04:17  INFO    EVENT  GOOGL fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  GOOGL -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 167.67, buy back after 15s at no more than 165.56
+16:04:17  INFO    EVENT  META fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  META -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 655.19, buy back after 15s at no more than 646.94
+16:04:17  INFO    EVENT  NFLX fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  NFLX -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 541.73, buy back after 15s at no more than 534.91
+16:04:17  INFO    EVENT  AMD fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  AMD -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 191.51, buy back after 15s at no more than 189.10
+16:04:17  INFO    EVENT  INTC fade-extra leg edge 0.75% — not traded
+16:04:17  INFO    EVENT  INTC -2.49%: fade edge 1.99% vs round trip 0.60% — FADE 24 shares: sell down to 24.08, buy back after 15s at no more than 23.77
+16:04:17  INFO    ORDER  sell 29 AAPL @ 220.43 take (notional 6392.47) — fade sell
+16:04:17  DEBUG   Placed: sell 29 AAPL @ 220.4300
+16:04:17  DEBUG   Ack: sell 29 AAPL @ 220.4300
+16:04:17  INFO    Fill: sold   29 AAPL @ 220.6800 (fee=9.5996)
+16:04:17  INFO    FILL   #16 sell  29 AAPL   @   220.68  notional   6399.72  vs limit +0.2500 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:17  DEBUG   Portfolio: net_worth=368648.60
+16:04:17  INFO    ORDER  sell 24 MSFT @ 415.20 take (notional 9964.80) — fade sell
+16:04:17  DEBUG   Placed: sell 24 MSFT @ 415.2000
+16:04:17  INFO    ORDER  sell 24 NVDA @ 111.46 take (notional 2675.04) — fade sell
+16:04:17  DEBUG   Placed: sell 24 NVDA @ 111.4600
+16:04:17  DEBUG   Ack: sell 24 MSFT @ 415.2000
+16:04:17  INFO    Fill: sold   6 MSFT @ 420.0000 (fee=3.7800)
+16:04:17  INFO    FILL   #17 sell   6 MSFT   @   420.00  notional   2520.00  vs limit +4.8000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:17  DEBUG   Portfolio: net_worth=368646.59
+16:04:17  INFO    ORDER  sell 24 TSLA @ 235.38 take (notional 5649.12) — fade sell
+16:04:17  DEBUG   Placed: sell 24 TSLA @ 235.3800
+16:04:17  INFO    ORDER  sell 24 AMZN @ 164.56 take (notional 3949.44) — fade sell
+16:04:17  DEBUG   Placed: sell 24 AMZN @ 164.5600
+16:04:17  INFO    ORDER  sell 24 GOOGL @ 167.67 take (notional 4024.08) — fade sell
+16:04:17  DEBUG   Placed: sell 24 GOOGL @ 167.6700
+16:04:17  INFO    Fill: sold   18 MSFT @ 419.8400 (fee=11.3357)
+16:04:17  INFO    FILL   #18 sell  18 MSFT   @   419.84  notional   7557.12  vs limit +4.6400 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:17  DEBUG   Portfolio: net_worth=368639.19
+16:04:18  DEBUG   Ack: sell 24 NVDA @ 111.4600
+16:04:18  INFO    Fill: sold   12 NVDA @ 112.4200 (fee=2.0236)
+16:04:18  INFO    FILL   #19 sell  12 NVDA   @   112.42  notional   1349.04  vs limit +0.9600 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:18  DEBUG   Portfolio: net_worth=368640.08
+16:04:18  INFO    ORDER  sell 24 NFLX @ 541.73 take (notional 13001.52) — fade sell
+16:04:18  DEBUG   Placed: sell 24 NFLX @ 541.7300
+16:04:18  INFO    ORDER  sell 24 AMD @ 191.51 take (notional 4596.24) — fade sell
+16:04:18  DEBUG   Placed: sell 24 AMD @ 191.5100
+16:04:18  INFO    Fill: sold   10 NVDA @ 112.4200 (fee=1.6863)
+16:04:18  INFO    FILL   #20 sell  10 NVDA   @   112.42  notional   1124.20  vs limit +0.9600 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:18  DEBUG   Portfolio: net_worth=368640.80
+16:04:18  INFO    ORDER  sell 24 INTC @ 24.08 take (notional 577.92) — fade sell
+16:04:18  DEBUG   Placed: sell 24 INTC @ 24.0800
+16:04:19  INFO    Fill: sold   2 NVDA @ 111.9700 (fee=0.3359)
+16:04:19  INFO    FILL   #21 sell   2 NVDA   @   111.97  notional    223.94  vs limit +0.5100 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:19  DEBUG   Portfolio: net_worth=368528.42
+16:04:20  DEBUG   Ack: sell 24 TSLA @ 235.3800
+16:04:20  INFO    Fill: sold   12 TSLA @ 238.0700 (fee=4.2853)
+16:04:20  INFO    FILL   #22 sell  12 TSLA   @   238.07  notional   2856.84  vs limit +2.6900 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:20  DEBUG   Portfolio: net_worth=368434.04
+16:04:20  INFO    ORDER  sell 24 META @ 655.19 take (notional 15724.56) — fade sell
+16:04:20  DEBUG   Placed: sell 24 META @ 655.1900
+16:04:21  INFO    Fill: sold   12 TSLA @ 237.9000 (fee=4.2822)
+16:04:21  INFO    FILL   #23 sell  12 TSLA   @   237.90  notional   2854.80  vs limit +2.5200 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:21  DEBUG   Portfolio: net_worth=368448.83
+16:04:22  DEBUG   Ack: sell 24 AMZN @ 164.5600
+16:04:22  DEBUG   Ack: sell 24 GOOGL @ 167.6700
+16:04:22  DEBUG   Ack: sell 24 NFLX @ 541.7300
+16:04:22  INFO    Fill: sold   11 NFLX @ 545.9500 (fee=9.0082)
+16:04:22  INFO    FILL   #24 sell  11 NFLX   @   545.95  notional   6005.45  vs limit +4.2200 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:22  DEBUG   Portfolio: net_worth=368221.36
+16:04:23  DEBUG   Ack: sell 24 AMD @ 191.5100
+16:04:23  DEBUG   Ack: sell 24 INTC @ 24.0800
+16:04:23  INFO    Fill: sold   2 INTC @ 24.2000 (fee=0.0726)
+16:04:23  INFO    FILL   #25 sell   2 INTC   @    24.20  notional     48.40  vs limit +0.1200 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:23  DEBUG   Portfolio: net_worth=368221.24
+16:04:23  INFO    Fill: sold   16 AMZN @ 164.5600 (fee=3.9494)
+16:04:23  INFO    FILL   #26 sell  16 AMZN   @   164.56  notional   2632.96  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:23  DEBUG   Portfolio: net_worth=368228.79
+16:04:24  INFO    Fill: sold   22 INTC @ 24.1100 (fee=0.7956)
+16:04:24  INFO    FILL   #27 sell  22 INTC   @    24.11  notional    530.42  vs limit +0.0300 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:24  DEBUG   Portfolio: net_worth=368157.80
+16:04:24  INFO    Fill: sold   10 AMD @ 191.5100 (fee=2.8727)
+16:04:24  INFO    FILL   #28 sell  10 AMD    @   191.51  notional   1915.10  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:24  DEBUG   Portfolio: net_worth=368180.78
+16:04:24  INFO    Fill: sold   1 AMD @ 191.5100 (fee=0.2873)
+16:04:24  INFO    FILL   #29 sell   1 AMD    @   191.51  notional    191.51  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:24  DEBUG   Portfolio: net_worth=368183.20
+16:04:24  DEBUG   Ack: sell 24 META @ 655.1900
+16:04:25  INFO    Fill: sold   10 GOOGL @ 167.6700 (fee=2.5151)
+16:04:25  INFO    FILL   #30 sell  10 GOOGL  @   167.67  notional   1676.70  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:25  DEBUG   Portfolio: net_worth=368193.84
+16:04:25  INFO    Fill: sold   13 AMD @ 191.5100 (fee=3.7344)
+16:04:25  INFO    FILL   #31 sell  13 AMD    @   191.51  notional   2489.63  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:25  DEBUG   Portfolio: net_worth=368158.93
+16:04:26  INFO    Fill: sold   14 GOOGL @ 167.6700 (fee=3.5211)
+16:04:26  INFO    FILL   #32 sell  14 GOOGL  @   167.67  notional   2347.38  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:26  DEBUG   Portfolio: net_worth=368178.55
+16:04:29  INFO    Fill: sold   3 NFLX @ 541.7300 (fee=2.4378)
+16:04:29  INFO    FILL   #33 sell   3 NFLX   @   541.73  notional   1625.19  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:29  DEBUG   Portfolio: net_worth=368000.67
+16:04:29  INFO    Fill: sold   10 NFLX @ 541.7300 (fee=8.1259)
+16:04:29  INFO    FILL   #34 sell  10 NFLX   @   541.73  notional   5417.30  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:04:29  DEBUG   Portfolio: net_worth=368011.43
+16:04:32  INFO    ORDER  buy  29 AAPL @ 217.65 rest (notional 6311.85) — fade rebuy (resting)
+16:04:32  DEBUG   Placed: buy 29 AAPL @ 217.6500
+16:04:32  INFO    CANCEL sell 24 META @ 655.19 (fade sell)
+16:04:32  INFO    CANCEL sell 8 AMZN @ 164.56 (fade sell)
+16:04:32  DEBUG   Ack: buy 29 AAPL @ 217.6500
+16:04:32  INFO    ORDER  buy  24 MSFT @ 409.96 rest (notional 9839.04) — fade rebuy (resting)
+16:04:32  DEBUG   Placed: buy 24 MSFT @ 409.9600
+16:04:32  DEBUG   Ack: buy 24 MSFT @ 409.9600
+16:04:32  INFO    ORDER  buy  24 NVDA @ 110.04 rest (notional 2640.96) — fade rebuy (resting)
+16:04:32  DEBUG   Placed: buy 24 NVDA @ 110.0400
+16:04:32  DEBUG   Ack: buy 24 NVDA @ 110.0400
+16:04:32  INFO    ORDER  buy  24 TSLA @ 232.41 rest (notional 5577.84) — fade rebuy (resting)
+16:04:32  DEBUG   Placed: buy 24 TSLA @ 232.4100
+16:04:33  INFO    EVENT  FADE META done: bought 0, sold 0, gross P&L +0.00
+16:04:33  INFO    ORDER  buy  16 AMZN @ 162.48 rest (notional 2599.68) — fade rebuy (resting)
+16:04:33  DEBUG   Placed: buy 16 AMZN @ 162.4800
+16:04:33  INFO    ORDER  buy  24 GOOGL @ 165.55 rest (notional 3973.20) — fade rebuy (resting)
+16:04:33  DEBUG   Placed: buy 24 GOOGL @ 165.5500
+16:04:33  DEBUG   Ack: buy 24 TSLA @ 232.4100
+16:04:33  DEBUG   Ack: buy 16 AMZN @ 162.4800
+16:04:33  DEBUG   Ack: buy 24 GOOGL @ 165.5500
+16:04:33  INFO    ORDER  buy  24 NFLX @ 532.59 rest (notional 12782.16) — fade rebuy (resting)
+16:04:33  DEBUG   Placed: buy 24 NFLX @ 532.5900
+16:04:33  DEBUG   Ack: buy 24 NFLX @ 532.5900
+16:04:33  INFO    ORDER  buy  24 AMD @ 181.75 rest (notional 4362.00) — fade rebuy (resting)
+16:04:33  DEBUG   Placed: buy 24 AMD @ 181.7500
+16:04:34  DEBUG   Ack: buy 24 AMD @ 181.7500
+16:04:34  INFO    ORDER  buy  24 INTC @ 23.77 rest (notional 570.48) — fade rebuy (resting)
+16:04:34  DEBUG   Placed: buy 24 INTC @ 23.7700
+16:04:34  DEBUG   Ack: buy 24 INTC @ 23.7700
+16:04:34  INFO    CANCEL buy 24 AMD @ 181.75 (fade rebuy (resting))
+16:04:34  INFO    CANCEL buy 24 NFLX @ 532.59 (fade rebuy (resting))
+16:04:34  INFO    ORDER  buy  24 AMD @ 181.75 rest (notional 4362.00) — fade rebuy (resting)
+16:04:34  DEBUG   Placed: buy 24 AMD @ 181.7500
+16:04:35  DEBUG   Ack: buy 24 AMD @ 181.7500
+16:04:35  INFO    ORDER  buy  24 NFLX @ 534.90 rest (notional 12837.60) — fade rebuy (resting)
+16:04:35  DEBUG   Placed: buy 24 NFLX @ 534.9000
+16:04:35  DEBUG   Ack: buy 24 NFLX @ 534.9000
+16:04:37  INFO    Session event: SSR_ON — NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:04:37  INFO    EVENT  SSR_ON         NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:04:43  INFO    CANCEL buy 24 AMD @ 181.75 (fade rebuy (resting))
+16:04:44  INFO    ORDER  buy  24 AMD @ 188.96 rest (notional 4535.04) — fade rebuy (resting)
+16:04:44  DEBUG   Placed: buy 24 AMD @ 188.9600
+16:04:44  DEBUG   Ack: buy 24 AMD @ 188.9600
+16:04:48  INFO    Fill: bought 2 INTC @ 23.7700 (fee=0.0713)
+16:04:48  INFO    FILL   #35 buy    2 INTC   @    23.77  notional     47.54  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:48  DEBUG   Portfolio: net_worth=367930.25
+16:04:48  INFO    Fill: bought 8 NVDA @ 110.0400 (fee=1.3205)
+16:04:48  INFO    FILL   #36 buy    8 NVDA   @   110.04  notional    880.32  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:48  DEBUG   Portfolio: net_worth=367930.65
+16:04:50  INFO    Fill: bought 3 MSFT @ 409.9600 (fee=1.8448)
+16:04:50  INFO    FILL   #37 buy    3 MSFT   @   409.96  notional   1229.88  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:50  DEBUG   Portfolio: net_worth=367911.43
+16:04:50  INFO    Fill: bought 10 NVDA @ 110.0400 (fee=1.6506)
+16:04:50  INFO    FILL   #38 buy   10 NVDA   @   110.04  notional   1100.40  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:50  DEBUG   Portfolio: net_worth=367911.86
+16:04:50  INFO    Fill: bought 5 GOOGL @ 165.5500 (fee=1.2416)
+16:04:50  INFO    FILL   #39 buy    5 GOOGL  @   165.55  notional    827.75  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:50  DEBUG   Portfolio: net_worth=367889.44
+16:04:50  INFO    Fill: bought 9 TSLA @ 232.4100 (fee=3.1375)
+16:04:50  INFO    FILL   #40 buy    9 TSLA   @   232.41  notional   2091.69  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:50  DEBUG   Portfolio: net_worth=367893.68
+16:04:51  INFO    Fill: bought 6 NVDA @ 110.0400 (fee=0.9904)
+16:04:51  INFO    FILL   #41 buy    6 NVDA   @   110.04  notional    660.24  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:51  DEBUG   Portfolio: net_worth=367893.89
+16:04:51  INFO    EVENT  FADE NVDA done: bought 24, sold 24, gross P&L +56.22
+16:04:51  INFO    Fill: bought 1 GOOGL @ 165.5500 (fee=0.2483)
+16:04:51  INFO    FILL   #42 buy    1 GOOGL  @   165.55  notional    165.55  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:51  DEBUG   Portfolio: net_worth=367894.09
+16:04:52  INFO    Fill: bought 10 MSFT @ 409.9600 (fee=6.1494)
+16:04:52  INFO    FILL   #43 buy   10 MSFT   @   409.96  notional   4099.60  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:52  DEBUG   Portfolio: net_worth=367925.38
+16:04:55  INFO    Fill: bought 5 GOOGL @ 165.5500 (fee=1.2416)
+16:04:55  INFO    FILL   #44 buy    5 GOOGL  @   165.55  notional    827.75  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:55  DEBUG   Portfolio: net_worth=367921.86
+16:04:56  INFO    Fill: bought 1 TSLA @ 232.4100 (fee=0.3486)
+16:04:56  INFO    FILL   #45 buy    1 TSLA   @   232.41  notional    232.41  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:56  DEBUG   Portfolio: net_worth=367930.66
+16:04:58  INFO    Fill: bought 24 AMD @ 188.9600 (fee=6.8026)
+16:04:58  INFO    FILL   #46 buy   24 AMD    @   188.96  notional   4535.04  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000
+16:04:58  DEBUG   Portfolio: net_worth=367951.31
+16:04:58  INFO    EVENT  FADE AMD done: bought 24, sold 24, gross P&L +61.20
+16:05:02  INFO    CANCEL buy 11 MSFT @ 409.96 (fade rebuy (resting))
+16:05:02  INFO    CANCEL buy 13 GOOGL @ 165.55 (fade rebuy (resting))
+16:05:02  INFO    CANCEL buy 14 TSLA @ 232.41 (fade rebuy (resting))
+16:05:02  INFO    CANCEL buy 16 AMZN @ 162.48 (fade rebuy (resting))
+16:05:02  INFO    CANCEL buy 22 INTC @ 23.77 (fade rebuy (resting))
+16:05:03  INFO    CANCEL buy 29 AAPL @ 217.65 (fade rebuy (resting))
+16:05:03  INFO    ORDER  buy  11 MSFT @ 410.42 take (notional 4514.62) — fade rebuy (time)
+16:05:03  DEBUG   Placed: buy 11 MSFT @ 410.4200
+16:05:03  INFO    CANCEL buy 24 NFLX @ 534.90 (fade rebuy (resting))
+16:05:03  INFO    ORDER  buy  13 GOOGL @ 166.37 take (notional 2162.81) — fade rebuy (time)
+16:05:03  DEBUG   Placed: buy 13 GOOGL @ 166.3700
+16:05:04  INFO    ORDER  buy  14 TSLA @ 233.03 take (notional 3262.42) — fade rebuy (time)
+16:05:04  DEBUG   Placed: buy 14 TSLA @ 233.0300
+16:05:04  INFO    ORDER  buy  16 AMZN @ 163.72 take (notional 2619.52) — fade rebuy (time)
+16:05:04  DEBUG   Placed: buy 16 AMZN @ 163.7200
+16:05:04  INFO    ORDER  buy  22 INTC @ 23.93 take (notional 526.46) — fade rebuy (time)
+16:05:04  DEBUG   Placed: buy 22 INTC @ 23.9300
+16:05:04  INFO    ORDER  buy  29 AAPL @ 218.06 take (notional 6323.74) — fade rebuy (time)
+16:05:04  DEBUG   Placed: buy 29 AAPL @ 218.0600
+16:05:05  INFO    ORDER  buy  24 NFLX @ 534.92 take (notional 12838.08) — fade rebuy (time)
+16:05:05  DEBUG   Placed: buy 24 NFLX @ 534.9200
+16:05:05  DEBUG   Ack: buy 11 MSFT @ 410.4200
+16:05:06  DEBUG   Ack: buy 13 GOOGL @ 166.3700
+16:05:06  DEBUG   Ack: buy 14 TSLA @ 233.0300
+16:05:06  INFO    Fill: bought 10 TSLA @ 233.0300 (fee=3.4954)
+16:05:06  INFO    FILL   #47 buy   10 TSLA   @   233.03  notional   2330.30  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:06  DEBUG   Portfolio: net_worth=367961.99
+16:05:07  DEBUG   Ack: buy 16 AMZN @ 163.7200
+16:05:07  DEBUG   Ack: buy 22 INTC @ 23.9300
+16:05:07  INFO    Fill: bought 20 INTC @ 23.9300 (fee=0.7179)
+16:05:07  INFO    FILL   #48 buy   20 INTC   @    23.93  notional    478.60  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:07  DEBUG   Portfolio: net_worth=367975.05
+16:05:07  DEBUG   Ack: buy 29 AAPL @ 218.0600
+16:05:07  DEBUG   Ack: buy 24 NFLX @ 534.9200
+16:05:07  INFO    Fill: bought 9 NFLX @ 534.9200 (fee=7.2214)
+16:05:07  INFO    FILL   #49 buy    9 NFLX   @   534.92  notional   4814.28  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:07  DEBUG   Portfolio: net_worth=367976.40
+16:05:08  INFO    Fill: bought 10 NFLX @ 534.9200 (fee=8.0238)
+16:05:08  INFO    FILL   #50 buy   10 NFLX   @   534.92  notional   5349.20  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:08  DEBUG   Portfolio: net_worth=367965.19
+16:05:10  INFO    Fill: bought 2 TSLA @ 233.0300 (fee=0.6991)
+16:05:10  INFO    FILL   #51 buy    2 TSLA   @   233.03  notional    466.06  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:10  DEBUG   Portfolio: net_worth=367960.28
+16:05:13  INFO    Fill: bought 3 NFLX @ 534.9200 (fee=2.4071)
+16:05:13  INFO    FILL   #52 buy    3 NFLX   @   534.92  notional   1604.76  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:13  DEBUG   Portfolio: net_worth=367966.46
+16:05:16  INFO    Fill: bought 2 NFLX @ 534.9200 (fee=1.6048)
+16:05:16  INFO    FILL   #53 buy    2 NFLX   @   534.92  notional   1069.84  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:16  DEBUG   Portfolio: net_worth=367993.92
+16:05:16  INFO    EVENT  FADE NFLX done: bought 24, sold 24, gross P&L +209.86
+16:05:17  INFO    Fill: bought 1 TSLA @ 233.0300 (fee=0.3495)
+16:05:17  INFO    FILL   #54 buy    1 TSLA   @   233.03  notional    233.03  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:05:17  DEBUG   Portfolio: net_worth=367999.45
+16:05:47  INFO    ORDER  buy  5 NFLX @ 531.86 rest (notional 2659.30) — mid 532.06 / mean 534.81, z -4.36
+16:05:47  DEBUG   Placed: buy 5 NFLX @ 531.8600
+16:05:47  DEBUG   Ack: buy 5 NFLX @ 531.8600
+16:05:47  INFO    CANCEL buy 5 NFLX @ 531.86 (quote)
+16:05:48  INFO    ORDER  buy  5 NFLX @ 531.27 rest (notional 2656.35) — mid 531.46 / mean 534.49, z -2.73
+16:05:48  DEBUG   Placed: buy 5 NFLX @ 531.2700
+16:05:48  DEBUG   Ack: buy 5 NFLX @ 531.2700
+16:05:50  INFO    CANCEL buy 5 NFLX @ 531.27 (quote)
+16:07:05  INFO    ORDER  buy  5 NFLX @ 522.38 rest (notional 2611.90) — mid 522.81 / mean 525.53, z -2.32
+16:07:05  DEBUG   Placed: buy 5 NFLX @ 522.3800
+16:07:05  DEBUG   Ack: buy 5 NFLX @ 522.3800
+16:07:07  INFO    CANCEL buy 5 NFLX @ 522.38 (quote)
+16:07:11  INFO    ORDER  buy  5 NFLX @ 521.52 rest (notional 2607.60) — mid 521.57 / mean 524.90, z -2.08
+16:07:11  DEBUG   Placed: buy 5 NFLX @ 521.5200
+16:07:11  DEBUG   Ack: buy 5 NFLX @ 521.5200
+16:07:11  INFO    CANCEL buy 5 NFLX @ 521.52 (quote)
+16:08:18  INFO    Session event: UPGRADE_PURCHASED — STT_11 bought Prime brokerage terms for $40,000 — margin haircut 0.50 → 0.65, cheaper carry on borrowed cash
+16:08:18  INFO    EVENT  UPGRADE_PURCHASED STT_11 bought Prime brokerage terms for $40,000 — margin haircut 0.50 → 0.65, cheaper carry on borrowed cash
+16:20:44  INFO    ORDER  buy  5 AMD @ 196.30 rest (notional 981.50) — mid 199.04 / mean 201.98, z -3.64
+16:20:44  DEBUG   Placed: buy 5 AMD @ 196.3000
+16:20:44  DEBUG   Ack: buy 5 AMD @ 196.3000
+16:20:46  INFO    CANCEL buy 5 AMD @ 196.30 (quote)
+16:24:33  INFO    Fill: bought 3 AMZN @ 163.7200 (fee=0.7367)
+16:24:33  INFO    FILL   #55 buy    3 AMZN   @   163.72  notional    491.16  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:24:33  DEBUG   Portfolio: net_worth=368765.17
+16:24:35  INFO    Fill: bought 3 AMZN @ 163.7200 (fee=0.7367)
+16:24:35  INFO    FILL   #56 buy    3 AMZN   @   163.72  notional    491.16  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:24:35  DEBUG   Portfolio: net_worth=368764.14
+16:25:06  INFO    Fill: bought 1 AMZN @ 163.7200 (fee=0.2456)
+16:25:06  INFO    FILL   #57 buy    1 AMZN   @   163.72  notional    163.72  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:25:06  DEBUG   Portfolio: net_worth=368785.24
+16:25:18  INFO    Fill: bought 1 AMZN @ 163.7200 (fee=0.2456)
+16:25:18  INFO    FILL   #58 buy    1 AMZN   @   163.72  notional    163.72  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:25:18  DEBUG   Portfolio: net_worth=368788.54
+16:25:36  INFO    Fill: bought 3 AMZN @ 163.7200 (fee=0.7367)
+16:25:36  INFO    FILL   #59 buy    3 AMZN   @   163.72  notional    491.16  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:25:36  DEBUG   Portfolio: net_worth=368790.82
+16:25:41  INFO    Fill: bought 1 AMZN @ 163.7200 (fee=0.2456)
+16:25:41  INFO    FILL   #60 buy    1 AMZN   @   163.72  notional    163.72  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:25:41  DEBUG   Portfolio: net_worth=368794.31
+16:25:52  INFO    Fill: bought 1 AMZN @ 163.7200 (fee=0.2456)
+16:25:52  INFO    FILL   #61 buy    1 AMZN   @   163.72  notional    163.72  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:25:52  DEBUG   Portfolio: net_worth=368802.45
+16:26:00  INFO    Fill: bought 3 AMZN @ 163.7200 (fee=0.7367)
+16:26:00  INFO    FILL   #62 buy    3 AMZN   @   163.72  notional    491.16  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:26:00  DEBUG   Portfolio: net_worth=368805.58
+16:26:00  INFO    EVENT  FADE AMZN done: bought 16, sold 16, gross P&L +13.44
+16:30:00  INFO    RECON  midway_traders_trader_2 positions at SESSION_CLOSED vs the last portfolio update: PASS
+16:30:00  INFO    RECON    item                           own         venue        diff
+16:30:00  INFO    RECON    positions held                  10            10           0  ok
+16:30:00  INFO    RECON    pos AMD                         24            24           0  ok
+16:30:00  INFO    RECON    pos AMZN                        24            24           0  ok
+16:30:00  INFO    RECON    pos GOOGL                       11            11           0  ok
+16:30:00  INFO    RECON    pos INTC                        22            22           0  ok
+16:30:00  INFO    RECON    pos META                        24            24           0  ok
+16:30:00  INFO    RECON    pos MSFT                        13            13           0  ok
+16:30:00  INFO    RECON    pos NFLX                        24            24           0  ok
+16:30:00  INFO    RECON    pos NVDA                        24            24           0  ok
+16:30:00  INFO    RECON    pos ORCA                       143           143           0  ok
+16:30:00  INFO    RECON    pos TSLA                        23            23           0  ok
+16:30:00  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+16:30:00  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+16:30:04  INFO    RECON  midway_traders_trader_2 close vs leaderboard t1544225 (62 fills, 1 rebases): PASS
+16:30:04  INFO    RECON    item                           own         venue        diff
+16:30:04  INFO    RECON    positions held                  10            10           0  ok
+16:30:04  INFO    RECON    pos AMD                         24            24           0  ok
+16:30:04  INFO    RECON    pos AMZN                        24            24           0  ok
+16:30:04  INFO    RECON    pos GOOGL                       11            11           0  ok
+16:30:04  INFO    RECON    pos INTC                        22            22           0  ok
+16:30:04  INFO    RECON    pos META                        24            24           0  ok
+16:30:04  INFO    RECON    pos MSFT                        13            13           0  ok
+16:30:04  INFO    RECON    pos NFLX                        24            24           0  ok
+16:30:04  INFO    RECON    pos NVDA                        24            24           0  ok
+16:30:04  INFO    RECON    pos ORCA                       143           143           0  ok
+16:30:04  INFO    RECON    pos TSLA                        23            23           0  ok
+16:30:04  INFO    RECON    fees                        177.70        177.70        0.00  ok
+16:30:04  INFO    RECON    rebates                      34.31         34.31        0.00  ok
+16:30:04  INFO    RECON    realized                 -5,289.67     -5,289.67        0.00  ok
+16:30:04  INFO    RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+16:30:04  INFO    RECON    cash                    310,722.08    312,190.97    1,468.89  ok  diff is interest on idle cash
+16:30:04  INFO    RECON    interest (est)            1,595.74      1,468.89     -126.85  rate x cash x ticks
+16:30:04  INFO    RECON    net worth               367,414.18    368,883.07    1,468.89  
+16:30:04  INFO    RECON    P&L since t1541820          311.64      1,780.53    1,468.89  
+16:30:12  INFO    RECON  midway_traders_trader_2 positions at SESSION_CLOSED vs the last portfolio update: PASS
+16:30:12  INFO    RECON    item                           own         venue        diff
+16:30:12  INFO    RECON    positions held                  10            10           0  ok
+16:30:12  INFO    RECON    pos AMD                         24            24           0  ok
+16:30:12  INFO    RECON    pos AMZN                        24            24           0  ok
+16:30:12  INFO    RECON    pos GOOGL                       11            11           0  ok
+16:30:12  INFO    RECON    pos INTC                        22            22           0  ok
+16:30:12  INFO    RECON    pos META                        24            24           0  ok
+16:30:12  INFO    RECON    pos MSFT                        13            13           0  ok
+16:30:12  INFO    RECON    pos NFLX                        24            24           0  ok
+16:30:12  INFO    RECON    pos NVDA                        24            24           0  ok
+16:30:12  INFO    RECON    pos ORCA                       143           143           0  ok
+16:30:12  INFO    RECON    pos TSLA                        23            23           0  ok
+16:30:12  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+16:30:12  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+16:30:13  INFO    RECON  midway_traders_trader_2 close vs leaderboard t1544231 (62 fills, 1 rebases): PASS
+16:30:13  INFO    RECON    item                           own         venue        diff
+16:30:13  INFO    RECON    positions held                  10            10           0  ok
+16:30:13  INFO    RECON    pos AMD                         24            24           0  ok
+16:30:13  INFO    RECON    pos AMZN                        24            24           0  ok
+16:30:13  INFO    RECON    pos GOOGL                       11            11           0  ok
+16:30:13  INFO    RECON    pos INTC                        22            22           0  ok
+16:30:13  INFO    RECON    pos META                        24            24           0  ok
+16:30:13  INFO    RECON    pos MSFT                        13            13           0  ok
+16:30:13  INFO    RECON    pos NFLX                        24            24           0  ok
+16:30:13  INFO    RECON    pos NVDA                        24            24           0  ok
+16:30:13  INFO    RECON    pos ORCA                       143           143           0  ok
+16:30:13  INFO    RECON    pos TSLA                        23            23           0  ok
+16:30:13  INFO    RECON    fees                        177.70        177.70        0.00  ok
+16:30:13  INFO    RECON    rebates                      34.31         34.31        0.00  ok
+16:30:13  INFO    RECON    realized                 -5,289.67     -5,289.67        0.00  ok
+16:30:13  INFO    RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+16:30:13  INFO    RECON    cash                    310,722.08    312,190.97    1,468.89  ok  diff is interest on idle cash
+16:30:13  INFO    RECON    interest (est)            1,599.41      1,468.89     -130.51  rate x cash x ticks
+16:30:13  INFO    RECON    net worth               367,347.19    368,816.08    1,468.89  
+16:30:13  INFO    RECON    P&L since t1541820          244.65      1,713.54    1,468.89  
+16:30:20  INFO    Session event: WEEK_CHANGED — Week 0: Open play
+16:30:20  INFO    EVENT  WEEK_CHANGED   Week 0: Open play
+16:30:20  INFO    Session event: CALENDAR — No scheduled events this session
+16:30:20  INFO    EVENT  CALENDAR       No scheduled events this session
+16:30:22  DEBUG   Portfolio: net_worth=385221.32
+16:30:22  INFO    Session event: CALENDAR — No scheduled events this session
+16:30:22  INFO    EVENT  CALENDAR       No scheduled events this session
+16:30:22  INFO    BOOKS  starting grant AAPL 6, AMD 6, AMZN 6, GOOGL 6, INTC 6, META 6, MSFT 6, NFLX 6, NVDA 6, ORCA 6, TSLA 6 (quantities from the venue's positions)
+16:30:22  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+16:30:22  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+16:30:25  INFO    BOOKS  entry prices from the leaderboard t1544240: AAPL 219.6390
+16:30:34  INFO    Fill: bought 5 MSFT @ 410.4200 (fee=3.0781)
+16:30:34  INFO    FILL   #63 buy    5 MSFT   @   410.42  notional   2052.10  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:30:34  DEBUG   Portfolio: net_worth=385195.91
+16:31:20  INFO    Fill: bought 3 MSFT @ 410.4200 (fee=1.8469)
+16:31:20  INFO    FILL   #64 buy    3 MSFT   @   410.42  notional   1231.26  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:31:20  DEBUG   Portfolio: net_worth=385190.09
+16:31:23  INFO    Fill: bought 1 MSFT @ 410.4200 (fee=0.6156)
+16:31:23  INFO    FILL   #65 buy    1 MSFT   @   410.42  notional    410.42  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:31:23  DEBUG   Portfolio: net_worth=385200.73
+16:31:46  INFO    Fill: bought 2 MSFT @ 410.4200 (fee=1.2313)
+16:31:46  INFO    FILL   #66 buy    2 MSFT   @   410.42  notional    820.84  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:31:46  DEBUG   Portfolio: net_worth=385214.84
+16:31:46  INFO    EVENT  FADE MSFT done: bought 24, sold 24, gross P&L +233.02
+16:57:34  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 1.2s (attempt 1)
+16:57:39  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:57:39  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:57:39  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+16:57:39  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+16:57:39  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+16:57:39  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+16:57:39  INFO    ORDER  buy  1 TSLA @ 237.82 take (notional 237.82) — fade rebuy (time)
+16:57:39  DEBUG   Placed: buy 1 TSLA @ 237.8200
+16:57:39  DEBUG   Ack: buy 1 TSLA @ 237.8200
+16:57:39  INFO    Fill: bought 1 TSLA @ 237.8200 (fee=0.3567)
+16:57:39  INFO    FILL   #67 buy    1 TSLA   @   237.82  notional    237.82  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:57:39  DEBUG   Portfolio: net_worth=385084.54
+16:57:39  INFO    EVENT  FADE TSLA done: bought 24, sold 24, gross P&L +120.33
+16:57:39  INFO    ORDER  buy  2 INTC @ 26.11 take (notional 52.22) — fade rebuy (time)
+16:57:39  DEBUG   Placed: buy 2 INTC @ 26.1100
+16:57:39  DEBUG   Ack: buy 2 INTC @ 26.1100
+16:57:39  INFO    ORDER  buy  13 GOOGL @ 173.96 take (notional 2261.48) — fade rebuy (time)
+16:57:39  DEBUG   Placed: buy 13 GOOGL @ 173.9600
+16:57:39  DEBUG   Ack: buy 13 GOOGL @ 173.9600
+16:57:39  INFO    Fill: bought 2 GOOGL @ 173.9600 (fee=0.5219)
+16:57:39  INFO    FILL   #68 buy    2 GOOGL  @   173.96  notional    347.92  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:57:39  DEBUG   Portfolio: net_worth=385081.54
+16:57:40  INFO    ORDER  buy  29 AAPL @ 218.29 take (notional 6330.41) — fade rebuy (time)
+16:57:40  DEBUG   Placed: buy 29 AAPL @ 218.2900
+16:57:40  DEBUG   Ack: buy 29 AAPL @ 218.2900
+16:57:40  INFO    Fill: bought 2 AAPL @ 218.2900 (fee=0.6549)
+16:57:40  INFO    FILL   #69 buy    2 AAPL   @   218.29  notional    436.58  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:57:40  DEBUG   Portfolio: net_worth=385077.98
+16:57:40  INFO    ORDER  sell 143 ORCA @ 30.63 rest (notional 4380.09) — ipo exit
+16:57:40  DEBUG   Placed: sell 143 ORCA @ 30.6300
+16:57:40  DEBUG   Ack: sell 143 ORCA @ 30.6300
+16:58:21  INFO    Fill: bought 1 AAPL @ 218.2900 (fee=0.3274)
+16:58:21  INFO    FILL   #70 buy    1 AAPL   @   218.29  notional    218.29  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:21  DEBUG   Portfolio: net_worth=385111.59
+16:58:26  INFO    Fill: bought 2 AAPL @ 218.2900 (fee=0.6549)
+16:58:26  INFO    FILL   #71 buy    2 AAPL   @   218.29  notional    436.58  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:26  DEBUG   Portfolio: net_worth=385159.75
+16:58:28  INFO    Fill: bought 3 AAPL @ 218.2900 (fee=0.9823)
+16:58:28  INFO    FILL   #72 buy    3 AAPL   @   218.29  notional    654.87  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:28  DEBUG   Portfolio: net_worth=385166.26
+16:58:28  INFO    Fill: bought 3 AAPL @ 218.2900 (fee=0.9823)
+16:58:28  INFO    FILL   #73 buy    3 AAPL   @   218.29  notional    654.87  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:28  DEBUG   Portfolio: net_worth=385138.65
+16:58:28  INFO    Fill: bought 2 AAPL @ 218.2900 (fee=0.6549)
+16:58:28  INFO    FILL   #74 buy    2 AAPL   @   218.29  notional    436.58  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:28  DEBUG   Portfolio: net_worth=385146.92
+16:58:29  INFO    Fill: bought 1 AAPL @ 218.2900 (fee=0.3274)
+16:58:29  INFO    FILL   #75 buy    1 AAPL   @   218.29  notional    218.29  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:29  DEBUG   Portfolio: net_worth=385132.24
+16:58:29  WARNING trader midway_traders_trader_2: connection dropped (received 1011 (internal error) keepalive ping timeout; then sent 1011 (internal error) keepalive ping timeout) — reconnecting in 1.1s (attempt 1)
+16:58:30  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:58:30  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:58:30  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+16:58:30  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+16:58:30  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+16:58:30  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+16:58:30  INFO    ORDER  buy  2 INTC @ 26.16 take (notional 52.32) — fade rebuy (time)
+16:58:30  DEBUG   Placed: buy 2 INTC @ 26.1600
+16:58:31  DEBUG   Ack: buy 2 INTC @ 26.1600
+16:58:31  INFO    Fill: bought 2 INTC @ 26.1600 (fee=0.0785)
+16:58:31  INFO    FILL   #76 buy    2 INTC   @    26.16  notional     52.32  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:31  DEBUG   Portfolio: net_worth=385145.31
+16:58:31  INFO    EVENT  FADE INTC done: bought 24, sold 24, gross P&L +0.36
+16:58:31  INFO    ORDER  buy  15 AAPL @ 218.29 take (notional 3274.35) — fade rebuy (time)
+16:58:31  DEBUG   Placed: buy 15 AAPL @ 218.2900
+16:58:31  INFO    ORDER  buy  11 GOOGL @ 174.34 take (notional 1917.74) — fade rebuy (time)
+16:58:31  DEBUG   Placed: buy 11 GOOGL @ 174.3400
+16:58:31  INFO    ORDER  sell 143 ORCA @ 30.63 rest (notional 4380.09) — ipo exit
+16:58:31  DEBUG   Placed: sell 143 ORCA @ 30.6300
+16:58:36  INFO    ORDER  buy  15 AAPL @ 218.29 take (notional 3274.35) — fade rebuy (time)
+16:58:36  DEBUG   Placed: buy 15 AAPL @ 218.2900
+16:58:36  INFO    ORDER  buy  11 GOOGL @ 174.34 take (notional 1917.74) — fade rebuy (time)
+16:58:36  DEBUG   Placed: buy 11 GOOGL @ 174.3400
+16:58:36  INFO    ORDER  sell 143 ORCA @ 30.63 rest (notional 4380.09) — ipo exit
+16:58:36  DEBUG   Placed: sell 143 ORCA @ 30.6300
+16:58:36  DEBUG   Ack: buy 15 AAPL @ 218.2900
+16:58:36  DEBUG   Ack: buy 11 GOOGL @ 174.3400
+16:58:36  INFO    Fill: bought 5 GOOGL @ 174.3400 (fee=1.3075)
+16:58:36  INFO    FILL   #77 buy    5 GOOGL  @   174.34  notional    871.70  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:36  DEBUG   Portfolio: net_worth=385142.93
+16:58:36  DEBUG   Ack: sell 143 ORCA @ 30.6300
+16:58:36  DEBUG   Ack: buy 15 AAPL @ 218.2900
+16:58:36  DEBUG   Ack: buy 11 GOOGL @ 174.3400
+16:58:36  DEBUG   Ack: sell 143 ORCA @ 30.6300
+16:58:46  INFO    Fill: bought 3 GOOGL @ 174.3400 (fee=0.7845)
+16:58:46  INFO    FILL   #78 buy    3 GOOGL  @   174.34  notional    523.02  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:46  DEBUG   Portfolio: net_worth=385184.55
+16:58:48  INFO    Fill: bought 2 GOOGL @ 174.3400 (fee=0.5230)
+16:58:48  INFO    FILL   #79 buy    2 GOOGL  @   174.34  notional    348.68  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:58:48  DEBUG   Portfolio: net_worth=385191.70
+17:00:30  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 0.8s (attempt 1)
+17:00:31  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+17:00:31  INFO    BOOKS  reconnect check PASS: books survived the drop
+17:00:31  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:00:31  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:00:31  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+17:00:31  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+17:00:31  INFO    ORDER  buy  1 GOOGL @ 174.55 take (notional 174.55) — fade rebuy (time)
+17:00:31  DEBUG   Placed: buy 1 GOOGL @ 174.5500
+17:00:31  DEBUG   Ack: buy 1 GOOGL @ 174.5500
+17:00:31  INFO    Fill: bought 1 GOOGL @ 174.5500 (fee=0.2618)
+17:00:31  INFO    FILL   #80 buy    1 GOOGL  @   174.55  notional    174.55  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:00:31  DEBUG   Portfolio: net_worth=385193.69
+17:00:31  INFO    EVENT  FADE GOOGL done: bought 24, sold 24, gross P&L -62.84
+17:00:31  INFO    ORDER  buy  15 AAPL @ 218.57 take (notional 3278.55) — fade rebuy (time)
+17:00:31  DEBUG   Placed: buy 15 AAPL @ 218.5700
+17:00:31  INFO    ORDER  sell 143 ORCA @ 31.05 rest (notional 4440.15) — ipo exit
+17:00:31  DEBUG   Placed: sell 143 ORCA @ 31.0500
+17:00:36  INFO    ORDER  buy  15 AAPL @ 218.57 take (notional 3278.55) — fade rebuy (time)
+17:00:36  DEBUG   Placed: buy 15 AAPL @ 218.5700
+17:00:36  INFO    ORDER  sell 143 ORCA @ 31.05 rest (notional 4440.15) — ipo exit
+17:00:36  DEBUG   Placed: sell 143 ORCA @ 31.0500
+17:00:38  DEBUG   Ack: buy 15 AAPL @ 218.5700
+17:00:38  DEBUG   Ack: sell 143 ORCA @ 31.0500
+17:00:38  DEBUG   Ack: buy 15 AAPL @ 218.5700
+17:00:38  DEBUG   Ack: sell 143 ORCA @ 31.0500
+17:09:04  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 1.0s (attempt 1)
+17:09:05  WARNING trader midway_traders_trader_2: cannot connect (gaierror: [Errno 8] nodename nor servname provided, or not known) — reconnecting in 1.9s (attempt 2)
+17:09:07  WARNING trader midway_traders_trader_2: cannot connect (gaierror: [Errno 8] nodename nor servname provided, or not known) — reconnecting in 3.5s (attempt 3)
+17:09:10  WARNING trader midway_traders_trader_2: cannot connect (gaierror: [Errno 8] nodename nor servname provided, or not known) — reconnecting in 9.0s (attempt 4)
+17:55:39  WARNING trader midway_traders_trader_2: cannot connect (gaierror: [Errno 8] nodename nor servname provided, or not known) — reconnecting in 14.4s (attempt 5)
+17:55:54  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+17:55:54  WARNING RECON  midway_traders_trader_2 reconnect check vs leaderboard t1548960: BREAK
+17:55:54  WARNING RECON    item                           own         venue        diff
+17:55:54  WARNING RECON    positions held                  11            11           0  ok
+17:55:54  WARNING RECON    pos AAPL                        20            23           3  BREAK
+17:55:54  WARNING RECON    pos AMD                         30            30           0  ok
+17:55:54  WARNING RECON    pos AMZN                        30            30           0  ok
+17:55:54  WARNING RECON    pos GOOGL                       30            30           0  ok
+17:55:54  WARNING RECON    pos INTC                        30            30           0  ok
+17:55:54  WARNING RECON    pos META                        30            30           0  ok
+17:55:54  WARNING RECON    pos MSFT                        30            30           0  ok
+17:55:54  WARNING RECON    pos NFLX                        30            30           0  ok
+17:55:54  WARNING RECON    pos NVDA                        30            30           0  ok
+17:55:54  WARNING RECON    pos ORCA                       149           149           0  ok
+17:55:54  WARNING RECON    pos TSLA                        30            30           0  ok
+17:55:54  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+17:55:54  WARNING RECON    cash                    300,593.03    301,406.53      813.50  BREAK  diff is interest on idle cash
+17:55:54  WARNING RECON    interest (est)            4,415.17        813.50   -3,601.67  rate x cash x ticks
+17:55:54  WARNING BOOKS  rebased on the venue (leaderboard t1548960): cash 301406.53, positions AAPL 23, AMD 30, AMZN 30, GOOGL 30, INTC 30, META 30, MSFT 30, NFLX 30, NVDA 30, ORCA 149, TSLA 30, rebase 2
+17:55:54  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:55:54  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+17:55:54  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+17:55:54  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+17:55:54  INFO    ORDER  buy  15 AAPL @ 216.73 take (notional 3250.95) — fade rebuy (time)
+17:55:54  DEBUG   Placed: buy 15 AAPL @ 216.7300
+17:55:54  DEBUG   Ack: buy 15 AAPL @ 216.7300
+17:55:54  INFO    Fill: bought 2 AAPL @ 216.7300 (fee=0.6502)
+17:55:54  INFO    FILL   #81 buy    2 AAPL   @   216.73  notional    433.46  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:55:54  DEBUG   Portfolio: net_worth=385536.90
+17:55:55  INFO    ORDER  sell 143 ORCA @ 31.36 rest (notional 4484.48) — ipo exit
+17:55:55  DEBUG   Placed: sell 143 ORCA @ 31.3600
+17:55:55  DEBUG   Ack: sell 143 ORCA @ 31.3600
+17:57:31  INFO    Fill: bought 2 AAPL @ 216.7300 (fee=0.6502)
+17:57:31  INFO    FILL   #82 buy    2 AAPL   @   216.73  notional    433.46  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:57:31  DEBUG   Portfolio: net_worth=385656.81
+17:57:40  INFO    Fill: bought 3 AAPL @ 216.7300 (fee=0.9753)
+17:57:40  INFO    FILL   #83 buy    3 AAPL   @   216.73  notional    650.19  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:57:40  DEBUG   Portfolio: net_worth=385656.10
+17:58:08  INFO    Fill: bought 1 AAPL @ 216.7300 (fee=0.3251)
+17:58:08  INFO    FILL   #84 buy    1 AAPL   @   216.73  notional    216.73  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:58:08  DEBUG   Portfolio: net_worth=385638.10
+17:59:34  INFO    Fill: bought 3 AAPL @ 216.7300 (fee=0.9753)
+17:59:34  INFO    FILL   #85 buy    3 AAPL   @   216.73  notional    650.19  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:59:34  DEBUG   Portfolio: net_worth=385622.12
+17:59:41  INFO    Fill: bought 4 AAPL @ 216.7300 (fee=1.3004)
+17:59:41  INFO    FILL   #86 buy    4 AAPL   @   216.73  notional    866.92  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+17:59:41  DEBUG   Portfolio: net_worth=385618.56
+17:59:41  INFO    EVENT  FADE AAPL done: bought 29, sold 29, gross P&L +92.71
+18:09:27  INFO    RISK   INTC: buy cut to 0 by gross exposure limit

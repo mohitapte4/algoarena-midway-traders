@@ -1,0 +1,421 @@
+2026-11-05 20:59:19,496 INFO    team.logs: Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_broker_20261105_205919.log
+
+2026-11-05 20:59:19 ╔══════════════════════════════════════════════╗
+2026-11-05 20:59:19 ║         AlgoArena — Broker Bot               ║
+2026-11-05 20:59:19 ╠══════════════════════════════════════════════╣
+2026-11-05 20:59:19 ║  Team:     midway_traders_broker             ║
+2026-11-05 20:59:19 ║  Exchange: wss://feed-8770.algoarena-st.duckdns.org║
+2026-11-05 20:59:19 ║  Symbols:  AAPL, MSFT, NVDA, TSLA, AMZN, GOOGL, META, NFLX, AMD, INTC║
+2026-11-05 20:59:19 ║  Spread:   $0.30  Qty: 10                       ║
+2026-11-05 20:59:19 ║  Feed:     Yahoo Finance (every 5s)             ║
+2026-11-05 20:59:19 ╚══════════════════════════════════════════════╝
+
+2026-11-05 20:59:19,497 INFO    broker.broker: Yahoo Finance feed started for ['AAPL', 'MSFT', 'NVDA', 'TSLA', 'AMZN', 'GOOGL', 'META', 'NFLX', 'AMD', 'INTC'] (every 5 s)
+2026-11-05 20:59:19,497 INFO    broker.broker: Connecting to wss://feed-8770.algoarena-st.duckdns.org (EXCHANGE_URLS from the shell)
+2026-11-05 20:59:19,769 INFO    numexpr.utils: Note: NumExpr detected 11 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2026-11-05 20:59:19,769 INFO    numexpr.utils: NumExpr defaulting to 8 threads.
+2026-11-05 20:59:19,884 INFO    broker.broker: Connected to wss://feed-8770.algoarena-st.duckdns.org as midway_traders_broker (broker)
+2026-11-05 20:59:19,959 INFO    team.books: BOOKS  seeded from venue (leaderboard t878487): cash 100000.00, positions none
+2026-11-05 20:59:19,959 INFO    broker.broker: Leaderboard tick=878487 | realized=0.00 fills=0 net_worth=100000.00
+2026-11-05 20:59:19,959 INFO    broker.broker: Session event: FEE_SCHEDULE — Venue fee schedule: taker 8.0 bps, maker rebate 5.0 bps
+2026-11-05 20:59:19,959 INFO    __main__: Opening position (not skewed away): {'AAPL': 6, 'MSFT': 6, 'NVDA': 6, 'TSLA': 6, 'AMZN': 6, 'GOOGL': 6, 'META': 6, 'NFLX': 6, 'AMD': 6, 'INTC': 6}
+2026-11-05 20:59:19,959 INFO    team.books: BOOKS  starting grant AAPL 6, AMD 6, AMZN 6, GOOGL 6, INTC 6, META 6, MSFT 6, NFLX 6, NVDA 6, TSLA 6 (quantities from the venue's positions)
+2026-11-05 20:59:19,959 INFO    broker.broker: Session open — quoting begins
+2026-11-05 20:59:20,386 INFO    __main__: Quoted AAPL bid=216.49 x60 ask=216.80 x60 centre=216.6484 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:20,892 INFO    __main__: Quoted MSFT bid=357.75 x60 ask=358.32 x60 centre=357.9019 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:21,773 INFO    __main__: Quoted AAPL bid=217.47 x60 ask=217.78 x60 centre=217.6267 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:22,530 INFO    __main__: Quoted MSFT bid=359.11 x60 ask=359.42 x60 centre=359.2678 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:23,289 INFO    __main__: Quoted NVDA bid=130.49 x60 ask=130.80 x60 centre=130.6406 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:24,048 INFO    __main__: Quoted TSLA bid=180.93 x60 ask=181.24 x60 centre=181.0870 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:24,930 INFO    __main__: Quoted MSFT bid=359.54 x60 ask=359.85 x60 centre=359.6940 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:25,688 INFO    __main__: Quoted AMZN bid=261.28 x60 ask=261.59 x60 centre=261.4390 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:26,446 INFO    __main__: Quoted GOOGL bid=207.96 x60 ask=208.27 x60 centre=208.1117 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:27,200 INFO    __main__: Quoted MSFT bid=359.31 x60 ask=359.62 x60 centre=359.4615 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:27,958 INFO    __main__: Quoted TSLA bid=180.83 x60 ask=181.14 x60 centre=180.9886 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:28,841 INFO    __main__: Quoted AMZN bid=261.68 x60 ask=261.99 x60 centre=261.8391 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:29,601 INFO    __main__: Quoted META bid=721.11 x60 ask=721.42 x60 centre=721.2612 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:30,358 INFO    __main__: Quoted NFLX bid=1149.91 x60 ask=1150.22 x60 centre=1150.0665 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:31,113 INFO    __main__: Quoted AMZN bid=261.87 x60 ask=262.18 x60 centre=262.0219 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:31,873 INFO    __main__: Quoted AMD bid=160.85 x60 ask=161.16 x60 centre=161.0017 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:32,632 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2486 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:33,388 INFO    __main__: Quoted AMZN bid=262.22 x60 ask=262.53 x60 centre=262.3795 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:34,393 INFO    __main__: Quoted TSLA bid=180.72 x60 ask=181.03 x60 centre=180.8707 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:36,400 INFO    __main__: Quoted TSLA bid=180.96 x60 ask=181.27 x60 centre=181.1122 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:37,031 INFO    __main__: Quoted GOOGL bid=207.84 x60 ask=208.15 x60 centre=207.9902 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:38,537 INFO    __main__: Quoted TSLA bid=180.71 x60 ask=181.20 x60 centre=180.9558 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:38,762 INFO    team.books: BOOKS  entry prices from the leaderboard t878505: AAPL 216.6484, AMD 159.1376, AMZN 261.4232, GOOGL 207.5474, INTC 17.9871, META 722.2635, MSFT 357.9019, NFLX 1158.3217, NVDA 130.2516, TSLA 179.8438
+2026-11-05 20:59:38,763 INFO    broker.broker: Leaderboard tick=878505 | realized=0.00 fills=0 net_worth=120415.78
+2026-11-05 20:59:40,543 INFO    __main__: Quoted TSLA bid=180.86 x60 ask=181.57 x60 centre=181.2169 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:41,175 INFO    __main__: Quoted AMD bid=160.93 x60 ask=161.24 x60 centre=161.0836 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:42,680 INFO    __main__: Quoted TSLA bid=180.74 x60 ask=181.44 x60 centre=181.0904 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:44,686 INFO    __main__: Quoted NVDA bid=130.42 x60 ask=130.73 x60 centre=130.5712 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:45,320 INFO    __main__: Quoted TSLA bid=180.86 x60 ask=181.62 x60 centre=181.2421 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:51,839 INFO    __main__: Quoted AAPL bid=217.46 x60 ask=217.77 x60 centre=217.6170 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:54,848 INFO    __main__: Quoted AAPL bid=217.59 x60 ask=218.55 x60 centre=218.0685 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:55,483 INFO    __main__: Quoted NFLX bid=1150.97 x60 ask=1151.28 x60 centre=1151.1230 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:57,488 INFO    __main__: Quoted MSFT bid=359.23 x60 ask=359.54 x60 centre=359.3801 inventory +6 (traded +0) skew -0.00
+2026-11-05 20:59:59,996 INFO    __main__: Quoted META bid=720.93 x60 ask=721.24 x60 centre=721.0880 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:03,135 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2515 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:03,890 INFO    __main__: Quoted AMZN bid=262.20 x60 ask=262.51 x60 centre=262.3574 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:04,648 INFO    __main__: Quoted NFLX bid=1150.27 x60 ask=1153.25 x60 centre=1151.7613 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:07,156 INFO    __main__: Quoted GOOGL bid=207.78 x60 ask=208.09 x60 centre=207.9326 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:08,771 INFO    broker.broker: Leaderboard tick=878535 | realized=0.00 fills=0 net_worth=120425.92
+2026-11-05 21:00:10,166 INFO    __main__: Quoted NFLX bid=1150.44 x60 ask=1154.34 x60 centre=1152.3920 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:11,671 INFO    __main__: Quoted AMD bid=160.91 x60 ask=161.22 x60 centre=161.0684 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:15,181 INFO    __main__: Quoted NVDA bid=130.41 x60 ask=130.72 x60 centre=130.5664 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:15,683 INFO    __main__: Quoted TSLA bid=181.04 x60 ask=181.35 x60 centre=181.1941 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:16,566 INFO    __main__: Quoted NVDA bid=130.55 x60 ask=130.86 x60 centre=130.7037 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:18,573 INFO    __main__: Quoted TSLA bid=180.78 x60 ask=181.24 x60 centre=181.0084 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:25,089 INFO    __main__: Quoted AAPL bid=217.86 x60 ask=218.17 x60 centre=218.0178 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:27,596 INFO    __main__: Quoted MSFT bid=359.13 x60 ask=359.44 x60 centre=359.2868 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:30,104 INFO    __main__: Quoted META bid=720.61 x60 ask=720.92 x60 centre=720.7695 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:33,111 INFO    __main__: Quoted TSLA bid=180.43 x60 ask=181.20 x60 centre=180.8172 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:33,617 INFO    __main__: Quoted NFLX bid=1152.84 x60 ask=1153.15 x60 centre=1152.9904 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:35,136 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2494 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:35,892 INFO    __main__: Quoted AMZN bid=262.18 x60 ask=262.49 x60 centre=262.3334 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:36,896 INFO    __main__: Quoted NFLX bid=1152.63 x60 ask=1155.72 x60 centre=1154.1779 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:37,399 INFO    __main__: Quoted GOOGL bid=207.84 x60 ask=208.15 x60 centre=207.9910 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:38,937 INFO    broker.broker: Leaderboard tick=878565 | realized=0.00 fills=0 net_worth=120432.88
+2026-11-05 21:00:39,406 INFO    __main__: Quoted AMD bid=161.07 x60 ask=161.38 x60 centre=161.2259 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:46,943 INFO    __main__: Quoted NVDA bid=130.49 x60 ask=130.80 x60 centre=130.6418 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:47,572 INFO    __main__: Quoted NVDA bid=130.41 x60 ask=130.72 x60 centre=130.5669 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:48,331 INFO    __main__: Quoted NFLX bid=1152.84 x60 ask=1156.70 x60 centre=1154.7714 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:49,836 INFO    __main__: Quoted NVDA bid=130.21 x60 ask=130.67 x60 centre=130.4417 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:51,843 INFO    __main__: Quoted NVDA bid=130.32 x60 ask=130.77 x60 centre=130.5421 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:53,854 INFO    __main__: Quoted NVDA bid=130.23 x60 ask=130.67 x60 centre=130.4533 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:55,359 INFO    __main__: Quoted AAPL bid=217.84 x60 ask=218.15 x60 centre=217.9901 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:55,988 INFO    __main__: Quoted NVDA bid=130.34 x60 ask=130.78 x60 centre=130.5629 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:57,994 INFO    __main__: Quoted MSFT bid=359.07 x60 ask=359.38 x60 centre=359.2296 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:00:58,501 INFO    __main__: Quoted NVDA bid=130.24 x60 ask=130.68 x60 centre=130.4612 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:00,005 INFO    __main__: Quoted NVDA bid=130.35 x60 ask=130.79 x60 centre=130.5666 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:00,634 INFO    __main__: Quoted META bid=720.53 x60 ask=720.84 x60 centre=720.6834 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:02,641 INFO    __main__: Quoted NVDA bid=130.24 x60 ask=130.68 x60 centre=130.4569 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:03,145 INFO    __main__: Quoted TSLA bid=180.63 x60 ask=180.94 x60 centre=180.7839 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:04,651 INFO    __main__: Quoted NVDA bid=130.42 x60 ask=130.83 x60 centre=130.6234 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:06,042 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2518 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:06,795 INFO    __main__: Quoted AMZN bid=262.07 x60 ask=262.38 x60 centre=262.2210 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:07,551 INFO    __main__: Quoted NVDA bid=130.34 x60 ask=130.72 x60 centre=130.5304 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:08,309 INFO    __main__: Quoted GOOGL bid=207.88 x60 ask=208.19 x60 centre=208.0345 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:09,135 INFO    broker.broker: Leaderboard tick=878595 | realized=0.00 fills=0 net_worth=120435.82
+2026-11-05 21:01:09,314 INFO    __main__: Quoted NVDA bid=130.44 x60 ask=130.84 x60 centre=130.6367 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:09,943 INFO    __main__: Quoted AMD bid=161.11 x60 ask=161.42 x60 centre=161.2634 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:10,947 INFO    __main__: Quoted NVDA bid=130.31 x60 ask=130.69 x60 centre=130.5017 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:11,453 INFO    __main__: Quoted NFLX bid=1153.99 x60 ask=1154.30 x60 centre=1154.1454 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:13,461 INFO    __main__: Quoted NVDA bid=130.42 x60 ask=130.80 x60 centre=130.6078 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:15,469 INFO    __main__: Quoted NVDA bid=130.31 x60 ask=130.68 x60 centre=130.4972 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:19,480 INFO    __main__: Quoted NVDA bid=130.45 x60 ask=130.84 x60 centre=130.6430 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:20,112 INFO    __main__: Quoted NFLX bid=1153.24 x60 ask=1153.55 x60 centre=1153.3995 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:21,618 INFO    __main__: Quoted NVDA bid=130.30 x60 ask=130.69 x60 centre=130.4930 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:22,123 INFO    __main__: Quoted TSLA bid=180.73 x60 ask=181.04 x60 centre=180.8889 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:23,627 INFO    __main__: Quoted NVDA bid=130.49 x60 ask=130.83 x60 centre=130.6607 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:25,633 INFO    __main__: Quoted AAPL bid=217.93 x60 ask=218.24 x60 centre=218.0820 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:26,148 INFO    __main__: Quoted NVDA bid=130.41 x60 ask=130.75 x60 centre=130.5805 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:27,654 INFO    __main__: Quoted NVDA bid=130.49 x60 ask=130.99 x60 centre=130.7403 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:28,282 INFO    __main__: Quoted MSFT bid=359.09 x60 ask=359.40 x60 centre=359.2419 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:29,788 INFO    __main__: Quoted NVDA bid=130.33 x60 ask=130.84 x60 centre=130.5837 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:30,791 INFO    __main__: Quoted META bid=720.43 x60 ask=720.74 x60 centre=720.5853 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:31,795 INFO    __main__: Quoted NVDA bid=130.41 x60 ask=130.92 x60 centre=130.6638 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:33,801 INFO    __main__: Quoted NVDA bid=130.24 x60 ask=130.75 x60 centre=130.4973 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:34,306 INFO    __main__: Quoted TSLA bid=180.86 x60 ask=181.17 x60 centre=181.0114 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:35,813 INFO    __main__: Quoted NVDA bid=130.34 x60 ask=130.85 x60 centre=130.5946 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:37,211 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.28 x60 centre=18.2526 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:37,965 INFO    __main__: Quoted AMZN bid=261.99 x60 ask=262.30 x60 centre=262.1408 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:38,722 INFO    __main__: Quoted NVDA bid=130.26 x60 ask=130.77 x60 centre=130.5125 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:39,233 INFO    broker.broker: Leaderboard tick=878626 | realized=0.00 fills=0 net_worth=120433.54
+2026-11-05 21:01:39,479 INFO    __main__: Quoted GOOGL bid=207.93 x60 ask=208.24 x60 centre=208.0801 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:40,233 INFO    __main__: Quoted AMD bid=161.15 x60 ask=161.46 x60 centre=161.3024 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:42,240 INFO    __main__: Quoted NVDA bid=130.37 x60 ask=130.87 x60 centre=130.6196 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:42,882 INFO    __main__: Quoted NFLX bid=1153.83 x60 ask=1154.14 x60 centre=1153.9855 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:44,387 INFO    __main__: Quoted NVDA bid=130.28 x60 ask=130.78 x60 centre=130.5301 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:46,396 INFO    __main__: Quoted NVDA bid=130.36 x60 ask=130.86 x60 centre=130.6142 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:48,402 INFO    __main__: Quoted NVDA bid=130.35 x60 ask=130.70 x60 centre=130.5253 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:50,409 INFO    __main__: Quoted NVDA bid=130.43 x60 ask=130.78 x60 centre=130.6046 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:51,041 INFO    __main__: Quoted TSLA bid=180.91 x60 ask=181.53 x60 centre=181.2195 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:56,055 INFO    __main__: Quoted AAPL bid=217.92 x60 ask=218.23 x60 centre=218.0773 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:01:58,561 INFO    __main__: Quoted MSFT bid=359.08 x60 ask=359.39 x60 centre=359.2342 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:01,069 INFO    __main__: Quoted NVDA bid=130.38 x60 ask=130.69 x60 centre=130.5348 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:01,575 INFO    __main__: Quoted META bid=720.64 x60 ask=720.95 x60 centre=720.7994 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:03,580 INFO    __main__: Quoted NVDA bid=130.51 x60 ask=130.91 x60 centre=130.7069 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:04,213 INFO    __main__: Quoted NFLX bid=1154.44 x60 ask=1154.75 x60 centre=1154.5981 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:05,217 INFO    __main__: Quoted NVDA bid=130.43 x60 ask=130.84 x60 centre=130.6341 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:05,723 INFO    __main__: Quoted NFLX bid=1153.87 x60 ask=1156.49 x60 centre=1155.1774 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:07,229 INFO    __main__: Quoted NVDA bid=130.52 x60 ask=130.90 x60 centre=130.7106 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:08,626 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.28 x60 centre=18.2550 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:09,381 INFO    __main__: Quoted AMZN bid=262.01 x60 ask=262.32 x60 centre=262.1621 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:10,137 INFO    __main__: Quoted GOOGL bid=208.00 x60 ask=208.31 x60 centre=208.1592 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:10,464 INFO    broker.broker: Leaderboard tick=878657 | realized=0.00 fills=0 net_worth=120448.42
+2026-11-05 21:02:10,893 INFO    __main__: Quoted AMD bid=161.18 x60 ask=161.49 x60 centre=161.3364 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:11,648 INFO    __main__: Quoted NFLX bid=1153.96 x60 ask=1160.08 x60 centre=1157.0211 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:15,660 INFO    __main__: Quoted TSLA bid=180.96 x60 ask=181.27 x60 centre=181.1141 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:26,186 INFO    __main__: Quoted AAPL bid=217.94 x60 ask=218.25 x60 centre=218.0924 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:28,694 INFO    __main__: Quoted MSFT bid=359.00 x60 ask=359.31 x60 centre=359.1545 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:31,701 INFO    __main__: Quoted META bid=720.82 x60 ask=721.13 x60 centre=720.9717 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:37,716 INFO    __main__: Quoted NVDA bid=130.53 x60 ask=130.84 x60 centre=130.6869 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:39,225 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.29 x60 centre=18.2588 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:40,107 INFO    __main__: Quoted NVDA bid=130.68 x60 ask=131.19 x60 centre=130.9345 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:40,569 INFO    broker.broker: Leaderboard tick=878687 | realized=0.00 fills=0 net_worth=120455.98
+2026-11-05 21:02:40,866 INFO    __main__: Quoted TSLA bid=181.09 x60 ask=181.49 x60 centre=181.2893 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:41,625 INFO    __main__: Quoted AMZN bid=261.92 x60 ask=262.23 x60 centre=262.0769 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:42,384 INFO    __main__: Quoted GOOGL bid=208.07 x60 ask=208.38 x60 centre=208.2203 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:43,145 INFO    __main__: Quoted NFLX bid=1156.57 x60 ask=1156.88 x60 centre=1156.7224 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:43,913 INFO    __main__: Quoted AMD bid=161.13 x60 ask=161.44 x60 centre=161.2884 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:44,795 INFO    __main__: Quoted NVDA bid=130.68 x60 ask=131.47 x60 centre=131.0728 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:45,797 INFO    __main__: Quoted AMD bid=161.28 x60 ask=161.89 x60 centre=161.5849 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:53,837 INFO    __main__: Quoted TSLA bid=181.04 x60 ask=181.35 x60 centre=181.1913 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:56,343 INFO    __main__: Quoted AAPL bid=217.89 x60 ask=218.20 x60 centre=218.0473 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:56,977 INFO    __main__: Quoted TSLA bid=181.18 x60 ask=181.82 x60 centre=181.5044 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:57,982 INFO    __main__: Quoted TSLA bid=181.06 x60 ask=181.70 x60 centre=181.3792 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:58,986 INFO    __main__: Quoted MSFT bid=359.06 x60 ask=359.37 x60 centre=359.2102 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:02:59,990 INFO    __main__: Quoted TSLA bid=181.18 x60 ask=182.02 x60 centre=181.5992 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:01,997 INFO    __main__: Quoted NVDA bid=130.85 x60 ask=131.16 x60 centre=131.0038 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:02,502 INFO    __main__: Quoted TSLA bid=181.06 x60 ask=181.89 x60 centre=181.4749 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:03,259 INFO    __main__: Quoted META bid=720.60 x60 ask=720.91 x60 centre=720.7504 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:04,264 INFO    __main__: Quoted INTC bid=18.20 x60 ask=18.27 x60 centre=18.2301 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:06,270 INFO    __main__: Quoted GOOGL bid=208.20 x60 ask=208.51 x60 centre=208.3586 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:07,031 INFO    __main__: Quoted INTC bid=18.21 x60 ask=18.28 x60 centre=18.2451 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:10,622 INFO    broker.broker: Leaderboard tick=878717 | realized=0.00 fills=0 net_worth=120461.08
+2026-11-05 21:03:12,046 INFO    __main__: Quoted AMZN bid=261.91 x60 ask=262.22 x60 centre=262.0652 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:13,551 INFO    __main__: Quoted NFLX bid=1156.70 x60 ask=1157.01 x60 centre=1156.8567 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:16,058 INFO    __main__: Quoted AMD bid=161.45 x60 ask=161.76 x60 centre=161.6047 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:22,583 INFO    __main__: Quoted TSLA bid=181.19 x60 ask=181.50 x60 centre=181.3407 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:26,597 INFO    __main__: Quoted AAPL bid=217.93 x60 ask=218.24 x60 centre=218.0817 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:27,103 INFO    __main__: Quoted MSFT bid=358.86 x60 ask=359.17 x60 centre=359.0134 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:28,608 INFO    __main__: Quoted TSLA bid=180.98 x60 ask=181.50 x60 centre=181.2380 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:32,117 INFO    __main__: Quoted NVDA bid=130.81 x60 ask=131.12 x60 centre=130.9629 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:33,621 INFO    __main__: Quoted META bid=720.70 x60 ask=721.01 x60 centre=720.8501 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:36,642 INFO    __main__: Quoted GOOGL bid=208.20 x60 ask=208.51 x60 centre=208.3539 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:37,523 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2486 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:38,527 INFO    __main__: Quoted GOOGL bid=208.29 x60 ask=209.31 x60 centre=208.7983 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:40,671 INFO    broker.broker: Leaderboard tick=878747 | realized=0.00 fills=0 net_worth=120461.08
+2026-11-05 21:03:42,539 INFO    __main__: Quoted TSLA bid=180.91 x60 ask=181.35 x60 centre=181.1327 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:43,044 INFO    __main__: Quoted AMZN bid=261.88 x60 ask=262.19 x60 centre=262.0385 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:44,047 INFO    __main__: Quoted NFLX bid=1156.25 x60 ask=1156.56 x60 centre=1156.4059 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:44,677 INFO    __main__: Quoted TSLA bid=181.13 x60 ask=181.50 x60 centre=181.3133 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:46,182 INFO    __main__: Quoted AMD bid=161.43 x60 ask=161.74 x60 centre=161.5888 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:46,684 INFO    __main__: Quoted TSLA bid=180.91 x60 ask=181.32 x60 centre=181.1138 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:47,567 INFO    __main__: Quoted AMD bid=161.54 x60 ask=162.04 x60 centre=161.7893 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:48,578 INFO    __main__: Quoted TSLA bid=180.62 x60 ask=181.32 x60 centre=180.9716 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:50,584 INFO    __main__: Quoted TSLA bid=180.76 x60 ask=181.45 x60 centre=181.1043 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:52,595 INFO    __main__: Quoted TSLA bid=180.58 x60 ask=181.32 x60 centre=180.9510 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:53,100 INFO    __main__: Quoted NFLX bid=1154.16 x60 ask=1156.76 x60 centre=1155.4575 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:54,605 INFO    __main__: Quoted TSLA bid=180.73 x60 ask=181.47 x60 centre=181.1001 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:56,611 INFO    __main__: Quoted AAPL bid=217.92 x60 ask=218.23 x60 centre=218.0702 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:57,117 INFO    __main__: Quoted TSLA bid=180.62 x60 ask=181.36 x60 centre=180.9886 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:57,871 INFO    __main__: Quoted MSFT bid=358.68 x60 ask=358.99 x60 centre=358.8346 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:03:58,875 INFO    __main__: Quoted AAPL bid=218.06 x60 ask=218.87 x60 centre=218.4655 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:00,892 INFO    __main__: Quoted AAPL bid=217.87 x60 ask=218.68 x60 centre=218.2783 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:02,396 INFO    __main__: Quoted NVDA bid=130.76 x60 ask=131.07 x60 centre=130.9174 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:03,026 INFO    __main__: Quoted AAPL bid=218.04 x60 ask=218.85 x60 centre=218.4468 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:03,785 INFO    __main__: Quoted AMD bid=161.43 x60 ask=161.84 x60 centre=161.6335 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:04,539 INFO    __main__: Quoted META bid=720.75 x60 ask=721.06 x60 centre=720.9007 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:05,292 INFO    __main__: Quoted AAPL bid=217.87 x60 ask=218.67 x60 centre=218.2694 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:06,050 INFO    __main__: Quoted NFLX bid=1153.50 x60 ask=1156.20 x60 centre=1154.8499 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:07,053 INFO    __main__: Quoted AAPL bid=218.04 x60 ask=218.84 x60 centre=218.4393 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:08,065 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2514 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:08,819 INFO    __main__: Quoted GOOGL bid=208.60 x60 ask=208.91 x60 centre=208.7582 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:09,574 INFO    __main__: Quoted AAPL bid=217.86 x60 ask=218.67 x60 centre=218.2656 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:10,333 INFO    __main__: Quoted AMZN bid=261.73 x60 ask=262.04 x60 centre=261.8848 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:10,755 INFO    broker.broker: Leaderboard tick=878777 | realized=0.00 fills=0 net_worth=120447.04
+2026-11-05 21:04:11,337 INFO    __main__: Quoted MSFT bid=358.49 x60 ask=358.80 x60 centre=358.6500 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:15,348 INFO    __main__: Quoted AMZN bid=261.43 x60 ask=262.04 x60 centre=261.7370 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:17,354 INFO    __main__: Quoted AMD bid=161.38 x60 ask=161.72 x60 centre=161.5499 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:23,370 INFO    __main__: Quoted AMZN bid=261.22 x60 ask=261.99 x60 centre=261.6060 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:25,377 INFO    __main__: Quoted AAPL bid=217.84 x60 ask=218.45 x60 centre=218.1454 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:27,381 INFO    __main__: Quoted TSLA bid=180.74 x60 ask=181.05 x60 centre=180.8997 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:31,391 INFO    __main__: Quoted META bid=720.16 x60 ask=720.47 x60 centre=720.3147 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:32,412 INFO    __main__: Quoted NVDA bid=130.74 x60 ask=131.05 x60 centre=130.8961 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:33,413 INFO    __main__: Quoted AAPL bid=217.79 x60 ask=218.27 x60 centre=218.0328 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:34,051 INFO    __main__: Quoted NVDA bid=130.87 x60 ask=131.25 x60 centre=131.0599 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:34,808 INFO    __main__: Quoted TSLA bid=180.60 x60 ask=180.98 x60 centre=180.7911 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:36,316 INFO    __main__: Quoted NFLX bid=1154.32 x60 ask=1154.63 x60 centre=1154.4743 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:38,832 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2519 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:39,648 INFO    __main__: Quoted GOOGL bid=208.61 x60 ask=208.92 x60 centre=208.7687 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:40,822 INFO    broker.broker: Leaderboard tick=878807 | realized=0.00 fills=0 net_worth=120432.88
+2026-11-05 21:04:41,676 INFO    __main__: Quoted MSFT bid=358.43 x60 ask=358.74 x60 centre=358.5869 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:42,181 INFO    __main__: Quoted META bid=718.23 x60 ask=720.69 x60 centre=719.4595 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:45,688 INFO    __main__: Quoted META bid=717.50 x60 ask=720.62 x60 centre=719.0622 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:47,702 INFO    __main__: Quoted AMD bid=161.34 x60 ask=161.65 x60 centre=161.4991 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:49,706 INFO    __main__: Quoted AMD bid=161.47 x60 ask=161.86 x60 centre=161.6675 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:53,721 INFO    __main__: Quoted AMZN bid=261.34 x60 ask=261.65 x60 centre=261.4959 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:04:59,759 INFO    __main__: Quoted AMD bid=161.33 x60 ask=161.68 x60 centre=161.5066 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:01,764 INFO    __main__: Quoted META bid=717.22 x60 ask=719.46 x60 centre=718.3376 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:02,396 INFO    __main__: Quoted AMD bid=161.49 x60 ask=161.92 x60 centre=161.7067 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:03,900 INFO    __main__: Quoted AAPL bid=217.86 x60 ask=218.17 x60 centre=218.0163 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:04,407 INFO    __main__: Quoted AMD bid=161.30 x60 ask=161.73 x60 centre=161.5114 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:05,173 INFO    __main__: Quoted NVDA bid=130.90 x60 ask=131.21 x60 centre=131.0504 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:05,940 INFO    __main__: Quoted TSLA bid=180.59 x60 ask=180.90 x60 centre=180.7499 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:06,824 INFO    __main__: Quoted AMD bid=161.49 x60 ask=161.95 x60 centre=161.7191 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:07,580 INFO    __main__: Quoted NFLX bid=1153.95 x60 ask=1154.26 x60 centre=1154.1013 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:08,336 INFO    __main__: Quoted AMD bid=161.36 x60 ask=161.80 x60 centre=161.5769 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:09,725 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.28 x60 centre=18.2541 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:10,479 INFO    __main__: Quoted GOOGL bid=208.77 x60 ask=209.08 x60 centre=208.9260 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:10,875 INFO    broker.broker: Leaderboard tick=878837 | realized=0.00 fills=0 net_worth=120422.26
+2026-11-05 21:05:11,369 INFO    __main__: Quoted AMD bid=161.50 x60 ask=161.95 x60 centre=161.7241 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:12,123 INFO    __main__: Quoted MSFT bid=358.33 x60 ask=358.64 x60 centre=358.4806 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:12,887 INFO    __main__: Quoted AMD bid=161.35 x60 ask=161.80 x60 centre=161.5712 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:13,891 INFO    __main__: Quoted AMD bid=161.49 x60 ask=161.94 x60 centre=161.7178 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:15,897 INFO    __main__: Quoted AMD bid=161.29 x60 ask=161.74 x60 centre=161.5180 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:17,918 INFO    __main__: Quoted META bid=717.21 x60 ask=718.73 x60 centre=717.9704 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:18,558 INFO    __main__: Quoted AMD bid=161.43 x60 ask=161.88 x60 centre=161.6540 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:20,064 INFO    __main__: Quoted AMD bid=161.09 x60 ask=161.73 x60 centre=161.4086 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:22,070 INFO    __main__: Quoted GOOGL bid=208.82 x60 ask=209.26 x60 centre=209.0401 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:24,074 INFO    __main__: Quoted AMZN bid=261.27 x60 ask=261.58 x60 centre=261.4259 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:24,712 INFO    __main__: Quoted AMD bid=161.20 x60 ask=161.84 x60 centre=161.5216 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:26,219 INFO    __main__: Quoted NFLX bid=1152.85 x60 ask=1153.16 x60 centre=1153.0075 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:26,725 INFO    __main__: Quoted AMD bid=161.11 x60 ask=161.75 x60 centre=161.4282 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:28,231 INFO    __main__: Quoted AMD bid=161.22 x60 ask=161.87 x60 centre=161.5468 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:30,238 INFO    __main__: Quoted TSLA bid=180.48 x60 ask=180.79 x60 centre=180.6356 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:30,744 INFO    __main__: Quoted AMD bid=161.13 x60 ask=161.76 x60 centre=161.4454 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:32,249 INFO    __main__: Quoted TSLA bid=180.63 x60 ask=181.24 x60 centre=180.9326 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:33,980 INFO    __main__: Quoted AAPL bid=217.89 x60 ask=218.20 x60 centre=218.0485 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:34,485 INFO    __main__: Quoted TSLA bid=180.46 x60 ask=181.07 x60 centre=180.7674 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:35,243 INFO    __main__: Quoted GOOGL bid=208.93 x60 ask=209.40 x60 centre=209.1680 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:35,996 INFO    __main__: Quoted NVDA bid=130.90 x60 ask=131.21 x60 centre=131.0529 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:36,881 INFO    __main__: Quoted TSLA bid=180.62 x60 ask=181.22 x60 centre=180.9198 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:37,651 INFO    __main__: Quoted META bid=717.44 x60 ask=717.75 x60 centre=717.5909 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:38,423 INFO    __main__: Quoted NFLX bid=1150.79 x60 ask=1154.05 x60 centre=1152.4171 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:39,182 INFO    __main__: Quoted AMD bid=160.97 x60 ask=161.55 x60 centre=161.2613 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:39,936 INFO    __main__: Quoted TSLA bid=180.45 x60 ask=181.06 x60 centre=180.7565 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:40,938 INFO    broker.broker: Leaderboard tick=878867 | realized=0.00 fills=0 net_worth=120406.00
+2026-11-05 21:05:41,205 INFO    __main__: Quoted INTC bid=18.24 x60 ask=18.29 x60 centre=18.2628 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:42,087 INFO    __main__: Quoted AMD bid=161.10 x60 ask=161.68 x60 centre=161.3907 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:42,842 INFO    __main__: Quoted MSFT bid=358.12 x60 ask=358.43 x60 centre=358.2748 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:43,608 INFO    __main__: Quoted TSLA bid=180.23 x60 ask=180.94 x60 centre=180.5841 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:44,367 INFO    __main__: Quoted TSLA bid=180.35 x60 ask=181.06 x60 centre=180.7051 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:45,125 INFO    __main__: Quoted AMZN bid=261.03 x60 ask=261.34 x60 centre=261.1801 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:45,882 INFO    __main__: Quoted AMD bid=160.98 x60 ask=161.56 x60 centre=161.2681 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:46,636 INFO    __main__: Quoted TSLA bid=180.18 x60 ask=180.94 x60 centre=180.5603 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:47,522 INFO    __main__: Quoted AMD bid=161.10 x60 ask=161.69 x60 centre=161.3930 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:48,527 INFO    __main__: Quoted AMD bid=161.05 x60 ask=161.45 x60 centre=161.2491 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:50,551 INFO    __main__: Quoted MSFT bid=357.71 x60 ask=358.47 x60 centre=358.0901 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:51,057 INFO    __main__: Quoted TSLA bid=179.98 x60 ask=180.94 x60 centre=180.4589 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:51,815 INFO    __main__: Quoted GOOGL bid=209.12 x60 ask=209.43 x60 centre=209.2777 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:52,700 INFO    __main__: Quoted AMD bid=161.22 x60 ask=161.62 x60 centre=161.4211 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:54,205 INFO    __main__: Quoted GOOGL bid=209.14 x60 ask=209.63 x60 centre=209.3841 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:54,712 INFO    __main__: Quoted META bid=716.76 x60 ask=717.07 x60 centre=716.9142 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:05:58,232 INFO    __main__: Quoted TSLA bid=179.81 x60 ask=180.76 x60 centre=180.2806 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:04,252 INFO    __main__: Quoted AAPL bid=217.88 x60 ask=218.19 x60 centre=218.0333 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:04,882 INFO    __main__: Quoted TSLA bid=180.09 x60 ask=180.66 x60 centre=180.3766 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:05,641 INFO    __main__: Quoted NFLX bid=1151.15 x60 ask=1151.46 x60 centre=1151.3097 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:06,397 INFO    __main__: Quoted NVDA bid=130.89 x60 ask=131.20 x60 centre=131.0459 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:07,152 INFO    __main__: Quoted NFLX bid=1149.45 x60 ask=1151.98 x60 centre=1150.7156 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:08,657 INFO    __main__: Quoted NVDA bid=131.03 x60 ask=131.37 x60 centre=131.1974 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:10,673 INFO    __main__: Quoted NVDA bid=130.93 x60 ask=131.28 x60 centre=131.1047 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:10,994 INFO    broker.broker: Leaderboard tick=878897 | realized=0.00 fills=0 net_worth=120391.30
+2026-11-05 21:06:12,057 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.28 x60 centre=18.2574 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:12,938 INFO    __main__: Quoted NVDA bid=131.03 x60 ask=131.39 x60 centre=131.2062 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:14,945 INFO    __main__: Quoted NVDA bid=131.03 x60 ask=131.62 x60 centre=131.3246 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:15,573 INFO    __main__: Quoted AMZN bid=260.96 x60 ask=261.27 x60 centre=261.1147 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:20,587 INFO    __main__: Quoted MSFT bid=357.96 x60 ask=358.27 x60 centre=358.1111 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:23,095 INFO    __main__: Quoted AMD bid=161.16 x60 ask=161.47 x60 centre=161.3137 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:24,600 INFO    __main__: Quoted GOOGL bid=209.18 x60 ask=209.49 x60 centre=209.3351 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:25,102 INFO    __main__: Quoted META bid=716.55 x60 ask=716.86 x60 centre=716.7040 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:25,987 INFO    __main__: Quoted AMD bid=161.31 x60 ask=161.68 x60 centre=161.4944 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:28,995 INFO    __main__: Quoted AMD bid=161.16 x60 ask=161.54 x60 centre=161.3502 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:29,758 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.27 x60 centre=18.2461 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:30,761 INFO    __main__: Quoted AMD bid=161.31 x60 ask=161.81 x60 centre=161.5572 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:32,771 INFO    __main__: Quoted NFLX bid=1149.96 x60 ask=1150.27 x60 centre=1150.1146 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:33,277 INFO    __main__: Quoted AMD bid=161.10 x60 ask=161.60 x60 centre=161.3456 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:34,280 INFO    __main__: Quoted AAPL bid=217.90 x60 ask=218.21 x60 centre=218.0521 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:34,908 INFO    __main__: Quoted AMD bid=161.23 x60 ask=161.73 x60 centre=161.4786 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:35,665 INFO    __main__: Quoted TSLA bid=180.16 x60 ask=180.47 x60 centre=180.3117 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:37,171 INFO    __main__: Quoted AMD bid=161.09 x60 ask=161.59 x60 centre=161.3423 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:39,176 INFO    __main__: Quoted AMZN bid=260.79 x60 ask=261.10 x60 centre=260.9425 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:39,682 INFO    __main__: Quoted NFLX bid=1149.34 x60 ask=1149.65 x60 centre=1149.4904 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:40,567 INFO    __main__: Quoted AMD bid=161.22 x60 ask=161.72 x60 centre=161.4716 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:41,062 INFO    broker.broker: Leaderboard tick=878927 | realized=0.00 fills=0 net_worth=120377.80
+2026-11-05 21:06:41,321 INFO    __main__: Quoted NFLX bid=1147.17 x60 ask=1150.58 x60 centre=1148.8718 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:42,078 INFO    __main__: Quoted AMD bid=161.11 x60 ask=161.61 x60 centre=161.3642 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:43,081 INFO    __main__: Quoted AMD bid=161.31 x60 ask=161.75 x60 centre=161.5286 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:45,088 INFO    __main__: Quoted NVDA bid=131.14 x60 ask=131.45 x60 centre=131.2986 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:45,721 INFO    __main__: Quoted AMD bid=161.21 x60 ask=161.65 x60 centre=161.4289 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:49,230 INFO    __main__: Quoted MSFT bid=357.75 x60 ask=358.06 x60 centre=357.9026 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:51,237 INFO    __main__: Quoted AMD bid=161.15 x60 ask=161.54 x60 centre=161.3425 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:53,242 INFO    __main__: Quoted AMZN bid=260.53 x60 ask=261.09 x60 centre=260.8076 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:53,882 INFO    __main__: Quoted AMD bid=161.31 x60 ask=161.69 x60 centre=161.5016 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:54,888 INFO    __main__: Quoted GOOGL bid=209.18 x60 ask=209.49 x60 centre=209.3389 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:55,392 INFO    __main__: Quoted META bid=716.43 x60 ask=716.74 x60 centre=716.5890 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:56,149 INFO    __main__: Quoted AMD bid=161.01 x60 ask=161.54 x60 centre=161.2709 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:57,152 INFO    __main__: Quoted AMD bid=161.14 x60 ask=161.67 x60 centre=161.4074 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:06:59,162 INFO    __main__: Quoted AMD bid=160.99 x60 ask=161.54 x60 centre=161.2635 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:00,165 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.27 x60 centre=18.2437 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:01,173 INFO    __main__: Quoted INTC bid=18.23 x60 ask=18.29 x60 centre=18.2613 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:03,177 INFO    __main__: Quoted TSLA bid=180.06 x60 ask=180.37 x60 centre=180.2155 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:04,681 INFO    __main__: Quoted AAPL bid=217.93 x60 ask=218.24 x60 centre=218.0892 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:11,132 INFO    broker.broker: Leaderboard tick=878957 | realized=0.00 fills=0 net_worth=120375.46
+2026-11-05 21:07:11,698 INFO    __main__: Quoted TSLA bid=179.97 x60 ask=180.28 x60 centre=180.1203 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:12,207 INFO    __main__: Quoted NFLX bid=1148.58 x60 ask=1148.89 x60 centre=1148.7369 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:13,093 INFO    __main__: Quoted AMD bid=161.10 x60 ask=161.59 x60 centre=161.3461 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:13,851 INFO    __main__: Quoted AMD bid=161.08 x60 ask=161.41 x60 centre=161.2478 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:15,360 INFO    __main__: Quoted NVDA bid=131.17 x60 ask=131.48 x60 centre=131.3216 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:16,115 INFO    __main__: Quoted AMD bid=161.24 x60 ask=161.66 x60 centre=161.4510 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:17,619 INFO    __main__: Quoted NVDA bid=130.80 x60 ask=131.34 x60 centre=131.0691 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:19,624 INFO    __main__: Quoted MSFT bid=357.84 x60 ask=358.15 x60 centre=357.9969 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:20,256 INFO    __main__: Quoted AMD bid=161.24 x60 ask=161.86 x60 centre=161.5506 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:21,761 INFO    __main__: Quoted AMD bid=161.04 x60 ask=161.66 x60 centre=161.3540 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:23,266 INFO    __main__: Quoted AMZN bid=260.59 x60 ask=260.90 x60 centre=260.7463 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:23,895 INFO    __main__: Quoted AMD bid=161.17 x60 ask=161.79 x60 centre=161.4753 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:24,909 INFO    __main__: Quoted INTC bid=18.22 x60 ask=18.28 x60 centre=18.2510 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:25,663 INFO    __main__: Quoted GOOGL bid=209.15 x60 ask=209.46 x60 centre=209.3042 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:26,421 INFO    __main__: Quoted META bid=716.73 x60 ask=717.04 x60 centre=716.8820 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:27,180 INFO    __main__: Quoted AMD bid=161.05 x60 ask=161.67 x60 centre=161.3595 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:34,697 INFO    __main__: Quoted AAPL bid=217.86 x60 ask=218.17 x60 centre=218.0121 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:40,209 INFO    __main__: Quoted TSLA bid=180.06 x60 ask=180.37 x60 centre=180.2183 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:41,207 INFO    broker.broker: Leaderboard tick=878987 | realized=0.00 fills=0 net_worth=120372.88
+2026-11-05 21:07:42,213 INFO    __main__: Quoted NFLX bid=1148.85 x60 ask=1149.16 x60 centre=1149.0010 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:44,217 INFO    __main__: Quoted AMD bid=161.09 x60 ask=161.40 x60 centre=161.2427 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:47,725 INFO    __main__: Quoted NVDA bid=130.89 x60 ask=131.20 x60 centre=131.0431 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:48,726 INFO    __main__: Quoted NVDA bid=130.75 x60 ask=131.08 x60 centre=130.9122 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:49,729 INFO    __main__: Quoted MSFT bid=357.83 x60 ask=358.14 x60 centre=357.9871 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:51,236 INFO    __main__: Quoted INTC bid=18.21 x60 ask=18.27 x60 centre=18.2403 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:52,739 INFO    __main__: Quoted INTC bid=18.18 x60 ask=18.25 x60 centre=18.2162 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:53,742 INFO    __main__: Quoted AMZN bid=260.51 x60 ask=260.82 x60 centre=260.6630 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:55,746 INFO    __main__: Quoted GOOGL bid=209.22 x60 ask=209.53 x60 centre=209.3775 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:07:56,749 INFO    __main__: Quoted META bid=716.71 x60 ask=717.02 x60 centre=716.8645 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:00,757 INFO    __main__: Quoted NVDA bid=130.85 x60 ask=131.16 x60 centre=131.0090 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:03,263 INFO    __main__: Quoted NVDA bid=130.49 x60 ask=131.05 x60 centre=130.7718 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:04,766 INFO    __main__: Quoted AAPL bid=217.82 x60 ask=218.13 x60 centre=217.9740 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:10,277 INFO    __main__: Quoted TSLA bid=180.01 x60 ask=180.32 x60 centre=180.1654 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:11,331 INFO    broker.broker: Leaderboard tick=879017 | realized=0.00 fills=0 net_worth=120363.22
+2026-11-05 21:08:12,282 INFO    __main__: Quoted NFLX bid=1148.44 x60 ask=1148.75 x60 centre=1148.5956 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:13,284 INFO    __main__: Quoted AMD bid=161.18 x60 ask=161.49 x60 centre=161.3363 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:15,666 INFO    __main__: Quoted INTC bid=18.18 x60 ask=18.23 x60 centre=18.2046 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:20,197 INFO    __main__: Quoted MSFT bid=357.73 x60 ask=358.04 x60 centre=357.8814 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:21,700 INFO    __main__: Quoted INTC bid=18.17 x60 ask=18.22 x60 centre=18.1943 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:24,204 INFO    __main__: Quoted AMZN bid=260.42 x60 ask=260.73 x60 centre=260.5753 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:26,208 INFO    __main__: Quoted GOOGL bid=209.19 x60 ask=209.50 x60 centre=209.3409 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:27,210 INFO    __main__: Quoted META bid=716.87 x60 ask=717.18 x60 centre=717.0275 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:27,711 INFO    __main__: Quoted AMD bid=161.26 x60 ask=161.57 x60 centre=161.4178 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:31,720 INFO    __main__: Quoted AMD bid=161.33 x60 ask=161.69 x60 centre=161.5096 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:33,728 INFO    __main__: Quoted NVDA bid=130.59 x60 ask=130.90 x60 centre=130.7492 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:34,354 INFO    __main__: Quoted AMD bid=161.38 x60 ask=161.81 x60 centre=161.5930 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:35,108 INFO    __main__: Quoted AAPL bid=217.86 x60 ask=218.17 x60 centre=218.0113 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:36,110 INFO    __main__: Quoted NVDA bid=130.47 x60 ask=130.78 x60 centre=130.6285 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:36,741 INFO    __main__: Quoted AMD bid=161.37 x60 ask=162.29 x60 centre=161.8330 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:38,243 INFO    __main__: Quoted NVDA bid=130.33 x60 ask=130.77 x60 centre=130.5510 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:38,748 INFO    __main__: Quoted TSLA bid=179.78 x60 ask=180.15 x60 centre=179.9639 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:39,503 INFO    __main__: Quoted AMD bid=161.37 x60 ask=162.53 x60 centre=161.9509 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:40,383 INFO    __main__: Quoted NVDA bid=130.43 x60 ask=130.88 x60 centre=130.6558 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:41,408 INFO    broker.broker: Leaderboard tick=879047 | realized=0.00 fills=0 net_worth=120366.94
+2026-11-05 21:08:42,387 INFO    __main__: Quoted NVDA bid=130.18 x60 ask=130.77 x60 centre=130.4766 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:42,891 INFO    __main__: Quoted NFLX bid=1148.44 x60 ask=1148.75 x60 centre=1148.5903 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:50,408 INFO    __main__: Quoted MSFT bid=357.74 x60 ask=358.05 x60 centre=357.8935 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:52,289 INFO    __main__: Quoted INTC bid=18.16 x60 ask=18.22 x60 centre=18.1894 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:54,292 INFO    __main__: Quoted AMZN bid=260.39 x60 ask=260.70 x60 centre=260.5442 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:54,794 INFO    __main__: Quoted META bid=717.36 x60 ask=717.67 x60 centre=717.5126 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:56,295 INFO    __main__: Quoted GOOGL bid=209.23 x60 ask=209.54 x60 centre=209.3828 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:56,796 INFO    __main__: Quoted TSLA bid=179.65 x60 ask=179.96 x60 centre=179.8005 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:58,800 INFO    __main__: Quoted TSLA bid=179.79 x60 ask=180.35 x60 centre=180.0715 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:08:59,431 INFO    __main__: Quoted META bid=717.19 x60 ask=718.69 x60 centre=717.9397 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:00,934 INFO    __main__: Quoted TSLA bid=179.56 x60 ask=180.12 x60 centre=179.8426 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:02,939 INFO    __main__: Quoted TSLA bid=179.70 x60 ask=180.26 x60 centre=179.9807 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:04,944 INFO    __main__: Quoted TSLA bid=179.44 x60 ask=180.08 x60 centre=179.7604 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:05,444 INFO    __main__: Quoted AAPL bid=217.87 x60 ask=218.18 x60 centre=218.0230 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:06,948 INFO    __main__: Quoted TSLA bid=179.60 x60 ask=180.24 x60 centre=179.9208 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:09,954 INFO    __main__: Quoted AMD bid=161.80 x60 ask=162.11 x60 centre=161.9594 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:11,457 INFO    __main__: Quoted AMD bid=161.90 x60 ask=162.62 x60 centre=162.2556 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:11,485 INFO    broker.broker: Leaderboard tick=879077 | realized=0.00 fills=0 net_worth=120374.44
+2026-11-05 21:09:12,460 INFO    __main__: Quoted NVDA bid=130.36 x60 ask=130.67 x60 centre=130.5182 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:13,087 INFO    __main__: Quoted NFLX bid=1148.94 x60 ask=1149.25 x60 centre=1149.0936 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:13,964 INFO    __main__: Quoted NVDA bid=130.46 x60 ask=130.77 x60 centre=130.6149 inventory +6 (traded +0) skew -0.00
+2026-11-05 21:09:15,468 INFO    __main__: Quoted NVDA bid=130.50 x60 ask=130.95 x60 centre=130.7283 inventory +6 (traded +0) skew -0.00

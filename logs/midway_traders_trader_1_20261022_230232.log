@@ -1,0 +1,73 @@
+23:02:32  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_1_20261022_230232.log
+23:02:32  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+23:02:32  INFO    Connected to ws://localhost:8799 as midway_traders_trader_1 (trader)
+23:02:32  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+23:02:32  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+23:02:38  DEBUG   Portfolio: net_worth=158017.14
+23:02:38  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+23:02:38  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+23:02:38  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+23:02:39  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+23:02:40  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+23:02:41  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+23:02:42  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+23:02:43  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+23:02:44  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+23:02:45  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+23:02:46  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+23:02:47  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+23:02:48  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+23:02:49  INFO    Session event: CALENDAR — 4 scheduled event(s) this session
+23:02:49  INFO    EVENT  CALENDAR       4 scheduled event(s) this session
+23:02:49  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+23:02:49  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — 4,000 shares at $24.00–28.00; book opens t150, lists t550
+23:02:49  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+23:02:49  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+23:02:49  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+23:02:49  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+23:02:49  INFO    RISK   session reference net worth 158017.14
+23:02:49  INFO    ORDER  sell 5 MSFT @ 416.31 take (notional 2081.55) — starter 1/3, buys blocked by risk limits
+23:02:49  DEBUG   Placed: sell 5 MSFT @ 416.3100
+23:02:49  DEBUG   Ack: sell 5 MSFT @ 416.3100
+23:02:49  INFO    Fill: sold   5 MSFT @ 416.3100 (fee=1.5612)
+23:02:49  INFO    FILL   #1 sell   5 MSFT   @   416.31  notional   2081.55  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+23:02:49  DEBUG   Portfolio: net_worth=158157.20
+23:02:49  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+23:02:52  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+23:02:56  INFO    ORDER  sell 5 NFLX @ 715.11 rest (notional 3575.55) — short 716.35 / long 719.03
+23:02:56  DEBUG   Placed: sell 5 NFLX @ 715.1100
+23:02:56  DEBUG   Ack: sell 5 NFLX @ 715.1100
+23:03:08  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+23:03:08  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+23:03:08  INFO    CANCEL sell 5 NFLX @ 715.11 (quote)
+23:03:09  INFO    ORDER  sell 5 NFLX @ 710.25 rest (notional 3551.25) — short 710.10 / long 713.25
+23:03:09  DEBUG   Placed: sell 5 NFLX @ 710.2500
+23:03:09  DEBUG   Ack: sell 5 NFLX @ 710.2500
+23:03:23  INFO    CANCEL sell 5 NFLX @ 710.25 (quote)
+23:03:23  INFO    ORDER  sell 5 NFLX @ 706.86 rest (notional 3534.30) — short 706.70 / long 709.15
+23:03:23  DEBUG   Placed: sell 5 NFLX @ 706.8600
+23:03:23  DEBUG   Ack: sell 5 NFLX @ 706.8600
+23:03:38  INFO    CANCEL sell 5 NFLX @ 706.86 (quote)
+23:03:38  INFO    ORDER  sell 5 NFLX @ 703.90 rest (notional 3519.50) — short 703.75 / long 705.91
+23:03:38  DEBUG   Placed: sell 5 NFLX @ 703.9000
+23:03:38  DEBUG   Ack: sell 5 NFLX @ 703.9000
+23:05:19  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+23:05:19  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+23:05:19  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+23:05:19  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+23:05:19  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+23:06:39  INFO    Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+23:06:39  INFO    EVENT  CALENDAR       Upcoming: earnings AMZN @ t350
+23:06:39  INFO    EVENT  window AMZN: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+23:08:09  INFO    ORDER  sell 5 INTC @ 25.04 rest (notional 125.20) — short 24.90 / long 24.97
+23:08:09  DEBUG   Placed: sell 5 INTC @ 25.0400
+23:08:09  DEBUG   Ack: sell 5 INTC @ 25.0400
+23:08:40  INFO    Session event: CALENDAR_EVENT — Earnings: AMZN moving +4.7%
+23:08:40  INFO    EVENT  CALENDAR_EVENT Earnings: AMZN moving +4.7%
+23:08:40  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 203.78 in 15s
+23:08:40  INFO    EVENT  AMZN +4.70%: ride edge 3.15% vs round trip 0.30% — RIDE 75 shares: buy up to 199.21, sell at 205.33, stop half the move below entry
+23:08:47  INFO    EVENT  RIDE AMZN done: bought 0, sold 0, gross P&L +0.00
+23:08:55  INFO    ORDER  buy  5 AMZN @ 203.77 rest (notional 1018.85) — event reaction
+23:08:55  INFO    EVENT  AMZN reaction: bid 5 @ 203.77 (settle 203.78)
+23:08:55  DEBUG   Placed: buy 5 AMZN @ 203.7700
+23:08:55  DEBUG   Ack: buy 5 AMZN @ 203.7700

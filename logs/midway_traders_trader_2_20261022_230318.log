@@ -1,0 +1,201 @@
+23:03:18  INFO    Logging to /Users/amywang/algoarena-midway-traders/logs/midway_traders_trader_2_20261022_230318.log
+23:03:18  INFO    Connecting to ws://localhost:8799 (EXCHANGE_URLS from the shell)
+23:03:18  INFO    Connected to ws://localhost:8799 as midway_traders_trader_2 (trader)
+23:03:18  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+23:03:18  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 15.0 bps, maker rebate 10.0 bps
+23:03:18  DEBUG   Portfolio: net_worth=158183.48
+23:03:18  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+23:03:18  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+23:03:18  INFO    Session event: IPO_ANNOUNCE — IPO: Orca Analytics (ORCA) — book opens t150, lists t550
+23:03:18  INFO    EVENT  IPO_ANNOUNCE   IPO: Orca Analytics (ORCA) — book opens t150, lists t550
+23:03:18  INFO    RISK   session reference net worth 158183.48
+23:03:18  INFO    ORDER  sell 5 NFLX @ 709.94 take (notional 3549.70) — starter 1/3, buys blocked by risk limits
+23:03:18  DEBUG   Placed: sell 5 NFLX @ 709.9400
+23:03:18  DEBUG   Ack: sell 5 NFLX @ 709.9400
+23:03:18  INFO    Fill: sold   5 NFLX @ 709.9400 (fee=2.6623)
+23:03:18  INFO    FILL   #1 sell   5 NFLX   @   709.94  notional   3549.70  vs limit +0.0000 (starter 1/3, buys blocked by risk limits, taker)  | bought and held 0, avg entry 0.0000
+23:03:18  DEBUG   Portfolio: net_worth=158169.55
+23:03:38  INFO    RISK   INTC: buy cut to 0 by gross exposure limit
+23:05:05  INFO    RISK   AMD: buy cut to 0 by gross exposure limit
+23:05:19  INFO    Session event: IPO_OPEN — ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+23:05:19  INFO    IPO    ORCA: indicate 200 of 4000 shares up to $28.00 (range $24.00-28.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+23:05:19  INFO    EVENT  IPO_OPEN       ORCA book is OPEN — subscribe with quantity and max price ($24.00–28.00) before t450
+23:05:19  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 ORCA up to $28.00
+23:05:19  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 ORCA up to $28.00
+23:06:11  INFO    RISK   GOOGL: buy cut to 0 by gross exposure limit
+23:06:39  INFO    Session event: CALENDAR — Upcoming: earnings AMZN @ t350
+23:06:39  INFO    EVENT  CALENDAR       Upcoming: earnings AMZN @ t350
+23:06:39  INFO    EVENT  window AMZN: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+23:08:40  INFO    Session event: CALENDAR_EVENT — Earnings: AMZN moving +4.7%
+23:08:40  INFO    EVENT  CALENDAR_EVENT Earnings: AMZN moving +4.7%
+23:08:40  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 203.78 in 15s
+23:08:40  INFO    EVENT  AMZN +4.70%: ride edge 3.15% vs round trip 0.30% — not this seat's leg
+23:08:55  INFO    ORDER  buy  5 AMZN @ 203.77 rest (notional 1018.85) — event reaction
+23:08:55  INFO    EVENT  AMZN reaction: bid 5 @ 203.77 (settle 203.78)
+23:08:55  DEBUG   Placed: buy 5 AMZN @ 203.7700
+23:08:55  DEBUG   Ack: buy 5 AMZN @ 203.7700
+23:09:26  INFO    Fill: bought 5 AMZN @ 203.7700 (fee=0.7641)
+23:09:26  INFO    FILL   #2 buy    5 AMZN   @   203.77  notional   1018.85  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 203.7700
+23:09:26  DEBUG   Portfolio: net_worth=158558.61
+23:09:34  INFO    ORDER  sell 5 AMZN @ 204.61 rest (notional 1023.05) — mid 204.20 / mean 203.61, z +1.75, back at the mean
+23:09:34  DEBUG   Placed: sell 5 AMZN @ 204.6100
+23:09:34  DEBUG   Ack: sell 5 AMZN @ 204.6100
+23:10:09  INFO    Fill: sold   5 AMZN @ 204.6100 (fee=0.7673)
+23:10:09  INFO    FILL   #3 sell   5 AMZN   @   204.61  notional   1023.05  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+23:10:09  DEBUG   Portfolio: net_worth=158552.78
+23:10:20  DEBUG   Portfolio: net_worth=158570.37
+23:10:20  INFO    Session event: IPO_PRICED — ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+23:10:20  INFO    EVENT  IPO_PRICED     ORCA priced at $24.00 — 400 shares subscribed for 4,000 offered; lists t550
+23:10:20  INFO    IPO    ORCA allocation 200 @ 24.00 booked (cost 4800.00): offered at 26.88 once listed, stop 22.08
+23:10:50  INFO    Session event: CALENDAR — Upcoming: dividend AAPL @ t600
+23:10:50  INFO    EVENT  CALENDAR       Upcoming: dividend AAPL @ t600
+23:10:50  INFO    EVENT  window AAPL: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+23:12:00  INFO    Session event: IPO_LISTED — ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+23:12:00  INFO    EVENT  IPO_LISTED     ORCA is now trading — offered at $24.00. Where it belongs is yours to discover.
+23:12:50  DEBUG   Portfolio: net_worth=158597.26
+23:12:50  INFO    Session event: DIVIDEND — AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+23:12:50  INFO    EVENT  DIVIDEND       AAPL pays $0.25/share — longs credited, shorts debited, price marked down ex-dividend
+23:13:04  INFO    ORDER  sell 200 ORCA @ 26.88 rest (notional 5376.00) — ipo exit
+23:13:04  DEBUG   Placed: sell 200 ORCA @ 26.8800
+23:13:04  DEBUG   Ack: sell 200 ORCA @ 26.8800
+23:14:10  INFO    Session event: CALENDAR — Upcoming: earnings GOOGL @ t800
+23:14:10  INFO    EVENT  CALENDAR       Upcoming: earnings GOOGL @ t800
+23:14:10  INFO    EVENT  window GOOGL: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+23:16:11  INFO    Session event: CALENDAR_EVENT — Earnings: GOOGL moving +6.4%
+23:16:11  INFO    EVENT  CALENDAR_EVENT Earnings: GOOGL moving +6.4%
+23:16:11  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 186.19 in 15s
+23:16:11  INFO    EVENT  GOOGL +6.36%: ride edge 4.26% vs round trip 0.30% — not this seat's leg
+23:16:15  INFO    RISK   NVDA: buy cut to 0 by gross exposure limit
+23:16:26  INFO    ORDER  buy  5 GOOGL @ 186.19 rest (notional 930.95) — event reaction
+23:16:26  INFO    EVENT  GOOGL reaction: bid 5 @ 186.19 (settle 186.19)
+23:16:26  DEBUG   Placed: buy 5 GOOGL @ 186.1900
+23:16:26  DEBUG   Ack: buy 5 GOOGL @ 186.1900
+23:20:01  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t1150
+23:20:01  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t1150
+23:20:01  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+23:22:02  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -1.8%
+23:22:02  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -1.8%
+23:22:02  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 218.60 in 15s
+23:22:02  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 407.37 in 15s
+23:22:02  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 126.95 in 15s
+23:22:02  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 276.45 in 15s
+23:22:02  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 200.82 in 15s
+23:22:02  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 181.84 in 15s
+23:22:02  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 568.01 in 15s
+23:22:02  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 707.56 in 15s
+23:22:02  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 161.80 in 15s
+23:22:02  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 21.22 in 15s
+23:22:02  INFO    EVENT  ARENA10 reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 287.14 in 15s
+23:22:02  INFO    EVENT  ORCA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 24.29 in 15s
+23:22:02  INFO    EVENT  AAPL fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  AAPL -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 220.56, buy back after 15s at no more than 218.60
+23:22:02  INFO    EVENT  MSFT fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  MSFT -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 411.03, buy back after 15s at no more than 407.37
+23:22:02  INFO    EVENT  NVDA fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  NVDA -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 128.09, buy back after 15s at no more than 126.95
+23:22:02  INFO    EVENT  TSLA fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  TSLA -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 278.93, buy back after 15s at no more than 276.45
+23:22:02  INFO    EVENT  AMZN fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  AMZN -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 202.62, buy back after 15s at no more than 200.82
+23:22:02  INFO    EVENT  GOOGL fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  GOOGL -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 183.47, buy back after 15s at no more than 181.84
+23:22:02  INFO    EVENT  META fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  META -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 573.11, buy back after 15s at no more than 568.01
+23:22:02  INFO    EVENT  NFLX fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  NFLX -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 15 shares: sell down to 713.91, buy back after 15s at no more than 707.56
+23:22:02  INFO    EVENT  AMD fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  AMD -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 163.25, buy back after 15s at no more than 161.80
+23:22:02  INFO    EVENT  INTC fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  INTC -1.76%: fade edge 1.41% vs round trip 0.30% — FADE 20 shares: sell down to 21.41, buy back after 15s at no more than 21.22
+23:22:02  INFO    EVENT  ARENA10 fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  ARENA10 -1.76%: fade edge 1.41% vs round trip 0.30% — no shares to trade
+23:22:02  INFO    EVENT  ORCA fade-extra leg edge 0.53% — not traded
+23:22:02  INFO    EVENT  ORCA -1.76%: fade edge 1.41% vs round trip 0.30% — no shares to trade
+23:22:02  INFO    Fill: bought 5 GOOGL @ 186.1900 (fee=0.6982)
+23:22:02  INFO    FILL   #4 buy    5 GOOGL  @   186.19  notional    930.95  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 186.1900
+23:22:02  DEBUG   Portfolio: net_worth=158670.63
+23:22:02  INFO    CANCEL sell 200 ORCA @ 26.88 (ipo exit)
+23:22:17  INFO    EVENT  FADE GOOGL done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE AAPL done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE MSFT done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE NVDA done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE TSLA done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE AMZN done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE META done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE AMD done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE INTC done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    EVENT  FADE NFLX done: bought 0, sold 0, gross P&L +0.00
+23:22:17  INFO    ORDER  buy  5 AAPL @ 218.60 rest (notional 1093.00) — event reaction
+23:22:17  INFO    EVENT  AAPL reaction: bid 5 @ 218.60 (settle 218.60)
+23:22:17  DEBUG   Placed: buy 5 AAPL @ 218.6000
+23:22:17  DEBUG   Ack: buy 5 AAPL @ 218.6000
+23:22:17  INFO    ORDER  buy  5 MSFT @ 407.37 rest (notional 2036.85) — event reaction
+23:22:17  INFO    EVENT  MSFT reaction: bid 5 @ 407.37 (settle 407.37)
+23:22:17  DEBUG   Placed: buy 5 MSFT @ 407.3700
+23:22:17  DEBUG   Ack: buy 5 MSFT @ 407.3700
+23:22:17  INFO    ORDER  buy  5 NVDA @ 126.94 rest (notional 634.70) — event reaction
+23:22:17  INFO    EVENT  NVDA reaction: bid 5 @ 126.94 (settle 126.95)
+23:22:17  DEBUG   Placed: buy 5 NVDA @ 126.9400
+23:22:17  DEBUG   Ack: buy 5 NVDA @ 126.9400
+23:22:17  INFO    ORDER  buy  5 TSLA @ 276.44 rest (notional 1382.20) — event reaction
+23:22:17  INFO    EVENT  TSLA reaction: bid 5 @ 276.44 (settle 276.45)
+23:22:17  DEBUG   Placed: buy 5 TSLA @ 276.4400
+23:22:17  DEBUG   Ack: buy 5 TSLA @ 276.4400
+23:22:17  INFO    ORDER  buy  5 AMZN @ 200.81 rest (notional 1004.05) — event reaction
+23:22:17  INFO    EVENT  AMZN reaction: bid 5 @ 200.81 (settle 200.82)
+23:22:17  DEBUG   Placed: buy 5 AMZN @ 200.8100
+23:22:17  DEBUG   Ack: buy 5 AMZN @ 200.8100
+23:22:17  INFO    ORDER  buy  5 GOOGL @ 181.83 rest (notional 909.15) — event reaction
+23:22:17  INFO    EVENT  GOOGL reaction: bid 5 @ 181.83 (settle 181.84)
+23:22:17  DEBUG   Placed: buy 5 GOOGL @ 181.8300
+23:22:17  DEBUG   Ack: buy 5 GOOGL @ 181.8300
+23:22:17  INFO    ORDER  buy  5 META @ 568.01 rest (notional 2840.05) — event reaction
+23:22:17  INFO    EVENT  META reaction: bid 5 @ 568.01 (settle 568.01)
+23:22:17  DEBUG   Placed: buy 5 META @ 568.0100
+23:22:17  DEBUG   Ack: buy 5 META @ 568.0100
+23:22:18  INFO    ORDER  buy  5 NFLX @ 707.55 rest (notional 3537.75) — event reaction
+23:22:18  INFO    EVENT  NFLX reaction: bid 5 @ 707.55 (settle 707.56)
+23:22:18  DEBUG   Placed: buy 5 NFLX @ 707.5500
+23:22:18  DEBUG   Ack: buy 5 NFLX @ 707.5500
+23:22:18  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:18  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:18  INFO    ORDER  buy  5 AMD @ 161.80 rest (notional 809.00) — event reaction
+23:22:18  INFO    EVENT  AMD reaction: bid 5 @ 161.80 (settle 161.80)
+23:22:18  DEBUG   Placed: buy 5 AMD @ 161.8000
+23:22:18  DEBUG   Ack: buy 5 AMD @ 161.8000
+23:22:18  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:18  INFO    ORDER  buy  5 INTC @ 21.21 rest (notional 106.05) — event reaction
+23:22:18  INFO    EVENT  INTC reaction: bid 5 @ 21.21 (settle 21.22)
+23:22:18  DEBUG   Placed: buy 5 INTC @ 21.2100
+23:22:18  DEBUG   Ack: buy 5 INTC @ 21.2100
+23:22:18  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:18  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:18  INFO    ORDER  buy  5 ARENA10 @ 287.13 rest (notional 1435.65) — event reaction
+23:22:18  INFO    EVENT  ARENA10 reaction: bid 5 @ 287.13 (settle 287.14)
+23:22:18  DEBUG   Placed: buy 5 ARENA10 @ 287.1300
+23:22:18  WARNING REJECT #1 FUTURES_LOCKED ARENA10: ARENA10 is not tradeable yet — the index future lists in week 9 (currently week 4)
+23:22:18  WARNING Exchange error [FUTURES_LOCKED]: ARENA10 is not tradeable yet — the index future lists in week 9 (currently week 4)
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  INFO    CANCEL buy 5 GOOGL @ 181.83 (reaction)
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  WARNING RISK   stop-loss GOOGL: bid 181.83 is 2.34% below average entry 186.1900
+23:22:19  INFO    ORDER  sell 5 GOOGL @ 181.83 take (notional 909.15) — stop-loss
+23:22:19  DEBUG   Placed: sell 5 GOOGL @ 181.8300
+23:22:19  DEBUG   Ack: sell 5 GOOGL @ 181.8300
+23:22:19  INFO    Fill: sold   5 GOOGL @ 181.8300 (fee=0.6819)
+23:22:19  INFO    FILL   #5 sell   5 GOOGL  @   181.83  notional    909.15  vs limit +0.0000 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+23:22:19  DEBUG   Portfolio: net_worth=157513.83
+23:22:47  WARNING EVENT  ORCA reaction: expired after 45s, no order sent
+23:23:07  INFO    Fill: bought 5 NFLX @ 707.5500 (fee=2.6533)
+23:23:07  INFO    FILL   #6 buy    5 NFLX   @   707.55  notional   3537.75  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 707.5500
+23:23:07  DEBUG   Portfolio: net_worth=157964.89
+23:23:07  INFO    RISK   NFLX: buy cut to 0 by gross exposure limit
+23:23:18  INFO    ORDER  sell 5 NFLX @ 703.71 rest (notional 3518.55) — mid 703.89 / mean 703.50, z +4.29, back at the mean
+23:23:18  DEBUG   Placed: sell 5 NFLX @ 703.7100
+23:23:18  DEBUG   Ack: sell 5 NFLX @ 703.7100
+23:23:23  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+23:23:23  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
