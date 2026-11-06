@@ -34,17 +34,24 @@ allocations put the team at 400.
 The closing auction takes limit orders only, and all our orders are
 limits. Nothing in the bots needed changing for it.
 
+From this block the house venue charges 40 bp to take and pays no maker
+rebate (it was 30 / 5). The seats read the new schedule from
+`FEE_SCHEDULE` on connect, so event legs now need about 50 bp of edge before
+they trade. Trader_1's crossover is slowed from 5/20 to 10/40 mids: replayed
+at the new fees, 5/20 lost $699 against doing nothing on the Session 5 tape,
+while 10/40 was ahead on both the Week 5 and Week 3 tapes.
+
 **Event schedule (Chicago):**
 
-| Time     | Tick | Event                                     |
-| -------- | ---- | ----------------------------------------- |
-| 15:42:42 | t150 | VLTA bookbuild opens                      |
-| 15:44:22 | t250 | INTC earnings, 3–8%                       |
-| 15:47:12 | t420 | VLTA bookbuild closes and is priced       |
-| 15:48:52 | t520 | VLTA lists                                |
-| 15:50:12 | t600 | MSFT earnings, 3–7%                       |
-| 15:53:32 | t800 | NVDA dividend, $0.30 a share              |
-| 15:56:02 | t950 | econ print, market-wide, 1.5–3%           |
+| Time     | Tick | Event                               |
+| -------- | ---- | ----------------------------------- |
+| 15:42:42 | t150 | VLTA bookbuild opens                |
+| 15:44:22 | t250 | INTC earnings, 3–8%                 |
+| 15:47:12 | t420 | VLTA bookbuild closes and is priced |
+| 15:48:52 | t520 | VLTA lists                          |
+| 15:50:12 | t600 | MSFT earnings, 3–7%                 |
+| 15:53:32 | t800 | NVDA dividend, $0.30 a share        |
+| 15:56:02 | t950 | econ print, market-wide, 1.5–3%     |
 
 Direction is unknown for all of them.
 
@@ -80,12 +87,19 @@ start the seats directly:
 
        make momentum
        make meanrev
-       make broker
+       make broker EXCHANGE_URLS=wss://feed.algoarena-st.duckdns.org,wss://feed-8773.algoarena-st.duckdns.org
+
+   The broker quotes on the house venue and on 3-sigma's venue, which pays
+   makers 6 bp (the house venue now pays nothing). 3-sigma funds a quarter of
+   the broker's capital. The traders stay on the house venue, where the VLTA
+   bookbuild runs. If 3-sigma's venue misbehaves, restart the broker with
+   plain `make broker`.
 
    Start the seats before the teacher opens the session. They connect, then
    wait for `SESSION_OPEN`.
 
-4. Check that each terminal prints `Connected to wss://... as <seat id>`.
+4. Check that each terminal prints `Connected to wss://... as <seat id>`
+   (the broker prints it twice, once for each venue).
 
 **During the block**
 
