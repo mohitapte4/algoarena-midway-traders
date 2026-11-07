@@ -1,0 +1,1887 @@
+13:42:50  INFO    Logging to C:\Users\mohit\Desktop\UChicago\Autumn Quarter 2026\Systematic Trading Technologies\algoarena-midway-traders\logs\midway_traders_trader_1_20261106_134250.log
+13:42:50  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from .env — set EXCHANGE_HOST=localhost for local play)
+13:42:51  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+13:42:51  INFO    BOOKS  seeded from venue (leaderboard t2435531): cash 408820.19, positions AAPL 58, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35
+13:42:51  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+13:42:51  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+13:42:51  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+13:42:51  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+13:42:51  INFO    ORDER  buy  5 AAPL @ 218.80 take (notional 1094.00) — starter 1/3
+13:42:51  DEBUG   Placed: buy 5 AAPL @ 218.8000
+13:42:51  DEBUG   Ack: buy 5 AAPL @ 218.8000
+13:42:51  INFO    Fill: bought 5 AAPL @ 218.8000 (fee=2.1880)
+13:42:51  INFO    FILL   #1 buy    5 AAPL   @   218.80  notional   1094.00  vs limit +0.0000 (starter 1/3, taker)  | bought and held 5, avg entry 218.8000
+13:42:51  DEBUG   Portfolio: net_worth=409728.93
+13:42:52  INFO    RISK   session reference net worth 409728.93
+14:01:24  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:01:35  WARNING trader midway_traders_trader_1: cannot connect (TimeoutError: timed out during opening handshake) — reconnecting in 1.8s (attempt 2)
+14:01:37  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:01:37  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2436645: BREAK
+14:01:37  WARNING RECON    item                           own         venue        diff
+14:01:37  WARNING RECON    positions held                  10            10           0  ok
+14:01:37  WARNING RECON    pos AAPL                        63            63           0  ok
+14:01:37  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:01:37  WARNING RECON    pos AMZN                        21            21           0  ok
+14:01:37  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:01:37  WARNING RECON    pos META                        -9            -9           0  ok
+14:01:37  WARNING RECON    pos MSFT                        37            37           0  ok
+14:01:37  WARNING RECON    pos NFLX                         6             6           0  ok
+14:01:37  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:01:37  WARNING RECON    pos ORCA                       171           171           0  ok
+14:01:37  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:01:37  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:01:37  WARNING RECON    cash                    407,721.81    407,721.82        0.01  BREAK  diff is interest on idle cash
+14:01:37  WARNING RECON    interest (est)              909.63          0.01     -909.62  rate x cash x ticks
+14:01:37  WARNING BOOKS  rebased on the venue (leaderboard t2436645): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 1
+14:01:37  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:01:37  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:01:37  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:01:37  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:04:25  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.9s (attempt 1)
+14:04:27  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:04:27  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2436812: BREAK
+14:04:27  WARNING RECON    item                           own         venue        diff
+14:04:27  WARNING RECON    positions held                  10            10           0  ok
+14:04:27  WARNING RECON    pos AAPL                        63            63           0  ok
+14:04:27  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:04:27  WARNING RECON    pos AMZN                        21            21           0  ok
+14:04:27  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:04:27  WARNING RECON    pos META                        -9            -9           0  ok
+14:04:27  WARNING RECON    pos MSFT                        37            37           0  ok
+14:04:27  WARNING RECON    pos NFLX                         6             6           0  ok
+14:04:27  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:04:27  WARNING RECON    pos ORCA                       171           171           0  ok
+14:04:27  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:04:27  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:04:27  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:04:27  WARNING RECON    interest (est)              136.18          0.00     -136.18  rate x cash x ticks
+14:04:27  WARNING BOOKS  rebased on the venue (leaderboard t2436812): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 2
+14:04:27  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:04:27  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:04:27  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:04:27  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:07:10  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:07:11  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:07:11  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2436975: BREAK
+14:07:11  WARNING RECON    item                           own         venue        diff
+14:07:11  WARNING RECON    positions held                  10            10           0  ok
+14:07:11  WARNING RECON    pos AAPL                        63            63           0  ok
+14:07:11  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:07:11  WARNING RECON    pos AMZN                        21            21           0  ok
+14:07:11  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:07:11  WARNING RECON    pos META                        -9            -9           0  ok
+14:07:11  WARNING RECON    pos MSFT                        37            37           0  ok
+14:07:11  WARNING RECON    pos NFLX                         6             6           0  ok
+14:07:11  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:07:11  WARNING RECON    pos ORCA                       171           171           0  ok
+14:07:11  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:07:11  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:07:11  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:07:11  WARNING RECON    interest (est)              132.92          0.00     -132.92  rate x cash x ticks
+14:07:11  WARNING BOOKS  rebased on the venue (leaderboard t2436975): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 3
+14:07:11  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:07:11  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:07:11  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:07:11  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:10:15  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.8s (attempt 1)
+14:10:16  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:10:16  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2437157: BREAK
+14:10:16  WARNING RECON    item                           own         venue        diff
+14:10:16  WARNING RECON    positions held                  10            10           0  ok
+14:10:16  WARNING RECON    pos AAPL                        63            63           0  ok
+14:10:16  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:10:16  WARNING RECON    pos AMZN                        21            21           0  ok
+14:10:16  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:10:16  WARNING RECON    pos META                        -9            -9           0  ok
+14:10:16  WARNING RECON    pos MSFT                        37            37           0  ok
+14:10:16  WARNING RECON    pos NFLX                         6             6           0  ok
+14:10:16  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:10:16  WARNING RECON    pos ORCA                       171           171           0  ok
+14:10:16  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:10:16  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:10:16  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:10:16  WARNING RECON    interest (est)              148.41          0.00     -148.41  rate x cash x ticks
+14:10:16  WARNING BOOKS  rebased on the venue (leaderboard t2437157): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 4
+14:10:16  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:10:16  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:10:16  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:10:16  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:10:30  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 2.2s (attempt 2)
+14:10:33  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:10:33  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2437174: BREAK
+14:10:33  WARNING RECON    item                           own         venue        diff
+14:10:33  WARNING RECON    positions held                  10            10           0  ok
+14:10:33  WARNING RECON    pos AAPL                        63            63           0  ok
+14:10:33  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:10:33  WARNING RECON    pos AMZN                        21            21           0  ok
+14:10:33  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:10:33  WARNING RECON    pos META                        -9            -9           0  ok
+14:10:33  WARNING RECON    pos MSFT                        37            37           0  ok
+14:10:33  WARNING RECON    pos NFLX                         6             6           0  ok
+14:10:33  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:10:33  WARNING RECON    pos ORCA                       171           171           0  ok
+14:10:33  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:10:33  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:10:33  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:10:33  WARNING RECON    interest (est)               13.86          0.00      -13.86  rate x cash x ticks
+14:10:33  WARNING BOOKS  rebased on the venue (leaderboard t2437174): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 5
+14:10:33  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:10:33  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:10:33  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:10:33  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:13:33  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.0s (attempt 1)
+14:13:34  WARNING trader midway_traders_trader_1: cannot connect (gaierror: [Errno 11001] getaddrinfo failed) — reconnecting in 2.0s (attempt 2)
+14:13:36  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:13:36  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2437356: BREAK
+14:13:36  WARNING RECON    item                           own         venue        diff
+14:13:36  WARNING RECON    positions held                  10            10           0  ok
+14:13:36  WARNING RECON    pos AAPL                        63            63           0  ok
+14:13:36  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:13:36  WARNING RECON    pos AMZN                        21            21           0  ok
+14:13:36  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:13:36  WARNING RECON    pos META                        -9            -9           0  ok
+14:13:36  WARNING RECON    pos MSFT                        37            37           0  ok
+14:13:36  WARNING RECON    pos NFLX                         6             6           0  ok
+14:13:36  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:13:36  WARNING RECON    pos ORCA                       171           171           0  ok
+14:13:36  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:13:36  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:13:36  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:13:36  WARNING RECON    interest (est)              148.41          0.00     -148.41  rate x cash x ticks
+14:13:36  WARNING BOOKS  rebased on the venue (leaderboard t2437356): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 6
+14:13:36  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:13:36  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:13:36  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:13:36  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:15:00  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.0s (attempt 1)
+14:15:01  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:15:01  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2437441: BREAK
+14:15:01  WARNING RECON    item                           own         venue        diff
+14:15:01  WARNING RECON    positions held                  10            10           0  ok
+14:15:01  WARNING RECON    pos AAPL                        63            63           0  ok
+14:15:02  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:15:02  WARNING RECON    pos AMZN                        21            21           0  ok
+14:15:02  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:15:02  WARNING RECON    pos META                        -9            -9           0  ok
+14:15:02  WARNING RECON    pos MSFT                        37            37           0  ok
+14:15:02  WARNING RECON    pos NFLX                         6             6           0  ok
+14:15:02  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:15:02  WARNING RECON    pos ORCA                       171           171           0  ok
+14:15:02  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:15:02  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:15:02  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:15:02  WARNING RECON    interest (est)               69.31          0.00      -69.31  rate x cash x ticks
+14:15:02  WARNING BOOKS  rebased on the venue (leaderboard t2437441): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 7
+14:15:02  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:15:02  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:15:02  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:15:02  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:18:00  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:18:02  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:18:02  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2437619: BREAK
+14:18:02  WARNING RECON    item                           own         venue        diff
+14:18:02  WARNING RECON    positions held                  10            10           0  ok
+14:18:02  WARNING RECON    pos AAPL                        63            63           0  ok
+14:18:02  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:18:02  WARNING RECON    pos AMZN                        21            21           0  ok
+14:18:02  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:18:02  WARNING RECON    pos META                        -9            -9           0  ok
+14:18:02  WARNING RECON    pos MSFT                        37            37           0  ok
+14:18:02  WARNING RECON    pos NFLX                         6             6           0  ok
+14:18:02  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:18:02  WARNING RECON    pos ORCA                       171           171           0  ok
+14:18:02  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:18:02  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:18:02  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:18:02  WARNING RECON    interest (est)              145.15          0.00     -145.15  rate x cash x ticks
+14:18:02  WARNING BOOKS  rebased on the venue (leaderboard t2437619): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 8
+14:18:02  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:18:02  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:18:02  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:18:02  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:24:54  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.8s (attempt 1)
+14:24:55  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:24:55  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2438027: BREAK
+14:24:55  WARNING RECON    item                           own         venue        diff
+14:24:55  WARNING RECON    positions held                  10            10           0  ok
+14:24:55  WARNING RECON    pos AAPL                        63            63           0  ok
+14:24:55  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:24:55  WARNING RECON    pos AMZN                        21            21           0  ok
+14:24:55  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:24:55  WARNING RECON    pos META                        -9            -9           0  ok
+14:24:55  WARNING RECON    pos MSFT                        37            37           0  ok
+14:24:55  WARNING RECON    pos NFLX                         6             6           0  ok
+14:24:55  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:24:55  WARNING RECON    pos ORCA                       171           171           0  ok
+14:24:55  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:24:55  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:24:55  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:24:55  WARNING RECON    interest (est)              332.70          0.00     -332.70  rate x cash x ticks
+14:24:55  WARNING BOOKS  rebased on the venue (leaderboard t2438027): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 9
+14:24:55  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:24:55  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:24:55  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:24:55  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:27:54  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.0s (attempt 1)
+14:27:55  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:27:56  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2438207: BREAK
+14:27:56  WARNING RECON    item                           own         venue        diff
+14:27:56  WARNING RECON    positions held                  10            10           0  ok
+14:27:56  WARNING RECON    pos AAPL                        63            63           0  ok
+14:27:56  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:27:56  WARNING RECON    pos AMZN                        21            21           0  ok
+14:27:56  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:27:56  WARNING RECON    pos META                        -9            -9           0  ok
+14:27:56  WARNING RECON    pos MSFT                        37            37           0  ok
+14:27:56  WARNING RECON    pos NFLX                         6             6           0  ok
+14:27:56  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:27:56  WARNING RECON    pos ORCA                       171           171           0  ok
+14:27:56  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:27:56  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:27:56  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:27:56  WARNING RECON    interest (est)              146.78          0.00     -146.78  rate x cash x ticks
+14:27:56  WARNING BOOKS  rebased on the venue (leaderboard t2438207): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 10
+14:27:56  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:27:56  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:27:56  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:27:56  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:40:28  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.9s (attempt 1)
+14:40:29  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:40:29  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2438953: BREAK
+14:40:29  WARNING RECON    item                           own         venue        diff
+14:40:29  WARNING RECON    positions held                  10            10           0  ok
+14:40:29  WARNING RECON    pos AAPL                        63            63           0  ok
+14:40:29  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:40:29  WARNING RECON    pos AMZN                        21            21           0  ok
+14:40:29  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:40:29  WARNING RECON    pos META                        -9            -9           0  ok
+14:40:29  WARNING RECON    pos MSFT                        37            37           0  ok
+14:40:29  WARNING RECON    pos NFLX                         6             6           0  ok
+14:40:29  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:40:29  WARNING RECON    pos ORCA                       171           171           0  ok
+14:40:29  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:40:29  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:40:29  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:40:29  WARNING RECON    interest (est)              608.32          0.00     -608.32  rate x cash x ticks
+14:40:29  WARNING BOOKS  rebased on the venue (leaderboard t2438953): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 11
+14:40:29  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:40:29  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:40:29  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:40:29  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:43:23  INFO    ORDER  sell 5 AMD @ 210.38 rest (notional 1051.90) — short 210.38 / long 211.58
+14:43:23  DEBUG   Placed: sell 5 AMD @ 210.3800
+14:43:23  DEBUG   Ack: sell 5 AMD @ 210.3800
+14:43:27  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:43:29  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:43:29  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2439131: BREAK
+14:43:29  WARNING RECON    item                           own         venue        diff
+14:43:29  WARNING RECON    positions held                  10            10           0  ok
+14:43:29  WARNING RECON    pos AAPL                        63            63           0  ok
+14:43:29  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:43:29  WARNING RECON    pos AMZN                        21            21           0  ok
+14:43:29  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:43:29  WARNING RECON    pos META                        -9            -9           0  ok
+14:43:29  WARNING RECON    pos MSFT                        37            37           0  ok
+14:43:29  WARNING RECON    pos NFLX                         6             6           0  ok
+14:43:29  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:43:29  WARNING RECON    pos ORCA                       171           171           0  ok
+14:43:29  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:43:29  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:43:29  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:43:29  WARNING RECON    interest (est)              145.15          0.00     -145.15  rate x cash x ticks
+14:43:29  WARNING BOOKS  rebased on the venue (leaderboard t2439131): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 12
+14:43:29  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:43:29  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:43:29  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:43:29  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:43:57  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 2.0s (attempt 2)
+14:43:59  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:44:00  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2439161: BREAK
+14:44:00  WARNING RECON    item                           own         venue        diff
+14:44:00  WARNING RECON    positions held                  10            10           0  ok
+14:44:00  WARNING RECON    pos AAPL                        63            63           0  ok
+14:44:00  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:44:00  WARNING RECON    pos AMZN                        21            21           0  ok
+14:44:00  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:44:00  WARNING RECON    pos META                        -9            -9           0  ok
+14:44:00  WARNING RECON    pos MSFT                        37            37           0  ok
+14:44:00  WARNING RECON    pos NFLX                         6             6           0  ok
+14:44:00  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:44:00  WARNING RECON    pos ORCA                       171           171           0  ok
+14:44:00  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:44:00  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:44:00  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:44:00  WARNING RECON    interest (est)               24.46          0.00      -24.46  rate x cash x ticks
+14:44:00  WARNING BOOKS  rebased on the venue (leaderboard t2439161): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 13
+14:44:00  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:44:00  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:44:00  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:44:00  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:46:57  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+14:46:58  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:46:59  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2439338: BREAK
+14:46:59  WARNING RECON    item                           own         venue        diff
+14:46:59  WARNING RECON    positions held                  10            10           0  ok
+14:46:59  WARNING RECON    pos AAPL                        63            63           0  ok
+14:46:59  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:46:59  WARNING RECON    pos AMZN                        21            21           0  ok
+14:46:59  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:46:59  WARNING RECON    pos META                        -9            -9           0  ok
+14:46:59  WARNING RECON    pos MSFT                        37            37           0  ok
+14:46:59  WARNING RECON    pos NFLX                         6             6           0  ok
+14:46:59  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:46:59  WARNING RECON    pos ORCA                       171           171           0  ok
+14:46:59  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:46:59  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:46:59  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:46:59  WARNING RECON    interest (est)              144.33          0.00     -144.33  rate x cash x ticks
+14:46:59  WARNING BOOKS  rebased on the venue (leaderboard t2439338): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 14
+14:46:59  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:46:59  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:46:59  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:46:59  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+14:52:48  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.8s (attempt 1)
+14:52:49  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+14:52:49  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2439683: BREAK
+14:52:49  WARNING RECON    item                           own         venue        diff
+14:52:49  WARNING RECON    positions held                  10            10           0  ok
+14:52:49  WARNING RECON    pos AAPL                        63            63           0  ok
+14:52:49  WARNING RECON    pos AMD                        -50           -50           0  ok
+14:52:49  WARNING RECON    pos AMZN                        21            21           0  ok
+14:52:49  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+14:52:49  WARNING RECON    pos META                        -9            -9           0  ok
+14:52:49  WARNING RECON    pos MSFT                        37            37           0  ok
+14:52:49  WARNING RECON    pos NFLX                         6             6           0  ok
+14:52:49  WARNING RECON    pos NVDA                       -53           -53           0  ok
+14:52:49  WARNING RECON    pos ORCA                       171           171           0  ok
+14:52:49  WARNING RECON    pos TSLA                       -35           -35           0  ok
+14:52:49  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+14:52:49  WARNING RECON    cash                    407,721.82    407,721.82        0.00  BREAK  diff is interest on idle cash
+14:52:49  WARNING RECON    interest (est)              281.33          0.00     -281.33  rate x cash x ticks
+14:52:49  WARNING BOOKS  rebased on the venue (leaderboard t2439683): cash 407721.82, positions AAPL 63, AMD -50, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 15
+14:52:49  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:52:49  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+14:52:49  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+14:52:49  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+15:20:24  INFO    ORDER  buy  5 AMD @ 211.15 rest (notional 1055.75) — short 209.07 / long 207.96
+15:20:24  DEBUG   Placed: buy 5 AMD @ 211.1500
+15:20:24  DEBUG   Ack: buy 5 AMD @ 211.1500
+15:20:26  INFO    CANCEL buy 5 AMD @ 211.15 (quote)
+15:20:26  INFO    ORDER  buy  5 AMD @ 211.91 rest (notional 1059.55) — short 210.94 / long 208.42
+15:20:26  DEBUG   Placed: buy 5 AMD @ 211.9100
+15:20:26  DEBUG   Ack: buy 5 AMD @ 211.9100
+15:20:28  INFO    CANCEL buy 5 AMD @ 211.91 (quote)
+15:20:28  INFO    ORDER  buy  5 AMD @ 212.61 rest (notional 1063.05) — short 211.38 / long 208.56
+15:20:28  DEBUG   Placed: buy 5 AMD @ 212.6100
+15:20:28  DEBUG   Ack: buy 5 AMD @ 212.6100
+15:20:30  INFO    CANCEL buy 5 AMD @ 212.61 (quote)
+15:20:30  INFO    ORDER  buy  5 AMD @ 212.99 rest (notional 1064.95) — short 211.85 / long 208.70
+15:20:30  DEBUG   Placed: buy 5 AMD @ 212.9900
+15:20:30  DEBUG   Ack: buy 5 AMD @ 212.9900
+15:20:32  INFO    CANCEL buy 5 AMD @ 212.99 (quote)
+15:20:32  INFO    ORDER  buy  5 AMD @ 213.68 rest (notional 1068.40) — short 212.27 / long 208.87
+15:20:32  DEBUG   Placed: buy 5 AMD @ 213.6800
+15:20:32  DEBUG   Ack: buy 5 AMD @ 213.6800
+15:20:33  INFO    ORDER  buy  5 INTC @ 17.04 rest (notional 85.20) — short 16.99 / long 16.90
+15:20:33  DEBUG   Placed: buy 5 INTC @ 17.0400
+15:20:33  DEBUG   Ack: buy 5 INTC @ 17.0400
+15:20:34  INFO    CANCEL buy 5 AMD @ 213.68 (quote)
+15:20:34  INFO    CANCEL buy 5 INTC @ 17.04 (quote)
+15:20:34  INFO    ORDER  buy  5 AMD @ 214.28 rest (notional 1071.40) — short 212.70 / long 209.05
+15:20:34  DEBUG   Placed: buy 5 AMD @ 214.2800
+15:20:34  DEBUG   Ack: buy 5 AMD @ 214.2800
+15:20:34  INFO    ORDER  buy  5 INTC @ 17.06 rest (notional 85.30) — short 17.01 / long 16.91
+15:20:34  DEBUG   Placed: buy 5 INTC @ 17.0600
+15:20:34  DEBUG   Ack: buy 5 INTC @ 17.0600
+15:20:36  INFO    CANCEL buy 5 AMD @ 214.28 (quote)
+15:20:36  INFO    ORDER  buy  5 AMD @ 214.75 rest (notional 1073.75) — short 213.13 / long 209.24
+15:20:36  DEBUG   Placed: buy 5 AMD @ 214.7500
+15:20:36  DEBUG   Ack: buy 5 AMD @ 214.7500
+15:20:38  INFO    CANCEL buy 5 AMD @ 214.75 (quote)
+15:20:38  INFO    CANCEL buy 5 INTC @ 17.06 (quote)
+15:20:38  INFO    ORDER  buy  5 AMD @ 215.11 rest (notional 1075.55) — short 213.54 / long 209.44
+15:20:38  DEBUG   Placed: buy 5 AMD @ 215.1100
+15:20:38  DEBUG   Ack: buy 5 AMD @ 215.1100
+15:20:39  INFO    ORDER  buy  5 INTC @ 17.12 rest (notional 85.60) — short 17.04 / long 16.92
+15:20:39  DEBUG   Placed: buy 5 INTC @ 17.1200
+15:20:39  DEBUG   Ack: buy 5 INTC @ 17.1200
+15:20:44  INFO    CANCEL buy 5 INTC @ 17.12 (quote)
+15:20:45  INFO    ORDER  buy  5 INTC @ 17.14 rest (notional 85.70) — short 17.10 / long 16.94
+15:20:45  DEBUG   Placed: buy 5 INTC @ 17.1400
+15:20:45  DEBUG   Ack: buy 5 INTC @ 17.1400
+15:20:48  INFO    CANCEL buy 5 INTC @ 17.14 (quote)
+15:20:49  INFO    ORDER  buy  5 INTC @ 17.16 rest (notional 85.80) — short 17.13 / long 16.96
+15:20:49  DEBUG   Placed: buy 5 INTC @ 17.1600
+15:20:49  DEBUG   Ack: buy 5 INTC @ 17.1600
+15:21:00  INFO    Fill: bought 5 AMD @ 215.1100 (fee=2.1511)
+15:21:00  INFO    FILL   #2 buy    5 AMD    @   215.11  notional   1075.55  vs limit +0.0000 (quote, maker)  | bought and held 5, avg entry 215.1100
+15:21:00  DEBUG   Portfolio: net_worth=408924.47
+15:21:01  INFO    ORDER  buy  5 AMD @ 215.10 rest (notional 1075.50) — short 215.49 / long 211.82
+15:21:01  DEBUG   Placed: buy 5 AMD @ 215.1000
+15:21:01  DEBUG   Ack: buy 5 AMD @ 215.1000
+15:21:07  INFO    CANCEL buy 5 AMD @ 215.10 (quote)
+15:21:07  INFO    CANCEL buy 5 INTC @ 17.16 (quote)
+15:21:08  INFO    ORDER  buy  5 AMD @ 215.57 rest (notional 1077.85) — short 215.52 / long 212.62
+15:21:08  DEBUG   Placed: buy 5 AMD @ 215.5700
+15:21:08  DEBUG   Ack: buy 5 AMD @ 215.5700
+15:21:08  INFO    ORDER  buy  5 INTC @ 17.18 rest (notional 85.90) — short 17.17 / long 17.03
+15:21:08  DEBUG   Placed: buy 5 INTC @ 17.1800
+15:21:08  DEBUG   Ack: buy 5 INTC @ 17.1800
+15:21:20  INFO    CANCEL buy 5 AMD @ 215.57 (quote)
+15:21:20  INFO    ORDER  buy  5 AMD @ 215.95 rest (notional 1079.75) — short 215.70 / long 213.85
+15:21:20  DEBUG   Placed: buy 5 AMD @ 215.9500
+15:21:20  DEBUG   Ack: buy 5 AMD @ 215.9500
+15:21:28  INFO    CANCEL buy 5 INTC @ 17.18 (quote)
+15:21:32  INFO    CANCEL buy 5 AMD @ 215.95 (quote)
+15:29:11  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 0.9s (attempt 1)
+15:29:22  WARNING trader midway_traders_trader_1: cannot connect (TimeoutError: timed out during opening handshake) — reconnecting in 1.6s (attempt 2)
+15:29:24  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+15:29:24  WARNING RECON  midway_traders_trader_1 reconnect check vs leaderboard t2441849: BREAK
+15:29:24  WARNING RECON    item                           own         venue        diff
+15:29:24  WARNING RECON    positions held                  10            10           0  ok
+15:29:24  WARNING RECON    pos AAPL                        63            63           0  ok
+15:29:24  WARNING RECON    pos AMD                        -45           -45           0  ok
+15:29:24  WARNING RECON    pos AMZN                        21            21           0  ok
+15:29:24  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+15:29:24  WARNING RECON    pos META                        -9            -9           0  ok
+15:29:24  WARNING RECON    pos MSFT                        37            37           0  ok
+15:29:24  WARNING RECON    pos NFLX                         6             6           0  ok
+15:29:24  WARNING RECON    pos NVDA                       -53           -53           0  ok
+15:29:24  WARNING RECON    pos ORCA                       171           171           0  ok
+15:29:24  WARNING RECON    pos TSLA                       -35           -35           0  ok
+15:29:24  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+15:29:24  WARNING RECON    cash                    406,646.27    406,646.27        0.00  BREAK  diff is interest on idle cash
+15:29:24  WARNING RECON    interest (est)            1,763.92          0.00   -1,763.92  rate x cash x ticks
+15:29:24  WARNING BOOKS  rebased on the venue (leaderboard t2441849): cash 406646.27, positions AAPL 63, AMD -45, AMZN 21, GOOGL -30, META -9, MSFT 37, NFLX 6, NVDA -53, ORCA 171, TSLA -35, rebase 16
+15:29:24  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+15:29:24  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+15:29:24  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+15:29:24  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+15:30:00  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+15:30:00  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+15:30:00  WARNING RECON  midway_traders_trader_1 close vs leaderboard t2441884 (2 fills, 16 rebases): BREAK
+15:30:00  WARNING RECON    item                           own         venue        diff
+15:30:00  WARNING RECON    positions held                  10            10           0  ok
+15:30:00  WARNING RECON    pos AAPL                        63            63           0  ok
+15:30:00  WARNING RECON    pos AMD                        -45           -45           0  ok
+15:30:00  WARNING RECON    pos AMZN                        21            21           0  ok
+15:30:00  WARNING RECON    pos GOOGL                      -30           -30           0  ok
+15:30:00  WARNING RECON    pos META                        -9            -9           0  ok
+15:30:00  WARNING RECON    pos MSFT                        37            37           0  ok
+15:30:00  WARNING RECON    pos NFLX                         6             6           0  ok
+15:30:00  WARNING RECON    pos NVDA                       -53           -53           0  ok
+15:30:00  WARNING RECON    pos ORCA                       171           171           0  ok
+15:30:00  WARNING RECON    pos TSLA                       -35           -35           0  ok
+15:30:00  WARNING RECON    fees                        454.28        454.28        0.00  ok
+15:30:00  WARNING RECON    rebates                     240.34        240.34        0.00  ok
+15:30:00  WARNING RECON    realized                -12,008.40    -12,008.40        0.00  ok
+15:30:00  WARNING RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+15:30:00  WARNING RECON    cash                    406,646.27    406,646.27        0.00  BREAK  diff is interest on idle cash
+15:30:00  WARNING RECON    interest (est)               28.47          0.00      -28.47  rate x cash x ticks
+15:30:00  WARNING RECON    net worth               408,637.05    408,637.05        0.00  
+15:30:00  WARNING RECON    P&L since t2441849           -2.13         -2.13        0.00  
+15:30:20  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:30:20  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:30:20  INFO    Session event: CALENDAR — No scheduled events this session
+15:30:20  INFO    EVENT  CALENDAR       No scheduled events this session
+15:31:23  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:31:23  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:31:23  INFO    Session event: CALENDAR — No scheduled events this session
+15:31:23  INFO    EVENT  CALENDAR       No scheduled events this session
+15:32:59  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:32:59  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:32:59  INFO    Session event: CALENDAR — No scheduled events this session
+15:32:59  INFO    EVENT  CALENDAR       No scheduled events this session
+15:34:34  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:34:34  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:34:34  INFO    Session event: CALENDAR — No scheduled events this session
+15:34:34  INFO    EVENT  CALENDAR       No scheduled events this session
+15:36:09  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:36:09  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:36:09  INFO    Session event: CALENDAR — No scheduled events this session
+15:36:09  INFO    EVENT  CALENDAR       No scheduled events this session
+15:37:45  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:37:45  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:37:45  INFO    Session event: CALENDAR — No scheduled events this session
+15:37:45  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:20  INFO    Session event: WEEK_CHANGED — Week 6: Scenario tournament — the whole market at once
+15:39:20  INFO    EVENT  WEEK_CHANGED   Week 6: Scenario tournament — the whole market at once
+15:39:28  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:28  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:09  DEBUG   Portfolio: net_worth=424317.08
+15:40:09  INFO    BOOKS  starting grant AAPL 6, AMD 6, AMZN 6, GOOGL 6, INTC 6, META 6, MSFT 6, NFLX 6, NVDA 6, ORCA 6, TSLA 6 (quantities from the venue's positions)
+15:40:09  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:09  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:09  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+15:40:10  INFO    BOOKS  entry prices from the leaderboard t2442413: INTC 24.5490
+15:40:10  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+15:40:11  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+15:40:13  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+15:40:14  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+15:40:15  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+15:40:16  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+15:40:18  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+15:40:19  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+15:40:20  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+15:40:21  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+15:40:23  INFO    Session event: TRADING_HALT — Trading halted on NFLX: NFLX session-band halt: 29.9% from open (threshold 25.0%)
+15:40:23  INFO    EVENT  TRADING_HALT   Trading halted on NFLX: NFLX session-band halt: 29.9% from open (threshold 25.0%)
+15:40:23  INFO    Session event: TRADING_HALT — Trading halted on AMD: AMD session-band halt: 27.8% from open (threshold 25.0%)
+15:40:23  INFO    EVENT  TRADING_HALT   Trading halted on AMD: AMD session-band halt: 27.8% from open (threshold 25.0%)
+15:40:23  INFO    Session event: CALENDAR — No scheduled events this session
+15:40:23  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:23  INFO    Session event: IPO_ANNOUNCE — IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+15:40:23  INFO    EVENT  IPO_ANNOUNCE   IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+15:40:23  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+15:40:23  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+15:40:23  INFO    ORDER  buy  5 TSLA @ 270.99 rest (notional 1354.95) — short 273.14 / long 268.88
+15:40:23  DEBUG   Placed: buy 5 TSLA @ 270.9900
+15:40:23  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+15:40:23  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+15:40:23  DEBUG   Ack: buy 5 TSLA @ 270.9900
+15:40:24  INFO    Fill: bought 2 TSLA @ 270.9900 (fee=1.0840)
+15:40:24  INFO    FILL   #3 buy    2 TSLA   @   270.99  notional    541.98  vs limit +0.0000 (quote, maker)  | bought and held 2, avg entry 270.9900
+15:40:24  DEBUG   Portfolio: net_worth=424613.09
+15:40:24  INFO    CANCEL buy 3 TSLA @ 270.99 (quote)
+15:40:28  INFO    ORDER  sell 5 TSLA @ 269.25 rest (notional 1346.25) — short 270.07 / long 271.62
+15:40:28  DEBUG   Placed: sell 5 TSLA @ 269.2500
+15:40:28  DEBUG   Ack: sell 5 TSLA @ 269.2500
+15:40:28  INFO    CANCEL sell 5 TSLA @ 269.25 (quote)
+15:40:29  INFO    ORDER  sell 5 TSLA @ 268.98 rest (notional 1344.90) — short 269.66 / long 271.95
+15:40:29  DEBUG   Placed: sell 5 TSLA @ 268.9800
+15:40:29  DEBUG   Ack: sell 5 TSLA @ 268.9800
+15:40:29  INFO    CANCEL sell 5 TSLA @ 268.98 (quote)
+15:40:30  INFO    ORDER  sell 5 TSLA @ 268.15 rest (notional 1340.75) — short 268.95 / long 272.38
+15:40:30  DEBUG   Placed: sell 5 TSLA @ 268.1500
+15:40:30  DEBUG   Ack: sell 5 TSLA @ 268.1500
+15:40:31  INFO    CANCEL sell 5 TSLA @ 268.15 (quote)
+15:40:31  INFO    ORDER  sell 5 TSLA @ 267.88 rest (notional 1339.40) — short 268.64 / long 271.95
+15:40:31  DEBUG   Placed: sell 5 TSLA @ 267.8800
+15:40:31  DEBUG   Ack: sell 5 TSLA @ 267.8800
+15:40:32  INFO    CANCEL sell 5 TSLA @ 267.88 (quote)
+15:40:33  INFO    ORDER  sell 5 TSLA @ 267.23 rest (notional 1336.15) — short 267.98 / long 271.09
+15:40:33  DEBUG   Placed: sell 5 TSLA @ 267.2300
+15:40:33  DEBUG   Ack: sell 5 TSLA @ 267.2300
+15:40:33  INFO    CANCEL sell 5 TSLA @ 267.23 (quote)
+15:40:34  INFO    ORDER  sell 5 TSLA @ 266.09 rest (notional 1330.45) — short 267.30 / long 270.18
+15:40:34  DEBUG   Placed: sell 5 TSLA @ 266.0900
+15:40:34  DEBUG   Ack: sell 5 TSLA @ 266.0900
+15:40:34  INFO    CANCEL sell 5 TSLA @ 266.09 (quote)
+15:40:35  INFO    ORDER  sell 5 TSLA @ 266.09 rest (notional 1330.45) — short 267.08 / long 269.94
+15:40:35  DEBUG   Placed: sell 5 TSLA @ 266.0900
+15:40:35  DEBUG   Ack: sell 5 TSLA @ 266.0900
+15:40:35  INFO    CANCEL sell 5 TSLA @ 266.09 (quote)
+15:40:36  INFO    ORDER  sell 5 TSLA @ 265.82 rest (notional 1329.10) — short 266.66 / long 269.48
+15:40:36  DEBUG   Placed: sell 5 TSLA @ 265.8200
+15:40:36  DEBUG   Ack: sell 5 TSLA @ 265.8200
+15:40:36  INFO    CANCEL sell 5 TSLA @ 265.82 (quote)
+15:40:36  INFO    ORDER  sell 5 TSLA @ 265.73 rest (notional 1328.65) — short 266.12 / long 268.87
+15:40:36  DEBUG   Placed: sell 5 TSLA @ 265.7300
+15:40:36  DEBUG   Ack: sell 5 TSLA @ 265.7300
+15:40:36  INFO    CANCEL sell 5 TSLA @ 265.73 (quote)
+15:40:37  INFO    ORDER  sell 5 TSLA @ 265.31 rest (notional 1326.55) — short 265.58 / long 268.32
+15:40:37  DEBUG   Placed: sell 5 TSLA @ 265.3100
+15:40:37  DEBUG   Ack: sell 5 TSLA @ 265.3100
+15:40:37  INFO    CANCEL sell 5 TSLA @ 265.31 (quote)
+15:40:38  INFO    ORDER  sell 5 TSLA @ 264.86 rest (notional 1324.30) — short 265.44 / long 268.15
+15:40:38  DEBUG   Placed: sell 5 TSLA @ 264.8600
+15:40:38  DEBUG   Ack: sell 5 TSLA @ 264.8600
+15:40:38  INFO    CANCEL sell 5 TSLA @ 264.86 (quote)
+15:40:38  INFO    ORDER  sell 5 TSLA @ 264.69 rest (notional 1323.45) — short 265.15 / long 267.82
+15:40:38  DEBUG   Placed: sell 5 TSLA @ 264.6900
+15:40:38  DEBUG   Ack: sell 5 TSLA @ 264.6900
+15:40:38  INFO    CANCEL sell 5 TSLA @ 264.69 (quote)
+15:40:39  INFO    ORDER  sell 5 TSLA @ 264.33 rest (notional 1321.65) — short 264.98 / long 267.65
+15:40:39  DEBUG   Placed: sell 5 TSLA @ 264.3300
+15:40:39  DEBUG   Ack: sell 5 TSLA @ 264.3300
+15:40:39  INFO    CANCEL sell 5 TSLA @ 264.33 (quote)
+15:40:40  INFO    ORDER  sell 5 TSLA @ 264.19 rest (notional 1320.95) — short 264.66 / long 267.29
+15:40:40  DEBUG   Placed: sell 5 TSLA @ 264.1900
+15:40:40  DEBUG   Ack: sell 5 TSLA @ 264.1900
+15:40:40  INFO    CANCEL sell 5 TSLA @ 264.19 (quote)
+15:40:40  INFO    Session event: TRADING_HALT — Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:40:40  INFO    EVENT  TRADING_HALT   Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:42:50  INFO    Session event: CALENDAR — Upcoming: earnings INTC @ t250
+15:42:50  INFO    EVENT  CALENDAR       Upcoming: earnings INTC @ t250
+15:42:50  INFO    EVENT  window INTC: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:43:15  INFO    Session event: IPO_OPEN — VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+15:43:15  INFO    IPO    VLTA: indicate 200 of 3500 shares up to $34.00 (range $30.00-34.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+15:43:15  INFO    EVENT  IPO_OPEN       VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+15:43:15  INFO    Session event: IPO_SUB_RESULT — indication recorded: 200 VLTA up to $34.00
+15:43:15  INFO    EVENT  IPO_SUB_RESULT indication recorded: 200 VLTA up to $34.00
+15:45:16  INFO    Session event: CALENDAR_EVENT — Earnings: INTC moving -5.8%
+15:45:16  INFO    EVENT  CALENDAR_EVENT Earnings: INTC moving -5.8%
+15:45:16  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 16.25 in 15s
+15:45:16  INFO    EVENT  INTC fade-extra leg edge 1.74% — not traded
+15:45:16  INFO    EVENT  INTC -5.81%: fade edge 4.65% vs round trip 0.80% — FADE 106 shares: sell down to 16.75, buy back after 15s at no more than 16.25
+15:45:16  INFO    ORDER  sell 60 INTC @ 16.75 take (notional 1005.00) — fade sell
+15:45:16  DEBUG   Placed: sell 60 INTC @ 16.7500
+15:45:16  DEBUG   Ack: sell 60 INTC @ 16.7500
+15:45:23  INFO    Session event: TRADING_RESUMED — Trading resumed on NFLX
+15:45:23  INFO    EVENT  TRADING_RESUMED Trading resumed on NFLX
+15:45:23  INFO    Session event: TRADING_RESUMED — Trading resumed on AMD
+15:45:23  INFO    EVENT  TRADING_RESUMED Trading resumed on AMD
+15:45:27  INFO    Session event: TRADING_HALT — Trading halted on INTC: INTC velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:45:27  INFO    EVENT  TRADING_HALT   Trading halted on INTC: INTC velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:45:31  INFO    CANCEL sell 60 INTC @ 16.75 (fade sell)
+15:45:31  INFO    ORDER  buy  5 AMD @ 213.85 rest (notional 1069.25) — short 213.83 / long 212.70
+15:45:31  DEBUG   Placed: buy 5 AMD @ 213.8500
+15:45:31  DEBUG   Ack: buy 5 AMD @ 213.8500
+15:45:32  INFO    EVENT  FADE INTC done: bought 0, sold 0, gross P&L +0.00
+15:45:33  INFO    Session event: SSR_ON — INTC is now under the short-sale rule — shorts must add liquidity above the bid
+15:45:33  INFO    EVENT  SSR_ON         INTC is now under the short-sale rule — shorts must add liquidity above the bid
+15:45:40  INFO    Session event: TRADING_RESUMED — Trading resumed on TSLA
+15:45:40  INFO    EVENT  TRADING_RESUMED Trading resumed on TSLA
+15:45:46  INFO    CANCEL buy 5 AMD @ 213.85 (quote)
+15:45:46  INFO    Fill: bought 1 AMD @ 213.8500 (fee=0.4277)
+15:45:46  INFO    FILL   #4 buy    1 AMD    @   213.85  notional    213.85  vs limit +0.0000 (quote, maker)  | bought and held 6, avg entry 214.9000
+15:45:46  DEBUG   Portfolio: net_worth=424691.05
+15:45:47  INFO    ORDER  sell 5 TSLA @ 259.62 rest (notional 1298.10) — short 260.88 / long 262.91
+15:45:47  DEBUG   Placed: sell 5 TSLA @ 259.6200
+15:45:47  DEBUG   Ack: sell 5 TSLA @ 259.6200
+15:45:47  INFO    CANCEL sell 5 TSLA @ 259.62 (quote)
+15:45:48  INFO    ORDER  sell 5 TSLA @ 259.62 rest (notional 1298.10) — short 260.16 / long 262.60
+15:45:48  DEBUG   Placed: sell 5 TSLA @ 259.6200
+15:45:48  DEBUG   Ack: sell 5 TSLA @ 259.6200
+15:45:48  INFO    CANCEL sell 5 TSLA @ 259.62 (quote)
+15:45:48  INFO    ORDER  sell 5 TSLA @ 259.01 rest (notional 1295.05) — short 259.74 / long 262.49
+15:45:48  DEBUG   Placed: sell 5 TSLA @ 259.0100
+15:45:49  DEBUG   Ack: sell 5 TSLA @ 259.0100
+15:45:49  INFO    CANCEL sell 5 TSLA @ 259.01 (quote)
+15:45:49  INFO    ORDER  sell 5 TSLA @ 258.56 rest (notional 1292.80) — short 258.97 / long 261.86
+15:45:49  DEBUG   Placed: sell 5 TSLA @ 258.5600
+15:45:49  DEBUG   Ack: sell 5 TSLA @ 258.5600
+15:45:50  INFO    CANCEL sell 5 TSLA @ 258.56 (quote)
+15:45:50  INFO    ORDER  sell 5 TSLA @ 258.10 rest (notional 1290.50) — short 258.84 / long 261.72
+15:45:50  DEBUG   Placed: sell 5 TSLA @ 258.1000
+15:45:50  DEBUG   Ack: sell 5 TSLA @ 258.1000
+15:45:50  INFO    CANCEL sell 5 TSLA @ 258.10 (quote)
+15:45:51  INFO    ORDER  sell 5 TSLA @ 258.10 rest (notional 1290.50) — short 258.69 / long 261.58
+15:45:51  DEBUG   Placed: sell 5 TSLA @ 258.1000
+15:45:52  DEBUG   Ack: sell 5 TSLA @ 258.1000
+15:45:52  INFO    CANCEL sell 5 TSLA @ 258.10 (quote)
+15:45:52  INFO    ORDER  sell 5 TSLA @ 258.10 rest (notional 1290.50) — short 258.17 / long 260.89
+15:45:52  DEBUG   Placed: sell 5 TSLA @ 258.1000
+15:45:52  DEBUG   Ack: sell 5 TSLA @ 258.1000
+15:45:52  INFO    CANCEL sell 5 TSLA @ 258.10 (quote)
+15:45:53  INFO    ORDER  sell 5 TSLA @ 257.98 rest (notional 1289.90) — short 258.11 / long 260.75
+15:45:53  DEBUG   Placed: sell 5 TSLA @ 257.9800
+15:45:53  DEBUG   Ack: sell 5 TSLA @ 257.9800
+15:45:53  INFO    CANCEL sell 5 TSLA @ 257.98 (quote)
+15:45:53  INFO    ORDER  sell 5 TSLA @ 257.59 rest (notional 1287.95) — short 257.94 / long 260.17
+15:45:53  DEBUG   Placed: sell 5 TSLA @ 257.5900
+15:45:54  DEBUG   Ack: sell 5 TSLA @ 257.5900
+15:45:54  INFO    CANCEL sell 5 TSLA @ 257.59 (quote)
+15:45:54  INFO    ORDER  sell 5 TSLA @ 257.59 rest (notional 1287.95) — short 257.94 / long 260.17
+15:45:54  DEBUG   Placed: sell 5 TSLA @ 257.5900
+15:45:54  DEBUG   Ack: sell 5 TSLA @ 257.5900
+15:45:55  INFO    CANCEL sell 5 TSLA @ 257.59 (quote)
+15:45:55  INFO    ORDER  sell 5 TSLA @ 256.74 rest (notional 1283.70) — short 257.49 / long 259.50
+15:45:55  DEBUG   Placed: sell 5 TSLA @ 256.7400
+15:45:55  DEBUG   Ack: sell 5 TSLA @ 256.7400
+15:45:55  INFO    CANCEL sell 5 TSLA @ 256.74 (quote)
+15:45:56  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 257.29 / long 259.32
+15:45:56  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:45:56  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:45:56  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:45:56  INFO    Session event: SSR_ON — TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+15:45:56  INFO    EVENT  SSR_ON         TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+15:45:56  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 257.29 / long 259.32
+15:45:56  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:45:58  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:45:58  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:45:59  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 257.10 / long 259.13
+15:45:59  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:45:59  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:45:59  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:45:59  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 256.91 / long 258.94
+15:45:59  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:45:59  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:45:59  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:46:00  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 256.74 / long 258.76
+15:46:00  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:46:00  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:46:00  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:46:01  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 256.74 / long 258.76
+15:46:01  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:46:01  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:46:01  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:46:02  INFO    ORDER  sell 5 TSLA @ 256.08 rest (notional 1280.40) — short 256.57 / long 258.57
+15:46:02  DEBUG   Placed: sell 5 TSLA @ 256.0800
+15:46:02  DEBUG   Ack: sell 5 TSLA @ 256.0800
+15:46:02  INFO    CANCEL sell 5 TSLA @ 256.08 (quote)
+15:46:02  INFO    ORDER  sell 5 TSLA @ 254.73 rest (notional 1273.65) — short 256.23 / long 258.36
+15:46:02  DEBUG   Placed: sell 5 TSLA @ 254.7300
+15:46:03  DEBUG   Ack: sell 5 TSLA @ 254.7300
+15:46:03  INFO    CANCEL sell 5 TSLA @ 254.73 (quote)
+15:46:03  INFO    ORDER  sell 5 TSLA @ 254.73 rest (notional 1273.65) — short 256.23 / long 258.36
+15:46:03  DEBUG   Placed: sell 5 TSLA @ 254.7300
+15:46:04  DEBUG   Ack: sell 5 TSLA @ 254.7300
+15:46:04  INFO    CANCEL sell 5 TSLA @ 254.73 (quote)
+15:46:05  INFO    ORDER  sell 5 TSLA @ 253.64 rest (notional 1268.20) — short 255.81 / long 258.13
+15:46:05  DEBUG   Placed: sell 5 TSLA @ 253.6400
+15:46:05  DEBUG   Ack: sell 5 TSLA @ 253.6400
+15:46:05  INFO    CANCEL sell 5 TSLA @ 253.64 (quote)
+15:46:05  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 254.90 / long 257.65
+15:46:05  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:05  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:05  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:06  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 254.47 / long 257.38
+15:46:06  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:06  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:06  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:07  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 254.47 / long 257.38
+15:46:07  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:07  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:07  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:07  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 254.04 / long 257.19
+15:46:07  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:07  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:08  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:08  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 253.59 / long 256.99
+15:46:08  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:08  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:08  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:09  INFO    ORDER  sell 5 TSLA @ 252.09 rest (notional 1260.45) — short 253.14 / long 256.80
+15:46:09  DEBUG   Placed: sell 5 TSLA @ 252.0900
+15:46:10  DEBUG   Ack: sell 5 TSLA @ 252.0900
+15:46:10  INFO    CANCEL sell 5 TSLA @ 252.09 (quote)
+15:46:10  INFO    ORDER  sell 5 TSLA @ 251.69 rest (notional 1258.45) — short 252.14 / long 256.39
+15:46:10  DEBUG   Placed: sell 5 TSLA @ 251.6900
+15:46:10  DEBUG   Ack: sell 5 TSLA @ 251.6900
+15:46:10  INFO    CANCEL sell 5 TSLA @ 251.69 (quote)
+15:46:11  INFO    ORDER  sell 5 TSLA @ 250.51 rest (notional 1252.55) — short 251.75 / long 256.15
+15:46:11  DEBUG   Placed: sell 5 TSLA @ 250.5100
+15:46:11  DEBUG   Ack: sell 5 TSLA @ 250.5100
+15:46:11  INFO    CANCEL sell 5 TSLA @ 250.51 (quote)
+15:46:12  INFO    ORDER  sell 5 TSLA @ 250.26 rest (notional 1251.30) — short 251.42 / long 255.91
+15:46:12  DEBUG   Placed: sell 5 TSLA @ 250.2600
+15:46:13  DEBUG   Ack: sell 5 TSLA @ 250.2600
+15:46:13  INFO    CANCEL sell 5 TSLA @ 250.26 (quote)
+15:46:13  INFO    ORDER  sell 5 TSLA @ 249.97 rest (notional 1249.85) — short 251.13 / long 255.67
+15:46:13  DEBUG   Placed: sell 5 TSLA @ 249.9700
+15:46:13  DEBUG   Ack: sell 5 TSLA @ 249.9700
+15:46:13  INFO    CANCEL sell 5 TSLA @ 249.97 (quote)
+15:46:14  INFO    ORDER  sell 5 TSLA @ 249.76 rest (notional 1248.80) — short 250.84 / long 255.43
+15:46:14  DEBUG   Placed: sell 5 TSLA @ 249.7600
+15:46:14  DEBUG   Ack: sell 5 TSLA @ 249.7600
+15:46:14  INFO    CANCEL sell 5 TSLA @ 249.76 (quote)
+15:46:14  INFO    ORDER  sell 5 TSLA @ 249.76 rest (notional 1248.80) — short 250.54 / long 255.18
+15:46:14  DEBUG   Placed: sell 5 TSLA @ 249.7600
+15:46:14  DEBUG   Ack: sell 5 TSLA @ 249.7600
+15:46:15  INFO    CANCEL sell 5 TSLA @ 249.76 (quote)
+15:46:15  INFO    ORDER  sell 5 TSLA @ 249.76 rest (notional 1248.80) — short 250.54 / long 255.18
+15:46:15  DEBUG   Placed: sell 5 TSLA @ 249.7600
+15:46:15  DEBUG   Ack: sell 5 TSLA @ 249.7600
+15:46:15  INFO    CANCEL sell 5 TSLA @ 249.76 (quote)
+15:46:16  INFO    ORDER  sell 5 TSLA @ 248.38 rest (notional 1241.90) — short 250.17 / long 254.92
+15:46:16  DEBUG   Placed: sell 5 TSLA @ 248.3800
+15:46:16  WARNING REJECT #1 SSR_RESTRICTED TSLA: TSLA is under the short-sale rule (down 6% from open) — shorts must be limit orders priced above the best bid
+15:46:16  WARNING Exchange error [SSR_RESTRICTED]: TSLA is under the short-sale rule (down 6% from open) — shorts must be limit orders priced above the best bid
+15:46:19  INFO    Session event: TRADING_HALT — Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:46:19  INFO    EVENT  TRADING_HALT   Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+15:47:35  INFO    ORDER  sell 5 AMD @ 212.19 rest (notional 1060.95) — short 212.45 / long 213.52
+15:47:35  DEBUG   Placed: sell 5 AMD @ 212.1900
+15:47:35  DEBUG   Ack: sell 5 AMD @ 212.1900
+15:47:36  INFO    CANCEL sell 5 AMD @ 212.19 (quote)
+15:47:37  INFO    ORDER  sell 5 AMD @ 211.88 rest (notional 1059.40) — short 212.27 / long 213.40
+15:47:37  DEBUG   Placed: sell 5 AMD @ 211.8800
+15:47:37  DEBUG   Ack: sell 5 AMD @ 211.8800
+15:47:37  INFO    CANCEL sell 5 AMD @ 211.88 (quote)
+15:47:38  INFO    ORDER  sell 5 AMD @ 211.54 rest (notional 1057.70) — short 212.08 / long 213.28
+15:47:38  DEBUG   Placed: sell 5 AMD @ 211.5400
+15:47:38  DEBUG   Ack: sell 5 AMD @ 211.5400
+15:47:38  INFO    CANCEL sell 5 AMD @ 211.54 (quote)
+15:47:39  INFO    ORDER  sell 5 AMD @ 211.54 rest (notional 1057.70) — short 211.98 / long 213.21
+15:47:39  DEBUG   Placed: sell 5 AMD @ 211.5400
+15:47:39  DEBUG   Ack: sell 5 AMD @ 211.5400
+15:47:39  INFO    CANCEL sell 5 AMD @ 211.54 (quote)
+15:47:39  INFO    ORDER  sell 5 AMD @ 211.54 rest (notional 1057.70) — short 211.98 / long 213.21
+15:47:39  DEBUG   Placed: sell 5 AMD @ 211.5400
+15:47:40  DEBUG   Ack: sell 5 AMD @ 211.5400
+15:47:40  INFO    CANCEL sell 5 AMD @ 211.54 (quote)
+15:47:41  INFO    ORDER  sell 5 AMD @ 211.38 rest (notional 1056.90) — short 211.87 / long 213.14
+15:47:41  DEBUG   Placed: sell 5 AMD @ 211.3800
+15:47:41  DEBUG   Ack: sell 5 AMD @ 211.3800
+15:47:41  INFO    CANCEL sell 5 AMD @ 211.38 (quote)
+15:47:41  INFO    ORDER  sell 5 AMD @ 211.27 rest (notional 1056.35) — short 211.75 / long 213.06
+15:47:41  DEBUG   Placed: sell 5 AMD @ 211.2700
+15:47:42  DEBUG   Ack: sell 5 AMD @ 211.2700
+15:47:42  INFO    CANCEL sell 5 AMD @ 211.27 (quote)
+15:47:42  INFO    ORDER  sell 5 AMD @ 211.27 rest (notional 1056.35) — short 211.63 / long 212.99
+15:47:42  DEBUG   Placed: sell 5 AMD @ 211.2700
+15:47:43  DEBUG   Ack: sell 5 AMD @ 211.2700
+15:47:43  INFO    CANCEL sell 5 AMD @ 211.27 (quote)
+15:47:43  INFO    ORDER  sell 5 AMD @ 211.11 rest (notional 1055.55) — short 211.50 / long 212.91
+15:47:43  DEBUG   Placed: sell 5 AMD @ 211.1100
+15:47:43  DEBUG   Ack: sell 5 AMD @ 211.1100
+15:47:44  INFO    CANCEL sell 5 AMD @ 211.11 (quote)
+15:47:44  INFO    ORDER  sell 5 AMD @ 211.88 rest (notional 1059.40) — short 211.42 / long 212.84
+15:47:44  DEBUG   Placed: sell 5 AMD @ 211.8800
+15:47:44  DEBUG   Ack: sell 5 AMD @ 211.8800
+15:47:44  INFO    CANCEL sell 5 AMD @ 211.88 (quote)
+15:47:45  INFO    ORDER  sell 5 AMD @ 211.88 rest (notional 1059.40) — short 211.36 / long 212.77
+15:47:45  DEBUG   Placed: sell 5 AMD @ 211.8800
+15:47:45  DEBUG   Ack: sell 5 AMD @ 211.8800
+15:47:45  INFO    CANCEL sell 5 AMD @ 211.88 (quote)
+15:47:45  INFO    ORDER  sell 5 AMD @ 211.88 rest (notional 1059.40) — short 211.36 / long 212.77
+15:47:45  DEBUG   Placed: sell 5 AMD @ 211.8800
+15:47:50  INFO    ORDER  sell 5 AMD @ 211.88 rest (notional 1059.40) — short 211.36 / long 212.77
+15:47:50  DEBUG   Placed: sell 5 AMD @ 211.8800
+15:47:55  DEBUG   Ack: sell 5 AMD @ 211.8800
+15:47:55  DEBUG   Ack: sell 5 AMD @ 211.8800
+15:47:55  INFO    CANCEL sell 5 AMD @ 211.88 (quote)
+15:47:55  INFO    ORDER  sell 5 AMD @ 211.47 rest (notional 1057.35) — short 211.24 / long 212.49
+15:47:55  DEBUG   Placed: sell 5 AMD @ 211.4700
+15:47:55  DEBUG   Ack: sell 5 AMD @ 211.4700
+15:47:55  INFO    CANCEL sell 5 AMD @ 211.47 (quote)
+15:47:56  INFO    ORDER  sell 5 AMD @ 211.47 rest (notional 1057.35) — short 211.24 / long 212.49
+15:47:56  DEBUG   Placed: sell 5 AMD @ 211.4700
+15:47:56  DEBUG   Ack: sell 5 AMD @ 211.4700
+15:47:56  INFO    CANCEL sell 5 AMD @ 211.47 (quote)
+15:47:57  INFO    ORDER  sell 5 AMD @ 211.19 rest (notional 1055.95) — short 211.23 / long 212.42
+15:47:57  DEBUG   Placed: sell 5 AMD @ 211.1900
+15:47:57  DEBUG   Ack: sell 5 AMD @ 211.1900
+15:47:57  INFO    CANCEL sell 5 AMD @ 211.19 (quote)
+15:47:58  INFO    ORDER  sell 5 AMD @ 211.19 rest (notional 1055.95) — short 211.22 / long 212.34
+15:47:58  DEBUG   Placed: sell 5 AMD @ 211.1900
+15:47:58  DEBUG   Ack: sell 5 AMD @ 211.1900
+15:47:58  INFO    CANCEL sell 5 AMD @ 211.19 (quote)
+15:47:59  INFO    ORDER  sell 5 AMD @ 211.19 rest (notional 1055.95) — short 211.21 / long 212.27
+15:47:59  DEBUG   Placed: sell 5 AMD @ 211.1900
+15:47:59  DEBUG   Ack: sell 5 AMD @ 211.1900
+15:47:59  INFO    CANCEL sell 5 AMD @ 211.19 (quote)
+15:48:45  DEBUG   Portfolio: net_worth=425161.35
+15:48:45  INFO    BOOKS  IPO VLTA +86 @ 34.00 (quantity from the venue's position)
+15:48:45  INFO    Session event: IPO_PRICED — VLTA priced at $34.00 — 8,282 shares subscribed for 3,500 offered; lists t520
+15:48:45  INFO    EVENT  IPO_PRICED     VLTA priced at $34.00 — 8,282 shares subscribed for 3,500 offered; lists t520
+15:48:45  INFO    IPO    VLTA allocation 86 @ 34.00 booked (cost 2924.00): offered at 38.08 once listed, stop 31.28
+15:49:58  INFO    Session event: CALENDAR — Upcoming: earnings MSFT @ t600
+15:49:58  INFO    EVENT  CALENDAR       Upcoming: earnings MSFT @ t600
+15:49:58  INFO    EVENT  window MSFT: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:50:28  INFO    Session event: TRADING_RESUMED — Trading resumed on INTC
+15:50:28  INFO    EVENT  TRADING_RESUMED Trading resumed on INTC
+15:50:35  INFO    ORDER  buy  5 INTC @ 16.35 rest (notional 81.75) — short 16.33 / long 16.13
+15:50:35  DEBUG   Placed: buy 5 INTC @ 16.3500
+15:50:35  DEBUG   Ack: buy 5 INTC @ 16.3500
+15:50:35  INFO    CANCEL buy 5 INTC @ 16.35 (quote)
+15:50:35  INFO    Fill: bought 1 INTC @ 16.3500 (fee=0.0327)
+15:50:35  INFO    FILL   #5 buy    1 INTC   @    16.35  notional     16.35  vs limit +0.0000 (quote, maker)  | bought and held 1, avg entry 16.3500
+15:50:35  DEBUG   Portfolio: net_worth=425146.76
+15:50:35  INFO    Fill: bought 4 INTC @ 16.3500 (fee=0.1308)
+15:50:35  INFO    FILL   #6 buy    4 INTC   @    16.35  notional     65.40  vs limit +0.0000 (quote, maker)  | bought and held 5, avg entry 16.3500
+15:50:35  DEBUG   Portfolio: net_worth=425146.13
+15:50:36  INFO    CANCEL ORDER_NOT_FOUND: Order 'd11e9766-24ff-47b1-8488-a515bff8008b' not found or not owned by midway_traders_trader_1
+15:50:36  WARNING Exchange error [ORDER_NOT_FOUND]: Order 'd11e9766-24ff-47b1-8488-a515bff8008b' not found or not owned by midway_traders_trader_1
+15:50:36  INFO    ORDER  buy  5 INTC @ 16.30 rest (notional 81.50) — short 16.37 / long 16.20
+15:50:36  DEBUG   Placed: buy 5 INTC @ 16.3000
+15:50:36  DEBUG   Ack: buy 5 INTC @ 16.3000
+15:50:36  INFO    Fill: bought 5 INTC @ 16.3000 (fee=0.1630)
+15:50:36  INFO    FILL   #7 buy    5 INTC   @    16.30  notional     81.50  vs limit +0.0000 (quote, maker)  | bought and held 10, avg entry 16.3250
+15:50:36  DEBUG   Portfolio: net_worth=425145.59
+15:50:36  INFO    ORDER  buy  5 INTC @ 16.38 rest (notional 81.90) — short 16.34 / long 16.25
+15:50:36  DEBUG   Placed: buy 5 INTC @ 16.3800
+15:50:36  DEBUG   Ack: buy 5 INTC @ 16.3800
+15:50:37  INFO    CANCEL buy 5 INTC @ 16.38 (quote)
+15:50:39  INFO    ORDER  buy  5 INTC @ 16.48 rest (notional 82.40) — short 16.50 / long 16.41
+15:50:39  DEBUG   Placed: buy 5 INTC @ 16.4800
+15:50:39  DEBUG   Ack: buy 5 INTC @ 16.4800
+15:50:41  INFO    CANCEL buy 5 INTC @ 16.48 (quote)
+15:50:41  INFO    ORDER  buy  5 INTC @ 16.50 rest (notional 82.50) — short 16.52 / long 16.43
+15:50:41  DEBUG   Placed: buy 5 INTC @ 16.5000
+15:50:41  DEBUG   Ack: buy 5 INTC @ 16.5000
+15:50:47  INFO    CANCEL buy 5 INTC @ 16.50 (quote)
+15:50:48  INFO    ORDER  buy  5 INTC @ 16.61 rest (notional 83.05) — short 16.59 / long 16.48
+15:50:48  DEBUG   Placed: buy 5 INTC @ 16.6100
+15:50:48  DEBUG   Ack: buy 5 INTC @ 16.6100
+15:50:50  INFO    Session event: IPO_LISTED — VLTA is now trading — offered at $34.00. Where it belongs is yours to discover.
+15:50:50  INFO    EVENT  IPO_LISTED     VLTA is now trading — offered at $34.00. Where it belongs is yours to discover.
+15:50:50  INFO    ORDER  sell 86 VLTA @ 36.38 rest (notional 3128.68) — ipo exit
+15:50:50  DEBUG   Placed: sell 86 VLTA @ 36.3800
+15:50:50  DEBUG   Ack: sell 86 VLTA @ 36.3800
+15:50:54  INFO    CANCEL buy 5 INTC @ 16.61 (quote)
+15:50:56  INFO    Fill: sold   5 AMD @ 211.8800 (fee=2.1188)
+15:50:56  INFO    FILL   #8 sell   5 AMD    @   211.88  notional   1059.40  | bought and held 1, avg entry 214.9000, short 5 avg 211.8800
+15:50:56  DEBUG   Portfolio: net_worth=425079.69
+15:51:20  INFO    Session event: TRADING_RESUMED — Trading resumed on TSLA
+15:51:20  INFO    EVENT  TRADING_RESUMED Trading resumed on TSLA
+15:51:41  INFO    ORDER  buy  5 INTC @ 16.79 rest (notional 83.95) — short 16.79 / long 16.70
+15:51:41  DEBUG   Placed: buy 5 INTC @ 16.7900
+15:51:41  DEBUG   Ack: buy 5 INTC @ 16.7900
+15:51:42  INFO    CANCEL buy 5 INTC @ 16.79 (quote)
+15:51:42  INFO    ORDER  buy  5 INTC @ 16.93 rest (notional 84.65) — short 16.83 / long 16.72
+15:51:42  DEBUG   Placed: buy 5 INTC @ 16.9300
+15:51:42  DEBUG   Ack: buy 5 INTC @ 16.9300
+15:51:42  INFO    Fill: bought 1 INTC @ 16.9300 (fee=0.0339)
+15:51:42  INFO    FILL   #9 buy    1 INTC   @    16.93  notional     16.93  vs limit +0.0000 (quote, maker)  | bought and held 11, avg entry 16.3800
+15:51:42  DEBUG   Portfolio: net_worth=425229.95
+15:51:43  INFO    Fill: bought 4 INTC @ 16.9300 (fee=0.1354)
+15:51:43  INFO    FILL   #10 buy    4 INTC   @    16.93  notional     67.72  vs limit +0.0000 (quote, maker)  | bought and held 15, avg entry 16.5267
+15:51:43  DEBUG   Portfolio: net_worth=425239.26
+15:51:43  INFO    ORDER  buy  5 INTC @ 16.93 rest (notional 84.65) — short 16.93 / long 16.76
+15:51:43  DEBUG   Placed: buy 5 INTC @ 16.9300
+15:51:43  DEBUG   Ack: buy 5 INTC @ 16.9300
+15:52:05  INFO    CANCEL buy 5 INTC @ 16.93 (quote)
+15:52:33  INFO    Session event: CALENDAR_EVENT — Earnings: MSFT moving +3.1%
+15:52:33  INFO    EVENT  CALENDAR_EVENT Earnings: MSFT moving +3.1%
+15:52:33  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 433.61 in 15s
+15:52:33  INFO    EVENT  MSFT +3.07%: ride edge 2.06% vs round trip 0.80% — RIDE 76 shares: buy up to 427.15, sell at 435.80, stop half the move below entry
+15:52:33  INFO    ORDER  buy  60 MSFT @ 427.14 take (notional 25628.40) — ride entry
+15:52:33  DEBUG   Placed: buy 60 MSFT @ 427.1400
+15:52:33  DEBUG   Ack: buy 60 MSFT @ 427.1400
+15:52:35  INFO    Fill: bought 55 MSFT @ 427.1400 (fee=46.9854)
+15:52:35  INFO    FILL   #11 buy   55 MSFT   @   427.14  notional  23492.70  vs limit +0.0000 (ride entry, taker)  | bought and held 55, avg entry 427.1400
+15:52:35  DEBUG   Portfolio: net_worth=425166.09
+15:52:35  INFO    Fill: bought 5 MSFT @ 427.1400 (fee=4.2714)
+15:52:35  INFO    FILL   #12 buy    5 MSFT   @   427.14  notional   2135.70  vs limit +0.0000 (ride entry, taker)  | bought and held 60, avg entry 427.1400
+15:52:35  DEBUG   Portfolio: net_worth=425140.77
+15:52:35  INFO    ORDER  buy  16 MSFT @ 427.14 take (notional 6834.24) — ride entry
+15:52:35  DEBUG   Placed: buy 16 MSFT @ 427.1400
+15:52:35  DEBUG   Ack: buy 16 MSFT @ 427.1400
+15:52:35  INFO    Fill: bought 10 MSFT @ 427.1400 (fee=8.5428)
+15:52:35  INFO    FILL   #13 buy   10 MSFT   @   427.14  notional   4271.40  vs limit +0.0000 (ride entry, taker)  | bought and held 70, avg entry 427.1400
+15:52:35  DEBUG   Portfolio: net_worth=425093.01
+15:52:35  INFO    Fill: bought 6 MSFT @ 427.1400 (fee=5.1257)
+15:52:35  INFO    FILL   #14 buy    6 MSFT   @   427.14  notional   2562.84  vs limit +0.0000 (ride entry, taker)  | bought and held 76, avg entry 427.1400
+15:52:35  DEBUG   Portfolio: net_worth=425063.70
+15:52:40  INFO    ORDER  sell 76 MSFT @ 435.81 rest (notional 33121.56) — ride exit (resting at target)
+15:52:40  DEBUG   Placed: sell 76 MSFT @ 435.8100
+15:52:40  DEBUG   Ack: sell 76 MSFT @ 435.8100
+15:52:52  INFO    Fill: sold   2 MSFT @ 435.8100 (fee=1.7432)
+15:52:52  INFO    FILL   #15 sell   2 MSFT   @   435.81  notional    871.62  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 74, avg entry 427.1400
+15:52:52  DEBUG   Portfolio: net_worth=426801.25
+15:52:52  INFO    Fill: sold   20 MSFT @ 435.8100 (fee=17.4324)
+15:52:52  INFO    FILL   #16 sell  20 MSFT   @   435.81  notional   8716.20  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 54, avg entry 427.1400
+15:52:52  DEBUG   Portfolio: net_worth=426777.03
+15:52:52  INFO    Fill: sold   10 MSFT @ 435.8100 (fee=8.7162)
+15:52:52  INFO    FILL   #17 sell  10 MSFT   @   435.81  notional   4358.10  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 44, avg entry 427.1400
+15:52:52  DEBUG   Portfolio: net_worth=426764.52
+15:52:52  WARNING RISK   stop-loss AAPL: bid 215.41 is 1.55% below average entry 218.8000
+15:52:52  INFO    ORDER  sell 5 AAPL @ 215.41 take (notional 1077.05) — stop-loss
+15:52:52  DEBUG   Placed: sell 5 AAPL @ 215.4100
+15:52:52  DEBUG   Ack: sell 5 AAPL @ 215.4100
+15:52:52  INFO    Fill: sold   3 AAPL @ 215.4100 (fee=1.2925)
+15:52:52  INFO    FILL   #18 sell   3 AAPL   @   215.41  notional    646.23  vs limit +0.0000 (stop-loss, taker)  | bought and held 2, avg entry 218.8000
+15:52:52  DEBUG   Portfolio: net_worth=426763.70
+15:52:53  INFO    Fill: sold   10 MSFT @ 435.8100 (fee=8.7162)
+15:52:53  INFO    FILL   #19 sell  10 MSFT   @   435.81  notional   4358.10  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 34, avg entry 427.1400
+15:52:53  DEBUG   Portfolio: net_worth=426695.94
+15:52:53  INFO    Fill: sold   10 MSFT @ 435.8100 (fee=8.7162)
+15:52:53  INFO    FILL   #20 sell  10 MSFT   @   435.81  notional   4358.10  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 24, avg entry 427.1400
+15:52:53  DEBUG   Portfolio: net_worth=426690.34
+15:52:53  INFO    Fill: sold   20 MSFT @ 435.8100 (fee=17.4324)
+15:52:53  INFO    FILL   #21 sell  20 MSFT   @   435.81  notional   8716.20  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 4, avg entry 427.1400
+15:52:53  DEBUG   Portfolio: net_worth=426678.12
+15:52:53  INFO    Fill: sold   4 MSFT @ 435.8100 (fee=3.4865)
+15:52:53  INFO    FILL   #22 sell   4 MSFT   @   435.81  notional   1743.24  vs limit +0.0000 (ride exit (resting at target), maker)  | bought and held 0, avg entry 0.0000
+15:52:53  DEBUG   Portfolio: net_worth=426675.02
+15:52:53  INFO    EVENT  RIDE MSFT done: bought 76, sold 76, gross P&L +658.92
+15:52:58  INFO    ORDER  sell 5 MSFT @ 434.22 rest (notional 2171.10) — short 432.32 / long 434.85
+15:52:58  DEBUG   Placed: sell 5 MSFT @ 434.2200
+15:52:58  DEBUG   Ack: sell 5 MSFT @ 434.2200
+15:53:00  INFO    CANCEL sell 5 MSFT @ 434.22 (quote)
+15:53:01  INFO    ORDER  sell 5 MSFT @ 434.16 rest (notional 2170.80) — short 431.82 / long 434.44
+15:53:01  DEBUG   Placed: sell 5 MSFT @ 434.1600
+15:53:01  DEBUG   Ack: sell 5 MSFT @ 434.1600
+15:53:01  INFO    CANCEL sell 5 MSFT @ 434.16 (quote)
+15:53:02  INFO    ORDER  sell 5 MSFT @ 433.41 rest (notional 2167.05) — short 432.15 / long 434.37
+15:53:02  DEBUG   Placed: sell 5 MSFT @ 433.4100
+15:53:02  DEBUG   Ack: sell 5 MSFT @ 433.4100
+15:54:21  INFO    Session event: CALENDAR — Upcoming: dividend NVDA @ t800
+15:54:21  INFO    EVENT  CALENDAR       Upcoming: dividend NVDA @ t800
+15:54:21  INFO    EVENT  window NVDA: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:55:20  INFO    Fill: sold   2 MSFT @ 433.4100 (fee=1.7336)
+15:55:20  INFO    FILL   #23 sell   2 MSFT   @   433.41  notional    866.82  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+15:55:20  DEBUG   Portfolio: net_worth=426503.82
+15:55:34  INFO    Fill: sold   3 MSFT @ 433.4100 (fee=2.6005)
+15:55:34  INFO    FILL   #24 sell   3 MSFT   @   433.41  notional   1300.23  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+15:55:34  DEBUG   Portfolio: net_worth=426500.47
+15:57:00  DEBUG   Portfolio: net_worth=426474.84
+15:57:00  INFO    Session event: DIVIDEND — NVDA pays $0.30/share — longs credited, shorts debited, price marked down ex-dividend
+15:57:00  INFO    EVENT  DIVIDEND       NVDA pays $0.30/share — longs credited, shorts debited, price marked down ex-dividend
+15:57:38  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t950
+15:57:38  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t950
+15:57:38  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+16:00:21  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.2%
+16:00:21  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.2%
+16:00:21  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 207.19 in 15s
+16:00:21  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 422.58 in 15s
+16:00:21  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 148.16 in 15s
+16:00:21  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 228.05 in 15s
+16:00:21  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 154.35 in 15s
+16:00:21  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 177.00 in 15s
+16:00:21  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 610.18 in 15s
+16:00:21  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 475.77 in 15s
+16:00:21  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 205.24 in 15s
+16:00:21  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 16.37 in 15s
+16:00:21  INFO    EVENT  ORCA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 22.27 in 15s
+16:00:21  INFO    EVENT  AAPL fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  AAPL -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 164 shares: sell down to 209.57, buy back after 15s at no more than 207.19
+16:00:21  INFO    EVENT  MSFT fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  MSFT -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 88 shares: sell down to 427.43, buy back after 15s at no more than 422.58
+16:00:21  INFO    EVENT  NVDA fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  NVDA -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 53 shares: sell down to 149.86, buy back after 15s at no more than 148.16
+16:00:21  INFO    EVENT  TSLA fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  TSLA -2.25%: fade edge 1.80% vs round trip 0.80% — no shares to trade
+16:00:21  INFO    EVENT  AMZN fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  AMZN -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 127 shares: sell down to 156.12, buy back after 15s at no more than 154.35
+16:00:21  INFO    EVENT  GOOGL fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  GOOGL -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 76 shares: sell down to 179.04, buy back after 15s at no more than 177.00
+16:00:21  INFO    EVENT  META fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  META -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 31 shares: sell down to 617.19, buy back after 15s at no more than 610.18
+16:00:21  INFO    EVENT  NFLX fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  NFLX -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 55 shares: sell down to 481.23, buy back after 15s at no more than 475.77
+16:00:21  INFO    EVENT  AMD fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  AMD -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 57 shares: sell down to 207.59, buy back after 15s at no more than 205.24
+16:00:21  INFO    EVENT  INTC fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  INTC -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 121 shares: sell down to 16.56, buy back after 15s at no more than 16.37
+16:00:21  INFO    EVENT  ORCA fade-extra leg edge 0.67% — not traded
+16:00:21  INFO    EVENT  ORCA -2.25%: fade edge 1.80% vs round trip 0.80% — FADE 277 shares: sell down to 22.52, buy back after 15s at no more than 22.27
+16:00:21  INFO    ORDER  sell 60 AMZN @ 156.13 take (notional 9367.80) — fade sell
+16:00:21  DEBUG   Placed: sell 60 AMZN @ 156.1300
+16:00:21  INFO    CANCEL sell 2 AAPL @ 215.41 (stop-loss)
+16:00:21  INFO    ORDER  sell 55 NFLX @ 481.24 take (notional 26468.20) — fade sell
+16:00:21  DEBUG   Placed: sell 55 NFLX @ 481.2400
+16:00:21  DEBUG   Ack: sell 60 AMZN @ 156.1300
+16:00:21  INFO    Fill: sold   9 AMZN @ 157.8900 (fee=2.8420)
+16:00:21  INFO    FILL   #25 sell   9 AMZN   @   157.89  notional   1421.01  vs limit +1.7600 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:00:21  DEBUG   Portfolio: net_worth=426286.45
+16:00:21  INFO    ORDER  sell 31 META @ 617.20 take (notional 19133.20) — fade sell
+16:00:21  DEBUG   Placed: sell 31 META @ 617.2000
+16:00:21  INFO    ORDER  sell 60 GOOGL @ 179.04 take (notional 10742.40) — fade sell
+16:00:21  DEBUG   Placed: sell 60 GOOGL @ 179.0400
+16:00:21  INFO    ORDER  sell 60 ORCA @ 22.53 take (notional 1351.80) — fade sell
+16:00:21  DEBUG   Placed: sell 60 ORCA @ 22.5300
+16:00:21  INFO    Fill: sold   10 AMZN @ 157.8100 (fee=3.1562)
+16:00:21  INFO    FILL   #26 sell  10 AMZN   @   157.81  notional   1578.10  vs limit +1.6800 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:00:21  DEBUG   Portfolio: net_worth=426254.95
+16:00:22  INFO    Fill: sold   20 AMZN @ 157.6900 (fee=6.3076)
+16:00:22  INFO    FILL   #27 sell  20 AMZN   @   157.69  notional   3153.80  vs limit +1.5600 (fade sell, taker)  | bought and held 0, avg entry 0.0000, short 12 avg 157.6900
+16:00:22  DEBUG   Portfolio: net_worth=426257.36
+16:00:27  INFO    Fill: sold   10 AMZN @ 157.6500 (fee=3.1530)
+16:00:27  INFO    FILL   #28 sell  10 AMZN   @   157.65  notional   1576.50  vs limit +1.5200 (fade sell, taker)  | bought and held 0, avg entry 0.0000, short 22 avg 157.6718
+16:00:27  DEBUG   Portfolio: net_worth=426171.55
+16:00:28  INFO    Fill: sold   10 AMZN @ 157.6200 (fee=3.1524)
+16:00:28  INFO    FILL   #29 sell  10 AMZN   @   157.62  notional   1576.20  vs limit +1.4900 (fade sell, taker)  | bought and held 0, avg entry 0.0000, short 32 avg 157.6556
+16:00:28  DEBUG   Portfolio: net_worth=426183.65
+16:00:29  INFO    Fill: sold   1 AMZN @ 157.5700 (fee=0.3151)
+16:00:29  INFO    FILL   #30 sell   1 AMZN   @   157.57  notional    157.57  vs limit +1.4400 (fade sell, taker)  | bought and held 0, avg entry 0.0000, short 33 avg 157.6530
+16:00:29  DEBUG   Portfolio: net_worth=426165.71
+16:00:29  DEBUG   Ack: sell 55 NFLX @ 481.2400
+16:00:29  DEBUG   Ack: sell 31 META @ 617.2000
+16:00:29  DEBUG   Ack: sell 60 GOOGL @ 179.0400
+16:00:29  DEBUG   Ack: sell 60 ORCA @ 22.5300
+16:00:33  INFO    ORDER  sell 53 NVDA @ 149.87 take (notional 7943.11) — fade sell
+16:00:33  DEBUG   Placed: sell 53 NVDA @ 149.8700
+16:00:34  DEBUG   Ack: sell 53 NVDA @ 149.8700
+16:00:36  INFO    EVENT  FADE ORCA done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE AAPL done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE MSFT done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE INTC done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE NFLX done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE META done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    EVENT  FADE GOOGL done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    ORDER  buy  60 AMZN @ 154.34 rest (notional 9260.40) — fade rebuy (resting)
+16:00:36  DEBUG   Placed: buy 60 AMZN @ 154.3400
+16:00:36  INFO    Fill: sold   15 NFLX @ 481.2400 (fee=14.4372)
+16:00:36  INFO    FILL   #31 sell  15 NFLX   @   481.24  notional   7218.60  | bought and held 0, avg entry 0.0000, short 3 avg 481.2400
+16:00:36  DEBUG   Portfolio: net_worth=426107.93
+16:00:36  DEBUG   Ack: buy 60 AMZN @ 154.3400
+16:00:36  INFO    EVENT  FADE AMD done: bought 0, sold 0, gross P&L +0.00
+16:00:36  INFO    ORDER  buy  5 AAPL @ 206.96 rest (notional 1034.80) — event reaction
+16:00:36  INFO    EVENT  AAPL reaction: bid 5 @ 206.96 (settle 207.19)
+16:00:36  DEBUG   Placed: buy 5 AAPL @ 206.9600
+16:00:36  INFO    CANCEL sell 53 NVDA @ 149.87 (fade sell)
+16:00:36  INFO    Fill: sold   30 NFLX @ 481.2400 (fee=28.8744)
+16:00:36  INFO    FILL   #32 sell  30 NFLX   @   481.24  notional  14437.20  | bought and held 0, avg entry 0.0000, short 33 avg 481.2400
+16:00:36  DEBUG   Portfolio: net_worth=426171.31
+16:00:36  INFO    ORDER  buy  5 MSFT @ 421.97 rest (notional 2109.85) — event reaction
+16:00:36  INFO    EVENT  MSFT reaction: bid 5 @ 421.97 (settle 422.58)
+16:00:36  DEBUG   Placed: buy 5 MSFT @ 421.9700
+16:00:36  INFO    ORDER  buy  5 TSLA @ 228.05 rest (notional 1140.25) — event reaction
+16:00:36  INFO    EVENT  TSLA reaction: bid 5 @ 228.05 (settle 228.05)
+16:00:36  DEBUG   Placed: buy 5 TSLA @ 228.0500
+16:00:36  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:36  INFO    ORDER  buy  5 AMD @ 202.80 rest (notional 1014.00) — event reaction
+16:00:36  INFO    EVENT  AMD reaction: bid 5 @ 202.80 (settle 205.24)
+16:00:36  DEBUG   Placed: buy 5 AMD @ 202.8000
+16:00:36  INFO    EVENT  FADE NVDA done: bought 0, sold 0, gross P&L +0.00
+16:00:36  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:36  INFO    ORDER  buy  5 INTC @ 16.19 rest (notional 80.95) — event reaction
+16:00:36  INFO    EVENT  INTC reaction: bid 5 @ 16.19 (settle 16.37)
+16:00:36  DEBUG   Placed: buy 5 INTC @ 16.1900
+16:00:37  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:37  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:37  INFO    ORDER  sell 5 AMD @ 207.44 rest (notional 1037.20) — short 206.49 / long 209.51
+16:00:37  DEBUG   Placed: sell 5 AMD @ 207.4400
+16:00:37  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:37  DEBUG   Ack: buy 5 AAPL @ 206.9600
+16:00:37  DEBUG   Ack: buy 5 MSFT @ 421.9700
+16:00:37  DEBUG   Ack: buy 5 TSLA @ 228.0500
+16:00:37  DEBUG   Ack: buy 5 AMD @ 202.8000
+16:00:37  DEBUG   Ack: buy 5 INTC @ 16.1900
+16:00:37  DEBUG   Ack: sell 5 AMD @ 207.4400
+16:00:37  WARNING RISK   stop-loss AAPL: bid 206.96 is 5.41% below average entry 218.8000
+16:00:37  INFO    Fill: bought 5 AAPL @ 206.9600 (fee=2.0696)
+16:00:37  INFO    FILL   #33 buy    5 AAPL   @   206.96  notional   1034.80  vs limit +0.0000 (reaction, maker)  | bought and held 7, avg entry 210.3429
+16:00:37  DEBUG   Portfolio: net_worth=426191.24
+16:00:37  WARNING RISK   stop-loss INTC: bid 16.19 is 2.04% below average entry 16.5267
+16:00:37  INFO    ORDER  sell 5 INTC @ 16.71 rest (notional 83.55) — short 16.46 / long 16.81
+16:00:37  DEBUG   Placed: sell 5 INTC @ 16.7100
+16:00:37  DEBUG   Ack: sell 5 INTC @ 16.7100
+16:00:37  INFO    CANCEL sell 5 AMD @ 207.44 (quote)
+16:00:37  INFO    Fill: bought 5 MSFT @ 421.9700 (fee=4.2197)
+16:00:37  INFO    FILL   #34 buy    5 MSFT   @   421.97  notional   2109.85  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 421.9700
+16:00:37  DEBUG   Portfolio: net_worth=426187.24
+16:00:37  INFO    ORDER  sell 5 AAPL @ 209.60 rest (notional 1048.00) — short 207.33 / long 208.44
+16:00:37  DEBUG   Placed: sell 5 AAPL @ 209.6000
+16:00:38  INFO    ORDER  sell 5 AMD @ 207.08 rest (notional 1035.40) — short 205.99 / long 209.37
+16:00:38  DEBUG   Placed: sell 5 AMD @ 207.0800
+16:00:38  DEBUG   Ack: sell 5 AAPL @ 209.6000
+16:00:38  DEBUG   Ack: sell 5 AMD @ 207.0800
+16:00:38  INFO    CANCEL buy 5 INTC @ 16.19 (reaction)
+16:00:38  INFO    CANCEL sell 5 INTC @ 16.71 (quote)
+16:00:38  INFO    CANCEL sell 5 AMD @ 207.08 (quote)
+16:00:39  INFO    CANCEL sell 5 AAPL @ 209.60 (quote)
+16:00:39  WARNING RISK   stop-loss INTC: bid 16.19 is 2.04% below average entry 16.5267
+16:00:39  WARNING RISK   stop-loss INTC: bid 16.19 is 2.04% below average entry 16.5267
+16:00:39  WARNING RISK   stop-loss INTC: bid 16.19 is 2.04% below average entry 16.5267
+16:00:39  INFO    ORDER  sell 15 INTC @ 16.19 take (notional 242.85) — stop-loss
+16:00:39  DEBUG   Placed: sell 15 INTC @ 16.1900
+16:00:39  INFO    ORDER  sell 5 AMD @ 207.08 rest (notional 1035.40) — short 205.99 / long 209.37
+16:00:39  DEBUG   Placed: sell 5 AMD @ 207.0800
+16:00:39  DEBUG   Ack: sell 15 INTC @ 16.1900
+16:00:39  INFO    Fill: sold   3 INTC @ 16.1900 (fee=0.0971)
+16:00:39  INFO    FILL   #35 sell   3 INTC   @    16.19  notional     48.57  vs limit +0.0000 (stop-loss, taker)  | bought and held 12, avg entry 16.5267
+16:00:39  DEBUG   Portfolio: net_worth=426206.49
+16:00:39  INFO    ORDER  sell 5 META @ 615.26 rest (notional 3076.30) — short 614.48 / long 620.01
+16:00:39  DEBUG   Placed: sell 5 META @ 615.2600
+16:00:40  INFO    ORDER  sell 5 MSFT @ 421.46 rest (notional 2107.30) — short 421.79 / long 426.15
+16:00:40  DEBUG   Placed: sell 5 MSFT @ 421.4600
+16:00:40  INFO    ORDER  sell 5 NFLX @ 481.24 rest (notional 2406.20) — short 477.73 / long 482.78
+16:00:40  DEBUG   Placed: sell 5 NFLX @ 481.2400
+16:00:40  INFO    ORDER  sell 5 ORCA @ 22.41 rest (notional 112.05) — short 22.33 / long 22.66
+16:00:40  DEBUG   Placed: sell 5 ORCA @ 22.4100
+16:00:42  INFO    Fill: bought 5 TSLA @ 228.0500 (fee=2.2805)
+16:00:42  INFO    FILL   #36 buy    5 TSLA   @   228.05  notional   1140.25  vs limit +0.0000 (reaction, maker)  | bought and held 7, avg entry 240.3186
+16:00:42  DEBUG   Portfolio: net_worth=426209.61
+16:00:42  INFO    ORDER  sell 5 NVDA @ 148.96 rest (notional 744.80) — short 149.24 / long 150.64
+16:00:42  DEBUG   Placed: sell 5 NVDA @ 148.9600
+16:00:42  INFO    Fill: sold   1 INTC @ 16.1900 (fee=0.0324)
+16:00:42  INFO    FILL   #37 sell   1 INTC   @    16.19  notional     16.19  vs limit +0.0000 (stop-loss, taker)  | bought and held 11, avg entry 16.5267
+16:00:42  DEBUG   Portfolio: net_worth=426210.40
+16:00:42  DEBUG   Ack: sell 5 AMD @ 207.0800
+16:00:42  DEBUG   Ack: sell 5 META @ 615.2600
+16:00:42  DEBUG   Ack: sell 5 MSFT @ 421.4600
+16:00:42  DEBUG   Ack: sell 5 NFLX @ 481.2400
+16:00:42  DEBUG   Ack: sell 5 ORCA @ 22.4100
+16:00:42  DEBUG   Ack: sell 5 NVDA @ 148.9600
+16:00:42  INFO    CANCEL sell 5 AMD @ 207.08 (quote)
+16:00:42  INFO    CANCEL sell 5 META @ 615.26 (quote)
+16:00:42  INFO    CANCEL sell 5 MSFT @ 421.46 (quote)
+16:00:42  INFO    CANCEL sell 5 NFLX @ 481.24 (quote)
+16:00:42  INFO    Fill: sold   5 MSFT @ 421.4600 (fee=4.2146)
+16:00:42  INFO    FILL   #38 sell   5 MSFT   @   421.46  notional   2107.30  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:42  DEBUG   Portfolio: net_worth=426210.88
+16:00:43  INFO    ORDER  sell 5 MSFT @ 420.36 rest (notional 2101.80) — short 421.73 / long 425.07
+16:00:43  DEBUG   Placed: sell 5 MSFT @ 420.3600
+16:00:43  INFO    ORDER  sell 5 AMD @ 206.72 rest (notional 1033.60) — short 205.79 / long 209.22
+16:00:43  DEBUG   Placed: sell 5 AMD @ 206.7200
+16:00:43  INFO    ORDER  sell 5 META @ 609.31 rest (notional 3046.55) — short 613.57 / long 619.60
+16:00:43  DEBUG   Placed: sell 5 META @ 609.3100
+16:00:44  INFO    Fill: sold   5 INTC @ 16.1900 (fee=0.1619)
+16:00:44  INFO    FILL   #39 sell   5 INTC   @    16.19  notional     80.95  vs limit +0.0000 (stop-loss, taker)  | bought and held 6, avg entry 16.5267
+16:00:44  DEBUG   Portfolio: net_worth=426210.80
+16:00:44  INFO    ORDER  sell 5 NFLX @ 475.29 rest (notional 2376.45) — short 477.23 / long 481.74
+16:00:44  DEBUG   Placed: sell 5 NFLX @ 475.2900
+16:00:44  INFO    CANCEL ORDER_NOT_FOUND: Order '7d8948b9-98c4-4172-8275-df8d7d2ea0d1' not found or not owned by midway_traders_trader_1
+16:00:44  WARNING Exchange error [ORDER_NOT_FOUND]: Order '7d8948b9-98c4-4172-8275-df8d7d2ea0d1' not found or not owned by midway_traders_trader_1
+16:00:44  DEBUG   Ack: sell 5 MSFT @ 420.3600
+16:00:44  DEBUG   Ack: sell 5 AMD @ 206.7200
+16:00:44  DEBUG   Ack: sell 5 META @ 609.3100
+16:00:44  INFO    Fill: sold   6 INTC @ 16.1900 (fee=0.1943)
+16:00:44  INFO    FILL   #40 sell   6 INTC   @    16.19  notional     97.14  vs limit +0.0000 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:00:44  DEBUG   Portfolio: net_worth=426210.18
+16:00:44  INFO    CANCEL sell 5 AMD @ 206.72 (quote)
+16:00:44  DEBUG   Ack: sell 5 NFLX @ 475.2900
+16:00:44  INFO    ORDER  sell 5 INTC @ 16.57 rest (notional 82.85) — short 16.39 / long 16.71
+16:00:44  DEBUG   Placed: sell 5 INTC @ 16.5700
+16:00:44  DEBUG   Ack: sell 5 INTC @ 16.5700
+16:00:44  INFO    CANCEL sell 5 NFLX @ 475.29 (quote)
+16:00:44  INFO    Fill: sold   5 MSFT @ 420.3600 (fee=4.2036)
+16:00:44  INFO    FILL   #41 sell   5 MSFT   @   420.36  notional   2101.80  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:44  DEBUG   Portfolio: net_worth=426201.49
+16:00:45  INFO    ORDER  sell 5 AMD @ 205.99 rest (notional 1029.95) — short 205.57 / long 209.07
+16:00:45  DEBUG   Placed: sell 5 AMD @ 205.9900
+16:00:45  DEBUG   Ack: sell 5 AMD @ 205.9900
+16:00:45  INFO    ORDER  sell 5 MSFT @ 421.05 rest (notional 2105.25) — short 420.58 / long 423.75
+16:00:45  DEBUG   Placed: sell 5 MSFT @ 421.0500
+16:00:45  INFO    Fill: bought 10 AMZN @ 154.3400 (fee=3.0868)
+16:00:45  INFO    FILL   #42 buy   10 AMZN   @   154.34  notional   1543.40  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000, short 23 avg 157.6530
+16:00:45  DEBUG   Portfolio: net_worth=426189.81
+16:00:45  DEBUG   Ack: sell 5 MSFT @ 421.0500
+16:00:45  INFO    ORDER  sell 5 NFLX @ 474.56 rest (notional 2372.80) — short 474.04 / long 478.71
+16:00:45  DEBUG   Placed: sell 5 NFLX @ 474.5600
+16:00:45  DEBUG   Ack: sell 5 NFLX @ 474.5600
+16:00:45  INFO    CANCEL sell 5 AMD @ 205.99 (quote)
+16:00:45  INFO    Fill: sold   5 NFLX @ 474.5600 (fee=4.7456)
+16:00:45  INFO    FILL   #43 sell   5 NFLX   @   474.56  notional   2372.80  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000, short 38 avg 480.3611
+16:00:45  DEBUG   Portfolio: net_worth=426161.92
+16:00:45  INFO    CANCEL sell 5 ORCA @ 22.41 (quote)
+16:00:46  WARNING RISK   stop-loss AAPL: bid 205.83 is 2.15% below average entry 210.3429
+16:00:46  WARNING RISK   stop-loss AAPL: bid 205.83 is 2.15% below average entry 210.3429
+16:00:46  WARNING RISK   stop-loss AAPL: bid 205.83 is 2.15% below average entry 210.3429
+16:00:46  INFO    ORDER  sell 7 AAPL @ 205.83 take (notional 1440.81) — stop-loss
+16:00:46  DEBUG   Placed: sell 7 AAPL @ 205.8300
+16:00:46  DEBUG   Ack: sell 7 AAPL @ 205.8300
+16:00:46  INFO    Fill: sold   7 AAPL @ 206.1900 (fee=2.8867)
+16:00:46  INFO    FILL   #44 sell   7 AAPL   @   206.19  notional   1443.33  vs limit +0.3600 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:00:46  DEBUG   Portfolio: net_worth=426156.67
+16:00:46  INFO    ORDER  sell 5 AMD @ 205.99 rest (notional 1029.95) — short 205.57 / long 209.07
+16:00:46  DEBUG   Placed: sell 5 AMD @ 205.9900
+16:00:46  INFO    ORDER  sell 5 ORCA @ 22.26 rest (notional 111.30) — short 22.30 / long 22.64
+16:00:46  DEBUG   Placed: sell 5 ORCA @ 22.2600
+16:00:47  INFO    Fill: sold   5 INTC @ 16.5700 (fee=0.1657)
+16:00:47  INFO    FILL   #45 sell   5 INTC   @    16.57  notional     82.85  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:47  DEBUG   Portfolio: net_worth=426157.82
+16:00:47  DEBUG   Ack: sell 5 AMD @ 205.9900
+16:00:47  DEBUG   Ack: sell 5 ORCA @ 22.2600
+16:00:47  INFO    ORDER  sell 1 INTC @ 16.57 rest (notional 16.57) — short 16.37 / long 16.67
+16:00:47  DEBUG   Placed: sell 1 INTC @ 16.5700
+16:00:47  INFO    CANCEL sell 5 AMD @ 205.99 (quote)
+16:00:47  DEBUG   Ack: sell 1 INTC @ 16.5700
+16:00:47  INFO    CANCEL sell 5 META @ 609.31 (quote)
+16:00:47  INFO    CANCEL sell 5 ORCA @ 22.26 (quote)
+16:00:48  INFO    ORDER  sell 5 AMD @ 205.99 rest (notional 1029.95) — short 205.34 / long 208.91
+16:00:48  DEBUG   Placed: sell 5 AMD @ 205.9900
+16:00:48  DEBUG   Ack: sell 5 AMD @ 205.9900
+16:00:48  INFO    ORDER  sell 5 META @ 608.39 rest (notional 3041.95) — short 610.64 / long 618.27
+16:00:48  DEBUG   Placed: sell 5 META @ 608.3900
+16:00:48  DEBUG   Ack: sell 5 META @ 608.3900
+16:00:48  INFO    CANCEL sell 5 AMD @ 205.99 (quote)
+16:00:48  INFO    ORDER  sell 5 ORCA @ 22.22 rest (notional 111.10) — short 22.25 / long 22.61
+16:00:48  DEBUG   Placed: sell 5 ORCA @ 22.2200
+16:00:48  DEBUG   Ack: sell 5 ORCA @ 22.2200
+16:00:48  INFO    CANCEL sell 86 VLTA @ 36.38 (ipo exit)
+16:00:49  INFO    ORDER  sell 5 AMD @ 205.99 rest (notional 1029.95) — short 205.26 / long 208.76
+16:00:49  DEBUG   Placed: sell 5 AMD @ 205.9900
+16:00:49  DEBUG   Ack: sell 5 AMD @ 205.9900
+16:00:50  INFO    CANCEL sell 5 AMD @ 205.99 (quote)
+16:00:50  INFO    Fill: sold   5 MSFT @ 421.0500 (fee=4.2105)
+16:00:50  INFO    FILL   #46 sell   5 MSFT   @   421.05  notional   2105.25  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:50  DEBUG   Portfolio: net_worth=426110.86
+16:00:50  WARNING RISK   IPO stop VLTA: bid 31.14 vs offer 34.00
+16:00:50  INFO    ORDER  sell 86 VLTA @ 31.14 take (notional 2678.04) — ipo stop
+16:00:50  DEBUG   Placed: sell 86 VLTA @ 31.1400
+16:00:50  DEBUG   Ack: sell 86 VLTA @ 31.1400
+16:00:50  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 205.10 / long 208.61
+16:00:50  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:50  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:50  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:51  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.95 / long 208.47
+16:00:51  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:51  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:51  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:52  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.80 / long 208.32
+16:00:52  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:53  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:53  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:53  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.71 / long 208.18
+16:00:53  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:53  INFO    Fill: bought 2 AMZN @ 154.3400 (fee=0.6174)
+16:00:53  INFO    FILL   #47 buy    2 AMZN   @   154.34  notional    308.68  vs limit +0.0000 (fade rebuy (resting), maker)  | bought and held 0, avg entry 0.0000, short 21 avg 157.6530
+16:00:53  DEBUG   Portfolio: net_worth=426103.83
+16:00:53  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:53  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:54  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.68 / long 208.03
+16:00:54  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:54  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:54  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:55  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.68 / long 208.03
+16:00:55  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:55  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:55  INFO    Fill: sold   2 ORCA @ 22.2200 (fee=0.0889)
+16:00:55  INFO    FILL   #48 sell   2 ORCA   @    22.22  notional     44.44  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:55  DEBUG   Portfolio: net_worth=426197.20
+16:00:55  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:56  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.66 / long 207.89
+16:00:56  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:56  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:56  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:57  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.66 / long 207.74
+16:00:57  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:57  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:57  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:57  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:00:57  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:58  INFO    Session event: SSR_ON — VLTA is now under the short-sale rule — shorts must add liquidity above the bid
+16:00:58  INFO    EVENT  SSR_ON         VLTA is now under the short-sale rule — shorts must add liquidity above the bid
+16:00:58  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:58  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:59  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:00:59  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:59  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:59  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:00:59  INFO    Fill: sold   1 INTC @ 16.5700 (fee=0.0331)
+16:00:59  INFO    FILL   #49 sell   1 INTC   @    16.57  notional     16.57  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:00:59  DEBUG   Portfolio: net_worth=426252.05
+16:00:59  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:00:59  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:00:59  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:00:59  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:00  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:00  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:00  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:00  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:01  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:01  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:01  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:01  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:01  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:01  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:01  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:02  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:02  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:02  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:02  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:02  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:03  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:03  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:03  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:03  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:04  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:04  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:04  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:04  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:04  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:04  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:04  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:05  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:05  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:05  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:05  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:05  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:06  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:06  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:06  INFO    CANCEL buy 48 AMZN @ 154.34 (fade rebuy (resting))
+16:01:06  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:06  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:06  INFO    ORDER  buy  48 AMZN @ 155.56 take (notional 7466.88) — fade rebuy (time)
+16:01:06  DEBUG   Placed: buy 48 AMZN @ 155.5600
+16:01:06  DEBUG   Ack: buy 48 AMZN @ 155.5600
+16:01:06  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:06  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:06  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:07  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:07  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:07  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:07  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:07  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:08  INFO    CANCEL sell 5 META @ 608.39 (quote)
+16:01:08  INFO    Fill: bought 2 AMD @ 202.8000 (fee=0.8112)
+16:01:08  INFO    FILL   #50 buy    2 AMD    @   202.80  notional    405.60  vs limit +0.0000 (reaction, maker)  | bought and held 1, avg entry 214.9000, short 3 avg 211.8800
+16:01:08  DEBUG   Portfolio: net_worth=426257.96
+16:01:08  INFO    ORDER  sell 5 AMD @ 206.75 rest (notional 1033.75) — short 204.70 / long 207.60
+16:01:08  DEBUG   Placed: sell 5 AMD @ 206.7500
+16:01:08  DEBUG   Ack: sell 5 AMD @ 206.7500
+16:01:08  INFO    CANCEL sell 5 AMD @ 206.75 (quote)
+16:01:08  INFO    ORDER  sell 5 META @ 607.74 rest (notional 3038.70) — short 606.86 / long 613.52
+16:01:08  DEBUG   Placed: sell 5 META @ 607.7400
+16:01:08  DEBUG   Ack: sell 5 META @ 607.7400
+16:01:08  INFO    ORDER  buy  5 INTC @ 16.55 rest (notional 82.75) — short 16.55 / long 16.47
+16:01:08  DEBUG   Placed: buy 5 INTC @ 16.5500
+16:01:08  INFO    Session event: SSR_ON — NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:01:08  INFO    EVENT  SSR_ON         NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:01:08  DEBUG   Ack: buy 5 INTC @ 16.5500
+16:01:08  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.76 / long 207.46
+16:01:08  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:08  INFO    Fill: bought 3 AMD @ 202.8000 (fee=1.2168)
+16:01:08  INFO    FILL   #51 buy    3 AMD    @   202.80  notional    608.40  vs limit +0.0000 (reaction, maker)  | bought and held 1, avg entry 214.9000
+16:01:08  DEBUG   Portfolio: net_worth=426284.89
+16:01:09  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:09  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:09  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.85 / long 207.18
+16:01:09  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:09  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:09  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:10  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.85 / long 207.18
+16:01:10  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:10  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:10  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:11  INFO    CANCEL sell 3 ORCA @ 22.22 (quote)
+16:01:11  INFO    Fill: bought 4 INTC @ 16.5500 (fee=0.1324)
+16:01:11  INFO    FILL   #52 buy    4 INTC   @    16.55  notional     66.20  vs limit +0.0000 (quote, maker)  | bought and held 4, avg entry 16.5500
+16:01:11  DEBUG   Portfolio: net_worth=426296.02
+16:01:11  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.85 / long 207.18
+16:01:11  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:11  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:11  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:11  INFO    ORDER  sell 5 ORCA @ 22.18 rest (notional 110.90) — short 22.16 / long 22.43
+16:01:11  DEBUG   Placed: sell 5 ORCA @ 22.1800
+16:01:11  INFO    CANCEL sell 5 META @ 607.74 (quote)
+16:01:11  DEBUG   Ack: sell 5 ORCA @ 22.1800
+16:01:12  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.88 / long 207.04
+16:01:12  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:12  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:12  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:12  INFO    ORDER  sell 5 META @ 607.01 rest (notional 3035.05) — short 606.57 / long 612.60
+16:01:12  DEBUG   Placed: sell 5 META @ 607.0100
+16:01:12  DEBUG   Ack: sell 5 META @ 607.0100
+16:01:12  INFO    ORDER  sell 5 AMD @ 207.26 rest (notional 1036.30) — short 204.88 / long 207.04
+16:01:12  DEBUG   Placed: sell 5 AMD @ 207.2600
+16:01:13  DEBUG   Ack: sell 5 AMD @ 207.2600
+16:01:13  INFO    CANCEL sell 5 AMD @ 207.26 (quote)
+16:01:13  INFO    ORDER  sell 5 NFLX @ 471.12 rest (notional 2355.60) — short 471.90 / long 474.45
+16:01:13  DEBUG   Placed: sell 5 NFLX @ 471.1200
+16:01:13  DEBUG   Ack: sell 5 NFLX @ 471.1200
+16:01:14  INFO    ORDER  sell 5 AMD @ 206.96 rest (notional 1034.80) — short 204.89 / long 206.90
+16:01:14  DEBUG   Placed: sell 5 AMD @ 206.9600
+16:01:14  DEBUG   Ack: sell 5 AMD @ 206.9600
+16:01:14  INFO    CANCEL sell 5 AMD @ 206.96 (quote)
+16:01:14  INFO    CANCEL sell 5 NFLX @ 471.12 (quote)
+16:01:14  INFO    ORDER  sell 5 AMD @ 206.96 rest (notional 1034.80) — short 204.90 / long 206.76
+16:01:14  DEBUG   Placed: sell 5 AMD @ 206.9600
+16:01:14  DEBUG   Ack: sell 5 AMD @ 206.9600
+16:01:14  INFO    ORDER  sell 5 NFLX @ 469.45 rest (notional 2347.25) — short 471.05 / long 474.21
+16:01:14  DEBUG   Placed: sell 5 NFLX @ 469.4500
+16:01:14  INFO    Fill: bought 1 INTC @ 16.5500 (fee=0.0331)
+16:01:14  INFO    FILL   #53 buy    1 INTC   @    16.55  notional     16.55  vs limit +0.0000 (quote, maker)  | bought and held 5, avg entry 16.5500
+16:01:14  INFO    CANCEL sell 5 AMD @ 206.96 (quote)
+16:01:14  DEBUG   Portfolio: net_worth=426446.80
+16:01:14  DEBUG   Ack: sell 5 NFLX @ 469.4500
+16:01:14  INFO    ORDER  buy  5 INTC @ 16.53 rest (notional 82.65) — short 16.65 / long 16.48
+16:01:14  DEBUG   Placed: buy 5 INTC @ 16.5300
+16:01:15  DEBUG   Ack: buy 5 INTC @ 16.5300
+16:01:15  INFO    ORDER  sell 5 AMD @ 206.27 rest (notional 1031.35) — short 204.87 / long 206.61
+16:01:15  DEBUG   Placed: sell 5 AMD @ 206.2700
+16:01:16  DEBUG   Ack: sell 5 AMD @ 206.2700
+16:01:16  INFO    CANCEL sell 5 AMD @ 206.27 (quote)
+16:01:16  INFO    CANCEL buy 5 INTC @ 16.53 (quote)
+16:01:16  INFO    CANCEL sell 5 ORCA @ 22.18 (quote)
+16:01:16  INFO    ORDER  sell 5 AMD @ 206.26 rest (notional 1031.30) — short 204.83 / long 206.31
+16:01:16  DEBUG   Placed: sell 5 AMD @ 206.2600
+16:01:16  DEBUG   Ack: sell 5 AMD @ 206.2600
+16:01:16  INFO    CANCEL sell 5 AMD @ 206.26 (quote)
+16:01:17  INFO    ORDER  buy  5 INTC @ 16.55 rest (notional 82.75) — short 16.63 / long 16.48
+16:01:17  DEBUG   Placed: buy 5 INTC @ 16.5500
+16:01:17  DEBUG   Ack: buy 5 INTC @ 16.5500
+16:01:17  INFO    ORDER  sell 5 ORCA @ 22.14 rest (notional 110.70) — short 22.14 / long 22.35
+16:01:17  DEBUG   Placed: sell 5 ORCA @ 22.1400
+16:01:17  DEBUG   Ack: sell 5 ORCA @ 22.1400
+16:01:17  INFO    ORDER  sell 5 AMD @ 206.26 rest (notional 1031.30) — short 204.80 / long 206.16
+16:01:17  DEBUG   Placed: sell 5 AMD @ 206.2600
+16:01:17  DEBUG   Ack: sell 5 AMD @ 206.2600
+16:01:17  INFO    CANCEL sell 5 AMD @ 206.26 (quote)
+16:01:18  INFO    ORDER  sell 5 AMD @ 206.26 rest (notional 1031.30) — short 204.75 / long 206.01
+16:01:18  DEBUG   Placed: sell 5 AMD @ 206.2600
+16:01:19  DEBUG   Ack: sell 5 AMD @ 206.2600
+16:01:19  INFO    Fill: bought 5 INTC @ 16.5500 (fee=0.1655)
+16:01:19  INFO    FILL   #54 buy    5 INTC   @    16.55  notional     82.75  vs limit +0.0000 (quote, maker)  | bought and held 10, avg entry 16.5500
+16:01:19  DEBUG   Portfolio: net_worth=426498.81
+16:01:19  INFO    CANCEL sell 5 AMD @ 206.26 (quote)
+16:01:19  INFO    ORDER  buy  5 INTC @ 16.53 rest (notional 82.65) — short 16.60 / long 16.49
+16:01:19  DEBUG   Placed: buy 5 INTC @ 16.5300
+16:01:19  DEBUG   Ack: buy 5 INTC @ 16.5300
+16:01:19  INFO    ORDER  sell 5 AMD @ 206.12 rest (notional 1030.60) — short 204.64 / long 205.71
+16:01:19  DEBUG   Placed: sell 5 AMD @ 206.1200
+16:01:19  DEBUG   Ack: sell 5 AMD @ 206.1200
+16:01:19  INFO    CANCEL sell 5 AMD @ 206.12 (quote)
+16:01:19  INFO    ORDER  buy  5 TSLA @ 229.47 rest (notional 1147.35) — short 229.09 / long 227.86
+16:01:19  DEBUG   Placed: buy 5 TSLA @ 229.4700
+16:01:20  DEBUG   Ack: buy 5 TSLA @ 229.4700
+16:01:20  INFO    CANCEL buy 5 INTC @ 16.53 (quote)
+16:01:21  INFO    Session event: TRADING_HALT — Trading halted on VLTA: VLTA velocity halt: 5.0% move in 60s (threshold 5.0%)
+16:01:21  INFO    EVENT  TRADING_HALT   Trading halted on VLTA: VLTA velocity halt: 5.0% move in 60s (threshold 5.0%)
+16:01:25  INFO    CANCEL buy 5 TSLA @ 229.47 (quote)
+16:01:26  INFO    ORDER  buy  5 TSLA @ 229.70 rest (notional 1148.50) — short 230.05 / long 228.44
+16:01:26  DEBUG   Placed: buy 5 TSLA @ 229.7000
+16:01:26  DEBUG   Ack: buy 5 TSLA @ 229.7000
+16:01:29  INFO    Session event: TRADING_HALT — Trading halted on NFLX: NFLX velocity halt: 5.1% move in 60s (threshold 5.0%)
+16:01:29  INFO    EVENT  TRADING_HALT   Trading halted on NFLX: NFLX velocity halt: 5.1% move in 60s (threshold 5.0%)
+16:01:33  INFO    CANCEL buy 5 TSLA @ 229.70 (quote)
+16:03:05  INFO    Fill: sold   3 META @ 607.0100 (fee=3.6421)
+16:03:05  INFO    FILL   #55 sell   3 META   @   607.01  notional   1821.03  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000, short 3 avg 607.0100
+16:03:05  DEBUG   Portfolio: net_worth=426675.86
+16:03:13  INFO    Fill: sold   1 META @ 607.0100 (fee=1.2140)
+16:03:13  INFO    FILL   #56 sell   1 META   @   607.01  notional    607.01  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000, short 4 avg 607.0100
+16:03:13  DEBUG   Portfolio: net_worth=426669.99
+16:04:06  INFO    Fill: sold   1 META @ 607.0100 (fee=1.2140)
+16:04:06  INFO    FILL   #57 sell   1 META   @   607.01  notional    607.01  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000, short 5 avg 607.0100
+16:04:06  DEBUG   Portfolio: net_worth=426625.88
+16:06:21  INFO    Session event: TRADING_RESUMED — Trading resumed on VLTA
+16:06:21  INFO    EVENT  TRADING_RESUMED Trading resumed on VLTA
+16:06:26  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:06:26  INFO    FILL   #58 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 81, avg entry 34.0000
+16:06:26  DEBUG   Portfolio: net_worth=426539.19
+16:06:28  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:06:28  INFO    FILL   #59 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 78, avg entry 34.0000
+16:06:28  DEBUG   Portfolio: net_worth=426528.11
+16:06:29  INFO    Session event: TRADING_RESUMED — Trading resumed on NFLX
+16:06:29  INFO    EVENT  TRADING_RESUMED Trading resumed on NFLX
+16:06:34  INFO    Fill: sold   2 VLTA @ 31.1400 (fee=0.1246)
+16:06:34  INFO    FILL   #60 sell   2 VLTA   @    31.14  notional     62.28  vs limit +0.0000 (ipo stop, taker)  | bought and held 76, avg entry 34.0000
+16:06:34  DEBUG   Portfolio: net_worth=426571.62
+16:07:12  INFO    Fill: bought 1 AMZN @ 155.5600 (fee=0.3111)
+16:07:12  INFO    FILL   #61 buy    1 AMZN   @   155.56  notional    155.56  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000, short 20 avg 157.6530
+16:07:12  DEBUG   Portfolio: net_worth=426621.60
+16:07:15  INFO    Fill: bought 10 AMZN @ 155.5600 (fee=3.1112)
+16:07:15  INFO    FILL   #62 buy   10 AMZN   @   155.56  notional   1555.60  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000, short 10 avg 157.6530
+16:07:15  DEBUG   Portfolio: net_worth=426643.55
+16:07:29  INFO    Fill: bought 3 AMZN @ 155.5600 (fee=0.9334)
+16:07:29  INFO    FILL   #63 buy    3 AMZN   @   155.56  notional    466.68  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000, short 7 avg 157.6530
+16:07:29  DEBUG   Portfolio: net_worth=426663.64
+16:07:30  INFO    Fill: bought 10 AMZN @ 155.5600 (fee=3.1112)
+16:07:30  INFO    FILL   #64 buy   10 AMZN   @   155.56  notional   1555.60  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:07:30  DEBUG   Portfolio: net_worth=426654.42
+16:07:38  INFO    Fill: bought 1 AMZN @ 155.5600 (fee=0.3111)
+16:07:38  INFO    FILL   #65 buy    1 AMZN   @   155.56  notional    155.56  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:07:38  DEBUG   Portfolio: net_worth=426654.48
+16:07:43  INFO    Fill: bought 3 AMZN @ 155.5600 (fee=0.9334)
+16:07:43  INFO    FILL   #66 buy    3 AMZN   @   155.56  notional    466.68  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:07:43  DEBUG   Portfolio: net_worth=426654.15
+16:08:05  INFO    Fill: bought 10 AMZN @ 155.5600 (fee=3.1112)
+16:08:05  INFO    FILL   #67 buy   10 AMZN   @   155.56  notional   1555.60  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:08:05  DEBUG   Portfolio: net_worth=426643.87
+16:08:15  INFO    Fill: bought 10 AMZN @ 155.5600 (fee=3.1112)
+16:08:15  INFO    FILL   #68 buy   10 AMZN   @   155.56  notional   1555.60  vs limit +0.0000 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:08:15  DEBUG   Portfolio: net_worth=426654.57
+16:08:15  INFO    EVENT  FADE AMZN done: bought 60, sold 60, gross P&L +144.22
+16:08:35  INFO    ORDER  buy  5 INTC @ 16.56 rest (notional 82.80) — short 16.73 / long 16.65
+16:08:35  DEBUG   Placed: buy 5 INTC @ 16.5600
+16:08:35  DEBUG   Ack: buy 5 INTC @ 16.5600
+16:08:35  INFO    CANCEL buy 5 INTC @ 16.56 (quote)
+16:08:37  INFO    Fill: sold   2 VLTA @ 31.1400 (fee=0.1246)
+16:08:37  INFO    FILL   #69 sell   2 VLTA   @    31.14  notional     62.28  vs limit +0.0000 (ipo stop, taker)  | bought and held 74, avg entry 34.0000
+16:08:37  DEBUG   Portfolio: net_worth=426582.22
+16:08:44  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:08:44  INFO    FILL   #70 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 71, avg entry 34.0000
+16:08:44  DEBUG   Portfolio: net_worth=426580.31
+16:08:44  INFO    ORDER  sell 5 INTC @ 16.48 rest (notional 82.40) — short 16.56 / long 16.65
+16:08:44  DEBUG   Placed: sell 5 INTC @ 16.4800
+16:08:44  DEBUG   Ack: sell 5 INTC @ 16.4800
+16:09:09  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:09:09  INFO    FILL   #71 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 70, avg entry 34.0000
+16:09:09  DEBUG   Portfolio: net_worth=426572.51
+16:09:27  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:09:27  INFO    FILL   #72 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 69, avg entry 34.0000
+16:09:27  DEBUG   Portfolio: net_worth=426557.96
+16:09:29  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:09:29  INFO    FILL   #73 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 68, avg entry 34.0000
+16:09:29  DEBUG   Portfolio: net_worth=426539.99
+16:09:30  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:09:30  INFO    FILL   #74 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 65, avg entry 34.0000
+16:09:30  DEBUG   Portfolio: net_worth=426536.28
+16:09:51  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:09:51  INFO    FILL   #75 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 62, avg entry 34.0000
+16:09:51  DEBUG   Portfolio: net_worth=426501.72
+16:10:07  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:10:07  INFO    FILL   #76 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 59, avg entry 34.0000
+16:10:07  DEBUG   Portfolio: net_worth=426480.10
+16:10:20  INFO    Fill: sold   2 INTC @ 16.4800 (fee=0.0659)
+16:10:20  INFO    FILL   #77 sell   2 INTC   @    16.48  notional     32.96  vs limit +0.0000 (quote, maker)  | bought and held 8, avg entry 16.5500
+16:10:20  DEBUG   Portfolio: net_worth=426485.46
+16:10:48  INFO    Fill: sold   3 ORCA @ 22.1400 (fee=0.1328)
+16:10:48  INFO    FILL   #78 sell   3 ORCA   @    22.14  notional     66.42  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:10:48  DEBUG   Portfolio: net_worth=426486.97
+16:10:51  INFO    Fill: sold   2 VLTA @ 31.1400 (fee=0.1246)
+16:10:51  INFO    FILL   #79 sell   2 VLTA   @    31.14  notional     62.28  vs limit +0.0000 (ipo stop, taker)  | bought and held 57, avg entry 34.0000
+16:10:51  DEBUG   Portfolio: net_worth=426486.45
+16:10:53  INFO    Fill: sold   2 ORCA @ 22.1400 (fee=0.0886)
+16:10:53  INFO    FILL   #80 sell   2 ORCA   @    22.14  notional     44.28  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:10:53  DEBUG   Portfolio: net_worth=426483.35
+16:11:22  INFO    Fill: sold   2 INTC @ 16.4800 (fee=0.0659)
+16:11:22  INFO    FILL   #81 sell   2 INTC   @    16.48  notional     32.96  vs limit +0.0000 (quote, maker)  | bought and held 6, avg entry 16.5500
+16:11:22  DEBUG   Portfolio: net_worth=426489.24
+16:11:28  INFO    Fill: sold   2 VLTA @ 31.1400 (fee=0.1246)
+16:11:28  INFO    FILL   #82 sell   2 VLTA   @    31.14  notional     62.28  vs limit +0.0000 (ipo stop, taker)  | bought and held 55, avg entry 34.0000
+16:11:28  DEBUG   Portfolio: net_worth=426495.34
+16:11:29  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:11:29  INFO    FILL   #83 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 54, avg entry 34.0000
+16:11:29  DEBUG   Portfolio: net_worth=426495.26
+16:11:29  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:11:29  INFO    FILL   #84 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 53, avg entry 34.0000
+16:11:29  DEBUG   Portfolio: net_worth=426495.18
+16:11:29  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:11:29  INFO    FILL   #85 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 52, avg entry 34.0000
+16:11:29  DEBUG   Portfolio: net_worth=426495.09
+16:11:29  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:11:29  INFO    FILL   #86 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 51, avg entry 34.0000
+16:11:29  DEBUG   Portfolio: net_worth=426495.01
+16:11:44  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:11:44  INFO    FILL   #87 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 48, avg entry 34.0000
+16:11:44  DEBUG   Portfolio: net_worth=426501.08
+16:11:44  INFO    Fill: sold   2 VLTA @ 31.1400 (fee=0.1246)
+16:11:44  INFO    FILL   #88 sell   2 VLTA   @    31.14  notional     62.28  vs limit +0.0000 (ipo stop, taker)  | bought and held 46, avg entry 34.0000
+16:11:44  DEBUG   Portfolio: net_worth=426500.79
+16:12:09  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:09  INFO    FILL   #89 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 41, avg entry 34.0000
+16:12:09  DEBUG   Portfolio: net_worth=426492.58
+16:12:11  INFO    Fill: sold   1 INTC @ 16.4800 (fee=0.0330)
+16:12:11  INFO    FILL   #90 sell   1 INTC   @    16.48  notional     16.48  vs limit +0.0000 (quote, maker)  | bought and held 5, avg entry 16.5500
+16:12:11  DEBUG   Portfolio: net_worth=426494.86
+16:12:13  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:13  INFO    FILL   #91 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 36, avg entry 34.0000
+16:12:13  DEBUG   Portfolio: net_worth=426492.23
+16:12:17  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:17  INFO    FILL   #92 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 31, avg entry 34.0000
+16:12:17  DEBUG   Portfolio: net_worth=426492.54
+16:12:21  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:21  INFO    FILL   #93 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 26, avg entry 34.0000
+16:12:21  DEBUG   Portfolio: net_worth=426492.41
+16:12:27  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:27  INFO    FILL   #94 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 21, avg entry 34.0000
+16:12:27  DEBUG   Portfolio: net_worth=426492.98
+16:12:27  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:12:27  INFO    FILL   #95 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 20, avg entry 34.0000
+16:12:27  DEBUG   Portfolio: net_worth=426493.03
+16:12:27  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:12:27  INFO    FILL   #96 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 19, avg entry 34.0000
+16:12:27  DEBUG   Portfolio: net_worth=426492.85
+16:12:29  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:29  INFO    FILL   #97 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 14, avg entry 34.0000
+16:12:29  DEBUG   Portfolio: net_worth=426493.06
+16:12:31  INFO    Fill: sold   3 VLTA @ 31.1400 (fee=0.1868)
+16:12:31  INFO    FILL   #98 sell   3 VLTA   @    31.14  notional     93.42  vs limit +0.0000 (ipo stop, taker)  | bought and held 11, avg entry 34.0000
+16:12:31  DEBUG   Portfolio: net_worth=426489.26
+16:12:33  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:33  INFO    FILL   #99 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 6, avg entry 34.0000
+16:12:33  DEBUG   Portfolio: net_worth=426487.96
+16:12:34  INFO    Fill: sold   1 VLTA @ 31.1400 (fee=0.0623)
+16:12:34  INFO    FILL   #100 sell   1 VLTA   @    31.14  notional     31.14  vs limit +0.0000 (ipo stop, taker)  | bought and held 5, avg entry 34.0000
+16:12:34  DEBUG   Portfolio: net_worth=426487.76
+16:12:37  INFO    Fill: sold   5 VLTA @ 31.1400 (fee=0.3114)
+16:12:37  INFO    FILL   #101 sell   5 VLTA   @    31.14  notional    155.70  vs limit +0.0000 (ipo stop, taker)  | bought and held 0, avg entry 0.0000
+16:12:37  DEBUG   Portfolio: net_worth=426488.54
+16:15:42  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 204.40 / long 205.55
+16:15:42  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:43  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:43  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:43  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 204.40 / long 205.55
+16:15:43  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:43  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:43  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:44  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.98 / long 205.42
+16:15:44  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:44  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:44  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:45  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.36
+16:15:45  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:45  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:45  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:45  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.36
+16:15:45  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:45  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:45  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:46  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.30
+16:15:46  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:46  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:46  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:47  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.19
+16:15:47  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:47  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:47  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:48  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.14
+16:15:48  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:48  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:48  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:49  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.08
+16:15:49  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:49  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:49  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:49  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 205.03
+16:15:49  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:49  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:49  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:50  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 204.98
+16:15:50  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:51  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:51  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:51  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 204.93
+16:15:51  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:51  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:51  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:15:52  INFO    ORDER  sell 5 AMD @ 204.73 rest (notional 1023.65) — short 203.76 / long 204.87
+16:15:52  DEBUG   Placed: sell 5 AMD @ 204.7300
+16:15:52  DEBUG   Ack: sell 5 AMD @ 204.7300
+16:15:52  INFO    CANCEL sell 5 AMD @ 204.73 (quote)
+16:16:42  INFO    ORDER  buy  5 AMD @ 206.88 rest (notional 1034.40) — short 206.24 / long 205.16
+16:16:42  DEBUG   Placed: buy 5 AMD @ 206.8800
+16:16:42  DEBUG   Ack: buy 5 AMD @ 206.8800
+16:16:47  INFO    Fill: bought 4 AMD @ 206.8800 (fee=1.6550)
+16:16:47  INFO    FILL   #102 buy    4 AMD    @   206.88  notional    827.52  vs limit +0.0000 (quote, maker)  | bought and held 5, avg entry 208.4840
+16:16:47  DEBUG   Portfolio: net_worth=426465.80
+16:16:48  INFO    Fill: bought 1 AMD @ 206.8800 (fee=0.4138)
+16:16:48  INFO    FILL   #103 buy    1 AMD    @   206.88  notional    206.88  vs limit +0.0000 (quote, maker)  | bought and held 6, avg entry 208.2167
+16:16:48  DEBUG   Portfolio: net_worth=426464.89
+16:16:48  INFO    ORDER  buy  5 AMD @ 204.93 rest (notional 1024.65) — short 207.48 / long 205.96
+16:16:48  DEBUG   Placed: buy 5 AMD @ 204.9300
+16:16:48  DEBUG   Ack: buy 5 AMD @ 204.9300
+16:16:50  INFO    CANCEL buy 5 AMD @ 204.93 (quote)
+16:17:33  INFO    ORDER  buy  5 AMD @ 207.40 rest (notional 1037.00) — short 206.55 / long 205.50
+16:17:33  DEBUG   Placed: buy 5 AMD @ 207.4000
+16:17:33  DEBUG   Ack: buy 5 AMD @ 207.4000
+16:17:35  INFO    CANCEL buy 5 AMD @ 207.40 (quote)
+16:17:35  INFO    ORDER  buy  5 AMD @ 208.12 rest (notional 1040.60) — short 207.48 / long 205.75
+16:17:35  DEBUG   Placed: buy 5 AMD @ 208.1200
+16:17:35  DEBUG   Ack: buy 5 AMD @ 208.1200
+16:17:39  INFO    CANCEL buy 5 AMD @ 208.12 (quote)
+16:17:39  INFO    ORDER  buy  5 AMD @ 208.77 rest (notional 1043.85) — short 208.67 / long 206.35
+16:17:39  DEBUG   Placed: buy 5 AMD @ 208.7700
+16:17:39  DEBUG   Ack: buy 5 AMD @ 208.7700
+16:17:40  INFO    CANCEL buy 5 AMD @ 208.77 (quote)
+16:17:41  INFO    ORDER  buy  5 AMD @ 209.62 rest (notional 1048.10) — short 208.88 / long 206.48
+16:17:41  DEBUG   Placed: buy 5 AMD @ 209.6200
+16:17:41  DEBUG   Ack: buy 5 AMD @ 209.6200
+16:17:42  INFO    CANCEL buy 5 AMD @ 209.62 (quote)
+16:17:42  INFO    ORDER  buy  5 AMD @ 209.94 rest (notional 1049.70) — short 209.45 / long 206.88
+16:17:42  DEBUG   Placed: buy 5 AMD @ 209.9400
+16:17:42  DEBUG   Ack: buy 5 AMD @ 209.9400
+16:17:43  INFO    CANCEL buy 5 AMD @ 209.94 (quote)
+16:17:43  INFO    ORDER  buy  5 AMD @ 209.41 rest (notional 1047.05) — short 210.02 / long 207.32
+16:17:43  DEBUG   Placed: buy 5 AMD @ 209.4100
+16:17:44  DEBUG   Ack: buy 5 AMD @ 209.4100
+16:17:46  INFO    CANCEL buy 5 AMD @ 209.41 (quote)
+16:17:47  INFO    ORDER  buy  5 AMD @ 210.51 rest (notional 1052.55) — short 210.49 / long 208.03
+16:17:47  DEBUG   Placed: buy 5 AMD @ 210.5100
+16:17:47  DEBUG   Ack: buy 5 AMD @ 210.5100
+16:17:55  INFO    Fill: bought 3 AMD @ 210.5100 (fee=1.2631)
+16:17:55  INFO    FILL   #104 buy    3 AMD    @   210.51  notional    631.53  vs limit +0.0000 (quote, maker)  | bought and held 9, avg entry 208.9811
+16:17:55  DEBUG   Portfolio: net_worth=426366.56
+16:17:56  INFO    CANCEL buy 2 AMD @ 210.51 (quote)
+16:18:19  INFO    ORDER  sell 5 AMD @ 208.12 rest (notional 1040.60) — short 209.44 / long 210.55
+16:18:19  DEBUG   Placed: sell 5 AMD @ 208.1200
+16:18:19  DEBUG   Ack: sell 5 AMD @ 208.1200
+16:18:49  INFO    Fill: sold   3 AMD @ 208.1200 (fee=1.2487)
+16:18:49  INFO    FILL   #105 sell   3 AMD    @   208.12  notional    624.36  vs limit +0.0000 (quote, maker)  | bought and held 6, avg entry 208.9811, short 3 avg 208.1200
+16:18:49  DEBUG   Portfolio: net_worth=426444.70
+16:18:56  INFO    CANCEL sell 2 AMD @ 208.12 (quote)
+16:19:05  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.50 / long 207.56
+16:19:05  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:05  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:05  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:05  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.50 / long 207.56
+16:19:05  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:05  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:05  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:06  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.44 / long 207.51
+16:19:06  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:06  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:06  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:07  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.37 / long 207.46
+16:19:07  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:07  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:07  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:07  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.30 / long 207.41
+16:19:07  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:08  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:08  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:08  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.17 / long 207.31
+16:19:08  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:09  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:09  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:10  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 206.10 / long 207.26
+16:19:10  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:10  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:10  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:10  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 205.97 / long 207.16
+16:19:10  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:10  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:10  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:11  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 205.94 / long 207.11
+16:19:11  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:12  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:12  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:12  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 205.94 / long 207.06
+16:19:12  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:12  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:12  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:13  INFO    ORDER  sell 5 AMD @ 206.95 rest (notional 1034.75) — short 205.94 / long 207.02
+16:19:13  DEBUG   Placed: sell 5 AMD @ 206.9500
+16:19:13  DEBUG   Ack: sell 5 AMD @ 206.9500
+16:19:13  INFO    CANCEL sell 5 AMD @ 206.95 (quote)
+16:19:55  WARNING RISK   short stop META: ask 616.26 is 1.52% above average short entry 607.0100
+16:19:55  INFO    ORDER  buy  5 META @ 616.26 take (notional 3081.30) — short stop
+16:19:55  DEBUG   Placed: buy 5 META @ 616.2600
+16:19:55  DEBUG   Ack: buy 5 META @ 616.2600
+16:19:55  INFO    Fill: bought 5 META @ 616.2600 (fee=6.1626)
+16:19:55  INFO    FILL   #106 buy    5 META   @   616.26  notional   3081.30  vs limit +0.0000 (short stop, taker)  | bought and held 0, avg entry 0.0000
+16:19:55  DEBUG   Portfolio: net_worth=426529.41
+16:27:37  WARNING trader midway_traders_trader_1: connection dropped (no close frame received or sent) — reconnecting in 1.1s (attempt 1)
+16:27:38  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+16:27:39  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:27:39  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+16:27:39  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 40.0 bps, maker rebate 0.0 bps
+16:27:39  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+16:27:39  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+16:30:03  INFO    Session event: SESSION_PRECLOSE — Closing auction: limit orders only — the market closes on the cross in 10 ticks
+16:30:03  INFO    EVENT  SESSION_PRECLOSE Closing auction: limit orders only — the market closes on the cross in 10 ticks
+16:30:20  INFO    Session event: WEEK_CHANGED — Week 0: Open play
+16:30:20  INFO    EVENT  WEEK_CHANGED   Week 0: Open play
+16:30:20  INFO    Session event: CALENDAR — No scheduled events this session
+16:30:20  INFO    EVENT  CALENDAR       No scheduled events this session
+16:30:23  INFO    ORDER  sell 5 MSFT @ 406.07 rest (notional 2030.35) — short 410.11 / long 413.10
+16:30:23  DEBUG   Placed: sell 5 MSFT @ 406.0700
+16:30:23  DEBUG   Ack: sell 5 MSFT @ 406.0700
+16:30:24  INFO    ORDER  sell 5 AMZN @ 152.78 rest (notional 763.90) — short 155.12 / long 156.07
+16:30:24  DEBUG   Placed: sell 5 AMZN @ 152.7800
+16:30:24  DEBUG   Ack: sell 5 AMZN @ 152.7800
+16:30:24  INFO    CANCEL sell 5 AMZN @ 152.78 (quote)
+16:30:25  INFO    ORDER  sell 5 AMZN @ 152.01 rest (notional 760.05) — short 152.99 / long 154.39
+16:30:25  DEBUG   Placed: sell 5 AMZN @ 152.0100
+16:30:25  DEBUG   Ack: sell 5 AMZN @ 152.0100
+16:30:25  INFO    ORDER  sell 5 AMD @ 201.19 rest (notional 1005.95) — short 202.57 / long 204.34
+16:30:25  DEBUG   Placed: sell 5 AMD @ 201.1900
+16:30:25  DEBUG   Ack: sell 5 AMD @ 201.1900
+16:30:25  WARNING RISK   stop-loss INTC: bid 16.20 is 2.11% below average entry 16.5500
+16:30:25  INFO    ORDER  sell 5 INTC @ 16.20 take (notional 81.00) — stop-loss
+16:30:25  DEBUG   Placed: sell 5 INTC @ 16.2000
+16:30:25  INFO    CANCEL sell 5 AMD @ 201.19 (quote)
+16:30:25  DEBUG   Ack: sell 5 INTC @ 16.2000
+16:30:25  INFO    Fill: sold   5 INTC @ 16.2000 (fee=0.1620)
+16:30:25  INFO    FILL   #107 sell   5 INTC   @    16.20  notional     81.00  vs limit +0.0000 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:30:25  DEBUG   Portfolio: net_worth=426222.09
+16:30:26  INFO    ORDER  sell 5 ORCA @ 21.66 rest (notional 108.30) — short 21.88 / long 22.02
+16:30:26  DEBUG   Placed: sell 5 ORCA @ 21.6600
+16:30:26  DEBUG   Ack: sell 5 ORCA @ 21.6600
+16:30:26  INFO    ORDER  sell 5 AMD @ 201.19 rest (notional 1005.95) — short 201.58 / long 204.07
+16:30:26  DEBUG   Placed: sell 5 AMD @ 201.1900
+16:30:26  DEBUG   Ack: sell 5 AMD @ 201.1900
+16:30:26  INFO    CANCEL sell 5 AMD @ 201.19 (quote)
+16:30:26  INFO    Session event: AUCTION_RESULT — Closing auction complete
+16:30:26  INFO    EVENT  AUCTION_RESULT Closing auction complete
+16:30:26  INFO    RECON  midway_traders_trader_1 positions at SESSION_CLOSED vs the last portfolio update: PASS
+16:30:26  INFO    RECON    item                           own         venue        diff
+16:30:26  INFO    RECON    positions held                  10            10           0  ok
+16:30:26  INFO    RECON    pos AAPL                        64            64           0  ok
+16:30:26  INFO    RECON    pos AMD                        -33           -33           0  ok
+16:30:26  INFO    RECON    pos AMZN                        27            27           0  ok
+16:30:26  INFO    RECON    pos GOOGL                      -24           -24           0  ok
+16:30:26  INFO    RECON    pos META                        -3            -3           0  ok
+16:30:26  INFO    RECON    pos MSFT                        28            28           0  ok
+16:30:26  INFO    RECON    pos NFLX                       -38           -38           0  ok
+16:30:26  INFO    RECON    pos NVDA                       -47           -47           0  ok
+16:30:26  INFO    RECON    pos ORCA                       170           170           0  ok
+16:30:26  INFO    RECON    pos TSLA                       -22           -22           0  ok
+16:30:26  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+16:30:26  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+16:30:26  INFO    RECON  midway_traders_trader_1 close vs leaderboard t2444818 (107 fills, 16 rebases): PASS
+16:30:26  INFO    RECON    item                           own         venue        diff
+16:30:26  INFO    RECON    positions held                  10            10           0  ok
+16:30:26  INFO    RECON    pos AAPL                        64            64           0  ok
+16:30:26  INFO    RECON    pos AMD                        -33           -33           0  ok
+16:30:26  INFO    RECON    pos AMZN                        27            27           0  ok
+16:30:26  INFO    RECON    pos GOOGL                      -24           -24           0  ok
+16:30:26  INFO    RECON    pos META                        -3            -3           0  ok
+16:30:26  INFO    RECON    pos MSFT                        28            28           0  ok
+16:30:26  INFO    RECON    pos NFLX                       -38           -38           0  ok
+16:30:26  INFO    RECON    pos NVDA                       -47           -47           0  ok
+16:30:26  INFO    RECON    pos ORCA                       170           170           0  ok
+16:30:26  INFO    RECON    pos TSLA                       -22           -22           0  ok
+16:30:26  INFO    RECON    fees                        513.40        513.40        0.00  ok
+16:30:26  INFO    RECON    rebates                     240.34        240.34        0.00  ok
+16:30:26  INFO    RECON    realized                -12,073.32    -12,073.32        0.00  ok
+16:30:26  INFO    RECON    carry (venue's)                n/a         18.55         n/a  margin interest + borrow fees, taken from the venue
+16:30:26  INFO    RECON    cash                    435,875.50    435,875.51        0.01  ok  diff is interest on idle cash
+16:30:26  INFO    RECON    interest (est)            2,501.50          0.01   -2,501.49  rate x cash x ticks
+16:30:26  INFO    RECON    net worth               426,289.57    426,289.58        0.01  
+16:30:26  INFO    RECON    P&L since t2442413        2,016.32      2,016.33        0.01  

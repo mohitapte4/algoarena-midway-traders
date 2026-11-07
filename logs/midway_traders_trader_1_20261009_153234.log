@@ -1,0 +1,1829 @@
+15:32:34  INFO    Logging to C:\Users\mohit\Desktop\UChicago\Autumn Quarter 2026\Systematic Trading Technologies\algoarena-midway-traders\logs\midway_traders_trader_1_20261009_153234.log
+15:32:34  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from .env — set EXCHANGE_HOST=localhost for local play)
+15:32:35  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_1 (trader)
+15:32:35  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:32:35  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 30.0 bps, maker rebate 5.0 bps
+15:32:53  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:32:53  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:32:53  INFO    Session event: CALENDAR — No scheduled events this session
+15:32:53  INFO    EVENT  CALENDAR       No scheduled events this session
+15:34:25  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:34:25  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:34:25  INFO    Session event: CALENDAR — No scheduled events this session
+15:34:25  INFO    EVENT  CALENDAR       No scheduled events this session
+15:35:57  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:35:57  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:35:57  INFO    Session event: CALENDAR — No scheduled events this session
+15:35:57  INFO    EVENT  CALENDAR       No scheduled events this session
+15:37:30  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:37:30  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:37:30  INFO    Session event: CALENDAR — No scheduled events this session
+15:37:30  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:02  INFO    Session event: WEEK_CHANGED — Week 2: Season scoring begins — long-only while you master async
+15:39:02  INFO    EVENT  WEEK_CHANGED   Week 2: Season scoring begins — long-only while you master async
+15:39:02  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:02  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:58  DEBUG   Portfolio: net_worth=527828.50
+15:39:58  INFO    Session event: CALENDAR — No scheduled events this session
+15:39:58  INFO    EVENT  CALENDAR       No scheduled events this session
+15:39:59  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+15:39:59  INFO    RISK   session reference net worth 527828.50
+15:39:59  INFO    ORDER  buy  5 AMD @ 231.06 limit (notional 1155.30) — starter 1/3
+15:39:59  DEBUG   Placed: buy 5 AMD @ 231.0600
+15:39:59  DEBUG   Ack: buy 5 AMD @ 231.0600
+15:39:59  INFO    Fill: bought 1 AMD @ 231.0600 (fee=0.3466)
+15:39:59  INFO    FILL   #1 buy    1 AMD    @   231.06  notional    231.06  vs limit +0.0000  | bought and held 1, avg entry 231.0600
+15:39:59  DEBUG   Portfolio: net_worth=527824.28
+15:40:00  INFO    ORDER  buy  5 GOOGL @ 179.14 limit (notional 895.70) — short 174.43 / long 172.18
+15:40:00  DEBUG   Placed: buy 5 GOOGL @ 179.1400
+15:40:00  DEBUG   Ack: buy 5 GOOGL @ 179.1400
+15:40:00  INFO    Fill: bought 4 GOOGL @ 179.1400 (fee=1.0748)
+15:40:00  INFO    FILL   #2 buy    4 GOOGL  @   179.14  notional    716.56  vs limit +0.0000  | bought and held 4, avg entry 179.1400
+15:40:00  DEBUG   Portfolio: net_worth=527791.68
+15:40:00  INFO    Fill: bought 1 GOOGL @ 179.1400 (fee=0.2687)
+15:40:00  INFO    FILL   #3 buy    1 GOOGL  @   179.14  notional    179.14  vs limit +0.0000  | bought and held 5, avg entry 179.1400
+15:40:00  DEBUG   Portfolio: net_worth=527780.21
+15:40:01  WARNING RISK   stop-loss GOOGL: bid 174.03 is 2.85% below average entry 179.1400
+15:40:01  INFO    ORDER  sell 5 GOOGL @ 174.03 limit (notional 870.15) — stop-loss
+15:40:01  DEBUG   Placed: sell 5 GOOGL @ 174.0300
+15:40:01  DEBUG   Ack: sell 5 GOOGL @ 174.0300
+15:40:01  INFO    Fill: sold   1 GOOGL @ 174.0300 (fee=0.2610)
+15:40:01  INFO    FILL   #4 sell   1 GOOGL  @   174.03  notional    174.03  vs limit +0.0000  | bought and held 4, avg entry 179.1400
+15:40:01  DEBUG   Portfolio: net_worth=527782.11
+15:40:01  INFO    Fill: bought 4 AMD @ 231.0600 (fee=1.3864)
+15:40:01  INFO    FILL   #5 buy    4 AMD    @   231.06  notional    924.24  vs limit +0.0000  | bought and held 5, avg entry 231.0600
+15:40:01  DEBUG   Portfolio: net_worth=527792.97
+15:40:03  INFO    ORDER  sell 5 NFLX @ 1388.98 limit (notional 6944.90) — short 1393.15 / long 1397.98
+15:40:03  DEBUG   Placed: sell 5 NFLX @ 1388.9800
+15:40:03  DEBUG   Ack: sell 5 NFLX @ 1388.9800
+15:40:03  INFO    Fill: sold   5 NFLX @ 1388.9800 (fee=10.4174)
+15:40:03  INFO    FILL   #6 sell   5 NFLX   @  1388.98  notional   6944.90  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:40:03  DEBUG   Portfolio: net_worth=527695.06
+15:40:03  INFO    ORDER  sell 5 NFLX @ 1386.11 limit (notional 6930.55) — short 1388.61 / long 1396.25
+15:40:03  DEBUG   Placed: sell 5 NFLX @ 1386.1100
+15:40:03  DEBUG   Ack: sell 5 NFLX @ 1386.1100
+15:40:06  INFO    Fill: sold   4 GOOGL @ 174.0300 (fee=1.0442)
+15:40:06  INFO    FILL   #7 sell   4 GOOGL  @   174.03  notional    696.12  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:40:06  DEBUG   Portfolio: net_worth=527666.79
+15:40:06  INFO    ORDER  buy  5 GOOGL @ 174.24 limit (notional 871.20) — short 174.00 / long 173.35
+15:40:06  DEBUG   Placed: buy 5 GOOGL @ 174.2400
+15:40:06  DEBUG   Ack: buy 5 GOOGL @ 174.2400
+15:40:18  INFO    ORDER  buy  5 TSLA @ 298.98 limit (notional 1494.90) — short 297.92 / long 296.97
+15:40:18  DEBUG   Placed: buy 5 TSLA @ 298.9800
+15:40:18  DEBUG   Ack: buy 5 TSLA @ 298.9800
+15:40:18  INFO    Fill: bought 5 TSLA @ 298.9800 (fee=2.2424)
+15:40:18  INFO    FILL   #8 buy    5 TSLA   @   298.98  notional   1494.90  vs limit +0.0000  | bought and held 5, avg entry 298.9800
+15:40:18  DEBUG   Portfolio: net_worth=527733.44
+15:40:18  INFO    ORDER  buy  5 TSLA @ 298.43 limit (notional 1492.15) — short 298.30 / long 297.19
+15:40:18  DEBUG   Placed: buy 5 TSLA @ 298.4300
+15:40:19  DEBUG   Ack: buy 5 TSLA @ 298.4300
+15:40:19  INFO    Fill: bought 5 TSLA @ 298.4300 (fee=2.2382)
+15:40:19  INFO    FILL   #9 buy    5 TSLA   @   298.43  notional   1492.15  vs limit +0.0000  | bought and held 10, avg entry 298.7050
+15:40:19  DEBUG   Portfolio: net_worth=527725.03
+15:40:19  INFO    ORDER  buy  5 TSLA @ 298.43 limit (notional 1492.15) — short 298.36 / long 297.37
+15:40:19  DEBUG   Placed: buy 5 TSLA @ 298.4300
+15:40:19  DEBUG   Ack: buy 5 TSLA @ 298.4300
+15:40:19  INFO    Fill: bought 5 TSLA @ 298.4300 (fee=2.2382)
+15:40:19  INFO    FILL   #10 buy    5 TSLA   @   298.43  notional   1492.15  vs limit +0.0000  | bought and held 15, avg entry 298.6133
+15:40:19  DEBUG   Portfolio: net_worth=527719.51
+15:40:23  WARNING ORDER  sell 5 NFLX @ 1386.11 not filled after 20s
+15:40:26  WARNING ORDER  buy 5 GOOGL @ 174.24 not filled after 20s
+15:40:26  INFO    ORDER  buy  5 GOOGL @ 177.90 limit (notional 889.50) — short 177.61 / long 176.68
+15:40:26  DEBUG   Placed: buy 5 GOOGL @ 177.9000
+15:40:27  DEBUG   Ack: buy 5 GOOGL @ 177.9000
+15:40:27  INFO    Fill: bought 5 GOOGL @ 177.9000 (fee=1.3342)
+15:40:27  INFO    FILL   #11 buy    5 GOOGL  @   177.90  notional    889.50  vs limit +0.0000  | bought and held 5, avg entry 177.9000
+15:40:27  DEBUG   Portfolio: net_worth=527743.77
+15:40:27  INFO    ORDER  buy  5 GOOGL @ 177.90 limit (notional 889.50) — short 177.61 / long 176.68
+15:40:27  DEBUG   Placed: buy 5 GOOGL @ 177.9000
+15:40:29  DEBUG   Ack: buy 5 GOOGL @ 177.9000
+15:40:29  INFO    ORDER  buy  5 TSLA @ 299.67 limit (notional 1498.35) — short 298.87 / long 297.94
+15:40:29  DEBUG   Placed: buy 5 TSLA @ 299.6700
+15:40:29  DEBUG   Ack: buy 5 TSLA @ 299.6700
+15:40:29  INFO    Fill: bought 4 TSLA @ 299.6700 (fee=1.7980)
+15:40:29  INFO    FILL   #12 buy    4 TSLA   @   299.67  notional   1198.68  vs limit +0.0000  | bought and held 19, avg entry 298.8358
+15:40:29  DEBUG   Portfolio: net_worth=527746.19
+15:40:31  INFO    ORDER  sell 5 NFLX @ 1373.39 limit (notional 6866.95) — short 1376.54 / long 1382.30
+15:40:31  DEBUG   Placed: sell 5 NFLX @ 1373.3900
+15:40:31  DEBUG   Ack: sell 5 NFLX @ 1373.3900
+15:40:31  INFO    Fill: sold   5 NFLX @ 1373.3900 (fee=10.3004)
+15:40:31  INFO    FILL   #13 sell   5 NFLX   @  1373.39  notional   6866.95  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:40:31  DEBUG   Portfolio: net_worth=527647.21
+15:40:32  INFO    ORDER  sell 2 NFLX @ 1370.68 limit (notional 2741.36) — short 1374.83 / long 1380.56
+15:40:32  DEBUG   Placed: sell 2 NFLX @ 1370.6800
+15:40:32  DEBUG   Ack: sell 2 NFLX @ 1370.6800
+15:40:32  INFO    Fill: sold   2 NFLX @ 1370.6800 (fee=4.1120)
+15:40:32  INFO    FILL   #14 sell   2 NFLX   @  1370.68  notional   2741.36  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:40:32  DEBUG   Portfolio: net_worth=527617.05
+15:40:47  WARNING ORDER  buy 5 GOOGL @ 177.90 not filled after 20s
+15:40:48  INFO    ORDER  buy  5 GOOGL @ 180.64 limit (notional 903.20) — short 180.45 / long 179.87
+15:40:48  DEBUG   Placed: buy 5 GOOGL @ 180.6400
+15:40:48  DEBUG   Ack: buy 5 GOOGL @ 180.6400
+15:40:48  INFO    Fill: bought 5 GOOGL @ 180.6400 (fee=1.3548)
+15:40:48  INFO    FILL   #15 buy    5 GOOGL  @   180.64  notional    903.20  vs limit +0.0000  | bought and held 10, avg entry 179.2700
+15:40:48  DEBUG   Portfolio: net_worth=527652.91
+15:40:49  WARNING ORDER  buy 1 TSLA @ 299.67 not filled after 20s
+15:40:51  INFO    ORDER  buy  5 GOOGL @ 181.50 limit (notional 907.50) — short 180.91 / long 180.35
+15:40:51  DEBUG   Placed: buy 5 GOOGL @ 181.5000
+15:40:51  DEBUG   Ack: buy 5 GOOGL @ 181.5000
+15:40:51  INFO    Fill: bought 5 GOOGL @ 181.5000 (fee=1.3613)
+15:40:51  INFO    FILL   #16 buy    5 GOOGL  @   181.50  notional    907.50  vs limit +0.0000  | bought and held 15, avg entry 180.0133
+15:40:51  DEBUG   Portfolio: net_worth=527650.06
+15:41:01  INFO    ORDER  sell 5 GOOGL @ 180.62 limit (notional 903.10) — short 180.63 / long 181.23
+15:41:01  DEBUG   Placed: sell 5 GOOGL @ 180.6200
+15:41:02  DEBUG   Ack: sell 5 GOOGL @ 180.6200
+15:41:02  INFO    Fill: sold   5 GOOGL @ 180.6200 (fee=1.3546)
+15:41:02  INFO    FILL   #17 sell   5 GOOGL  @   180.62  notional    903.10  vs limit +0.0000  | bought and held 10, avg entry 180.0133
+15:41:02  DEBUG   Portfolio: net_worth=527650.07
+15:41:02  INFO    ORDER  sell 5 GOOGL @ 180.62 limit (notional 903.10) — short 180.63 / long 181.19
+15:41:02  DEBUG   Placed: sell 5 GOOGL @ 180.6200
+15:41:02  DEBUG   Ack: sell 5 GOOGL @ 180.6200
+15:41:04  INFO    ORDER  sell 5 NVDA @ 116.30 limit (notional 581.50) — short 116.49 / long 116.88
+15:41:04  DEBUG   Placed: sell 5 NVDA @ 116.3000
+15:41:04  DEBUG   Ack: sell 5 NVDA @ 116.3000
+15:41:04  INFO    Fill: sold   5 NVDA @ 116.3000 (fee=0.8722)
+15:41:04  INFO    FILL   #18 sell   5 NVDA   @   116.30  notional    581.50  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:41:04  DEBUG   Portfolio: net_worth=527628.83
+15:41:04  INFO    Fill: bought 1 TSLA @ 299.6700 (fee=0.4495)
+15:41:04  INFO    FILL   #19 buy    1 TSLA   @   299.67  notional    299.67  | bought and held 20, avg entry 298.8775
+15:41:04  DEBUG   Portfolio: net_worth=527628.06
+15:41:05  INFO    ORDER  sell 5 NVDA @ 116.30 limit (notional 581.50) — short 116.39 / long 116.79
+15:41:05  DEBUG   Placed: sell 5 NVDA @ 116.3000
+15:41:05  DEBUG   Ack: sell 5 NVDA @ 116.3000
+15:41:22  WARNING ORDER  sell 5 GOOGL @ 180.62 not filled after 20s
+15:41:25  WARNING ORDER  sell 5 NVDA @ 116.30 not filled after 20s
+15:44:45  INFO    Session event: CALENDAR — Upcoming: earnings AAPL @ t400
+15:44:45  INFO    EVENT  CALENDAR       Upcoming: earnings AAPL @ t400
+15:44:47  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.51 / long 20.45
+15:44:47  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:44:47  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:44:47  INFO    Fill: bought 2 INTC @ 20.5600 (fee=0.0617)
+15:44:47  INFO    FILL   #20 buy    2 INTC   @    20.56  notional     41.12  vs limit +0.0000  | bought and held 2, avg entry 20.5600
+15:44:47  DEBUG   Portfolio: net_worth=527641.08
+15:45:08  WARNING ORDER  buy 3 INTC @ 20.56 not filled after 20s
+15:45:46  INFO    Fill: bought 3 INTC @ 20.5600 (fee=0.0925)
+15:45:46  INFO    FILL   #21 buy    3 INTC   @    20.56  notional     61.68  | bought and held 5, avg entry 20.5600
+15:45:46  DEBUG   Portfolio: net_worth=527703.71
+15:45:55  INFO    ORDER  buy  5 NFLX @ 1350.37 limit (notional 6751.85) — short 1348.96 / long 1344.71
+15:45:55  DEBUG   Placed: buy 5 NFLX @ 1350.3700
+15:45:55  DEBUG   Ack: buy 5 NFLX @ 1350.3700
+15:45:55  INFO    Fill: bought 1 NFLX @ 1350.3700 (fee=2.0256)
+15:45:55  INFO    FILL   #22 buy    1 NFLX   @  1350.37  notional   1350.37  vs limit +0.0000  | bought and held 1, avg entry 1350.3700
+15:45:55  DEBUG   Portfolio: net_worth=527717.13
+15:46:06  INFO    Fill: sold   5 NFLX @ 1386.1100 (fee=10.3958)
+15:46:06  INFO    FILL   #23 sell   5 NFLX   @  1386.11  notional   6930.55  | bought and held 0, avg entry 0.0000
+15:46:06  DEBUG   Portfolio: net_worth=527764.15
+15:46:15  WARNING ORDER  buy 4 NFLX @ 1350.37 not filled after 20s
+15:46:50  INFO    Session event: CALENDAR_EVENT — Earnings: AAPL moving +6.2%
+15:46:50  INFO    EVENT  CALENDAR_EVENT Earnings: AAPL moving +6.2%
+15:47:06  INFO    ORDER  sell 5 AAPL @ 201.56 limit (notional 1007.80) — short 204.80 / long 205.51
+15:47:06  DEBUG   Placed: sell 5 AAPL @ 201.5600
+15:47:06  DEBUG   Ack: sell 5 AAPL @ 201.5600
+15:47:06  INFO    Fill: sold   5 AAPL @ 209.3100 (fee=1.5698)
+15:47:06  INFO    FILL   #24 sell   5 AAPL   @   209.31  notional   1046.55  vs limit +7.7500  | bought and held 0, avg entry 0.0000
+15:47:06  DEBUG   Portfolio: net_worth=528261.01
+15:47:07  INFO    ORDER  buy  5 AAPL @ 209.02 limit (notional 1045.10) — short 207.18 / long 206.35
+15:47:07  DEBUG   Placed: buy 5 AAPL @ 209.0200
+15:47:07  DEBUG   Ack: buy 5 AAPL @ 209.0200
+15:47:07  INFO    Fill: bought 5 AAPL @ 209.0100 (fee=1.5676)
+15:47:07  INFO    FILL   #25 buy    5 AAPL   @   209.01  notional   1045.05  vs limit -0.0100  | bought and held 5, avg entry 209.0100
+15:47:07  DEBUG   Portfolio: net_worth=528242.03
+15:47:07  WARNING RISK   stop-loss AAPL: bid 200.17 is 4.23% below average entry 209.0100
+15:47:07  INFO    ORDER  sell 5 AAPL @ 200.17 limit (notional 1000.85) — stop-loss
+15:47:07  DEBUG   Placed: sell 5 AAPL @ 200.1700
+15:47:07  DEBUG   Ack: sell 5 AAPL @ 200.1700
+15:47:07  INFO    Fill: sold   5 AAPL @ 208.2500 (fee=1.5619)
+15:47:07  INFO    FILL   #26 sell   5 AAPL   @   208.25  notional   1041.25  vs limit +8.0800  | bought and held 0, avg entry 0.0000
+15:47:07  DEBUG   Portfolio: net_worth=528225.96
+15:47:08  INFO    ORDER  sell 5 AAPL @ 199.48 limit (notional 997.40) — short 205.17 / long 205.84
+15:47:08  DEBUG   Placed: sell 5 AAPL @ 199.4800
+15:47:08  DEBUG   Ack: sell 5 AAPL @ 199.4800
+15:47:08  INFO    Fill: sold   5 AAPL @ 208.2300 (fee=1.5617)
+15:47:08  INFO    FILL   #27 sell   5 AAPL   @   208.23  notional   1041.15  vs limit +8.7500  | bought and held 0, avg entry 0.0000
+15:47:08  DEBUG   Portfolio: net_worth=528226.07
+15:47:08  INFO    ORDER  sell 5 AAPL @ 199.12 limit (notional 995.60) — short 203.75 / long 205.45
+15:47:08  DEBUG   Placed: sell 5 AAPL @ 199.1200
+15:47:09  DEBUG   Ack: sell 5 AAPL @ 199.1200
+15:47:09  INFO    Fill: sold   5 AAPL @ 208.2200 (fee=1.5616)
+15:47:09  INFO    FILL   #28 sell   5 AAPL   @   208.22  notional   1041.10  vs limit +9.1000  | bought and held 0, avg entry 0.0000
+15:47:09  DEBUG   Portfolio: net_worth=528218.69
+15:47:09  INFO    ORDER  sell 5 AAPL @ 199.12 limit (notional 995.60) — short 204.62 / long 205.48
+15:47:09  DEBUG   Placed: sell 5 AAPL @ 199.1200
+15:47:09  DEBUG   Ack: sell 5 AAPL @ 199.1200
+15:47:09  INFO    Fill: sold   5 AAPL @ 207.7300 (fee=1.5580)
+15:47:09  INFO    FILL   #29 sell   5 AAPL   @   207.73  notional   1038.65  vs limit +8.6100  | bought and held 0, avg entry 0.0000
+15:47:09  DEBUG   Portfolio: net_worth=528211.46
+15:47:10  INFO    ORDER  sell 5 AAPL @ 199.12 limit (notional 995.60) — short 203.50 / long 204.82
+15:47:10  DEBUG   Placed: sell 5 AAPL @ 199.1200
+15:47:10  DEBUG   Ack: sell 5 AAPL @ 199.1200
+15:47:10  INFO    Fill: sold   5 AAPL @ 199.1200 (fee=1.4934)
+15:47:10  INFO    FILL   #30 sell   5 AAPL   @   199.12  notional    995.60  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:47:10  DEBUG   Portfolio: net_worth=528171.80
+15:47:10  INFO    ORDER  sell 5 AAPL @ 199.12 limit (notional 995.60) — short 203.31 / long 204.46
+15:47:10  DEBUG   Placed: sell 5 AAPL @ 199.1200
+15:47:10  DEBUG   Ack: sell 5 AAPL @ 199.1200
+15:47:10  INFO    Fill: sold   5 AAPL @ 206.1200 (fee=1.5459)
+15:47:10  INFO    FILL   #31 sell   5 AAPL   @   206.12  notional   1030.60  vs limit +7.0000  | bought and held 0, avg entry 0.0000
+15:47:10  DEBUG   Portfolio: net_worth=528165.30
+15:47:11  INFO    ORDER  sell 2 AAPL @ 199.12 limit (notional 398.24) — short 203.15 / long 203.87
+15:47:11  DEBUG   Placed: sell 2 AAPL @ 199.1200
+15:47:11  DEBUG   Ack: sell 2 AAPL @ 199.1200
+15:47:11  INFO    Fill: sold   2 AAPL @ 205.5500 (fee=0.6167)
+15:47:11  INFO    FILL   #32 sell   2 AAPL   @   205.55  notional    411.10  vs limit +6.4300  | bought and held 0, avg entry 0.0000
+15:47:11  DEBUG   Portfolio: net_worth=528163.22
+15:47:11  INFO    ORDER  buy  5 AAPL @ 206.68 limit (notional 1033.40) — short 204.93 / long 204.14
+15:47:11  DEBUG   Placed: buy 5 AAPL @ 206.6800
+15:47:11  DEBUG   Ack: buy 5 AAPL @ 206.6800
+15:47:11  INFO    Fill: bought 5 AAPL @ 206.6800 (fee=1.5501)
+15:47:11  INFO    FILL   #33 buy    5 AAPL   @   206.68  notional   1033.40  vs limit +0.0000  | bought and held 5, avg entry 206.6800
+15:47:11  DEBUG   Portfolio: net_worth=528154.32
+15:47:12  INFO    ORDER  buy  5 AAPL @ 206.92 limit (notional 1034.60) — short 206.16 / long 204.39
+15:47:12  DEBUG   Placed: buy 5 AAPL @ 206.9200
+15:47:12  DEBUG   Ack: buy 5 AAPL @ 206.9200
+15:47:12  INFO    Fill: bought 5 AAPL @ 206.2500 (fee=1.5469)
+15:47:12  INFO    FILL   #34 buy    5 AAPL   @   206.25  notional   1031.25  vs limit -0.6700  | bought and held 10, avg entry 206.4650
+15:47:12  DEBUG   Portfolio: net_worth=528147.16
+15:47:12  INFO    ORDER  buy  5 AAPL @ 206.25 limit (notional 1031.25) — short 206.09 / long 204.61
+15:47:12  DEBUG   Placed: buy 5 AAPL @ 206.2500
+15:47:12  DEBUG   Ack: buy 5 AAPL @ 206.2500
+15:47:12  INFO    Fill: bought 5 AAPL @ 206.2500 (fee=1.5469)
+15:47:12  INFO    FILL   #35 buy    5 AAPL   @   206.25  notional   1031.25  vs limit +0.0000  | bought and held 15, avg entry 206.3933
+15:47:12  DEBUG   Portfolio: net_worth=528133.13
+15:47:13  INFO    ORDER  buy  5 AAPL @ 206.56 limit (notional 1032.80) — short 206.06 / long 204.85
+15:47:13  DEBUG   Placed: buy 5 AAPL @ 206.5600
+15:47:13  DEBUG   Ack: buy 5 AAPL @ 206.5600
+15:47:13  INFO    Fill: bought 5 AAPL @ 205.7500 (fee=1.5431)
+15:47:13  INFO    FILL   #36 buy    5 AAPL   @   205.75  notional   1028.75  vs limit -0.8100  | bought and held 20, avg entry 206.2325
+15:47:13  DEBUG   Portfolio: net_worth=528125.94
+15:47:13  INFO    ORDER  buy  5 AAPL @ 205.75 limit (notional 1028.75) — short 205.80 / long 204.79
+15:47:13  DEBUG   Placed: buy 5 AAPL @ 205.7500
+15:47:13  DEBUG   Ack: buy 5 AAPL @ 205.7500
+15:47:13  INFO    Fill: bought 5 AAPL @ 205.7500 (fee=1.5431)
+15:47:13  INFO    FILL   #37 buy    5 AAPL   @   205.75  notional   1028.75  vs limit +0.0000  | bought and held 25, avg entry 206.1360
+15:47:13  DEBUG   Portfolio: net_worth=528129.38
+15:47:19  INFO    ORDER  buy  5 AAPL @ 208.06 limit (notional 1040.30) — short 207.02 / long 206.23
+15:47:19  DEBUG   Placed: buy 5 AAPL @ 208.0600
+15:47:19  DEBUG   Ack: buy 5 AAPL @ 208.0600
+15:47:19  INFO    Fill: bought 5 AAPL @ 208.0600 (fee=1.5604)
+15:47:19  INFO    FILL   #38 buy    5 AAPL   @   208.06  notional   1040.30  vs limit +0.0000  | bought and held 30, avg entry 206.4567
+15:47:19  DEBUG   Portfolio: net_worth=528169.60
+15:47:19  INFO    ORDER  buy  5 AAPL @ 208.62 limit (notional 1043.10) — short 207.66 / long 206.44
+15:47:19  DEBUG   Placed: buy 5 AAPL @ 208.6200
+15:47:19  DEBUG   Ack: buy 5 AAPL @ 208.6200
+15:47:19  INFO    Fill: bought 5 AAPL @ 207.9300 (fee=1.5595)
+15:47:19  INFO    FILL   #39 buy    5 AAPL   @   207.93  notional   1039.65  vs limit -0.6900  | bought and held 35, avg entry 206.6671
+15:47:19  DEBUG   Portfolio: net_worth=528162.57
+15:47:20  INFO    ORDER  buy  5 AAPL @ 207.93 limit (notional 1039.65) — short 207.98 / long 206.66
+15:47:20  DEBUG   Placed: buy 5 AAPL @ 207.9300
+15:47:20  DEBUG   Ack: buy 5 AAPL @ 207.9300
+15:47:20  INFO    Fill: bought 5 AAPL @ 207.9300 (fee=1.5595)
+15:47:20  INFO    FILL   #40 buy    5 AAPL   @   207.93  notional   1039.65  vs limit +0.0000  | bought and held 40, avg entry 206.8250
+15:47:20  DEBUG   Portfolio: net_worth=528168.15
+15:47:20  INFO    ORDER  buy  5 AAPL @ 208.26 limit (notional 1041.30) — short 208.02 / long 206.91
+15:47:20  DEBUG   Placed: buy 5 AAPL @ 208.2600
+15:47:20  DEBUG   Ack: buy 5 AAPL @ 208.2600
+15:47:41  WARNING ORDER  buy 5 AAPL @ 208.26 not filled after 20s
+15:47:56  INFO    Fill: sold   5 GOOGL @ 180.6200 (fee=1.3546)
+15:47:56  INFO    FILL   #41 sell   5 GOOGL  @   180.62  notional    903.10  | bought and held 5, avg entry 180.0133
+15:47:56  DEBUG   Portfolio: net_worth=528276.02
+15:48:19  INFO    ORDER  buy  5 INTC @ 20.61 limit (notional 103.05) — short 20.59 / long 20.51
+15:48:19  DEBUG   Placed: buy 5 INTC @ 20.6100
+15:48:19  DEBUG   Ack: buy 5 INTC @ 20.6100
+15:48:19  INFO    Fill: bought 5 INTC @ 20.6100 (fee=0.1546)
+15:48:19  INFO    FILL   #42 buy    5 INTC   @    20.61  notional    103.05  vs limit +0.0000  | bought and held 10, avg entry 20.5850
+15:48:19  DEBUG   Portfolio: net_worth=528261.95
+15:48:20  INFO    ORDER  buy  5 INTC @ 20.61 limit (notional 103.05) — short 20.60 / long 20.53
+15:48:20  DEBUG   Placed: buy 5 INTC @ 20.6100
+15:48:20  DEBUG   Ack: buy 5 INTC @ 20.6100
+15:48:20  INFO    Fill: bought 5 INTC @ 20.6100 (fee=0.1546)
+15:48:20  INFO    FILL   #43 buy    5 INTC   @    20.61  notional    103.05  vs limit +0.0000  | bought and held 15, avg entry 20.5933
+15:48:20  DEBUG   Portfolio: net_worth=528255.93
+15:48:53  INFO    ORDER  buy  5 INTC @ 20.73 limit (notional 103.65) — short 20.70 / long 20.62
+15:48:53  DEBUG   Placed: buy 5 INTC @ 20.7300
+15:48:53  DEBUG   Ack: buy 5 INTC @ 20.7300
+15:48:53  INFO    Fill: bought 5 INTC @ 20.7300 (fee=0.1555)
+15:48:53  INFO    FILL   #44 buy    5 INTC   @    20.73  notional    103.65  vs limit +0.0000  | bought and held 20, avg entry 20.6275
+15:48:53  DEBUG   Portfolio: net_worth=528243.56
+15:48:54  INFO    ORDER  buy  5 INTC @ 20.73 limit (notional 103.65) — short 20.70 / long 20.64
+15:48:54  DEBUG   Placed: buy 5 INTC @ 20.7300
+15:48:54  DEBUG   Ack: buy 5 INTC @ 20.7300
+15:48:54  INFO    Fill: bought 5 INTC @ 20.7300 (fee=0.1555)
+15:48:54  INFO    FILL   #45 buy    5 INTC   @    20.73  notional    103.65  vs limit +0.0000  | bought and held 25, avg entry 20.6480
+15:48:54  DEBUG   Portfolio: net_worth=528239.50
+15:48:54  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.39 / long 20.57
+15:48:54  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:48:54  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:48:54  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:48:54  INFO    FILL   #46 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 22, avg entry 20.6480
+15:48:54  DEBUG   Portfolio: net_worth=528240.02
+15:48:56  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:48:56  INFO    FILL   #47 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 20, avg entry 20.6480
+15:48:56  DEBUG   Portfolio: net_worth=528241.51
+15:48:56  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.57
+15:48:56  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:48:56  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:48:56  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:48:56  INFO    FILL   #48 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 25, avg entry 20.6544
+15:48:56  DEBUG   Portfolio: net_worth=528237.48
+15:48:57  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.65 / long 20.57
+15:48:57  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:48:57  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:48:57  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:48:57  INFO    FILL   #49 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 30, avg entry 20.6587
+15:48:57  DEBUG   Portfolio: net_worth=528233.39
+15:48:57  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.60
+15:48:57  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:48:57  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:48:57  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:48:57  INFO    FILL   #50 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 35, avg entry 20.6617
+15:48:57  DEBUG   Portfolio: net_worth=528232.32
+15:48:58  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.60
+15:48:58  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:48:58  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:48:58  INFO    Fill: bought 2 INTC @ 20.6800 (fee=0.0620)
+15:48:58  INFO    FILL   #51 buy    2 INTC   @    20.68  notional     41.36  vs limit +0.0000  | bought and held 37, avg entry 20.6627
+15:48:58  DEBUG   Portfolio: net_worth=528230.73
+15:48:59  INFO    Fill: bought 3 INTC @ 20.6800 (fee=0.0931)
+15:48:59  INFO    FILL   #52 buy    3 INTC   @    20.68  notional     62.04  vs limit +0.0000  | bought and held 40, avg entry 20.6640
+15:48:59  DEBUG   Portfolio: net_worth=528227.37
+15:48:59  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.36 / long 20.51
+15:48:59  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:48:59  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:48:59  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:48:59  INFO    FILL   #53 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 37, avg entry 20.6640
+15:48:59  DEBUG   Portfolio: net_worth=528229.36
+15:49:01  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:01  INFO    FILL   #54 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 35, avg entry 20.6640
+15:49:01  DEBUG   Portfolio: net_worth=528231.00
+15:49:01  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.58
+15:49:01  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:01  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:01  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:49:01  INFO    FILL   #55 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 40, avg entry 20.6660
+15:49:01  DEBUG   Portfolio: net_worth=528226.95
+15:49:02  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.58
+15:49:02  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:02  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:02  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:49:02  INFO    FILL   #56 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 45, avg entry 20.6676
+15:49:02  DEBUG   Portfolio: net_worth=528222.89
+15:49:02  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.58
+15:49:02  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:02  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:02  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:02  INFO    FILL   #57 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 46, avg entry 20.6678
+15:49:02  DEBUG   Portfolio: net_worth=528224.67
+15:49:04  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:04  INFO    FILL   #58 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 50, avg entry 20.6688
+15:49:04  DEBUG   Portfolio: net_worth=528219.99
+15:49:04  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.23 / long 20.47
+15:49:04  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:04  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:04  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:49:04  INFO    FILL   #59 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6688
+15:49:04  DEBUG   Portfolio: net_worth=528221.94
+15:49:09  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:09  INFO    FILL   #60 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6688
+15:49:09  DEBUG   Portfolio: net_worth=528235.29
+15:49:09  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.53
+15:49:09  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:09  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:09  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:09  INFO    FILL   #61 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 46, avg entry 20.6690
+15:49:09  DEBUG   Portfolio: net_worth=528234.50
+15:49:11  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:11  INFO    FILL   #62 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 50, avg entry 20.6699
+15:49:11  DEBUG   Portfolio: net_worth=528235.40
+15:49:12  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.04 / long 20.41
+15:49:12  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:12  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:12  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:49:12  INFO    FILL   #63 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6699
+15:49:12  DEBUG   Portfolio: net_worth=528237.58
+15:49:14  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:14  INFO    FILL   #64 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6699
+15:49:14  DEBUG   Portfolio: net_worth=528242.86
+15:49:14  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.45
+15:49:14  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:14  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:14  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:14  INFO    FILL   #65 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 49, avg entry 20.6707
+15:49:14  DEBUG   Portfolio: net_worth=528244.00
+15:49:16  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:16  INFO    FILL   #66 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 50, avg entry 20.6709
+15:49:16  DEBUG   Portfolio: net_worth=528218.60
+15:49:17  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.22 / long 20.32
+15:49:17  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:17  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:17  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:49:17  INFO    FILL   #67 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6709
+15:49:17  DEBUG   Portfolio: net_worth=528220.40
+15:49:19  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:19  INFO    FILL   #68 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6709
+15:49:19  DEBUG   Portfolio: net_worth=528221.76
+15:49:19  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.50
+15:49:19  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:19  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:19  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:19  INFO    FILL   #69 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 49, avg entry 20.6717
+15:49:19  DEBUG   Portfolio: net_worth=528237.37
+15:49:21  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:21  INFO    FILL   #70 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 50, avg entry 20.6718
+15:49:21  DEBUG   Portfolio: net_worth=528219.58
+15:49:22  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.08 / long 20.36
+15:49:22  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:22  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:22  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:49:22  INFO    FILL   #71 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6718
+15:49:22  DEBUG   Portfolio: net_worth=528221.70
+15:49:24  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:24  INFO    FILL   #72 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6718
+15:49:24  DEBUG   Portfolio: net_worth=528225.22
+15:49:24  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.47
+15:49:24  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:24  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:24  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:24  INFO    FILL   #73 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 49, avg entry 20.6725
+15:49:24  DEBUG   Portfolio: net_worth=528221.98
+15:49:26  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:26  INFO    FILL   #74 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 50, avg entry 20.6727
+15:49:26  DEBUG   Portfolio: net_worth=528204.46
+15:49:26  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.01 / long 20.31
+15:49:26  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:26  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:26  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:49:26  INFO    FILL   #75 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6727
+15:49:26  DEBUG   Portfolio: net_worth=528206.73
+15:49:29  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:49:29  INFO    FILL   #76 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6727
+15:49:29  DEBUG   Portfolio: net_worth=528205.51
+15:49:29  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.41
+15:49:29  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:29  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:29  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:29  INFO    FILL   #77 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 49, avg entry 20.6733
+15:49:29  DEBUG   Portfolio: net_worth=528202.11
+15:49:31  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:31  INFO    FILL   #78 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 50, avg entry 20.6734
+15:49:31  DEBUG   Portfolio: net_worth=528196.57
+15:49:31  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.16 / long 20.25
+15:49:31  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:31  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:31  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:49:31  INFO    FILL   #79 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 49, avg entry 20.6734
+15:49:31  DEBUG   Portfolio: net_worth=528198.78
+15:49:34  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:49:34  INFO    FILL   #80 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 45, avg entry 20.6734
+15:49:34  DEBUG   Portfolio: net_worth=528203.75
+15:49:34  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.44
+15:49:34  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:34  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:34  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:34  INFO    FILL   #81 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 49, avg entry 20.6739
+15:49:34  DEBUG   Portfolio: net_worth=528200.51
+15:49:36  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:36  INFO    FILL   #82 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 50, avg entry 20.6740
+15:49:36  DEBUG   Portfolio: net_worth=528192.71
+15:49:36  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.04 / long 20.26
+15:49:36  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:36  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:36  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:49:36  INFO    FILL   #83 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 49, avg entry 20.6740
+15:49:36  DEBUG   Portfolio: net_worth=528193.43
+15:49:39  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:49:39  INFO    FILL   #84 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 45, avg entry 20.6740
+15:49:39  DEBUG   Portfolio: net_worth=528199.57
+15:49:39  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.45
+15:49:39  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:39  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:39  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:49:39  INFO    FILL   #85 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 50, avg entry 20.6746
+15:49:39  DEBUG   Portfolio: net_worth=528195.57
+15:49:39  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.65 / long 20.46
+15:49:40  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:40  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:40  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:40  INFO    FILL   #86 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 51, avg entry 20.6747
+15:49:40  DEBUG   Portfolio: net_worth=528194.84
+15:49:43  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:43  INFO    FILL   #87 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 55, avg entry 20.6751
+15:49:43  DEBUG   Portfolio: net_worth=528184.54
+15:49:43  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.20 / long 20.34
+15:49:43  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:43  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:43  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:49:43  INFO    FILL   #88 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 54, avg entry 20.6751
+15:49:43  DEBUG   Portfolio: net_worth=528187.20
+15:49:45  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:49:45  INFO    FILL   #89 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 50, avg entry 20.6751
+15:49:45  DEBUG   Portfolio: net_worth=528192.21
+15:49:46  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.53
+15:49:46  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:49:46  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:49:46  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:49:46  INFO    FILL   #90 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 51, avg entry 20.6752
+15:49:46  DEBUG   Portfolio: net_worth=528191.44
+15:49:48  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:49:48  INFO    FILL   #91 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 55, avg entry 20.6756
+15:49:48  DEBUG   Portfolio: net_worth=528180.87
+15:49:48  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.04 / long 20.35
+15:49:48  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:49:48  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:49:48  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:49:48  INFO    FILL   #92 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 54, avg entry 20.6756
+15:49:48  DEBUG   Portfolio: net_worth=528181.55
+15:49:50  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:49:50  INFO    FILL   #93 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 50, avg entry 20.6756
+15:49:50  DEBUG   Portfolio: net_worth=528190.77
+15:49:52  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.23 / long 20.35
+15:49:52  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:49:52  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:49:52  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:49:52  INFO    FILL   #94 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 49, avg entry 20.6756
+15:49:52  DEBUG   Portfolio: net_worth=528191.78
+15:49:58  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:49:58  INFO    FILL   #95 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 45, avg entry 20.6756
+15:49:58  DEBUG   Portfolio: net_worth=528195.34
+15:49:58  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.38 / long 20.48
+15:49:58  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:49:58  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:49:58  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:49:58  INFO    FILL   #96 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 44, avg entry 20.6756
+15:49:58  DEBUG   Portfolio: net_worth=528192.57
+15:50:00  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:00  INFO    FILL   #97 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 40, avg entry 20.6756
+15:50:00  DEBUG   Portfolio: net_worth=528196.77
+15:50:01  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.37 / long 20.44
+15:50:01  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:01  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:01  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:01  INFO    FILL   #98 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 39, avg entry 20.6756
+15:50:01  DEBUG   Portfolio: net_worth=528195.70
+15:50:03  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:03  INFO    FILL   #99 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 35, avg entry 20.6756
+15:50:03  DEBUG   Portfolio: net_worth=528200.17
+15:50:04  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.37 / long 20.45
+15:50:04  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:04  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:04  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:04  INFO    FILL   #100 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 34, avg entry 20.6756
+15:50:04  DEBUG   Portfolio: net_worth=528200.21
+15:50:06  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:06  INFO    FILL   #101 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 30, avg entry 20.6756
+15:50:06  DEBUG   Portfolio: net_worth=528205.28
+15:50:06  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.24 / long 20.41
+15:50:06  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:07  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:07  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:07  INFO    FILL   #102 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 29, avg entry 20.6756
+15:50:07  DEBUG   Portfolio: net_worth=528205.98
+15:50:08  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:08  INFO    FILL   #103 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 25, avg entry 20.6756
+15:50:08  DEBUG   Portfolio: net_worth=528210.50
+15:50:10  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.23 / long 20.38
+15:50:10  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:10  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:10  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:10  INFO    FILL   #104 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 24, avg entry 20.6756
+15:50:10  DEBUG   Portfolio: net_worth=528209.39
+15:50:11  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:11  INFO    FILL   #105 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 20, avg entry 20.6756
+15:50:11  DEBUG   Portfolio: net_worth=528211.61
+15:50:12  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.22 / long 20.34
+15:50:12  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:12  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:12  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:12  INFO    FILL   #106 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 19, avg entry 20.6756
+15:50:12  DEBUG   Portfolio: net_worth=528206.29
+15:50:13  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:13  INFO    FILL   #107 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 15, avg entry 20.6756
+15:50:13  DEBUG   Portfolio: net_worth=528205.73
+15:50:14  INFO    ORDER  sell 5 NVDA @ 114.70 limit (notional 573.50) — short 114.78 / long 115.13
+15:50:14  DEBUG   Placed: sell 5 NVDA @ 114.7000
+15:50:14  DEBUG   Ack: sell 5 NVDA @ 114.7000
+15:50:14  INFO    Fill: sold   5 NVDA @ 114.7000 (fee=0.8602)
+15:50:14  INFO    FILL   #108 sell   5 NVDA   @   114.70  notional    573.50  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:14  DEBUG   Portfolio: net_worth=528207.67
+15:50:14  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.24 / long 20.34
+15:50:14  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:14  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:14  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:14  INFO    FILL   #109 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 14, avg entry 20.6756
+15:50:14  DEBUG   Portfolio: net_worth=528207.40
+15:50:16  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:16  INFO    FILL   #110 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 10, avg entry 20.6756
+15:50:16  DEBUG   Portfolio: net_worth=528211.26
+15:50:17  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.22 / long 20.34
+15:50:17  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:17  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:17  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:17  INFO    FILL   #111 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 9, avg entry 20.6756
+15:50:17  DEBUG   Portfolio: net_worth=528208.88
+15:50:18  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:18  INFO    FILL   #112 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 5, avg entry 20.6756
+15:50:18  DEBUG   Portfolio: net_worth=528214.50
+15:50:20  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.21 / long 20.30
+15:50:20  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:20  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:20  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:20  INFO    FILL   #113 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 4, avg entry 20.6756
+15:50:20  DEBUG   Portfolio: net_worth=528216.27
+15:50:26  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:26  INFO    FILL   #114 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:26  DEBUG   Portfolio: net_worth=528227.48
+15:50:27  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.23 / long 20.43
+15:50:27  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:27  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:27  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:27  INFO    FILL   #115 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:27  DEBUG   Portfolio: net_worth=528216.34
+15:50:32  INFO    Fill: sold   3 INTC @ 20.6800 (fee=0.0931)
+15:50:32  INFO    FILL   #116 sell   3 INTC   @    20.68  notional     62.04  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:32  DEBUG   Portfolio: net_worth=528213.48
+15:50:33  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:33  INFO    FILL   #117 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:33  DEBUG   Portfolio: net_worth=528216.00
+15:50:33  INFO    ORDER  sell 5 INTC @ 20.68 limit (notional 103.40) — short 20.39 / long 20.48
+15:50:33  DEBUG   Placed: sell 5 INTC @ 20.6800
+15:50:34  DEBUG   Ack: sell 5 INTC @ 20.6800
+15:50:34  INFO    Fill: sold   4 INTC @ 20.6800 (fee=0.1241)
+15:50:34  INFO    FILL   #118 sell   4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:34  DEBUG   Portfolio: net_worth=528218.65
+15:50:41  INFO    Fill: sold   1 INTC @ 20.6800 (fee=0.0310)
+15:50:41  INFO    FILL   #119 sell   1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:41  DEBUG   Portfolio: net_worth=528227.58
+15:50:41  INFO    ORDER  sell 2 INTC @ 20.68 limit (notional 41.36) — short 20.38 / long 20.51
+15:50:41  DEBUG   Placed: sell 2 INTC @ 20.6800
+15:50:41  DEBUG   Ack: sell 2 INTC @ 20.6800
+15:50:41  INFO    Fill: sold   2 INTC @ 20.6800 (fee=0.0620)
+15:50:41  INFO    FILL   #120 sell   2 INTC   @    20.68  notional     41.36  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:50:41  DEBUG   Portfolio: net_worth=528229.93
+15:50:45  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.50 / long 20.43
+15:50:45  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:45  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:45  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:45  INFO    FILL   #121 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 5, avg entry 20.6800
+15:50:45  DEBUG   Portfolio: net_worth=528222.12
+15:50:46  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.43
+15:50:46  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:46  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:46  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:46  INFO    FILL   #122 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 10, avg entry 20.6800
+15:50:46  DEBUG   Portfolio: net_worth=528218.10
+15:50:46  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.44
+15:50:46  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:46  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:48  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:48  INFO    FILL   #123 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 15, avg entry 20.6800
+15:50:48  DEBUG   Portfolio: net_worth=528217.20
+15:50:49  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.03 / long 20.28
+15:50:49  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:50:49  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:50:49  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:50:49  INFO    FILL   #124 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 13, avg entry 20.6800
+15:50:49  DEBUG   Portfolio: net_worth=528218.74
+15:50:51  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:50:51  INFO    FILL   #125 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 10, avg entry 20.6800
+15:50:51  DEBUG   Portfolio: net_worth=528223.29
+15:50:51  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.63 / long 20.41
+15:50:51  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:51  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:51  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:51  INFO    FILL   #126 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 15, avg entry 20.6800
+15:50:51  DEBUG   Portfolio: net_worth=528219.03
+15:50:52  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.65 / long 20.49
+15:50:52  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:52  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:52  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:52  INFO    FILL   #127 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 20, avg entry 20.6800
+15:50:52  DEBUG   Portfolio: net_worth=528215.89
+15:50:52  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.49
+15:50:52  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:52  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:52  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:52  INFO    FILL   #128 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 25, avg entry 20.6800
+15:50:52  DEBUG   Portfolio: net_worth=528211.84
+15:50:53  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.49
+15:50:53  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:53  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:53  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:53  INFO    FILL   #129 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 30, avg entry 20.6800
+15:50:53  DEBUG   Portfolio: net_worth=528208.02
+15:50:53  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.49
+15:50:53  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:53  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:56  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:56  INFO    FILL   #130 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 35, avg entry 20.6800
+15:50:56  DEBUG   Portfolio: net_worth=528200.37
+15:50:56  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.20 / long 20.50
+15:50:56  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:50:57  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:50:57  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:50:57  INFO    FILL   #131 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 33, avg entry 20.6800
+15:50:57  DEBUG   Portfolio: net_worth=528201.87
+15:50:58  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:50:58  INFO    FILL   #132 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 30, avg entry 20.6800
+15:50:58  DEBUG   Portfolio: net_worth=528206.84
+15:50:58  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.63 / long 20.50
+15:50:58  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:58  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:58  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:58  INFO    FILL   #133 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 35, avg entry 20.6800
+15:50:58  DEBUG   Portfolio: net_worth=528202.68
+15:50:59  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.65 / long 20.50
+15:50:59  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:50:59  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:50:59  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:50:59  INFO    FILL   #134 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 40, avg entry 20.6800
+15:50:59  DEBUG   Portfolio: net_worth=528198.53
+15:50:59  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.50
+15:50:59  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:00  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:00  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:51:00  INFO    FILL   #135 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 45, avg entry 20.6800
+15:51:00  DEBUG   Portfolio: net_worth=528192.07
+15:51:00  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.50
+15:51:00  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:00  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:00  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:51:00  INFO    FILL   #136 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 50, avg entry 20.6800
+15:51:00  DEBUG   Portfolio: net_worth=528188.08
+15:51:01  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.50
+15:51:01  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:01  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:01  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:51:01  INFO    FILL   #137 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 55, avg entry 20.6800
+15:51:01  DEBUG   Portfolio: net_worth=528183.12
+15:51:01  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.50
+15:51:01  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:01  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:03  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:51:03  INFO    FILL   #138 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 60, avg entry 20.6800
+15:51:03  DEBUG   Portfolio: net_worth=528175.15
+15:51:04  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.04 / long 20.46
+15:51:04  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:04  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:04  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:04  INFO    FILL   #139 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 58, avg entry 20.6800
+15:51:04  DEBUG   Portfolio: net_worth=528176.53
+15:51:05  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:51:05  INFO    FILL   #140 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 57, avg entry 20.6800
+15:51:05  DEBUG   Portfolio: net_worth=528179.38
+15:51:06  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:06  INFO    FILL   #141 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 55, avg entry 20.6800
+15:51:06  DEBUG   Portfolio: net_worth=528180.40
+15:51:06  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.64 / long 20.46
+15:51:06  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:06  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:06  INFO    Fill: bought 5 INTC @ 20.6800 (fee=0.1551)
+15:51:06  INFO    FILL   #142 buy    5 INTC   @    20.68  notional    103.40  vs limit +0.0000  | bought and held 60, avg entry 20.6800
+15:51:06  DEBUG   Portfolio: net_worth=528176.41
+15:51:07  INFO    ORDER  buy  5 INTC @ 20.68 limit (notional 103.40) — short 20.66 / long 20.46
+15:51:07  DEBUG   Placed: buy 5 INTC @ 20.6800
+15:51:07  DEBUG   Ack: buy 5 INTC @ 20.6800
+15:51:07  INFO    Fill: bought 1 INTC @ 20.6800 (fee=0.0310)
+15:51:07  INFO    FILL   #143 buy    1 INTC   @    20.68  notional     20.68  vs limit +0.0000  | bought and held 61, avg entry 20.6800
+15:51:07  DEBUG   Portfolio: net_worth=528175.67
+15:51:08  INFO    Fill: bought 4 INTC @ 20.6800 (fee=0.1241)
+15:51:08  INFO    FILL   #144 buy    4 INTC   @    20.68  notional     82.72  vs limit +0.0000  | bought and held 65, avg entry 20.6800
+15:51:08  DEBUG   Portfolio: net_worth=528168.15
+15:51:09  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 19.89 / long 20.30
+15:51:09  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:09  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:09  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:09  INFO    FILL   #145 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 62, avg entry 20.6800
+15:51:09  DEBUG   Portfolio: net_worth=528170.31
+15:51:11  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:11  INFO    FILL   #146 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 60, avg entry 20.6800
+15:51:11  DEBUG   Portfolio: net_worth=528177.39
+15:51:12  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.21 / long 20.34
+15:51:12  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:12  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:12  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:12  INFO    FILL   #147 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 57, avg entry 20.6800
+15:51:12  DEBUG   Portfolio: net_worth=528176.30
+15:51:17  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:17  INFO    FILL   #148 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 55, avg entry 20.6800
+15:51:17  DEBUG   Portfolio: net_worth=528181.23
+15:51:18  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.19 / long 20.33
+15:51:18  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:18  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:18  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:18  INFO    FILL   #149 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 52, avg entry 20.6800
+15:51:18  DEBUG   Portfolio: net_worth=528182.43
+15:51:21  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:21  INFO    FILL   #150 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 50, avg entry 20.6800
+15:51:21  DEBUG   Portfolio: net_worth=528187.71
+15:51:22  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.20 / long 20.34
+15:51:22  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:22  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:22  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:22  INFO    FILL   #151 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 47, avg entry 20.6800
+15:51:22  DEBUG   Portfolio: net_worth=528187.66
+15:51:24  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:24  INFO    FILL   #152 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 45, avg entry 20.6800
+15:51:24  DEBUG   Portfolio: net_worth=528191.81
+15:51:25  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.18 / long 20.30
+15:51:25  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:25  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:25  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:25  INFO    FILL   #153 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 42, avg entry 20.6800
+15:51:25  DEBUG   Portfolio: net_worth=528189.85
+15:51:31  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:31  INFO    FILL   #154 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 40, avg entry 20.6800
+15:51:31  DEBUG   Portfolio: net_worth=528211.72
+15:51:31  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.43
+15:51:31  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:31  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:31  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:31  INFO    FILL   #155 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 37, avg entry 20.6800
+15:51:31  DEBUG   Portfolio: net_worth=528213.71
+15:51:34  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:34  INFO    FILL   #156 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 35, avg entry 20.6800
+15:51:34  DEBUG   Portfolio: net_worth=528213.65
+15:51:34  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.47
+15:51:34  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:34  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:34  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:34  INFO    FILL   #157 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 32, avg entry 20.6800
+15:51:34  DEBUG   Portfolio: net_worth=528215.72
+15:51:37  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:37  INFO    FILL   #158 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 30, avg entry 20.6800
+15:51:37  DEBUG   Portfolio: net_worth=528216.52
+15:51:38  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.41
+15:51:38  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:38  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:38  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:38  INFO    FILL   #159 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 27, avg entry 20.6800
+15:51:38  DEBUG   Portfolio: net_worth=528218.58
+15:51:39  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:39  INFO    FILL   #160 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 25, avg entry 20.6800
+15:51:39  DEBUG   Portfolio: net_worth=528221.14
+15:51:40  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.41
+15:51:40  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:40  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:40  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:40  INFO    FILL   #161 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 22, avg entry 20.6800
+15:51:40  DEBUG   Portfolio: net_worth=528220.62
+15:51:42  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:42  INFO    FILL   #162 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 20, avg entry 20.6800
+15:51:42  DEBUG   Portfolio: net_worth=528221.26
+15:51:43  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.41
+15:51:43  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:43  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:43  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:43  INFO    FILL   #163 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 17, avg entry 20.6800
+15:51:43  DEBUG   Portfolio: net_worth=528226.25
+15:51:49  INFO    Fill: sold   2 INTC @ 20.6500 (fee=0.0619)
+15:51:49  INFO    FILL   #164 sell   2 INTC   @    20.65  notional     41.30  vs limit +0.0000  | bought and held 15, avg entry 20.6800
+15:51:49  DEBUG   Portfolio: net_worth=528229.88
+15:51:50  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.43
+15:51:50  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:50  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:50  INFO    Fill: sold   3 INTC @ 20.6500 (fee=0.0929)
+15:51:50  INFO    FILL   #165 sell   3 INTC   @    20.65  notional     61.95  vs limit +0.0000  | bought and held 12, avg entry 20.6800
+15:51:50  DEBUG   Portfolio: net_worth=528230.56
+15:51:53  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:51:53  INFO    FILL   #166 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 11, avg entry 20.6800
+15:51:53  DEBUG   Portfolio: net_worth=528233.47
+15:51:53  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:51:53  INFO    FILL   #167 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 10, avg entry 20.6800
+15:51:53  DEBUG   Portfolio: net_worth=528234.21
+15:51:53  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.34 / long 20.47
+15:51:53  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:53  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:53  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:51:53  INFO    FILL   #168 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 6, avg entry 20.6800
+15:51:53  DEBUG   Portfolio: net_worth=528236.08
+15:51:56  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:51:56  INFO    FILL   #169 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 5, avg entry 20.6800
+15:51:56  DEBUG   Portfolio: net_worth=528240.86
+15:51:56  INFO    ORDER  sell 5 INTC @ 20.65 limit (notional 103.25) — short 20.35 / long 20.41
+15:51:56  DEBUG   Placed: sell 5 INTC @ 20.6500
+15:51:56  DEBUG   Ack: sell 5 INTC @ 20.6500
+15:51:56  INFO    Fill: sold   4 INTC @ 20.6500 (fee=0.1239)
+15:51:57  INFO    FILL   #170 sell   4 INTC   @    20.65  notional     82.60  vs limit +0.0000  | bought and held 1, avg entry 20.6800
+15:51:57  DEBUG   Portfolio: net_worth=528245.00
+15:51:59  INFO    Fill: sold   1 INTC @ 20.6500 (fee=0.0310)
+15:51:59  INFO    FILL   #171 sell   1 INTC   @    20.65  notional     20.65  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:51:59  DEBUG   Portfolio: net_worth=528248.00
+15:52:08  INFO    ORDER  buy  5 INTC @ 20.59 limit (notional 102.95) — short 20.42 / long 20.30
+15:52:08  DEBUG   Placed: buy 5 INTC @ 20.5900
+15:52:08  DEBUG   Ack: buy 5 INTC @ 20.5900
+15:52:08  INFO    Fill: bought 5 INTC @ 20.5900 (fee=0.1544)
+15:52:08  INFO    FILL   #172 buy    5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 5, avg entry 20.5900
+15:52:08  DEBUG   Portfolio: net_worth=528236.99
+15:52:09  INFO    ORDER  buy  5 INTC @ 20.59 limit (notional 102.95) — short 20.57 / long 20.30
+15:52:09  DEBUG   Placed: buy 5 INTC @ 20.5900
+15:52:09  DEBUG   Ack: buy 5 INTC @ 20.5900
+15:52:11  INFO    Fill: bought 5 INTC @ 20.5900 (fee=0.1544)
+15:52:11  INFO    FILL   #173 buy    5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 10, avg entry 20.5900
+15:52:11  DEBUG   Portfolio: net_worth=528235.20
+15:52:11  INFO    ORDER  sell 5 INTC @ 20.56 limit (notional 102.80) — short 19.98 / long 20.21
+15:52:11  DEBUG   Placed: sell 5 INTC @ 20.5600
+15:52:11  DEBUG   Ack: sell 5 INTC @ 20.5600
+15:52:11  INFO    Fill: sold   5 INTC @ 20.5600 (fee=0.1542)
+15:52:11  INFO    FILL   #174 sell   5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 5, avg entry 20.5900
+15:52:11  DEBUG   Portfolio: net_worth=528238.73
+15:52:12  INFO    ORDER  buy  5 INTC @ 20.59 limit (notional 102.95) — short 20.42 / long 20.24
+15:52:12  DEBUG   Placed: buy 5 INTC @ 20.5900
+15:52:12  DEBUG   Ack: buy 5 INTC @ 20.5900
+15:52:12  INFO    Fill: bought 5 INTC @ 20.5900 (fee=0.1544)
+15:52:12  INFO    FILL   #175 buy    5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 10, avg entry 20.5900
+15:52:12  DEBUG   Portfolio: net_worth=528234.51
+15:52:13  INFO    ORDER  buy  5 INTC @ 20.59 limit (notional 102.95) — short 20.57 / long 20.24
+15:52:13  DEBUG   Placed: buy 5 INTC @ 20.5900
+15:52:13  DEBUG   Ack: buy 5 INTC @ 20.5900
+15:52:13  INFO    Fill: bought 5 INTC @ 20.5900 (fee=0.1544)
+15:52:13  INFO    FILL   #176 buy    5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 15, avg entry 20.5900
+15:52:13  DEBUG   Portfolio: net_worth=528230.43
+15:52:13  INFO    ORDER  buy  5 INTC @ 20.59 limit (notional 102.95) — short 20.57 / long 20.32
+15:52:13  DEBUG   Placed: buy 5 INTC @ 20.5900
+15:52:13  DEBUG   Ack: buy 5 INTC @ 20.5900
+15:52:13  INFO    Fill: bought 5 INTC @ 20.5900 (fee=0.1544)
+15:52:13  INFO    FILL   #177 buy    5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 20, avg entry 20.5900
+15:52:13  DEBUG   Portfolio: net_worth=528228.25
+15:52:15  INFO    ORDER  sell 5 INTC @ 20.59 limit (notional 102.95) — short 20.13 / long 20.28
+15:52:15  DEBUG   Placed: sell 5 INTC @ 20.5900
+15:52:15  DEBUG   Ack: sell 5 INTC @ 20.5900
+15:52:15  INFO    Fill: sold   5 INTC @ 20.5900 (fee=0.1544)
+15:52:15  INFO    FILL   #178 sell   5 INTC   @    20.59  notional    102.95  vs limit +0.0000  | bought and held 15, avg entry 20.5900
+15:52:15  DEBUG   Portfolio: net_worth=528232.86
+15:52:16  INFO    ORDER  sell 5 INTC @ 20.56 limit (notional 102.80) — short 19.82 / long 20.20
+15:52:16  DEBUG   Placed: sell 5 INTC @ 20.5600
+15:52:16  DEBUG   Ack: sell 5 INTC @ 20.5600
+15:52:16  INFO    Fill: sold   5 INTC @ 20.5600 (fee=0.1542)
+15:52:16  INFO    FILL   #179 sell   5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 10, avg entry 20.5900
+15:52:16  DEBUG   Portfolio: net_worth=528236.47
+15:52:16  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.38 / long 20.30
+15:52:16  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:52:16  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:52:16  INFO    Fill: bought 5 INTC @ 20.5600 (fee=0.1542)
+15:52:16  INFO    FILL   #180 buy    5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 15, avg entry 20.5800
+15:52:16  DEBUG   Portfolio: net_worth=528233.06
+15:52:17  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.53 / long 20.33
+15:52:17  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:52:17  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:52:17  INFO    Fill: bought 5 INTC @ 20.5600 (fee=0.1542)
+15:52:17  INFO    FILL   #181 buy    5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 20, avg entry 20.5750
+15:52:17  DEBUG   Portfolio: net_worth=528228.72
+15:52:17  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.52 / long 20.33
+15:52:17  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:52:17  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:52:17  INFO    Fill: bought 5 INTC @ 20.5600 (fee=0.1542)
+15:52:17  INFO    FILL   #182 buy    5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 25, avg entry 20.5720
+15:52:17  DEBUG   Portfolio: net_worth=528228.60
+15:52:18  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.52 / long 20.32
+15:52:18  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:52:18  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:52:18  INFO    Fill: bought 5 INTC @ 20.5600 (fee=0.1542)
+15:52:18  INFO    FILL   #183 buy    5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 30, avg entry 20.5700
+15:52:18  DEBUG   Portfolio: net_worth=528226.02
+15:52:18  INFO    ORDER  buy  5 INTC @ 20.56 limit (notional 102.80) — short 20.52 / long 20.32
+15:52:18  DEBUG   Placed: buy 5 INTC @ 20.5600
+15:52:19  DEBUG   Ack: buy 5 INTC @ 20.5600
+15:52:19  INFO    Fill: bought 5 INTC @ 20.5600 (fee=0.1542)
+15:52:19  INFO    FILL   #184 buy    5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 35, avg entry 20.5686
+15:52:19  DEBUG   Portfolio: net_worth=528222.07
+15:52:20  INFO    ORDER  sell 5 INTC @ 20.56 limit (notional 102.80) — short 20.08 / long 20.23
+15:52:20  DEBUG   Placed: sell 5 INTC @ 20.5600
+15:52:20  DEBUG   Ack: sell 5 INTC @ 20.5600
+15:52:21  INFO    Fill: sold   5 INTC @ 20.5600 (fee=0.1542)
+15:52:21  INFO    FILL   #185 sell   5 INTC   @    20.56  notional    102.80  vs limit +0.0000  | bought and held 30, avg entry 20.5686
+15:52:21  DEBUG   Portfolio: net_worth=528221.38
+15:52:21  INFO    ORDER  sell 5 INTC @ 20.48 limit (notional 102.40) — short 19.78 / long 20.23
+15:52:21  DEBUG   Placed: sell 5 INTC @ 20.4800
+15:52:21  DEBUG   Ack: sell 5 INTC @ 20.4800
+15:52:21  INFO    Fill: sold   5 INTC @ 20.4800 (fee=0.1536)
+15:52:21  INFO    FILL   #186 sell   5 INTC   @    20.48  notional    102.40  vs limit +0.0000  | bought and held 25, avg entry 20.5686
+15:52:21  DEBUG   Portfolio: net_worth=528223.69
+15:52:21  INFO    ORDER  buy  5 INTC @ 20.48 limit (notional 102.40) — short 20.44 / long 20.27
+15:52:21  DEBUG   Placed: buy 5 INTC @ 20.4800
+15:52:22  DEBUG   Ack: buy 5 INTC @ 20.4800
+15:52:22  INFO    Fill: bought 5 INTC @ 20.3800 (fee=0.1529)
+15:52:22  INFO    FILL   #187 buy    5 INTC   @    20.38  notional    101.90  vs limit -0.1000  | bought and held 30, avg entry 20.5371
+15:52:22  DEBUG   Portfolio: net_worth=528219.88
+15:52:22  INFO    ORDER  buy  5 INTC @ 20.45 limit (notional 102.25) — short 20.41 / long 20.26
+15:52:22  DEBUG   Placed: buy 5 INTC @ 20.4500
+15:52:22  DEBUG   Ack: buy 5 INTC @ 20.4500
+15:52:22  INFO    Fill: bought 5 INTC @ 20.4500 (fee=0.1534)
+15:52:22  INFO    FILL   #188 buy    5 INTC   @    20.45  notional    102.25  vs limit +0.0000  | bought and held 35, avg entry 20.5247
+15:52:22  DEBUG   Portfolio: net_worth=528215.56
+15:52:22  INFO    ORDER  buy  5 INTC @ 20.45 limit (notional 102.25) — short 20.40 / long 20.25
+15:52:22  DEBUG   Placed: buy 5 INTC @ 20.4500
+15:52:23  DEBUG   Ack: buy 5 INTC @ 20.4500
+15:52:23  INFO    Fill: bought 5 INTC @ 20.4500 (fee=0.1534)
+15:52:23  INFO    FILL   #189 buy    5 INTC   @    20.45  notional    102.25  vs limit +0.0000  | bought and held 40, avg entry 20.5154
+15:52:23  DEBUG   Portfolio: net_worth=528211.59
+15:52:23  INFO    ORDER  buy  5 INTC @ 20.48 limit (notional 102.40) — short 20.40 / long 20.24
+15:52:23  DEBUG   Placed: buy 5 INTC @ 20.4800
+15:52:23  DEBUG   Ack: buy 5 INTC @ 20.4800
+15:52:23  INFO    Fill: bought 5 INTC @ 20.4800 (fee=0.1536)
+15:52:23  INFO    FILL   #190 buy    5 INTC   @    20.48  notional    102.40  vs limit +0.0000  | bought and held 45, avg entry 20.5114
+15:52:23  DEBUG   Portfolio: net_worth=528206.39
+15:52:23  INFO    ORDER  buy  5 INTC @ 20.33 limit (notional 101.65) — short 20.39 / long 20.22
+15:52:23  DEBUG   Placed: buy 5 INTC @ 20.3300
+15:52:24  DEBUG   Ack: buy 5 INTC @ 20.3300
+15:52:27  INFO    Fill: bought 1 INTC @ 20.3300 (fee=0.0305)
+15:52:27  INFO    FILL   #191 buy    1 INTC   @    20.33  notional     20.33  vs limit +0.0000  | bought and held 46, avg entry 20.5075
+15:52:27  DEBUG   Portfolio: net_worth=528205.60
+15:52:44  WARNING ORDER  buy 4 INTC @ 20.33 not filled after 20s
+15:52:52  INFO    ORDER  sell 5 INTC @ 20.48 limit (notional 102.40) — short 20.16 / long 20.30
+15:52:52  DEBUG   Placed: sell 5 INTC @ 20.4800
+15:52:52  DEBUG   Ack: sell 5 INTC @ 20.4800
+15:52:52  INFO    Fill: sold   5 INTC @ 20.4800 (fee=0.1536)
+15:52:52  INFO    FILL   #192 sell   5 INTC   @    20.48  notional    102.40  vs limit +0.0000  | bought and held 41, avg entry 20.5075
+15:52:52  DEBUG   Portfolio: net_worth=528202.42
+15:52:52  INFO    ORDER  sell 5 INTC @ 20.39 limit (notional 101.95) — short 19.89 / long 20.24
+15:52:52  DEBUG   Placed: sell 5 INTC @ 20.3900
+15:52:53  DEBUG   Ack: sell 5 INTC @ 20.3900
+15:52:53  INFO    Fill: sold   5 INTC @ 20.3900 (fee=0.1529)
+15:52:53  INFO    FILL   #193 sell   5 INTC   @    20.39  notional    101.95  vs limit +0.0000  | bought and held 36, avg entry 20.5075
+15:52:53  DEBUG   Portfolio: net_worth=528203.37
+15:52:53  INFO    ORDER  sell 5 INTC @ 20.36 limit (notional 101.80) — short 19.88 / long 20.24
+15:52:53  DEBUG   Placed: sell 5 INTC @ 20.3600
+15:52:53  DEBUG   Ack: sell 5 INTC @ 20.3600
+15:52:53  INFO    Fill: sold   1 INTC @ 20.3600 (fee=0.0305)
+15:52:53  INFO    FILL   #194 sell   1 INTC   @    20.36  notional     20.36  vs limit +0.0000  | bought and held 35, avg entry 20.5075
+15:52:53  DEBUG   Portfolio: net_worth=528203.91
+15:52:53  INFO    Fill: sold   4 INTC @ 20.3600 (fee=0.1222)
+15:52:53  INFO    FILL   #195 sell   4 INTC   @    20.36  notional     81.44  vs limit +0.0000  | bought and held 31, avg entry 20.5075
+15:52:53  DEBUG   Portfolio: net_worth=528206.18
+15:52:53  INFO    ORDER  buy  5 INTC @ 20.39 limit (notional 101.95) — short 20.38 / long 20.25
+15:52:53  DEBUG   Placed: buy 5 INTC @ 20.3900
+15:52:54  DEBUG   Ack: buy 5 INTC @ 20.3900
+15:52:54  INFO    Fill: bought 5 INTC @ 20.3900 (fee=0.1529)
+15:52:54  INFO    FILL   #196 buy    5 INTC   @    20.39  notional    101.95  vs limit +0.0000  | bought and held 36, avg entry 20.4912
+15:52:54  DEBUG   Portfolio: net_worth=528201.43
+15:52:54  INFO    ORDER  buy  5 INTC @ 20.37 limit (notional 101.85) — short 20.37 / long 20.25
+15:52:54  DEBUG   Placed: buy 5 INTC @ 20.3700
+15:52:54  DEBUG   Ack: buy 5 INTC @ 20.3700
+15:52:54  INFO    Fill: bought 5 INTC @ 20.3700 (fee=0.1528)
+15:52:54  INFO    FILL   #197 buy    5 INTC   @    20.37  notional    101.85  vs limit +0.0000  | bought and held 41, avg entry 20.4764
+15:52:54  DEBUG   Portfolio: net_worth=528197.83
+15:52:55  INFO    ORDER  sell 5 INTC @ 20.34 limit (notional 101.70) — short 20.09 / long 20.18
+15:52:55  DEBUG   Placed: sell 5 INTC @ 20.3400
+15:52:55  INFO    Fill: bought 4 INTC @ 20.3300 (fee=0.1220)
+15:52:55  INFO    FILL   #198 buy    4 INTC   @    20.33  notional     81.32  | bought and held 45, avg entry 20.4634
+15:52:55  DEBUG   Portfolio: net_worth=528193.67
+15:52:55  DEBUG   Ack: sell 5 INTC @ 20.3400
+15:53:00  INFO    Fill: sold   5 INTC @ 20.3400 (fee=0.1525)
+15:53:00  INFO    FILL   #199 sell   5 INTC   @    20.34  notional    101.70  vs limit +0.0000  | bought and held 40, avg entry 20.4634
+15:53:00  DEBUG   Portfolio: net_worth=528192.31
+15:53:00  INFO    ORDER  sell 5 INTC @ 20.33 limit (notional 101.65) — short 20.07 / long 20.21
+15:53:00  DEBUG   Placed: sell 5 INTC @ 20.3300
+15:53:00  DEBUG   Ack: sell 5 INTC @ 20.3300
+15:53:00  INFO    Fill: sold   4 INTC @ 20.3300 (fee=0.1220)
+15:53:00  INFO    FILL   #200 sell   4 INTC   @    20.33  notional     81.32  vs limit +0.0000  | bought and held 36, avg entry 20.4634
+15:53:00  DEBUG   Portfolio: net_worth=528194.74
+15:53:02  INFO    Fill: sold   1 INTC @ 20.3300 (fee=0.0305)
+15:53:02  INFO    FILL   #201 sell   1 INTC   @    20.33  notional     20.33  vs limit +0.0000  | bought and held 35, avg entry 20.4634
+15:53:02  DEBUG   Portfolio: net_worth=528196.21
+15:53:03  INFO    ORDER  sell 5 INTC @ 20.33 limit (notional 101.65) — short 20.05 / long 20.19
+15:53:03  DEBUG   Placed: sell 5 INTC @ 20.3300
+15:53:03  DEBUG   Ack: sell 5 INTC @ 20.3300
+15:53:03  INFO    Fill: sold   4 INTC @ 20.3300 (fee=0.1220)
+15:53:03  INFO    FILL   #202 sell   4 INTC   @    20.33  notional     81.32  vs limit +0.0000  | bought and held 31, avg entry 20.4634
+15:53:03  DEBUG   Portfolio: net_worth=528198.27
+15:53:07  INFO    Fill: sold   1 INTC @ 20.3300 (fee=0.0305)
+15:53:07  INFO    FILL   #203 sell   1 INTC   @    20.33  notional     20.33  vs limit +0.0000  | bought and held 30, avg entry 20.4634
+15:53:07  DEBUG   Portfolio: net_worth=528198.05
+15:53:08  INFO    ORDER  sell 5 INTC @ 20.33 limit (notional 101.65) — short 19.93 / long 20.12
+15:53:08  DEBUG   Placed: sell 5 INTC @ 20.3300
+15:53:08  DEBUG   Ack: sell 5 INTC @ 20.3300
+15:53:08  INFO    Fill: sold   4 INTC @ 20.3300 (fee=0.1220)
+15:53:08  INFO    FILL   #204 sell   4 INTC   @    20.33  notional     81.32  vs limit +0.0000  | bought and held 26, avg entry 20.4634
+15:53:08  DEBUG   Portfolio: net_worth=528200.43
+15:53:09  INFO    Fill: sold   1 INTC @ 20.3300 (fee=0.0305)
+15:53:09  INFO    FILL   #205 sell   1 INTC   @    20.33  notional     20.33  vs limit +0.0000  | bought and held 25, avg entry 20.4634
+15:53:09  DEBUG   Portfolio: net_worth=528201.14
+15:53:09  INFO    ORDER  sell 5 INTC @ 20.23 limit (notional 101.15) — short 19.64 / long 19.98
+15:53:09  DEBUG   Placed: sell 5 INTC @ 20.2300
+15:53:09  DEBUG   Ack: sell 5 INTC @ 20.2300
+15:53:09  INFO    Fill: sold   5 INTC @ 20.2600 (fee=0.1520)
+15:53:09  INFO    FILL   #206 sell   5 INTC   @    20.26  notional    101.30  vs limit +0.0300  | bought and held 20, avg entry 20.4634
+15:53:09  DEBUG   Portfolio: net_worth=528203.11
+15:53:10  INFO    ORDER  buy  5 INTC @ 20.29 limit (notional 101.45) — short 20.14 / long 20.04
+15:53:10  DEBUG   Placed: buy 5 INTC @ 20.2900
+15:53:10  DEBUG   Ack: buy 5 INTC @ 20.2900
+15:53:10  INFO    Fill: bought 5 INTC @ 20.2900 (fee=0.1522)
+15:53:10  INFO    FILL   #207 buy    5 INTC   @    20.29  notional    101.45  vs limit +0.0000  | bought and held 25, avg entry 20.4287
+15:53:10  DEBUG   Portfolio: net_worth=528200.50
+15:53:13  INFO    ORDER  buy  5 INTC @ 20.29 limit (notional 101.45) — short 20.01 / long 19.93
+15:53:13  DEBUG   Placed: buy 5 INTC @ 20.2900
+15:53:13  DEBUG   Ack: buy 5 INTC @ 20.2900
+15:53:13  INFO    Fill: bought 5 INTC @ 20.2900 (fee=0.1522)
+15:53:13  INFO    FILL   #208 buy    5 INTC   @    20.29  notional    101.45  vs limit +0.0000  | bought and held 30, avg entry 20.4056
+15:53:13  DEBUG   Portfolio: net_worth=528195.62
+15:53:14  INFO    ORDER  sell 5 INTC @ 20.26 limit (notional 101.30) — short 19.75 / long 19.92
+15:53:14  DEBUG   Placed: sell 5 INTC @ 20.2600
+15:53:14  DEBUG   Ack: sell 5 INTC @ 20.2600
+15:53:19  INFO    Fill: sold   2 INTC @ 20.2600 (fee=0.0608)
+15:53:19  INFO    FILL   #209 sell   2 INTC   @    20.26  notional     40.52  vs limit +0.0000  | bought and held 28, avg entry 20.4056
+15:53:19  DEBUG   Portfolio: net_worth=528196.36
+15:53:20  INFO    Fill: sold   3 INTC @ 20.2600 (fee=0.0912)
+15:53:20  INFO    FILL   #210 sell   3 INTC   @    20.26  notional     60.78  vs limit +0.0000  | bought and held 25, avg entry 20.4056
+15:53:20  DEBUG   Portfolio: net_worth=528198.38
+15:53:20  INFO    ORDER  buy  5 INTC @ 20.27 limit (notional 101.35) — short 20.24 / long 20.11
+15:53:20  DEBUG   Placed: buy 5 INTC @ 20.2700
+15:53:20  DEBUG   Ack: buy 5 INTC @ 20.2700
+15:53:20  INFO    Fill: bought 5 INTC @ 20.2700 (fee=0.1520)
+15:53:20  INFO    FILL   #211 buy    5 INTC   @    20.27  notional    101.35  vs limit +0.0000  | bought and held 30, avg entry 20.3830
+15:53:20  DEBUG   Portfolio: net_worth=528194.76
+15:53:26  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t900
+15:53:26  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t900
+15:53:32  INFO    ORDER  sell 5 INTC @ 20.26 limit (notional 101.30) — short 20.13 / long 20.20
+15:53:32  DEBUG   Placed: sell 5 INTC @ 20.2600
+15:53:32  DEBUG   Ack: sell 5 INTC @ 20.2600
+15:53:32  INFO    Fill: sold   5 INTC @ 20.2600 (fee=0.1520)
+15:53:32  INFO    FILL   #212 sell   5 INTC   @    20.26  notional    101.30  vs limit +0.0000  | bought and held 25, avg entry 20.3830
+15:53:32  DEBUG   Portfolio: net_worth=528204.54
+15:53:32  INFO    ORDER  sell 5 INTC @ 20.23 limit (notional 101.15) — short 20.14 / long 20.20
+15:53:32  DEBUG   Placed: sell 5 INTC @ 20.2300
+15:53:32  DEBUG   Ack: sell 5 INTC @ 20.2300
+15:53:32  INFO    Fill: sold   5 INTC @ 20.2300 (fee=0.1517)
+15:53:32  INFO    FILL   #213 sell   5 INTC   @    20.23  notional    101.15  vs limit +0.0000  | bought and held 20, avg entry 20.3830
+15:53:32  DEBUG   Portfolio: net_worth=528207.24
+15:53:33  INFO    ORDER  sell 5 INTC @ 20.26 limit (notional 101.30) — short 20.14 / long 20.20
+15:53:33  DEBUG   Placed: sell 5 INTC @ 20.2600
+15:53:33  DEBUG   Ack: sell 5 INTC @ 20.2600
+15:53:36  INFO    Fill: sold   5 INTC @ 20.2600 (fee=0.1520)
+15:53:36  INFO    FILL   #214 sell   5 INTC   @    20.26  notional    101.30  vs limit +0.0000  | bought and held 15, avg entry 20.3830
+15:53:36  DEBUG   Portfolio: net_worth=528216.20
+15:54:54  INFO    ORDER  sell 5 INTC @ 20.25 limit (notional 101.25) — short 20.14 / long 20.23
+15:54:54  DEBUG   Placed: sell 5 INTC @ 20.2500
+15:54:54  DEBUG   Ack: sell 5 INTC @ 20.2500
+15:54:54  INFO    Fill: sold   5 INTC @ 20.2500 (fee=0.1519)
+15:54:54  INFO    FILL   #215 sell   5 INTC   @    20.25  notional    101.25  vs limit +0.0000  | bought and held 10, avg entry 20.3830
+15:54:54  DEBUG   Portfolio: net_worth=528266.69
+15:54:55  INFO    ORDER  sell 5 INTC @ 20.22 limit (notional 101.10) — short 20.12 / long 20.23
+15:54:55  DEBUG   Placed: sell 5 INTC @ 20.2200
+15:54:55  DEBUG   Ack: sell 5 INTC @ 20.2200
+15:54:55  INFO    Fill: sold   5 INTC @ 20.2200 (fee=0.1517)
+15:54:55  INFO    FILL   #216 sell   5 INTC   @    20.22  notional    101.10  vs limit +0.0000  | bought and held 5, avg entry 20.3830
+15:54:55  DEBUG   Portfolio: net_worth=528270.00
+15:55:16  INFO    Fill: bought 5 GOOGL @ 177.9000 (fee=1.3342)
+15:55:16  INFO    FILL   #217 buy    5 GOOGL  @   177.90  notional    889.50  | bought and held 10, avg entry 178.9567
+15:55:16  DEBUG   Portfolio: net_worth=528252.72
+15:55:31  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.0%
+15:55:31  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.0%
+15:55:32  INFO    ORDER  sell 5 AAPL @ 208.26 limit (notional 1041.30) — short 209.15 / long 209.87
+15:55:32  DEBUG   Placed: sell 5 AAPL @ 208.2600
+15:55:32  DEBUG   Ack: sell 5 AAPL @ 208.2600
+15:55:32  INFO    Fill: sold   5 AAPL @ 209.5000 (fee=1.5713)
+15:55:32  INFO    FILL   #218 sell   5 AAPL   @   209.50  notional   1047.50  vs limit +1.2400  | bought and held 35, avg entry 206.8250
+15:55:32  DEBUG   Portfolio: net_worth=528206.22
+15:55:33  INFO    ORDER  sell 5 AAPL @ 208.26 limit (notional 1041.30) — short 209.07 / long 209.82
+15:55:33  DEBUG   Placed: sell 5 AAPL @ 208.2600
+15:55:33  DEBUG   Ack: sell 5 AAPL @ 208.2600
+15:55:33  INFO    Fill: sold   5 AAPL @ 209.5000 (fee=1.5713)
+15:55:33  INFO    FILL   #219 sell   5 AAPL   @   209.50  notional   1047.50  vs limit +1.2400  | bought and held 30, avg entry 206.8250
+15:55:33  DEBUG   Portfolio: net_worth=528149.17
+15:55:35  INFO    ORDER  sell 5 AMZN @ 154.13 limit (notional 770.65) — short 154.38 / long 154.87
+15:55:35  DEBUG   Placed: sell 5 AMZN @ 154.1300
+15:55:35  DEBUG   Ack: sell 5 AMZN @ 154.1300
+15:55:35  INFO    Fill: sold   1 AMZN @ 154.1300 (fee=0.2312)
+15:55:35  INFO    FILL   #220 sell   1 AMZN   @   154.13  notional    154.13  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:35  DEBUG   Portfolio: net_worth=528033.86
+15:55:37  WARNING RISK   stop-loss INTC: bid 20.05 is 1.63% below average entry 20.3830
+15:55:37  INFO    ORDER  sell 5 INTC @ 20.05 limit (notional 100.25) — stop-loss
+15:55:37  DEBUG   Placed: sell 5 INTC @ 20.0500
+15:55:37  DEBUG   Ack: sell 5 INTC @ 20.0500
+15:55:37  INFO    Fill: sold   5 INTC @ 20.0500 (fee=0.1504)
+15:55:37  INFO    FILL   #221 sell   5 INTC   @    20.05  notional    100.25  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:37  DEBUG   Portfolio: net_worth=527922.49
+15:55:37  INFO    ORDER  sell 5 GOOGL @ 176.68 limit (notional 883.40) — short 177.65 / long 178.22
+15:55:37  DEBUG   Placed: sell 5 GOOGL @ 176.6800
+15:55:37  DEBUG   Ack: sell 5 GOOGL @ 176.6800
+15:55:38  INFO    ORDER  sell 5 AMD @ 228.79 limit (notional 1143.95) — short 229.03 / long 229.75
+15:55:38  DEBUG   Placed: sell 5 AMD @ 228.7900
+15:55:38  WARNING Exchange error [STP_CANCEL]: Your resting sell 5 GOOGL @ 176.68 was cancelled by self-trade prevention (your own order crossed it)
+15:55:38  DEBUG   Ack: sell 5 AMD @ 228.7900
+15:55:38  INFO    Fill: sold   5 AMD @ 228.7900 (fee=1.7159)
+15:55:38  INFO    FILL   #222 sell   5 AMD    @   228.79  notional   1143.95  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:38  DEBUG   Portfolio: net_worth=527882.21
+15:55:38  INFO    ORDER  sell 5 AMD @ 228.02 limit (notional 1140.10) — short 228.66 / long 229.58
+15:55:38  DEBUG   Placed: sell 5 AMD @ 228.0200
+15:55:39  DEBUG   Ack: sell 5 AMD @ 228.0200
+15:55:39  INFO    Fill: sold   5 AMD @ 228.0200 (fee=1.7102)
+15:55:39  INFO    FILL   #223 sell   5 AMD    @   228.02  notional   1140.10  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:39  DEBUG   Portfolio: net_worth=527894.92
+15:55:39  INFO    Fill: bought 5 AAPL @ 208.2600 (fee=1.5619)
+15:55:39  INFO    FILL   #224 buy    5 AAPL   @   208.26  notional   1041.30  | bought and held 35, avg entry 207.0300
+15:55:39  DEBUG   Portfolio: net_worth=527832.37
+15:55:39  INFO    ORDER  sell 5 AAPL @ 207.51 limit (notional 1037.55) — short 208.45 / long 209.12
+15:55:39  DEBUG   Placed: sell 5 AAPL @ 207.5100
+15:55:39  DEBUG   Ack: sell 5 AAPL @ 207.5100
+15:55:39  INFO    Fill: sold   5 AAPL @ 207.5100 (fee=1.5563)
+15:55:39  INFO    FILL   #225 sell   5 AAPL   @   207.51  notional   1037.55  vs limit +0.0000  | bought and held 30, avg entry 207.0300
+15:55:39  DEBUG   Portfolio: net_worth=527835.45
+15:55:39  INFO    ORDER  sell 5 AAPL @ 207.29 limit (notional 1036.45) — short 208.35 / long 209.01
+15:55:39  DEBUG   Placed: sell 5 AAPL @ 207.2900
+15:55:39  DEBUG   Ack: sell 5 AAPL @ 207.2900
+15:55:40  INFO    ORDER  sell 5 AMD @ 227.24 limit (notional 1136.20) — short 227.71 / long 229.09
+15:55:40  DEBUG   Placed: sell 5 AMD @ 227.2400
+15:55:40  DEBUG   Ack: sell 5 AMD @ 227.2400
+15:55:40  INFO    ORDER  sell 5 META @ 711.52 limit (notional 3557.60) — short 713.12 / long 717.45
+15:55:40  DEBUG   Placed: sell 5 META @ 711.5200
+15:55:40  WARNING Exchange error [STP_CANCEL]: Your resting sell 5 AAPL @ 207.29 was cancelled by self-trade prevention (your own order crossed it)
+15:55:40  DEBUG   Ack: sell 5 META @ 711.5200
+15:55:40  INFO    Fill: sold   5 META @ 711.5200 (fee=5.3364)
+15:55:40  INFO    FILL   #226 sell   5 META   @   711.52  notional   3557.60  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:40  DEBUG   Portfolio: net_worth=527781.52
+15:55:41  INFO    ORDER  sell 5 META @ 711.05 limit (notional 3555.25) — short 712.51 / long 717.00
+15:55:41  DEBUG   Placed: sell 5 META @ 711.0500
+15:55:41  DEBUG   Ack: sell 5 META @ 711.0500
+15:55:41  INFO    Fill: sold   5 META @ 711.0500 (fee=5.3329)
+15:55:41  INFO    FILL   #227 sell   5 META   @   711.05  notional   3555.25  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:41  DEBUG   Portfolio: net_worth=527737.62
+15:55:41  INFO    ORDER  sell 2 META @ 711.05 limit (notional 1422.10) — short 711.78 / long 716.09
+15:55:41  DEBUG   Placed: sell 2 META @ 711.0500
+15:55:41  DEBUG   Ack: sell 2 META @ 711.0500
+15:55:42  INFO    ORDER  sell 5 MSFT @ 397.85 limit (notional 1989.25) — short 398.79 / long 402.18
+15:55:42  DEBUG   Placed: sell 5 MSFT @ 397.8500
+15:55:42  DEBUG   Ack: sell 5 MSFT @ 397.8500
+15:55:42  INFO    Fill: sold   5 MSFT @ 397.8500 (fee=2.9839)
+15:55:42  INFO    FILL   #228 sell   5 MSFT   @   397.85  notional   1989.25  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:42  DEBUG   Portfolio: net_worth=527699.80
+15:55:42  WARNING RISK   stop-loss TSLA: bid 294.20 is 1.57% below average entry 298.8775
+15:55:42  INFO    ORDER  sell 20 TSLA @ 294.20 limit (notional 5884.00) — stop-loss
+15:55:42  DEBUG   Placed: sell 20 TSLA @ 294.2000
+15:55:42  DEBUG   Ack: sell 20 TSLA @ 294.2000
+15:55:42  INFO    Fill: sold   3 TSLA @ 294.2000 (fee=1.3239)
+15:55:42  INFO    FILL   #229 sell   3 TSLA   @   294.20  notional    882.60  vs limit +0.0000  | bought and held 17, avg entry 298.8775
+15:55:42  DEBUG   Portfolio: net_worth=527697.95
+15:55:43  INFO    ORDER  sell 5 MSFT @ 396.50 limit (notional 1982.50) — short 398.18 / long 401.49
+15:55:43  DEBUG   Placed: sell 5 MSFT @ 396.5000
+15:55:43  DEBUG   Ack: sell 5 MSFT @ 396.5000
+15:55:43  INFO    Fill: sold   5 MSFT @ 396.5000 (fee=2.9737)
+15:55:43  INFO    FILL   #230 sell   5 MSFT   @   396.50  notional   1982.50  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:43  DEBUG   Portfolio: net_worth=527694.45
+15:55:43  INFO    Fill: sold   1 AMD @ 227.2400 (fee=0.3409)
+15:55:43  INFO    FILL   #231 sell   1 AMD    @   227.24  notional    227.24  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:43  DEBUG   Portfolio: net_worth=527666.66
+15:55:43  INFO    ORDER  sell 2 MSFT @ 396.11 limit (notional 792.22) — short 397.78 / long 401.10
+15:55:43  DEBUG   Placed: sell 2 MSFT @ 396.1100
+15:55:43  DEBUG   Ack: sell 2 MSFT @ 396.1100
+15:55:43  INFO    Fill: sold   2 MSFT @ 396.1100 (fee=1.1883)
+15:55:43  INFO    FILL   #232 sell   2 MSFT   @   396.11  notional    792.22  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:43  DEBUG   Portfolio: net_worth=527665.93
+15:55:44  INFO    Fill: sold   3 TSLA @ 294.2000 (fee=1.3239)
+15:55:44  INFO    FILL   #233 sell   3 TSLA   @   294.20  notional    882.60  vs limit +0.0000  | bought and held 14, avg entry 298.8775
+15:55:44  DEBUG   Portfolio: net_worth=527668.78
+15:55:44  INFO    ORDER  sell 2 NVDA @ 113.09 limit (notional 226.18) — short 113.42 / long 114.16
+15:55:44  DEBUG   Placed: sell 2 NVDA @ 113.0900
+15:55:44  DEBUG   Ack: sell 2 NVDA @ 113.0900
+15:55:44  INFO    Fill: sold   2 NVDA @ 113.0900 (fee=0.3393)
+15:55:44  INFO    FILL   #234 sell   2 NVDA   @   113.09  notional    226.18  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:44  DEBUG   Portfolio: net_worth=527670.46
+15:55:55  WARNING ORDER  sell 4 AMZN @ 154.13 not filled after 20s
+15:55:58  WARNING ORDER  sell 5 GOOGL @ 176.68 not filled after 20s
+15:55:58  WARNING RISK   stop-loss GOOGL: bid 175.35 is 2.02% below average entry 178.9567
+15:55:58  INFO    ORDER  sell 10 GOOGL @ 175.35 limit (notional 1753.50) — stop-loss
+15:55:58  DEBUG   Placed: sell 10 GOOGL @ 175.3500
+15:55:58  DEBUG   Ack: sell 10 GOOGL @ 175.3500
+15:55:58  INFO    Fill: sold   10 GOOGL @ 175.3500 (fee=2.6303)
+15:55:58  INFO    FILL   #235 sell  10 GOOGL  @   175.35  notional   1753.50  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:55:58  DEBUG   Portfolio: net_worth=527782.32
+15:55:59  INFO    ORDER  buy  5 NVDA @ 113.35 limit (notional 566.75) — short 113.16 / long 112.74
+15:55:59  DEBUG   Placed: buy 5 NVDA @ 113.3500
+15:55:59  DEBUG   Ack: buy 5 NVDA @ 113.3500
+15:55:59  INFO    ORDER  buy  5 AMZN @ 153.51 limit (notional 767.55) — short 152.48 / long 151.92
+15:55:59  DEBUG   Placed: buy 5 AMZN @ 153.5100
+15:55:59  DEBUG   Ack: buy 5 AMZN @ 153.5100
+15:55:59  INFO    Fill: bought 5 AMZN @ 153.5100 (fee=1.1513)
+15:55:59  INFO    FILL   #236 buy    5 AMZN   @   153.51  notional    767.55  vs limit +0.0000  | bought and held 5, avg entry 153.5100
+15:55:59  DEBUG   Portfolio: net_worth=527803.12
+15:56:00  WARNING ORDER  sell 5 AAPL @ 207.29 not filled after 20s
+15:56:00  INFO    ORDER  buy  5 AMZN @ 153.51 limit (notional 767.55) — short 153.07 / long 152.09
+15:56:00  DEBUG   Placed: buy 5 AMZN @ 153.5100
+15:56:00  DEBUG   Ack: buy 5 AMZN @ 153.5100
+15:56:00  INFO    Fill: bought 5 AMZN @ 153.5100 (fee=1.1513)
+15:56:00  INFO    FILL   #237 buy    5 AMZN   @   153.51  notional    767.55  vs limit +0.0000  | bought and held 10, avg entry 153.5100
+15:56:00  DEBUG   Portfolio: net_worth=527822.38
+15:56:00  WARNING ORDER  sell 4 AMD @ 227.24 not filled after 20s
+15:56:00  INFO    ORDER  buy  5 AMD @ 227.24 limit (notional 1136.20) — short 226.87 / long 225.79
+15:56:00  DEBUG   Placed: buy 5 AMD @ 227.2400
+15:56:00  DEBUG   Ack: buy 5 AMD @ 227.2400
+15:56:00  INFO    Fill: bought 5 AMD @ 227.2300 (fee=1.7042)
+15:56:00  INFO    FILL   #238 buy    5 AMD    @   227.23  notional   1136.15  vs limit -0.0100  | bought and held 5, avg entry 227.2300
+15:56:00  DEBUG   Portfolio: net_worth=527809.22
+15:56:01  INFO    ORDER  buy  5 AMD @ 227.24 limit (notional 1136.20) — short 226.87 / long 225.79
+15:56:01  DEBUG   Placed: buy 5 AMD @ 227.2400
+15:56:01  WARNING Exchange error [STP_CANCEL]: Your resting sell 4 AMD @ 227.24 was cancelled by self-trade prevention (your own order crossed it)
+15:56:01  DEBUG   Ack: buy 5 AMD @ 227.2400
+15:56:01  INFO    ORDER  buy  5 AAPL @ 207.29 limit (notional 1036.45) — short 207.16 / long 206.52
+15:56:01  DEBUG   Placed: buy 5 AAPL @ 207.2900
+15:56:01  DEBUG   Ack: buy 5 AAPL @ 207.2900
+15:56:01  INFO    Fill: bought 5 AAPL @ 207.2900 (fee=1.5547)
+15:56:01  INFO    FILL   #239 buy    5 AAPL   @   207.29  notional   1036.45  vs limit +0.0000  | bought and held 35, avg entry 207.0671
+15:56:01  DEBUG   Portfolio: net_worth=527820.05
+15:56:02  WARNING ORDER  sell 2 META @ 711.05 not filled after 20s
+15:56:02  INFO    ORDER  buy  5 AAPL @ 207.51 limit (notional 1037.55) — short 207.18 / long 206.55
+15:56:02  DEBUG   Placed: buy 5 AAPL @ 207.5100
+15:56:02  DEBUG   Ack: buy 5 AAPL @ 207.5100
+15:56:02  INFO    ORDER  buy  5 AMZN @ 153.81 limit (notional 769.05) — short 153.47 / long 152.30
+15:56:02  DEBUG   Placed: buy 5 AMZN @ 153.8100
+15:56:02  DEBUG   Ack: buy 5 AMZN @ 153.8100
+15:56:03  WARNING ORDER  sell 14 TSLA @ 294.20 not filled after 20s
+15:56:03  WARNING RISK   stop-loss TSLA: bid 293.39 is 1.84% below average entry 298.8775
+15:56:03  INFO    ORDER  sell 14 TSLA @ 293.39 limit (notional 4107.46) — stop-loss
+15:56:03  DEBUG   Placed: sell 14 TSLA @ 293.3900
+15:56:03  DEBUG   Ack: sell 14 TSLA @ 293.3900
+15:56:03  INFO    Fill: sold   5 TSLA @ 293.3900 (fee=2.2004)
+15:56:03  INFO    FILL   #240 sell   5 TSLA   @   293.39  notional   1466.95  vs limit +0.0000  | bought and held 9, avg entry 298.8775
+15:56:03  DEBUG   Portfolio: net_worth=527858.85
+15:56:03  INFO    ORDER  buy  5 GOOGL @ 177.84 limit (notional 889.20) — short 176.75 / long 175.33
+15:56:03  DEBUG   Placed: buy 5 GOOGL @ 177.8400
+15:56:03  DEBUG   Ack: buy 5 GOOGL @ 177.8400
+15:56:03  INFO    Fill: bought 5 GOOGL @ 177.8400 (fee=1.3338)
+15:56:03  INFO    FILL   #241 buy    5 GOOGL  @   177.84  notional    889.20  vs limit +0.0000  | bought and held 5, avg entry 177.8400
+15:56:03  DEBUG   Portfolio: net_worth=527849.28
+15:56:04  INFO    ORDER  buy  5 GOOGL @ 177.84 limit (notional 889.20) — short 176.96 / long 175.49
+15:56:04  DEBUG   Placed: buy 5 GOOGL @ 177.8400
+15:56:04  DEBUG   Ack: buy 5 GOOGL @ 177.8400
+15:56:04  INFO    Fill: bought 5 GOOGL @ 177.8400 (fee=1.3338)
+15:56:04  INFO    FILL   #242 buy    5 GOOGL  @   177.84  notional    889.20  vs limit +0.0000  | bought and held 10, avg entry 177.8400
+15:56:04  DEBUG   Portfolio: net_worth=527852.61
+15:56:04  INFO    ORDER  buy  5 GOOGL @ 177.93 limit (notional 889.65) — short 177.38 / long 175.81
+15:56:04  DEBUG   Placed: buy 5 GOOGL @ 177.9300
+15:56:04  DEBUG   Ack: buy 5 GOOGL @ 177.9300
+15:56:04  INFO    Fill: bought 5 GOOGL @ 177.9300 (fee=1.3345)
+15:56:04  INFO    FILL   #243 buy    5 GOOGL  @   177.93  notional    889.65  vs limit +0.0000  | bought and held 15, avg entry 177.8700
+15:56:04  DEBUG   Portfolio: net_worth=527844.54
+15:56:05  INFO    ORDER  buy  5 GOOGL @ 177.95 limit (notional 889.75) — short 177.65 / long 176.17
+15:56:05  DEBUG   Placed: buy 5 GOOGL @ 177.9500
+15:56:05  DEBUG   Ack: buy 5 GOOGL @ 177.9500
+15:56:05  INFO    Fill: bought 3 GOOGL @ 177.9500 (fee=0.8008)
+15:56:05  INFO    FILL   #244 buy    3 GOOGL  @   177.95  notional    533.85  vs limit +0.0000  | bought and held 18, avg entry 177.8833
+15:56:05  DEBUG   Portfolio: net_worth=527863.73
+15:56:05  INFO    ORDER  buy  5 INTC @ 20.20 limit (notional 101.00) — short 20.10 / long 19.92
+15:56:05  DEBUG   Placed: buy 5 INTC @ 20.2000
+15:56:05  DEBUG   Ack: buy 5 INTC @ 20.2000
+15:56:05  INFO    Fill: bought 5 INTC @ 20.2000 (fee=0.1515)
+15:56:05  INFO    FILL   #245 buy    5 INTC   @    20.20  notional    101.00  vs limit +0.0000  | bought and held 5, avg entry 20.2000
+15:56:05  DEBUG   Portfolio: net_worth=527860.42
+15:56:06  INFO    ORDER  buy  5 INTC @ 20.24 limit (notional 101.20) — short 20.16 / long 19.96
+15:56:06  DEBUG   Placed: buy 5 INTC @ 20.2400
+15:56:06  DEBUG   Ack: buy 5 INTC @ 20.2400
+15:56:06  INFO    Fill: bought 5 INTC @ 20.2400 (fee=0.1518)
+15:56:06  INFO    FILL   #246 buy    5 INTC   @    20.24  notional    101.20  vs limit +0.0000  | bought and held 10, avg entry 20.2200
+15:56:06  DEBUG   Portfolio: net_worth=527873.97
+15:56:06  INFO    ORDER  buy  5 INTC @ 20.24 limit (notional 101.20) — short 20.18 / long 19.98
+15:56:06  DEBUG   Placed: buy 5 INTC @ 20.2400
+15:56:06  DEBUG   Ack: buy 5 INTC @ 20.2400
+15:56:06  INFO    Fill: bought 5 INTC @ 20.2400 (fee=0.1518)
+15:56:06  INFO    FILL   #247 buy    5 INTC   @    20.24  notional    101.20  vs limit +0.0000  | bought and held 15, avg entry 20.2267
+15:56:06  DEBUG   Portfolio: net_worth=527870.72
+15:56:07  INFO    ORDER  buy  5 INTC @ 20.32 limit (notional 101.60) — short 20.21 / long 20.02
+15:56:07  DEBUG   Placed: buy 5 INTC @ 20.3200
+15:56:07  DEBUG   Ack: buy 5 INTC @ 20.3200
+15:56:07  INFO    Fill: bought 5 INTC @ 20.3200 (fee=0.1524)
+15:56:07  INFO    FILL   #248 buy    5 INTC   @    20.32  notional    101.60  vs limit +0.0000  | bought and held 20, avg entry 20.2500
+15:56:07  DEBUG   Portfolio: net_worth=527867.01
+15:56:07  INFO    ORDER  buy  5 INTC @ 20.32 limit (notional 101.60) — short 20.24 / long 20.06
+15:56:07  DEBUG   Placed: buy 5 INTC @ 20.3200
+15:56:07  DEBUG   Ack: buy 5 INTC @ 20.3200
+15:56:07  INFO    Fill: bought 5 INTC @ 20.3200 (fee=0.1524)
+15:56:07  INFO    FILL   #249 buy    5 INTC   @    20.32  notional    101.60  vs limit +0.0000  | bought and held 25, avg entry 20.2640
+15:56:07  DEBUG   Portfolio: net_worth=527889.63
+15:56:08  INFO    ORDER  buy  5 INTC @ 20.32 limit (notional 101.60) — short 20.26 / long 20.09
+15:56:08  DEBUG   Placed: buy 5 INTC @ 20.3200
+15:56:08  DEBUG   Ack: buy 5 INTC @ 20.3200
+15:56:15  INFO    Fill: sold   2 NVDA @ 116.3000 (fee=0.3489)
+15:56:15  INFO    FILL   #250 sell   2 NVDA   @   116.30  notional    232.60  | bought and held 0, avg entry 0.0000
+15:56:15  DEBUG   Portfolio: net_worth=528007.43
+15:56:16  INFO    Fill: sold   3 NVDA @ 116.3000 (fee=0.5233)
+15:56:16  INFO    FILL   #251 sell   3 NVDA   @   116.30  notional    348.90  | bought and held 0, avg entry 0.0000
+15:56:16  DEBUG   Portfolio: net_worth=528009.82
+15:56:19  WARNING ORDER  buy 5 NVDA @ 113.35 not filled after 20s
+15:56:19  INFO    ORDER  buy  5 NVDA @ 116.79 limit (notional 583.95) — short 116.61 / long 116.08
+15:56:19  DEBUG   Placed: buy 5 NVDA @ 116.7900
+15:56:19  DEBUG   Ack: buy 5 NVDA @ 116.7900
+15:56:21  WARNING ORDER  buy 5 AMD @ 227.24 not filled after 20s
+15:56:21  INFO    ORDER  buy  5 AMD @ 236.63 limit (notional 1183.15) — short 235.85 / long 234.41
+15:56:21  DEBUG   Placed: buy 5 AMD @ 236.6300
+15:56:21  DEBUG   Ack: buy 5 AMD @ 236.6300
+15:56:22  INFO    Fill: bought 1 AMD @ 236.6300 (fee=0.3549)
+15:56:22  INFO    FILL   #252 buy    1 AMD    @   236.63  notional    236.63  vs limit +0.0000  | bought and held 6, avg entry 228.7967
+15:56:22  DEBUG   Portfolio: net_worth=528057.13
+15:56:22  WARNING ORDER  buy 5 AAPL @ 207.51 not filled after 20s
+15:56:23  WARNING ORDER  buy 5 AMZN @ 153.81 not filled after 20s
+15:56:23  WARNING ORDER  sell 9 TSLA @ 293.39 not filled after 20s
+15:56:23  WARNING RISK   stop-loss TSLA: bid 293.36 is 1.85% below average entry 298.8775
+15:56:23  INFO    ORDER  sell 9 TSLA @ 293.36 limit (notional 2640.24) — stop-loss
+15:56:23  DEBUG   Placed: sell 9 TSLA @ 293.3600
+15:56:23  DEBUG   Ack: sell 9 TSLA @ 293.3600
+15:56:23  INFO    Fill: sold   7 TSLA @ 293.3600 (fee=3.0803)
+15:56:23  INFO    FILL   #253 sell   7 TSLA   @   293.36  notional   2053.52  vs limit +0.0000  | bought and held 2, avg entry 298.8775
+15:56:23  DEBUG   Portfolio: net_worth=528056.88
+15:56:24  INFO    Fill: sold   2 TSLA @ 293.3600 (fee=0.8801)
+15:56:24  INFO    FILL   #254 sell   2 TSLA   @   293.36  notional    586.72  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+15:56:24  DEBUG   Portfolio: net_worth=528062.76
+15:56:24  INFO    Fill: sold   8 TSLA @ 293.3900 (fee=3.5207)
+15:56:24  INFO    FILL   #255 sell   8 TSLA   @   293.39  notional   2347.12  | bought and held 0, avg entry 0.0000
+15:56:24  DEBUG   Portfolio: net_worth=528064.56
+15:56:24  INFO    Fill: sold   1 TSLA @ 293.3900 (fee=0.4401)
+15:56:24  INFO    FILL   #256 sell   1 TSLA   @   293.39  notional    293.39  | bought and held 0, avg entry 0.0000
+15:56:24  DEBUG   Portfolio: net_worth=528064.78
+15:56:25  WARNING ORDER  buy 2 GOOGL @ 177.95 not filled after 20s
+15:56:28  WARNING ORDER  buy 5 INTC @ 20.32 not filled after 20s
+15:56:28  INFO    ORDER  buy  5 INTC @ 21.08 limit (notional 105.40) — short 20.97 / long 20.82
+15:56:28  DEBUG   Placed: buy 5 INTC @ 21.0800
+15:56:28  DEBUG   Ack: buy 5 INTC @ 21.0800
+15:56:30  INFO    ORDER  buy  5 MSFT @ 401.25 limit (notional 2006.25) — short 399.86 / long 398.31
+15:56:30  DEBUG   Placed: buy 5 MSFT @ 401.2500
+15:56:30  DEBUG   Ack: buy 5 MSFT @ 401.2500
+15:56:31  INFO    Fill: bought 2 AMZN @ 153.8100 (fee=0.4614)
+15:56:31  INFO    FILL   #257 buy    2 AMZN   @   153.81  notional    307.62  | bought and held 12, avg entry 153.5600
+15:56:31  DEBUG   Portfolio: net_worth=528094.84
+15:56:33  INFO    Fill: sold   4 AMZN @ 154.1300 (fee=0.9248)
+15:56:33  INFO    FILL   #258 sell   4 AMZN   @   154.13  notional    616.52  | bought and held 8, avg entry 153.5600
+15:56:33  DEBUG   Portfolio: net_worth=528098.35
+15:56:37  INFO    ORDER  buy  5 AMZN @ 155.03 limit (notional 775.15) — short 154.61 / long 154.10
+15:56:37  DEBUG   Placed: buy 5 AMZN @ 155.0300
+15:56:37  DEBUG   Ack: buy 5 AMZN @ 155.0300
+15:56:37  INFO    Fill: bought 5 AMZN @ 155.0300 (fee=1.1627)
+15:56:37  INFO    FILL   #259 buy    5 AMZN   @   155.03  notional    775.15  vs limit +0.0000  | bought and held 13, avg entry 154.1254
+15:56:37  DEBUG   Portfolio: net_worth=528115.46
+15:56:37  INFO    ORDER  buy  5 AMZN @ 155.21 limit (notional 776.05) — short 154.86 / long 154.22
+15:56:37  DEBUG   Placed: buy 5 AMZN @ 155.2100
+15:56:37  DEBUG   Ack: buy 5 AMZN @ 155.2100
+15:56:37  INFO    Fill: bought 5 AMZN @ 155.2100 (fee=1.1641)
+15:56:37  INFO    FILL   #260 buy    5 AMZN   @   155.21  notional    776.05  vs limit +0.0000  | bought and held 18, avg entry 154.4267
+15:56:37  DEBUG   Portfolio: net_worth=528109.23
+15:56:38  INFO    ORDER  buy  5 AMZN @ 155.28 limit (notional 776.40) — short 155.10 / long 154.36
+15:56:38  DEBUG   Placed: buy 5 AMZN @ 155.2800
+15:56:38  DEBUG   Ack: buy 5 AMZN @ 155.2800
+15:56:38  INFO    Fill: bought 5 AMZN @ 155.2800 (fee=1.1646)
+15:56:38  INFO    FILL   #261 buy    5 AMZN   @   155.28  notional    776.40  vs limit +0.0000  | bought and held 23, avg entry 154.6122
+15:56:38  DEBUG   Portfolio: net_worth=528112.60
+15:56:38  INFO    ORDER  buy  5 AMZN @ 155.34 limit (notional 776.70) — short 155.28 / long 154.58
+15:56:38  DEBUG   Placed: buy 5 AMZN @ 155.3400
+15:56:38  DEBUG   Ack: buy 5 AMZN @ 155.3400
+15:56:38  INFO    Fill: bought 5 AMZN @ 155.3400 (fee=1.1650)
+15:56:38  INFO    FILL   #262 buy    5 AMZN   @   155.34  notional    776.70  vs limit +0.0000  | bought and held 28, avg entry 154.7421
+15:56:38  DEBUG   Portfolio: net_worth=528107.13
+15:56:39  INFO    ORDER  buy  5 AMZN @ 155.43 limit (notional 777.15) — short 155.31 / long 154.66
+15:56:39  DEBUG   Placed: buy 5 AMZN @ 155.4300
+15:56:39  DEBUG   Ack: buy 5 AMZN @ 155.4300
+15:56:39  INFO    Fill: bought 3 AMZN @ 155.4300 (fee=0.6994)
+15:56:39  INFO    FILL   #263 buy    3 AMZN   @   155.43  notional    466.29  vs limit +0.0000  | bought and held 31, avg entry 154.8087
+15:56:39  DEBUG   Portfolio: net_worth=528108.78
+15:56:39  WARNING ORDER  buy 5 NVDA @ 116.79 not filled after 20s
+15:56:41  WARNING ORDER  buy 4 AMD @ 236.63 not filled after 20s
+15:56:48  WARNING ORDER  buy 5 INTC @ 21.08 not filled after 20s
+15:56:48  INFO    ORDER  buy  5 INTC @ 21.90 limit (notional 109.50) — short 21.79 / long 21.63
+15:56:48  DEBUG   Placed: buy 5 INTC @ 21.9000
+15:56:49  DEBUG   Ack: buy 5 INTC @ 21.9000
+15:56:49  INFO    Fill: bought 5 INTC @ 21.9000 (fee=0.1643)
+15:56:49  INFO    FILL   #264 buy    5 INTC   @    21.90  notional    109.50  vs limit +0.0000  | bought and held 30, avg entry 20.5367
+15:56:49  DEBUG   Portfolio: net_worth=528183.86
+15:56:49  INFO    ORDER  buy  5 INTC @ 21.90 limit (notional 109.50) — short 21.83 / long 21.67
+15:56:49  DEBUG   Placed: buy 5 INTC @ 21.9000
+15:56:49  DEBUG   Ack: buy 5 INTC @ 21.9000
+15:56:49  INFO    Fill: bought 5 INTC @ 21.9000 (fee=0.1643)
+15:56:49  INFO    FILL   #265 buy    5 INTC   @    21.90  notional    109.50  vs limit +0.0000  | bought and held 35, avg entry 20.7314
+15:56:49  DEBUG   Portfolio: net_worth=528186.81
+15:56:49  INFO    ORDER  buy  5 INTC @ 21.99 limit (notional 109.95) — short 21.88 / long 21.71
+15:56:49  DEBUG   Placed: buy 5 INTC @ 21.9900
+15:56:50  DEBUG   Ack: buy 5 INTC @ 21.9900
+15:56:50  INFO    Fill: bought 5 INTC @ 21.9900 (fee=0.1649)
+15:56:50  INFO    FILL   #266 buy    5 INTC   @    21.99  notional    109.95  vs limit +0.0000  | bought and held 40, avg entry 20.8887
+15:56:50  DEBUG   Portfolio: net_worth=528182.82
+15:56:50  INFO    ORDER  buy  5 AAPL @ 211.38 limit (notional 1056.90) — short 211.11 / long 210.47
+15:56:50  DEBUG   Placed: buy 5 AAPL @ 211.3800
+15:56:50  DEBUG   Ack: buy 5 AAPL @ 211.3800
+15:56:50  WARNING ORDER  buy 5 MSFT @ 401.25 not filled after 20s
+15:56:50  INFO    ORDER  sell 5 INTC @ 21.90 limit (notional 109.50) — short 21.54 / long 21.68
+15:56:50  DEBUG   Placed: sell 5 INTC @ 21.9000
+15:56:51  DEBUG   Ack: sell 5 INTC @ 21.9000
+15:56:51  INFO    Fill: sold   5 INTC @ 21.9000 (fee=0.1643)
+15:56:51  INFO    FILL   #267 sell   5 INTC   @    21.90  notional    109.50  vs limit +0.0000  | bought and held 35, avg entry 20.8887
+15:56:51  DEBUG   Portfolio: net_worth=528195.34
+15:56:51  INFO    ORDER  sell 5 INTC @ 21.90 limit (notional 109.50) — short 21.42 / long 21.66
+15:56:51  DEBUG   Placed: sell 5 INTC @ 21.9000
+15:56:51  DEBUG   Ack: sell 5 INTC @ 21.9000
+15:56:51  INFO    Fill: sold   5 INTC @ 21.9000 (fee=0.1643)
+15:56:51  INFO    FILL   #268 sell   5 INTC   @    21.90  notional    109.50  vs limit +0.0000  | bought and held 30, avg entry 20.8887
+15:56:51  DEBUG   Portfolio: net_worth=528202.88
+15:56:52  INFO    ORDER  sell 5 INTC @ 21.85 limit (notional 109.25) — short 21.29 / long 21.63
+15:56:52  DEBUG   Placed: sell 5 INTC @ 21.8500
+15:56:52  DEBUG   Ack: sell 5 INTC @ 21.8500
+15:56:52  INFO    Fill: sold   5 INTC @ 21.8800 (fee=0.1641)
+15:56:52  INFO    FILL   #269 sell   5 INTC   @    21.88  notional    109.40  vs limit +0.0300  | bought and held 25, avg entry 20.8887
+15:56:52  DEBUG   Portfolio: net_worth=528205.62
+15:56:52  INFO    ORDER  sell 5 INTC @ 21.85 limit (notional 109.25) — short 21.52 / long 21.65
+15:56:52  DEBUG   Placed: sell 5 INTC @ 21.8500
+15:56:52  DEBUG   Ack: sell 5 INTC @ 21.8500
+15:56:52  INFO    Fill: sold   5 INTC @ 21.8800 (fee=0.1641)
+15:56:52  INFO    FILL   #270 sell   5 INTC   @    21.88  notional    109.40  vs limit +0.0300  | bought and held 20, avg entry 20.8887
+15:56:52  DEBUG   Portfolio: net_worth=528212.35
+15:56:53  INFO    ORDER  buy  5 INTC @ 21.92 limit (notional 109.60) — short 21.77 / long 21.67
+15:56:53  DEBUG   Placed: buy 5 INTC @ 21.9200
+15:56:53  DEBUG   Ack: buy 5 INTC @ 21.9200
+15:56:59  WARNING ORDER  buy 2 AMZN @ 155.43 not filled after 20s
+15:57:01  INFO    ORDER  buy  5 AMD @ 241.09 limit (notional 1205.45) — short 240.71 / long 239.81
+15:57:01  DEBUG   Placed: buy 5 AMD @ 241.0900
+15:57:01  DEBUG   Ack: buy 5 AMD @ 241.0900
+15:57:01  INFO    Fill: bought 4 AMD @ 241.0900 (fee=1.4465)
+15:57:01  INFO    FILL   #271 buy    4 AMD    @   241.09  notional    964.36  vs limit +0.0000  | bought and held 10, avg entry 233.7140
+15:57:01  DEBUG   Portfolio: net_worth=528226.11
+15:57:02  INFO    Fill: bought 1 AMD @ 241.0900 (fee=0.3616)
+15:57:02  INFO    FILL   #272 buy    1 AMD    @   241.09  notional    241.09  vs limit +0.0000  | bought and held 11, avg entry 234.3845
+15:57:02  DEBUG   Portfolio: net_worth=528229.10
+15:57:02  INFO    ORDER  buy  5 AMD @ 241.09 limit (notional 1205.45) — short 241.11 / long 240.17
+15:57:02  DEBUG   Placed: buy 5 AMD @ 241.0900
+15:57:02  DEBUG   Ack: buy 5 AMD @ 241.0900
+15:57:02  INFO    Fill: bought 1 AMD @ 241.0900 (fee=0.3616)
+15:57:02  INFO    FILL   #273 buy    1 AMD    @   241.09  notional    241.09  vs limit +0.0000  | bought and held 12, avg entry 234.9433
+15:57:02  DEBUG   Portfolio: net_worth=528225.88
+15:57:10  WARNING ORDER  buy 5 AAPL @ 211.38 not filled after 20s
+15:57:13  WARNING ORDER  buy 5 INTC @ 21.92 not filled after 20s
+15:57:13  INFO    ORDER  buy  5 INTC @ 22.76 limit (notional 113.80) — short 22.69 / long 22.51
+15:57:13  DEBUG   Placed: buy 5 INTC @ 22.7600
+15:57:13  DEBUG   Ack: buy 5 INTC @ 22.7600
+15:57:22  WARNING ORDER  buy 4 AMD @ 241.09 not filled after 20s
+15:57:33  WARNING ORDER  buy 5 INTC @ 22.76 not filled after 20s
+15:57:33  INFO    ORDER  buy  5 INTC @ 23.27 limit (notional 116.35) — short 23.25 / long 23.16
+15:57:33  DEBUG   Placed: buy 5 INTC @ 23.2700
+15:57:33  DEBUG   Ack: buy 5 INTC @ 23.2700
+15:57:33  INFO    Fill: bought 5 INTC @ 23.2700 (fee=0.1745)
+15:57:33  INFO    FILL   #274 buy    5 INTC   @    23.27  notional    116.35  vs limit +0.0000  | bought and held 25, avg entry 21.3650
+15:57:33  DEBUG   Portfolio: net_worth=528259.39
+15:58:51  INFO    Fill: bought 1 MSFT @ 401.2500 (fee=0.6019)
+15:58:51  INFO    FILL   #275 buy    1 MSFT   @   401.25  notional    401.25  | bought and held 1, avg entry 401.2500
+15:58:51  DEBUG   Portfolio: net_worth=528229.48
+15:59:22  INFO    Fill: bought 2 AMD @ 241.0900 (fee=0.7233)
+15:59:22  INFO    FILL   #276 buy    2 AMD    @   241.09  notional    482.18  | bought and held 14, avg entry 235.8214
+15:59:22  DEBUG   Portfolio: net_worth=528268.83
+15:59:29  INFO    Fill: bought 5 AAPL @ 211.3800 (fee=1.5854)
+15:59:29  INFO    FILL   #277 buy    5 AAPL   @   211.38  notional   1056.90  | bought and held 40, avg entry 207.6062
+15:59:29  DEBUG   Portfolio: net_worth=528278.40
+15:59:34  INFO    Fill: bought 1 AMD @ 241.0900 (fee=0.3616)
+15:59:34  INFO    FILL   #278 buy    1 AMD    @   241.09  notional    241.09  | bought and held 15, avg entry 236.1727
+15:59:34  DEBUG   Portfolio: net_worth=528284.58
+15:59:48  INFO    Fill: bought 1 MSFT @ 401.2500 (fee=0.6019)
+15:59:48  INFO    FILL   #279 buy    1 MSFT   @   401.25  notional    401.25  | bought and held 2, avg entry 401.2500
+15:59:48  DEBUG   Portfolio: net_worth=528292.74
+15:59:48  INFO    Fill: bought 1 AMD @ 241.0900 (fee=0.3616)
+15:59:48  INFO    FILL   #280 buy    1 AMD    @   241.09  notional    241.09  | bought and held 16, avg entry 236.4800
+15:59:48  DEBUG   Portfolio: net_worth=528287.90
+15:59:57  INFO    Fill: sold   3 TSLA @ 294.2000 (fee=1.3239)
+15:59:57  INFO    FILL   #281 sell   3 TSLA   @   294.20  notional    882.60  | bought and held 0, avg entry 0.0000
+15:59:57  DEBUG   Portfolio: net_worth=528285.80
+16:00:04  INFO    Fill: bought 2 MSFT @ 401.2500 (fee=1.2038)
+16:00:04  INFO    FILL   #282 buy    2 MSFT   @   401.25  notional    802.50  | bought and held 4, avg entry 401.2500
+16:00:04  DEBUG   Portfolio: net_worth=528283.83
+16:00:08  INFO    Fill: bought 1 MSFT @ 401.2500 (fee=0.6019)
+16:00:08  INFO    FILL   #283 buy    1 MSFT   @   401.25  notional    401.25  | bought and held 5, avg entry 401.2500
+16:00:08  DEBUG   Portfolio: net_worth=528278.65
+16:00:09  INFO    ORDER  sell 5 AMD @ 241.09 limit (notional 1205.45) — short 239.95 / long 240.76
+16:00:09  DEBUG   Placed: sell 5 AMD @ 241.0900
+16:00:09  DEBUG   Ack: sell 5 AMD @ 241.0900
+16:00:09  INFO    Fill: sold   2 AMD @ 241.0900 (fee=0.7233)
+16:00:09  INFO    FILL   #284 sell   2 AMD    @   241.09  notional    482.18  vs limit +0.0000  | bought and held 14, avg entry 236.4800
+16:00:09  DEBUG   Portfolio: net_worth=528281.16
+16:00:11  INFO    Fill: sold   3 TSLA @ 294.2000 (fee=1.3239)
+16:00:11  INFO    FILL   #285 sell   3 TSLA   @   294.20  notional    882.60  | bought and held 0, avg entry 0.0000
+16:00:11  DEBUG   Portfolio: net_worth=528284.63
+16:00:18  INFO    Fill: sold   3 AMD @ 241.0900 (fee=1.0849)
+16:00:18  INFO    FILL   #286 sell   3 AMD    @   241.09  notional    723.27  vs limit +0.0000  | bought and held 11, avg entry 236.4800
+16:00:18  DEBUG   Portfolio: net_worth=528289.97
+16:00:19  INFO    ORDER  sell 5 AMD @ 240.97 limit (notional 1204.85) — short 239.42 / long 240.36
+16:00:19  DEBUG   Placed: sell 5 AMD @ 240.9700
+16:00:19  DEBUG   Ack: sell 5 AMD @ 240.9700
+16:00:19  INFO    Fill: sold   2 AMD @ 240.9700 (fee=0.7229)
+16:00:19  INFO    FILL   #287 sell   2 AMD    @   240.97  notional    481.94  vs limit +0.0000  | bought and held 9, avg entry 236.4800
+16:00:19  DEBUG   Portfolio: net_worth=528286.00
+16:00:35  INFO    Fill: sold   2 AMD @ 240.9700 (fee=0.7229)
+16:00:36  INFO    FILL   #288 sell   2 AMD    @   240.97  notional    481.94  vs limit +0.0000  | bought and held 7, avg entry 236.4800
+16:00:36  DEBUG   Portfolio: net_worth=528295.66
+16:00:39  WARNING ORDER  sell 1 AMD @ 240.97 not filled after 20s
+16:00:53  INFO    Fill: sold   5 TSLA @ 294.2000 (fee=2.2065)
+16:00:53  INFO    FILL   #289 sell   5 TSLA   @   294.20  notional   1471.00  | bought and held 0, avg entry 0.0000
+16:00:53  DEBUG   Portfolio: net_worth=528292.66
+16:00:55  INFO    Fill: sold   1 AMD @ 240.9700 (fee=0.3615)
+16:00:55  INFO    FILL   #290 sell   1 AMD    @   240.97  notional    240.97  | bought and held 6, avg entry 236.4800
+16:00:55  DEBUG   Portfolio: net_worth=528295.06
+16:00:55  INFO    Fill: sold   3 TSLA @ 294.2000 (fee=1.3239)
+16:00:55  INFO    FILL   #291 sell   3 TSLA   @   294.20  notional    882.60  | bought and held 0, avg entry 0.0000
+16:00:55  DEBUG   Portfolio: net_worth=528299.27
+16:01:23  INFO    Fill: bought 4 NFLX @ 1350.3700 (fee=8.1022)
+16:01:23  INFO    FILL   #292 buy    4 NFLX   @  1350.37  notional   5401.48  | bought and held 4, avg entry 1350.3700
+16:01:23  DEBUG   Portfolio: net_worth=528373.48
+16:02:05  INFO    ORDER  buy  5 GOOGL @ 183.62 limit (notional 918.10) — short 183.06 / long 182.50
+16:02:05  DEBUG   Placed: buy 5 GOOGL @ 183.6200
+16:02:05  DEBUG   Ack: buy 5 GOOGL @ 183.6200
+16:02:05  INFO    Fill: bought 5 GOOGL @ 183.6200 (fee=1.3772)
+16:02:05  INFO    FILL   #293 buy    5 GOOGL  @   183.62  notional    918.10  vs limit +0.0000  | bought and held 23, avg entry 179.1304
+16:02:05  DEBUG   Portfolio: net_worth=528390.32
+16:02:05  INFO    ORDER  buy  5 GOOGL @ 183.67 limit (notional 918.35) — short 183.27 / long 182.63
+16:02:05  DEBUG   Placed: buy 5 GOOGL @ 183.6700
+16:02:05  DEBUG   Ack: buy 5 GOOGL @ 183.6700
+16:02:05  INFO    Fill: bought 5 GOOGL @ 183.6700 (fee=1.3775)
+16:02:05  INFO    FILL   #294 buy    5 GOOGL  @   183.67  notional    918.35  vs limit +0.0000  | bought and held 28, avg entry 179.9411
+16:02:05  DEBUG   Portfolio: net_worth=528388.55
+16:02:06  INFO    ORDER  buy  5 GOOGL @ 183.97 limit (notional 919.85) — short 183.38 / long 182.70
+16:02:06  DEBUG   Placed: buy 5 GOOGL @ 183.9700
+16:02:06  DEBUG   Ack: buy 5 GOOGL @ 183.9700
+16:02:06  INFO    Fill: bought 5 GOOGL @ 183.4900 (fee=1.3762)
+16:02:06  INFO    FILL   #295 buy    5 GOOGL  @   183.49  notional    917.45  vs limit -0.4800  | bought and held 33, avg entry 180.4788
+16:02:06  DEBUG   Portfolio: net_worth=528379.24
+16:02:06  INFO    ORDER  buy  5 GOOGL @ 183.49 limit (notional 917.45) — short 183.51 / long 182.84
+16:02:06  DEBUG   Placed: buy 5 GOOGL @ 183.4900
+16:02:06  DEBUG   Ack: buy 5 GOOGL @ 183.4900
+16:02:06  INFO    Fill: bought 5 GOOGL @ 183.4900 (fee=1.3762)
+16:02:06  INFO    FILL   #296 buy    5 GOOGL  @   183.49  notional    917.45  vs limit +0.0000  | bought and held 38, avg entry 180.8750
+16:02:06  DEBUG   Portfolio: net_worth=528376.28
+16:02:07  INFO    ORDER  buy  5 GOOGL @ 183.54 limit (notional 917.70) — short 183.56 / long 182.99
+16:02:07  DEBUG   Placed: buy 5 GOOGL @ 183.5400
+16:02:07  DEBUG   Ack: buy 5 GOOGL @ 183.5400
+16:02:07  INFO    Fill: bought 5 GOOGL @ 183.5400 (fee=1.3765)
+16:02:07  INFO    FILL   #297 buy    5 GOOGL  @   183.54  notional    917.70  vs limit +0.0000  | bought and held 43, avg entry 181.1849
+16:02:07  DEBUG   Portfolio: net_worth=528367.03
+16:02:25  INFO    ORDER  sell 5 AMD @ 242.07 limit (notional 1210.35) — short 240.87 / long 241.69
+16:02:25  DEBUG   Placed: sell 5 AMD @ 242.0700
+16:02:25  DEBUG   Ack: sell 5 AMD @ 242.0700
+16:02:25  INFO    Fill: sold   1 AMD @ 242.0700 (fee=0.3631)
+16:02:25  INFO    FILL   #298 sell   1 AMD    @   242.07  notional    242.07  vs limit +0.0000  | bought and held 5, avg entry 236.4800
+16:02:25  DEBUG   Portfolio: net_worth=528350.21
+16:02:33  INFO    Fill: sold   2 AMD @ 242.0700 (fee=0.7262)
+16:02:33  INFO    FILL   #299 sell   2 AMD    @   242.07  notional    484.14  vs limit +0.0000  | bought and held 3, avg entry 236.4800
+16:02:33  DEBUG   Portfolio: net_worth=528353.46
+16:02:45  WARNING ORDER  sell 2 AMD @ 242.07 not filled after 20s
+16:02:50  INFO    Fill: sold   2 AMD @ 242.0700 (fee=0.7262)
+16:02:50  INFO    FILL   #300 sell   2 AMD    @   242.07  notional    484.14  | bought and held 1, avg entry 236.4800
+16:02:50  DEBUG   Portfolio: net_worth=528353.38
+16:02:51  INFO    ORDER  sell 5 AMD @ 242.07 limit (notional 1210.35) — short 240.78 / long 241.64
+16:02:51  DEBUG   Placed: sell 5 AMD @ 242.0700
+16:02:51  DEBUG   Ack: sell 5 AMD @ 242.0700
+16:02:51  INFO    Fill: sold   1 AMD @ 242.0700 (fee=0.3631)
+16:02:51  INFO    FILL   #301 sell   1 AMD    @   242.07  notional    242.07  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:02:51  DEBUG   Portfolio: net_worth=528355.66
+16:03:06  INFO    Fill: sold   1 AMD @ 242.0700 (fee=0.3631)
+16:03:06  INFO    FILL   #302 sell   1 AMD    @   242.07  notional    242.07  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:03:06  DEBUG   Portfolio: net_worth=528358.66
+16:03:11  WARNING ORDER  sell 3 AMD @ 242.07 not filled after 20s
+16:04:42  INFO    ORDER  buy  5 NFLX @ 1337.25 limit (notional 6686.25) — short 1328.90 / long 1324.33
+16:04:42  DEBUG   Placed: buy 5 NFLX @ 1337.2500
+16:04:42  DEBUG   Ack: buy 5 NFLX @ 1337.2500
+16:05:02  WARNING ORDER  buy 5 NFLX @ 1337.25 not filled after 20s
+16:05:09  INFO    ORDER  buy  5 GOOGL @ 184.71 limit (notional 923.55) — short 184.23 / long 183.67
+16:05:09  DEBUG   Placed: buy 5 GOOGL @ 184.7100
+16:05:09  DEBUG   Ack: buy 5 GOOGL @ 184.7100
+16:05:09  INFO    Fill: bought 5 GOOGL @ 184.7100 (fee=1.3853)
+16:05:09  INFO    FILL   #303 buy    5 GOOGL  @   184.71  notional    923.55  vs limit +0.0000  | bought and held 48, avg entry 181.5521
+16:05:09  DEBUG   Portfolio: net_worth=528453.53
+16:05:10  INFO    ORDER  buy  5 GOOGL @ 185.08 limit (notional 925.40) — short 184.50 / long 183.80
+16:05:10  DEBUG   Placed: buy 5 GOOGL @ 185.0800
+16:05:10  DEBUG   Ack: buy 5 GOOGL @ 185.0800
+16:05:10  INFO    Fill: bought 5 GOOGL @ 185.0800 (fee=1.3881)
+16:05:10  INFO    FILL   #304 buy    5 GOOGL  @   185.08  notional    925.40  vs limit +0.0000  | bought and held 53, avg entry 181.8849
+16:05:10  DEBUG   Portfolio: net_worth=528440.76
+16:05:10  INFO    ORDER  buy  5 GOOGL @ 185.08 limit (notional 925.40) — short 184.77 / long 183.94
+16:05:10  DEBUG   Placed: buy 5 GOOGL @ 185.0800
+16:05:11  DEBUG   Ack: buy 5 GOOGL @ 185.0800
+16:05:11  INFO    Fill: bought 3 GOOGL @ 185.0800 (fee=0.8329)
+16:05:11  INFO    FILL   #305 buy    3 GOOGL  @   185.08  notional    555.24  vs limit +0.0000  | bought and held 56, avg entry 182.0561
+16:05:11  DEBUG   Portfolio: net_worth=528457.57
+16:05:27  INFO    Fill: bought 1 GOOGL @ 185.0800 (fee=0.2776)
+16:05:27  INFO    FILL   #306 buy    1 GOOGL  @   185.08  notional    185.08  vs limit +0.0000  | bought and held 57, avg entry 182.1091
+16:05:27  DEBUG   Portfolio: net_worth=528475.24
+16:05:31  WARNING ORDER  buy 1 GOOGL @ 185.08 not filled after 20s
+16:05:36  INFO    Fill: bought 1 GOOGL @ 185.0800 (fee=0.2776)
+16:05:36  INFO    FILL   #307 buy    1 GOOGL  @   185.08  notional    185.08  | bought and held 58, avg entry 182.1603
+16:05:36  DEBUG   Portfolio: net_worth=528479.11
+16:05:53  INFO    ORDER  sell 5 GOOGL @ 185.08 limit (notional 925.40) — short 184.63 / long 185.19
+16:05:53  DEBUG   Placed: sell 5 GOOGL @ 185.0800
+16:05:53  DEBUG   Ack: sell 5 GOOGL @ 185.0800
+16:05:53  INFO    Fill: sold   3 GOOGL @ 185.0800 (fee=0.8329)
+16:05:53  INFO    FILL   #308 sell   3 GOOGL  @   185.08  notional    555.24  vs limit +0.0000  | bought and held 55, avg entry 182.1603
+16:05:53  DEBUG   Portfolio: net_worth=528442.39
+16:06:13  WARNING ORDER  sell 2 GOOGL @ 185.08 not filled after 20s
+16:08:15  INFO    ORDER  buy  5 NFLX @ 1369.36 limit (notional 6846.80) — short 1359.92 / long 1355.47
+16:08:15  DEBUG   Placed: buy 5 NFLX @ 1369.3600
+16:08:15  DEBUG   Ack: buy 5 NFLX @ 1369.3600
+16:08:15  INFO    Fill: bought 5 NFLX @ 1369.3600 (fee=10.2702)
+16:08:15  INFO    FILL   #309 buy    5 NFLX   @  1369.36  notional   6846.80  vs limit +0.0000  | bought and held 9, avg entry 1360.9200
+16:08:15  DEBUG   Portfolio: net_worth=528300.98
+16:08:15  INFO    ORDER  buy  5 NFLX @ 1369.36 limit (notional 6846.80) — short 1364.65 / long 1356.25
+16:08:15  DEBUG   Placed: buy 5 NFLX @ 1369.3600
+16:08:15  DEBUG   Ack: buy 5 NFLX @ 1369.3600
+16:08:15  INFO    Fill: bought 5 NFLX @ 1369.3600 (fee=10.2702)
+16:08:15  INFO    FILL   #310 buy    5 NFLX   @  1369.36  notional   6846.80  vs limit +0.0000  | bought and held 14, avg entry 1363.9343
+16:08:15  DEBUG   Portfolio: net_worth=528230.45
+16:08:16  INFO    ORDER  buy  5 NFLX @ 1369.36 limit (notional 6846.80) — short 1369.28 / long 1358.21
+16:08:16  DEBUG   Placed: buy 5 NFLX @ 1369.3600
+16:08:16  DEBUG   Ack: buy 5 NFLX @ 1369.3600
+16:08:16  INFO    Fill: bought 5 NFLX @ 1369.3600 (fee=10.2702)
+16:08:16  INFO    FILL   #311 buy    5 NFLX   @  1369.36  notional   6846.80  vs limit +0.0000  | bought and held 19, avg entry 1365.3621
+16:08:16  DEBUG   Portfolio: net_worth=528199.80
+16:08:16  INFO    RISK   NFLX: buy cut to 4 by concentration limit
+16:08:16  INFO    ORDER  buy  4 NFLX @ 1369.36 limit (notional 5477.44) — short 1369.28 / long 1360.18
+16:08:16  DEBUG   Placed: buy 4 NFLX @ 1369.3600
+16:08:16  DEBUG   Ack: buy 4 NFLX @ 1369.3600
+16:08:16  INFO    Fill: bought 4 NFLX @ 1369.3600 (fee=8.2162)
+16:08:16  INFO    FILL   #312 buy    4 NFLX   @  1369.36  notional   5477.44  vs limit +0.0000  | bought and held 23, avg entry 1366.0574
+16:08:16  DEBUG   Portfolio: net_worth=528202.07
+16:08:17  INFO    RISK   NFLX: buy cut to 0 by concentration limit
+16:08:41  INFO    ORDER  sell 5 NFLX @ 1358.10 limit (notional 6790.50) — short 1363.23 / long 1367.54
+16:08:41  DEBUG   Placed: sell 5 NFLX @ 1358.1000
+16:08:41  DEBUG   Ack: sell 5 NFLX @ 1358.1000
+16:08:41  INFO    Fill: sold   5 NFLX @ 1358.1000 (fee=10.1858)
+16:08:41  INFO    FILL   #313 sell   5 NFLX   @  1358.10  notional   6790.50  vs limit +0.0000  | bought and held 18, avg entry 1366.0574
+16:08:41  DEBUG   Portfolio: net_worth=528200.30
+16:08:42  INFO    ORDER  sell 5 NFLX @ 1358.10 limit (notional 6790.50) — short 1362.89 / long 1366.99
+16:08:42  DEBUG   Placed: sell 5 NFLX @ 1358.1000
+16:08:42  DEBUG   Ack: sell 5 NFLX @ 1358.1000
+16:08:42  INFO    Fill: sold   5 NFLX @ 1358.1000 (fee=10.1858)
+16:08:42  INFO    FILL   #314 sell   5 NFLX   @  1358.10  notional   6790.50  vs limit +0.0000  | bought and held 13, avg entry 1366.0574
+16:08:42  DEBUG   Portfolio: net_worth=528129.94
+16:13:03  INFO    Fill: sold   3 AMD @ 242.0700 (fee=1.0893)
+16:13:03  INFO    FILL   #315 sell   3 AMD    @   242.07  notional    726.21  | bought and held 0, avg entry 0.0000
+16:13:03  DEBUG   Portfolio: net_worth=528154.32
+16:13:04  INFO    ORDER  sell 2 AMD @ 242.07 limit (notional 484.14) — short 239.10 / long 240.24
+16:13:04  DEBUG   Placed: sell 2 AMD @ 242.0700
+16:13:04  DEBUG   Ack: sell 2 AMD @ 242.0700
+16:13:04  INFO    Fill: sold   2 AMD @ 242.0700 (fee=0.7262)
+16:13:04  INFO    FILL   #316 sell   2 AMD    @   242.07  notional    484.14  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:13:04  DEBUG   Portfolio: net_worth=528161.68
+16:13:10  INFO    ORDER  buy  5 AMD @ 240.57 limit (notional 1202.85) — short 239.54 / long 238.60
+16:13:10  DEBUG   Placed: buy 5 AMD @ 240.5700
+16:13:10  DEBUG   Ack: buy 5 AMD @ 240.5700
+16:13:10  INFO    Fill: bought 3 AMD @ 240.5700 (fee=1.0826)
+16:13:10  INFO    FILL   #317 buy    3 AMD    @   240.57  notional    721.71  vs limit +0.0000  | bought and held 3, avg entry 240.5700
+16:13:10  DEBUG   Portfolio: net_worth=528148.74
+16:13:14  INFO    Fill: bought 2 AMD @ 240.5700 (fee=0.7217)
+16:13:14  INFO    FILL   #318 buy    2 AMD    @   240.57  notional    481.14  vs limit +0.0000  | bought and held 5, avg entry 240.5700
+16:13:14  DEBUG   Portfolio: net_worth=528139.17
+16:13:15  INFO    ORDER  buy  5 AMD @ 240.57 limit (notional 1202.85) — short 238.58 / long 237.74
+16:13:15  DEBUG   Placed: buy 5 AMD @ 240.5700
+16:13:15  DEBUG   Ack: buy 5 AMD @ 240.5700
+16:13:15  INFO    Fill: bought 4 AMD @ 240.5700 (fee=1.4434)
+16:13:15  INFO    FILL   #319 buy    4 AMD    @   240.57  notional    962.28  vs limit +0.0000  | bought and held 9, avg entry 240.5700
+16:13:15  DEBUG   Portfolio: net_worth=528126.97
+16:13:36  WARNING ORDER  buy 1 AMD @ 240.57 not filled after 20s
+16:13:36  INFO    ORDER  sell 5 AMD @ 240.57 limit (notional 1202.85) — short 229.40 / long 231.64
+16:13:36  DEBUG   Placed: sell 5 AMD @ 240.5700
+16:13:36  WARNING Exchange error [STP_CANCEL]: Your resting buy 1 AMD @ 240.57 was cancelled by self-trade prevention (your own order crossed it)
+16:13:36  DEBUG   Ack: sell 5 AMD @ 240.5700
+16:13:38  INFO    Fill: sold   5 AMD @ 240.5700 (fee=1.8043)
+16:13:38  INFO    FILL   #320 sell   5 AMD    @   240.57  notional   1202.85  vs limit +0.0000  | bought and held 4, avg entry 240.5700
+16:13:38  DEBUG   Portfolio: net_worth=528123.33
+16:13:41  INFO    ORDER  sell 4 AMD @ 240.44 limit (notional 961.76) — short 230.87 / long 231.99
+16:13:41  DEBUG   Placed: sell 4 AMD @ 240.4400
+16:13:41  DEBUG   Ack: sell 4 AMD @ 240.4400
+16:13:41  INFO    Fill: sold   1 AMD @ 240.4400 (fee=0.3607)
+16:13:41  INFO    FILL   #321 sell   1 AMD    @   240.44  notional    240.44  vs limit +0.0000  | bought and held 3, avg entry 240.5700
+16:13:41  DEBUG   Portfolio: net_worth=528143.19
+16:13:43  INFO    Fill: sold   3 AMD @ 240.4400 (fee=1.0820)
+16:13:43  INFO    FILL   #322 sell   3 AMD    @   240.44  notional    721.32  vs limit +0.0000  | bought and held 0, avg entry 0.0000
+16:13:43  DEBUG   Portfolio: net_worth=528175.96
+16:14:18  INFO    ORDER  buy  5 AMZN @ 159.37 limit (notional 796.85) — short 158.70 / long 158.16
+16:14:18  DEBUG   Placed: buy 5 AMZN @ 159.3700
+16:14:18  DEBUG   Ack: buy 5 AMZN @ 159.3700
+16:14:18  INFO    Fill: bought 1 AMZN @ 159.3700 (fee=0.2391)
+16:14:18  INFO    FILL   #323 buy    1 AMZN   @   159.37  notional    159.37  vs limit +0.0000  | bought and held 32, avg entry 154.9513
+16:14:18  DEBUG   Portfolio: net_worth=528195.40
+16:14:38  WARNING ORDER  buy 4 AMZN @ 159.37 not filled after 20s
+16:15:12  INFO    ORDER  buy  5 NVDA @ 118.61 limit (notional 593.05) — short 118.45 / long 118.07
+16:15:12  DEBUG   Placed: buy 5 NVDA @ 118.6100
+16:15:12  DEBUG   Ack: buy 5 NVDA @ 118.6100
+16:15:33  WARNING ORDER  buy 5 NVDA @ 118.61 not filled after 20s
+16:16:01  INFO    Fill: bought 3 NVDA @ 118.6100 (fee=0.5337)
+16:16:01  INFO    FILL   #324 buy    3 NVDA   @   118.61  notional    355.83  | bought and held 3, avg entry 118.6100
+16:16:01  DEBUG   Portfolio: net_worth=528198.82
+16:16:48  INFO    Fill: bought 2 NVDA @ 118.6100 (fee=0.3558)
+16:16:48  INFO    FILL   #325 buy    2 NVDA   @   118.61  notional    237.22  | bought and held 5, avg entry 118.6100
+16:16:48  DEBUG   Portfolio: net_worth=528207.82
+16:16:54  INFO    Fill: bought 4 AMZN @ 159.3700 (fee=0.9562)
+16:16:54  INFO    FILL   #326 buy    4 AMZN   @   159.37  notional    637.48  | bought and held 36, avg entry 155.4422
+16:16:54  DEBUG   Portfolio: net_worth=528204.00
+16:21:59  INFO    ORDER  sell 5 NFLX @ 1376.89 limit (notional 6884.45) — short 1378.98 / long 1383.91
+16:21:59  DEBUG   Placed: sell 5 NFLX @ 1376.8900
+16:21:59  DEBUG   Ack: sell 5 NFLX @ 1376.8900
+16:22:19  WARNING ORDER  sell 5 NFLX @ 1376.89 not filled after 20s
+16:22:28  INFO    Fill: sold   3 NFLX @ 1376.8900 (fee=6.1960)
+16:22:28  INFO    FILL   #327 sell   3 NFLX   @  1376.89  notional   4130.67  | bought and held 10, avg entry 1366.0574
+16:22:28  DEBUG   Portfolio: net_worth=528210.83
+16:22:44  INFO    Fill: sold   2 NFLX @ 1376.8900 (fee=4.1307)
+16:22:44  INFO    FILL   #328 sell   2 NFLX   @  1376.89  notional   2753.78  | bought and held 8, avg entry 1366.0574
+16:22:44  DEBUG   Portfolio: net_worth=528210.11
+16:30:00  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+16:30:00  INFO    Flattening: sell 40 AAPL at market
+16:30:00  INFO    Flattening: sell 5 MSFT at market
+16:30:00  INFO    Flattening: buy 11 TSLA at market
+16:30:00  INFO    Flattening: sell 47 AMZN at market
+16:30:00  INFO    Flattening: sell 67 GOOGL at market
+16:30:00  INFO    Flattening: sell 2 META at market
+16:30:00  INFO    Flattening: sell 4 NFLX at market
+16:30:00  INFO    Flattening: sell 25 INTC at market
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
+16:30:01  WARNING Exchange error [SESSION_CLOSED]: Session not open — wait for SESSION_OPEN event
