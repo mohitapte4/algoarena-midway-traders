@@ -61,6 +61,16 @@ def parse_flash(data: dict) -> tuple[str, float, int] | None:
     return symbol, pct, max(revert, 1)
 
 
+def start_price(data: dict) -> float | None:
+    """The fair value before the flash, which it walks back to: the venue
+    sends it as `start_price` (course engine, Nov 12). None if absent."""
+    try:
+        price = float(data.get("start_price") or 0.0)
+    except (TypeError, ValueError):
+        return None
+    return price if price > 0 else None
+
+
 def _up(price: float) -> float:
     return round(math.ceil(price / TICK - 1e-6) * TICK, 2)
 

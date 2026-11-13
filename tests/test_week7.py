@@ -13,7 +13,7 @@ from shared.messages import BookSnapshot, ErrorMsg, PlaceOrder, SessionEvent
 from team import broker as team_broker
 from team.base_trader import ORDER_BURST, ORDERS_PER_SEC, REJECT_BUDGET
 from team.broker import LOOKBACK, MESSAGES_PER_SEC, QUOTE_LEVELS, volatility_spread
-from team.flash import FLASH_SHARES, QUIET_SEC, entry_order, exit_price, parse_flash
+from team.flash import FLASH_SHARES, QUIET_SEC, entry_order, exit_price, parse_flash, start_price
 from team.hotpath import CANCEL_FEE_PER_ORDER, LatencyMeter, MessageMeter
 from team.mean_reversion_trader import MeanReversionTrader
 from team.momentum_trader import LONG_WINDOW, SHORT_WINDOW, MomentumTrader
@@ -435,3 +435,8 @@ def test_broker_stops_shorting_a_name_the_venue_will_not_lend():
         message="No borrow: 1195 of 1200 AAPL shares already short across the market")))
     assert b._ask_room("AAPL") == 0
     assert b._ask_room("AMD") > 0
+
+
+def test_the_venue_start_price_is_the_pre_flash_level():
+    assert start_price({"symbol": "AAA", "pct": -0.02, "start_price": 101.25}) == 101.25
+    assert start_price({"symbol": "AAA", "pct": -0.02}) is None

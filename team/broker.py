@@ -45,7 +45,7 @@ from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, Plac
                              parse_message)
 from team.books import Bookkeeper
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
-from team.flash import FlashLog, entry_order, parse_flash
+from team.flash import FlashLog, entry_order, parse_flash, start_price
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
 from team.rolling import RollingRange, Sampler
@@ -867,7 +867,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             logger.warning("FLASH unreadable event data %s", data)
             return
         symbol, pct, revert = parsed
-        pre = self._centre.get(symbol) or self.state.exchange_prices.get(symbol)
+        pre = (start_price(data) or self._centre.get(symbol)
+               or self.state.exchange_prices.get(symbol))
         seconds = (revert + 1) * EXCHANGE_TICK_SEC
         self._paused_until[symbol] = max(self._paused_until.get(symbol, 0.0),
                                          self._clock() + seconds)

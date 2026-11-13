@@ -74,6 +74,7 @@ from team.events import (
 )
 from team.flash import (
     FLASH_SHARES, QUIET_SEC, FlashLog, FlashPlan, entry_order, exit_price, parse_flash,
+    start_price,
 )
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.risk import EventLimits, RiskLimits, TradingState
@@ -599,7 +600,7 @@ class BaseTrader(Trader):
         now = self._clock()
         if symbol in self.untradeable:
             return
-        pre = self._pre_flash_mid(symbol, pct)
+        pre = start_price(data) or self._pre_flash_mid(symbol, pct)
         if not pre:
             logger.warning("FLASH  %s %+.2f%%: no price seen yet, nothing sent",
                            symbol, pct * 100)
