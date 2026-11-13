@@ -213,22 +213,27 @@ def test_one_resting_quote_per_symbol_until_the_touch_moves():
 # ── risk limits inside the trader ───────────────────────────────────────────
 
 def test_concentration_blocks_buy():
-    # 160 shares at ~$102 is ~$16.3k, above 5% of $300k
+    # 160 shares bought at ~$102 is ~$16.3k, above 5% of $300k
     t, m, p, _ = filled_trader({"AAA": flat(), "UP": trend()},
                                FakePortfolio(positions={"UP": 160}))
+    t.on_fill("buy", "UP", 160, 102.0)
     assert t.on_tick(m, p) is None
 
 
-def test_gross_exposure_blocks_buy():
-    # $70k held is above 20% of $300k: the starter sells instead of buying,
-    # and the crossover buy on UP stays blocked after that fill.
+def test_a_starting_grant_does_not_count_toward_the_limits():
+    # The same $70k, granted by the venue at the open rather than bought:
+    # the limits measure what the seat traded, so the starter still buys.
     t, m, p, c = make({"AAA": flat(), "BIG": flat(px=1_000.0), "UP": trend()},
                       FakePortfolio(positions={"BIG": 70}))
     s = t.on_tick(m, p)
-    assert (s.symbol, s.side, s.quantity) == ("BIG", "sell", 5)
-    t.on_fill("sell", "BIG", 5, s.price)
-    p.positions["BIG"] = 65                           # still $65k > $60k
-    c.t += 1
+    assert s.side == "buy"
+
+
+def test_gross_exposure_blocks_buy():
+    # $70k bought is above 20% of $300k: the crossover buy on UP is blocked.
+    t, m, p, c = filled_trader({"AAA": flat(), "BIG": flat(px=1_000.0), "UP": trend()},
+                               FakePortfolio(positions={"BIG": 70}))
+    t.on_fill("buy", "BIG", 70, 1_000.0)
     assert t.on_tick(m, p) is None
 
 

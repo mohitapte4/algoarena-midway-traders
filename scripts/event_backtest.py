@@ -289,6 +289,12 @@ class Venue:
                                mid_price=float(msg.get("mid_price") or 0.0),
                                spread=float(msg.get("spread") or 0.0))
         self.market.update_book(snap)
+        # The live path (team.venue.TeamBot) hands each snapshot to the seat's
+        # rolling windows, which keep one mid per 0.5 s; do the same here, or
+        # a 0.2 s tape (week 7) would run windows 2.5 times shorter than live.
+        on_book = getattr(self.bot, "on_book", None)
+        if on_book is not None and snap.mid_price > 0:
+            on_book(snap.symbol, snap.mid_price)
         ref = float(msg.get("ref_price") or 0.0) or snap.mid_price
         if ref > 0:
             self.ref[snap.symbol] = ref

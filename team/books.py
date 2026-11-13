@@ -8,8 +8,9 @@ These books are built from the seat's own messages only:
     fills        TradeExecution: price, quantity, and our side's fee or
                  rebate (we are the taker iff the aggressor is our side)
     futures      BookSnapshot.asset_type "future": a fill on one moves no
-                 notional, only the fee or rebate; FUTURES_SETTLEMENT: the
-                 variation against each mark is paid in cash and realised
+                 notional, only the fee or rebate, and the part that closes
+                 pays its P&L since the entry in cash; FUTURES_SETTLEMENT:
+                 the variation against each mark is paid in cash and realised
     IPO pricing  IPO_PRICED: the offer price. No message carries the
                  allocated quantity, so it is read off the venue's position.
     dividends    DIVIDEND: amount per share × our own position
@@ -25,6 +26,9 @@ These books are built from the seat's own messages only:
 
 Interest on idle cash is in no message, so it is what the cash comparison
 leaves over: it must not be negative, and must be near rate × cash × ticks.
+The venue pays it, and charges carry, only in a scored week; the leaderboard's
+season block says whether the week is scored, so only the ticks after a
+leaderboard that says so are counted.
 
 Books mirrors the venue's Portfolio (engine/exchange/server.py): cash moves by
 price × quantity ± fee ∓ rebate, positions keep a signed average cost, and
@@ -47,10 +51,11 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable
 
-from shared.messages import (BookSnapshot, Leaderboard, PortfolioUpdate,
+from shared.messages import (BookSnapshot, ErrorMsg, Leaderboard, PortfolioUpdate,
                              SessionEvent, TradeExecution)
 
 from team.config import CASH_INTEREST_PER_TICK
+from team.hotpath import CANCEL_FEE_PER_ORDER
 
 logger = logging.getLogger(__name__)
 
@@ -120,6 +125,14 @@ def venue_from_leaderboard(msg: Leaderboard, seat: str) -> VenueState | None:
     )
 
 
+def financed(msg: Leaderboard) -> bool:
+    """Whether the venue pays interest and charges carry on the ticks after
+    this leaderboard: only in a scored week (server.py
+    _apply_carry_and_maintenance)."""
+    season = msg.season
+    return season.get("week", 0) > 0 and bool(season.get("scoring_counts", True))
+
+
 def _number(row: dict[str, Any], key: str) -> float | None:
     try:
         return float(row[key])
@@ -164,7 +177,8 @@ class Books:
     # Futures whose entry is a settlement mark, which the venue rounds.
     marked: set[str] = field(default_factory=set)
     liquidation: Liquidation | None = None
-    anchor_tick: int | None = None          # first leaderboard on or after the seed
+    accrued_to: int | None = None           # the last leaderboard's tick
+    financed_ticks: int = 0                 # ticks since the seed in a scored week
     # (tick, venue net worth) P&L is measured from. A starting grant moves
     # net worth without being P&L, so it restarts the measure.
     pnl_anchor: tuple[int, float] | None = None
@@ -192,15 +206,22 @@ class Books:
         """Measure elapsed ticks and P&L from this leaderboard unless already
         measuring: the close is a leaderboard too, so both ends mark
         positions the same way."""
-        if self.anchor_tick is None:
-            self.anchor_tick = venue.tick
+        if self.accrued_to is None:
+            self.accrued_to = venue.tick
         if self.pnl_anchor is None and venue.net_worth is not None:
             self.pnl_anchor = (venue.tick, venue.net_worth)
 
+    def accrue(self, tick: int, financed: bool) -> None:
+        """Count the ticks since the last leaderboard if the venue financed
+        them. A liquidated seat earns nothing after the close-out."""
+        if financed and self.liquidation is None:
+            self.financed_ticks += max(0, tick - self.accrued_to)
+        self.accrued_to = tick
+
     def apply_fill(self, side: str, symbol: str, qty: int, price: float,
                    fee: float, rebate: float, *, future: bool = False) -> None:
-        """A future posts margin, not the notional: only the fee or rebate
-        moves cash."""
+        """A future posts margin, not the notional: opening or adding moves
+        only the fee or rebate, and closing pays the P&L since the entry."""
         signed = qty if side == "buy" else -qty
         self.cash -= (0.0 if future else signed * price) + fee - rebate
         self.fees += fee
@@ -216,7 +237,10 @@ class Books:
             self.avg_cost[symbol] = (abs(old) * entry + qty * price) / (abs(old) + qty)
         else:
             closed = min(abs(old), qty)
-            self.realized += (price - entry) * closed * (1 if old > 0 else -1)
+            pnl = (price - entry) * closed * (1 if old > 0 else -1)
+            self.realized += pnl
+            if future:
+                self.cash += pnl
             if qty > abs(old):
                 self.avg_cost[symbol] = price
         self._set_position(symbol, old + signed)
@@ -243,6 +267,11 @@ class Books:
 
     def apply_charge(self, amount: float) -> None:
         self.cash -= amount
+
+    def apply_cancel_fee(self, fee: float) -> None:
+        """A cancellation fee (week 7): the venue counts it in its fees."""
+        self.cash -= fee
+        self.fees += fee
 
     def settle_future(self, symbol: str, mark: float) -> None:
         """Variation margin: the gain or loss since the entry is paid in cash
@@ -484,10 +513,12 @@ class Bookkeeper:
         self.books: Books | None = None
         self.recons: list[Recon] = []
         self.tick: int | None = None
+        self._financed = False      # the week on the last leaderboard is scored
         self._update: VenueState | None = None      # the last PortfolioUpdate
         self._unsettled = False
         self._update_since_boundary = False
         self._futures: set[str] = set()
+        self._cancel_fees = False   # the week bills cancels (SESSION_OPEN flags)
         self._liquidating = False
         self._team = _team_slug(seat)
         self._seat_cost: float | None = None
@@ -497,6 +528,7 @@ class Bookkeeper:
             PortfolioUpdate: self._on_update,
             Leaderboard: self._on_leaderboard,
             SessionEvent: self._on_event,
+            ErrorMsg: self._on_error,
         }
         self._events = {
             "IPO_PRICED": self._on_ipo,
@@ -559,6 +591,9 @@ class Bookkeeper:
 
     def _on_leaderboard(self, msg: Leaderboard) -> None:
         self.tick = msg.tick
+        # The ticks since the last leaderboard ran under its week: a week
+        # change is followed at once by a leaderboard.
+        was_financed, self._financed = self._financed, financed(msg)
         if self._seat_cost is not None:
             self._book_seat_purchase(msg)
         venue = venue_from_leaderboard(msg, self.seat)
@@ -568,6 +603,7 @@ class Bookkeeper:
             self._seed(venue)
             return
         self.books.anchor(venue)
+        self.books.accrue(venue.tick, was_financed)
         priced = self.books.learn_entries(venue)
         if priced:
             logger.info("BOOKS  entry prices from the %s: %s", venue.source,
@@ -601,7 +637,25 @@ class Bookkeeper:
             self.books.apply_dividend(data["symbol"],
                                       float(data.get("amount_per_share", 0.0)))
 
+    def cancel_sent(self) -> None:
+        """The seat sent a cancel. No message confirms one, so it is billed
+        here and refunded if the venue answers that it billed nothing."""
+        if self._cancel_fees and self.books is not None:
+            self.books.apply_cancel_fee(CANCEL_FEE_PER_ORDER)
+
+    def _on_error(self, msg: ErrorMsg) -> None:
+        # The venue bills a cancel only when it removes a resting order: one
+        # that lost the race to a fill (ORDER_NOT_FOUND) or was over the
+        # quota (RATE_LIMITED without "requot", the order variant) is free.
+        refused = (msg.code == "ORDER_NOT_FOUND"
+                   or (msg.code == "RATE_LIMITED" and "requot" not in msg.message.lower()))
+        if refused and self._cancel_fees and self.books is not None:
+            self.books.apply_cancel_fee(-CANCEL_FEE_PER_ORDER)
+
     def _on_open(self, event: SessionEvent) -> None:
+        flags = ((event.data or {}).get("scenario") or {}).get("flags") or {}
+        if "cancellation_fees" in flags:
+            self._cancel_fees = flags["cancellation_fees"] is True
         if (self.books is not None and self._update is not None
                 and self._update_since_boundary):
             gaps = {s: q - self.books.positions.get(s, 0)
@@ -716,8 +770,7 @@ class Bookkeeper:
     def _check_reconnect(self, venue: VenueState) -> None:
         recon = Recon(f"{self.seat} reconnect check vs {venue.source}",
                       (*position_rows(self.books, venue),
-                       *cash_rows(self.books, venue,
-                                  self._interest(venue))))
+                       *cash_rows(self.books, venue, self._interest())))
         if recon.verdict is Verdict.UNCHECKED:
             return              # wait for figures that can be compared
         self.phase = Phase.LIVE
@@ -747,22 +800,21 @@ class Bookkeeper:
             f"{self.seat} close vs {venue.source} ({books.fills} fills, "
             f"{books.rebases} rebases)",
             (*position_rows(books, venue), *pnl_rows(books, venue),
-             *cash_rows(books, venue, self._interest(venue)),
+             *cash_rows(books, venue, self._interest()),
              *liquidation_rows(books), *net_worth_rows(books, venue))))
         self.phase = Phase.CLOSED
 
-    def _interest(self, venue: VenueState) -> float | None:
-        """rate × the average of cash at the seed and now × ticks since.
-        A liquidated seat earns nothing after the close-out."""
+    def _interest(self) -> float | None:
+        """rate × the average of cash at the seed and now × the financed
+        ticks since. A liquidated seat's cash stops at the close-out."""
         books = self.books
-        now = venue.tick if venue.tick is not None else self.tick
+        if books.accrued_to is None:
+            return None
         cash_now = books.cash
         if books.liquidation is not None:
-            now, cash_now = books.liquidation.tick, books.liquidation.cash_before
-        if now is None or books.anchor_tick is None:
-            return None
+            cash_now = books.liquidation.cash_before
         cash = max(0.0, (books.seed_cash + cash_now) / 2)
-        return self.interest_rate * cash * max(0, now - books.anchor_tick)
+        return self.interest_rate * cash * books.financed_ticks
 
     def _log(self, recon: Recon) -> None:
         self.recons.append(recon)

@@ -9,19 +9,20 @@ import statistics
 
 import pytest
 
-from shared.messages import BookSnapshot, ErrorMsg, SessionEvent
+from shared.messages import BookSnapshot, ErrorMsg, PlaceOrder, SessionEvent
 from team import broker as team_broker
 from team.base_trader import ORDER_BURST, ORDERS_PER_SEC, REJECT_BUDGET
 from team.broker import LOOKBACK, MESSAGES_PER_SEC, QUOTE_LEVELS, volatility_spread
-from team.flash import FLASH_SHARES, QUIET_SEC, entry_order, exit_price, parse_flash
+from team.flash import FLASH_SHARES, QUIET_SEC, entry_order, exit_price, parse_flash, start_price
 from team.hotpath import CANCEL_FEE_PER_ORDER, LatencyMeter, MessageMeter
 from team.mean_reversion_trader import MeanReversionTrader
 from team.momentum_trader import LONG_WINDOW, SHORT_WINDOW, MomentumTrader
-from team.rolling import RollingRange, RollingWindow
+from team.rolling import RollingRange, RollingWindow, Sampler
 from team.venue import TeamBot
-from tests.test_broker import handle, make as make_broker, places
+from tests.test_broker import ack_all, cancelled, handle, make as make_broker, places
 from tests.test_momentum_trader import Clock, FakeMarket, trend
 from tests.test_rejects import ready
+from tests.test_week5 import live_broker
 
 logging.disable(logging.CRITICAL)
 
@@ -74,9 +75,11 @@ def test_rolling_range_matches_max_and_min_of_the_window():
 def test_live_rolling_windows_give_the_same_averages_as_the_history():
     mids = trend(n=LONG_WINDOW + 30)
     offline = MomentumTrader(clock=Clock())
-    live = MomentumTrader(clock=Clock())
-    for x in mids:
+    clock = Clock()
+    live = MomentumTrader(clock=clock)
+    for x in mids:                           # one snapshot every 0.5 s
         live.on_book("AAA", x)
+        clock.t += 0.5
     market = FakeMarket({"AAA": mids})
     for size in (SHORT_WINDOW, LONG_WINDOW):
         assert live._rolling(market, "AAA", size).mean == pytest.approx(
@@ -84,12 +87,33 @@ def test_live_rolling_windows_give_the_same_averages_as_the_history():
 
 
 def test_mean_reversion_reads_the_live_window():
-    t = MeanReversionTrader(clock=Clock())
+    clock = Clock()
+    t = MeanReversionTrader(clock=clock)
     for x in [100.0] * 19 + [97.0]:
         t.on_book("AAA", x)
+        clock.t += 0.5
     w = t._rolling(None, "AAA", 20)          # no market needed once fed live
     assert w.full and w.last == 97.0
     assert w.mean == pytest.approx(statistics.fmean([100.0] * 19 + [97.0]))
+
+
+def test_a_fast_feed_fills_the_windows_at_the_tested_pace():
+    # Week 7 snapshots every 0.2 s; the windows were sized at 0.5 s.
+    clock = Clock()
+    t = MomentumTrader(clock=clock)
+    for i in range(500):                     # 100 s of a 0.2 s feed
+        t.on_book("AAA", 100.0 + i)
+        clock.t += 0.2
+    w = t._rolling(None, "AAA", LONG_WINDOW)
+    assert w.full
+    spacing = (w.last - w.mean) / ((LONG_WINDOW - 1) / 2)   # mids rise 1 per 0.2 s
+    assert spacing == pytest.approx(2.5, rel=0.05)         # one mid per 0.5 s
+
+
+def test_sampler_keeps_one_value_per_period_on_average():
+    s = Sampler(0.5)
+    taken = sum(s.due("A", i * 0.2) for i in range(1000))  # 200 s
+    assert taken == pytest.approx(400, abs=2)
 
 
 # ── flash pricing ───────────────────────────────────────────────────────────
@@ -270,8 +294,8 @@ def test_message_meter_reports_the_cancel_bill():
     meter.limited()
     assert meter.messages == 50
     assert meter.limited_share == pytest.approx(0.02)
-    assert meter.cancel_bill == pytest.approx(9 * CANCEL_FEE_PER_ORDER)
-    assert "$0.45" in meter.report()
+    assert meter.cancel_bill == pytest.approx(10 * CANCEL_FEE_PER_ORDER)
+    assert "$0.50" in meter.report()
 
 
 def test_hot_path_meters_record_every_tick():
@@ -299,7 +323,7 @@ def test_the_broker_quotes_one_level_a_side():
 
 
 def test_broker_width_from_the_rolling_range_matches_the_history():
-    b, sent, _ = make_broker()
+    b, sent, now = make_broker()
     rng = random.Random(5)
     marks = []
     for _ in range(LOOKBACK * 3):
@@ -307,6 +331,7 @@ def test_broker_width_from_the_rolling_range_matches_the_history():
         marks.append(px)
         asyncio.run(b._peek(BookSnapshot(symbol="AAPL", bids=[], asks=[], mid_price=px,
                                          spread=0.0, ref_price=px).model_dump_json()))
+        now[0] += 0.5
     b.state.exchange_prices["AAPL"] = marks[-1]
     expected = volatility_spread(marks[-1], marks)
     assert expected is not None
@@ -341,3 +366,77 @@ def test_broker_bids_into_a_flash_down():
     handle(b, SessionEvent(event="FLASH", message="AAPL flash",
                            data={"symbol": "AAPL", "pct": -0.02, "revert_ticks": 2}))
     assert [(m.price, m.quantity) for m in places(sent, "buy")] == [(99.0, 10)]
+
+
+# ── broker: exposure from the opening grant, and quotes that stay put ──────
+
+def _send(b, side, symbol, qty, price=100.0):
+    return asyncio.run(b._send(PlaceOrder(order_type="limit", team_id="me",
+                                          symbol=symbol, side=side,
+                                          price=price, quantity=qty)))
+
+
+def test_broker_bids_although_its_opening_grant_is_most_of_its_equity(monkeypatch):
+    # Nov 6: the grant was 78% of equity and every bid was dropped unsent.
+    b, sent, _ = live_broker(monkeypatch, cash=20_000,
+                             positions={"AAPL": 100, "AMD": 100})
+    assert _send(b, "buy", "AAPL", 10)
+    assert places(sent, "buy")
+
+
+def test_broker_traded_exposure_still_stops_at_a_fifth_of_equity(monkeypatch, caplog):
+    b, sent, _ = live_broker(monkeypatch, cash=20_000,
+                             positions={"AAPL": 100, "AMD": 100})
+    assert _send(b, "buy", "AAPL", 50)                   # $5k of $8k
+    with caplog.at_level(logging.INFO, logger="team.broker"):
+        assert not _send(b, "buy", "AMD", 40)            # $9k: past it
+    assert len(places(sent, "buy")) == 1
+    assert "traded gross" in caplog.text                 # said why, in the log
+
+
+def test_broker_keeps_a_quote_that_has_not_changed():
+    b, sent, _ = make_broker()
+    asyncio.run(b.quote_symbol("AAPL"))
+    ack_all(b, sent)
+    asyncio.run(b._requote("AAPL", b.quote_centre("AAPL")))
+    assert not cancelled(sent) and not places(sent)      # no billed cancel
+
+
+def test_broker_replaces_a_quote_whose_price_moved():
+    b, sent, _ = make_broker()
+    asyncio.run(b.quote_symbol("AAPL"))
+    first = ack_all(b, sent)
+    asyncio.run(b._requote("AAPL", b.quote_centre("AAPL") + 1.0))
+    assert cancelled(sent) == set(first)
+    assert places(sent, "buy")
+
+
+def test_a_bid_the_risk_check_refused_does_not_trigger_a_requote(monkeypatch):
+    # Local week-7 run: a refused bid read as a filled one, so the broker
+    # requoted every pass and paid a cancel fee each time its ask moved a cent.
+    b, sent, _ = make_broker()
+    async def refuse_buys(msg):
+        if isinstance(msg, PlaceOrder) and msg.side == "buy":
+            return False
+        sent.append(msg)
+        return True
+    b._send = refuse_buys
+    b.state.positions["AAPL"] = 20
+    asyncio.run(b.quote_symbol("AAPL"))
+    ack_all(b, sent)
+    assert not b.needs_requote("AAPL", b.quote_centre("AAPL"))
+
+
+def test_broker_stops_shorting_a_name_the_venue_will_not_lend():
+    b, sent, _ = make_broker(positions={"AAPL": 0}, flags={"shorts_allowed": True})
+    assert b._ask_room("AAPL") > 0
+    asyncio.run(b._on_error(ErrorMsg(
+        code="BORROW_UNAVAILABLE",
+        message="No borrow: 1195 of 1200 AAPL shares already short across the market")))
+    assert b._ask_room("AAPL") == 0
+    assert b._ask_room("AMD") > 0
+
+
+def test_the_venue_start_price_is_the_pre_flash_level():
+    assert start_price({"symbol": "AAA", "pct": -0.02, "start_price": 101.25}) == 101.25
+    assert start_price({"symbol": "AAA", "pct": -0.02}) is None

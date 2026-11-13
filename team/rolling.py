@@ -124,3 +124,26 @@ class RollingRange:
     @property
     def low(self) -> float | None:
         return self._min[0][1] if self._min else None
+
+
+class Sampler:
+    """One sample per `period` seconds per key, on average, from a faster feed.
+
+    The strategy windows count samples, and their sizes were chosen on tapes
+    with a book snapshot every 0.5 s. Week 7 sends one every 0.2 s, which
+    would make the same window 2.5 times shorter in time (10/40 would trade
+    like the 4/16 that lost on the Week 5 tape). Sampling keeps the horizon.
+    """
+
+    def __init__(self, period: float) -> None:
+        self.period = period
+        self._due: dict[str, float] = {}
+
+    def due(self, key: str, now: float) -> bool:
+        """True (and the slot is taken) if `key` may be sampled at `now`."""
+        due = self._due.get(key)
+        if due is not None and now < due:
+            return False
+        late = due is None or now >= due + self.period
+        self._due[key] = now + self.period if late else due + self.period
+        return True

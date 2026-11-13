@@ -45,10 +45,10 @@ from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, Plac
                              parse_message)
 from team.books import Bookkeeper
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
-from team.flash import FlashLog, entry_order, parse_flash
+from team.flash import FlashLog, entry_order, parse_flash, start_price
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
-from team.rolling import RollingRange
+from team.rolling import RollingRange, Sampler
 from team.venue import TokenBucket, OwnOrders, Order
 from team.risk import TradingState
 
@@ -57,7 +57,8 @@ logger = logging.getLogger(__name__)
 # Volatility-adjusted width. `history` holds one venue mark per book update;
 # week 7 sends one every 0.2 s per name, so 25 points is the last ~5 seconds.
 # Live, the high and low of those points are kept in O(1) (team.rolling).
-LOOKBACK = 25
+LOOKBACK = 25           # marks, one per SAMPLE_SEC
+SAMPLE_SEC = 0.5
 CALM_BPS = 10.0         # recent range below this: keep the engine default
 WIDEN_FACTOR = 2.0      # quote width = 2 × the recent high-low range
 MAX_WIDEN_BPS = 150.0   # never wider than 1.5% of the price
@@ -78,6 +79,8 @@ MESSAGES_PER_SEC = 4.5  # orders + cancels. Week 7 meters 8 per exchange tick
 QUOTE_LEVELS = 1        # one level a side: a requote is at most 2 cancels and
                         # 2 orders (3 levels made it 12 messages and 6 cancel fees)
 REQUOTE_BPS = 8.0       # requote once the centre moves 8 bp (engine: 5)
+QUOTE_MAX_AGE_SEC = 300.0  # engine: 30. Every cancel is billed, and on Nov 6
+                           # most requotes were this refresh of unmoved quotes
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 TICK = 0.01
@@ -90,6 +93,10 @@ EVENT_CANCEL_GRACE_SEC = 0.05
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
 _STP = re.compile(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)")
 _HALTED = re.compile(r"^(\S+) trading is halted")
+# Shorts the venue refused: the market-wide borrow pool (1,200 a symbol in
+# week 7) or the short-sale rule. Both hold for the rest of the session.
+_NO_BORROW = re.compile(r"of \d+ (\S+) shares already short")
+_SSR = re.compile(r"^(\S+) is under the short-sale rule")
 
 
 def volatility_spread(price, history) -> float | None:
@@ -196,6 +203,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # Shares an order took as a taker before its ack arrived.
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
+        self._no_short: set[str] = set()    # refused a short: borrow or SSR
+        # Sides the risk check would not let us quote at the last requote:
+        # an empty side there is intended, not a quote that was taken.
+        self._unquoted: dict[str, set[str]] = {}
         self.trading_state = TradingState(lambda: self._clock())
         self._risk_orders = OwnOrders()
         self._risk_ready = False
@@ -217,6 +228,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._pulls: set[asyncio.Task] = set()      # event cancels in their grace
         # the recent high and low of each mark, for the quote width, O(1)
         self._ranges: dict[str, RollingRange] = {}
+        self._sampler = Sampler(SAMPLE_SEC)
         self._centre: dict[str, float] = {}         # last centre quoted around
         self.messages = MessageMeter()
         self.flash_log = FlashLog()
@@ -270,13 +282,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 with contextlib.suppress(Exception):
                     await self._ws.close()
 
-    async def _send(self, msg) -> None:
+    async def _send(self, msg) -> bool:
         """Send, pacing orders and cancels inside the team's message quota.
 
         A requote is a cancel and a replace of every level, and the venue
         refuses whatever goes past the quota (week-3 dry run: 69
         RATE_LIMITED in the first two seconds), so a send waits its turn.
-        Orders still waiting when the session closes are dropped.
+        Orders still waiting when the session closes are dropped. Returns
+        whether the message went out.
         """
         if isinstance(msg, (PlaceOrder, CancelOrder)):
             while not self._bucket.take(self._clock()):
@@ -284,13 +297,17 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # A requote waiting its turn can outlive the session (dry run: 3
         # SESSION_CLOSED); once it is closed only cancels are accepted.
         if isinstance(msg, PlaceOrder) and not self._session_open:
-            return
+            return False
         if isinstance(msg, PlaceOrder):
             # Recheck after pacing: a halt/portfolio update can arrive while
             # waiting for the next message slot.
-            if (self.trading_state.blocked(msg.symbol)
-                    or not self._approve_risk(msg)):
-                return
+            if self.trading_state.blocked(msg.symbol):
+                return False
+            refusal = self._risk_refusal(msg)
+            if refusal:
+                logger.info("RISK %s %d %s @ %.2f not sent: %s", msg.side,
+                            msg.quantity, msg.symbol, msg.price, refusal)
+                return False
             self._risk_orders.add(Order(
                 msg.symbol, msg.side, msg.price, msg.quantity,
                 self._clock(), "broker", False))
@@ -303,23 +320,31 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self.messages.order()
         elif isinstance(msg, CancelOrder):
             self.messages.cancel()
+            self._books.cancel_sent()
+        return True
 
-    def _approve_risk(self, msg: PlaceOrder) -> bool:
-        """No borrowing; reserve pending orders and leave cash/equity buffers.
+    def _risk_refusal(self, msg: PlaceOrder) -> str | None:
+        """Why this order must not go out, or None to send it.
 
+        No borrowing; reserve pending orders and leave cash/equity buffers.
         Risk-reducing orders remain possible when the equity floor is hit.
         An authoritative portfolio and prices for every holding are required.
+
+        The gross limit counts what the broker has traded, not the shares
+        the venue granted at the open: the grant alone was 78% of equity on
+        Nov 6, so a limit on the whole position refused every bid from
+        Week 5 on (0 buys in Weeks 5 and 6).
         """
         if not self._risk_ready or not msg.price:
-            return False
+            return "no portfolio from the venue yet"
         self._risk_orders.expire(self._clock(), unacked=False)
         prices = self.state.exchange_prices
         if any(not prices.get(s) for s, q in self.state.positions.items() if q):
-            return False
+            return "no price for a holding"
         equity = self.state.cash + sum(q * prices[s]
                                       for s, q in self.state.positions.items() if q)
         if equity <= 0:
-            return False
+            return "no equity"
         if self._initial_equity is None:
             self._initial_equity = equity
         held = self.state.positions.get(msg.symbol, 0)
@@ -329,21 +354,44 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         projected = (held + buys + msg.quantity if msg.side == "buy"
                      else held - sells - msg.quantity)
         if abs(projected) > cap and abs(projected) >= abs(held):
-            return False
+            return f"inventory {projected:+d} past the {cap}-share cap"
         reducing = ((msg.side == "sell" and 0 < msg.quantity <= max(0, held - sells))
                     or (msg.side == "buy" and 0 < msg.quantity <= max(0, -held - buys)))
-        reserved = sum(o.quantity * o.price for o in self._risk_orders)
         notional = msg.quantity * msg.price
         if msg.side == "buy":
             # Includes all outstanding buys, not just this symbol's ladder.
             cash_room = self.state.cash - self._risk_orders.open_buy_notional() * 1.01
             if notional * 1.01 > cash_room - (0 if reducing else equity * 0.10):
-                return False
+                return "cash buffer"
         if reducing:
-            return True
-        gross = sum(abs(q) * prices[s] for s, q in self.state.positions.items() if q)
-        return (equity >= (self._initial_equity or equity) * 0.80
-                and gross + reserved + notional <= equity * 0.20)
+            return None
+        if equity < (self._initial_equity or equity) * 0.80:
+            return "equity 20% below the open"
+        gross = self._traded_gross(msg)
+        if gross > equity * 0.20:
+            return f"traded gross {gross:,.0f} past 20% of equity {equity:,.0f}"
+        return None
+
+    def _traded_gross(self, msg: PlaceOrder) -> float:
+        """Notional the broker would hold away from its opening grant if
+        every resting order, and `msg`, filled on its worse side."""
+        opening = self._opening or {}
+        positions = self.state.positions
+        symbols = ({s for s, q in positions.items() if q} | set(opening)
+                   | {o.symbol for o in self._risk_orders} | {msg.symbol})
+        gross = 0.0
+        for s in symbols:
+            traded = positions.get(s, 0) - opening.get(s, 0)
+            buys = self._risk_orders.open_quantity(s, "buy")
+            sells = self._risk_orders.open_quantity(s, "sell")
+            if s == msg.symbol:
+                if msg.side == "buy":
+                    buys += msg.quantity
+                else:
+                    sells += msg.quantity
+            worst = max(abs(traded + buys), abs(traded - sells))
+            gross += worst * (self.state.exchange_prices.get(s) or msg.price)
+        return gross
 
     # ── quoting ─────────────────────────────────────────────────────────
 
@@ -359,7 +407,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         while shorts are allowed (the venue rejects a sell below 0
         otherwise, ignoring our resting sells)."""
         held = self.state.positions.get(symbol, 0)
-        if self._shorts_allowed:
+        if self._shorts_allowed and symbol not in self._no_short:
             return max(held + self._max_inventory(symbol), 0)
         return max(held, 0)
 
@@ -411,9 +459,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if last is None:
             return True
         resting = self.state.resting_orders.get(symbol, {})
-        if not resting.get("buy_qty") and self._bid_room(symbol) > 0:
+        unquoted = self._unquoted.get(symbol, ())
+        if (not resting.get("buy_qty") and self._bid_room(symbol) > 0
+                and "buy" not in unquoted):
             return True
-        if not resting.get("sell_qty") and self._ask_room(symbol) > 0:
+        if (not resting.get("sell_qty") and self._ask_room(symbol) > 0
+                and "sell" not in unquoted):
             return True
         if abs(centre - last) >= self.requote_threshold(centre):
             return True
@@ -423,7 +474,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if abs(moved) >= _config.QUOTE_SIZE:
             return True
         age = time.time() - self.state.last_quote_time.get(symbol, 0.0)
-        return age >= _config.QUOTE_MAX_AGE_SEC
+        return age >= QUOTE_MAX_AGE_SEC
 
     async def quote_symbol(self, symbol: str) -> None:
         """The engine's ladder, with each ask capped at the inventory not
@@ -460,14 +511,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if bid_price <= 0 or ask_price <= bid_price:
             return
 
-        await self.cancel_quotes(symbol)
-        if not self._session_open:
-            return
-
         half_step = max(half, 0.01)
         unoffered = self._ask_room(symbol)
         unbid = self._bid_room(symbol)
-        bid_total = ask_total = 0
+        wanted: list[tuple[str, float, int]] = []
         for lvl in range(QUOTE_LEVELS):
             size = _config.QUOTE_SIZE * (lvl + 1)
             lvl_bid = math.floor((bid_price - lvl * half_step) * 100) / 100
@@ -476,20 +523,47 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 continue
             bid_size = min(size, unbid)
             if bid_size > 0:
-                await self._send(PlaceOrder(
-                    team_id=_config.TEAM_ID, symbol=symbol, side="buy",
-                    order_type="limit", price=lvl_bid, quantity=bid_size,
-                ))
-                bid_total += bid_size
+                wanted.append(("buy", lvl_bid, bid_size))
                 unbid -= bid_size
             ask_size = min(size, unoffered)
             if ask_size > 0:
-                await self._send(PlaceOrder(
-                    team_id=_config.TEAM_ID, symbol=symbol, side="sell",
-                    order_type="limit", price=lvl_ask, quantity=ask_size,
-                ))
-                ask_total += ask_size
+                wanted.append(("sell", lvl_ask, ask_size))
                 unoffered -= ask_size
+
+        # Every cancel is billed (week 7), so a quote already resting at the
+        # wanted price, with no more shares than wanted, stays where it is.
+        kept: dict[str, int] = {"buy": 0, "sell": 0}
+        to_place = []
+        live = {i: q for i, q in self._live.items() if q.symbol == symbol}
+        for side, price, size in wanted:
+            same = next((i for i, q in live.items() if q.side == side
+                         and abs(q.price - price) < PRICE_EPS
+                         and 0 < q.open_qty <= size), None)
+            if same is None:
+                to_place.append((side, price, size))
+            else:
+                kept[side] += live.pop(same).open_qty
+        for order_id in live:
+            del self._live[order_id]
+            await self._send(CancelOrder(
+                team_id=_config.TEAM_ID, order_id=order_id, symbol=symbol))
+        if not self._session_open:
+            return
+
+        bid_total, ask_total = kept["buy"], kept["sell"]
+        unquoted = set()
+        for side, price, size in to_place:
+            sent = await self._send(PlaceOrder(
+                team_id=_config.TEAM_ID, symbol=symbol, side=side,
+                order_type="limit", price=price, quantity=size,
+            ))
+            if not sent:
+                unquoted.add(side)
+            elif side == "buy":
+                bid_total += size
+            else:
+                ask_total += size
+        self._unquoted[symbol] = unquoted
 
         resting = self.state.resting_orders.setdefault(symbol, {})
         resting["buy_qty"] = bid_total
@@ -569,7 +643,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
             ref = msg.ref_price or msg.mid_price     # what the engine records
-            if ref and ref > 0:
+            if ref and ref > 0 and self._sampler.due(msg.symbol, self._clock()):
                 rng = self._ranges.get(msg.symbol)
                 if rng is None:
                     rng = self._ranges[msg.symbol] = RollingRange(LOOKBACK)
@@ -602,6 +676,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self._risk_orders.on_reject(msg.code, msg.message)
         self._errors += 1
         halted = _HALTED.search(msg.message) if msg.code == "SYMBOL_HALTED" else None
+        refused = (_NO_BORROW.search(msg.message) if msg.code == "BORROW_UNAVAILABLE"
+                   else _SSR.search(msg.message) if msg.code == "SSR_RESTRICTED"
+                   else None)
+        if refused:
+            # Retrying on every requote would spend the error budget.
+            self._no_short.add(refused.group(1))
+            logger.warning("No more shorts in %s this session: %s",
+                           refused.group(1), msg.message)
         if halted:
             self.trading_state.halted_reject(halted.group(1), msg.message)
         if msg.code == "STP_CANCEL":
@@ -786,7 +868,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             logger.warning("FLASH unreadable event data %s", data)
             return
         symbol, pct, revert = parsed
-        pre = self._centre.get(symbol) or self.state.exchange_prices.get(symbol)
+        pre = (start_price(data) or self._centre.get(symbol)
+               or self.state.exchange_prices.get(symbol))
         seconds = (revert + 1) * EXCHANGE_TICK_SEC
         self._paused_until[symbol] = max(self._paused_until.get(symbol, 0.0),
                                          self._clock() + seconds)
@@ -812,9 +895,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             if qty < 1:
                 logger.info("FLASH %s: no room to %s, quotes pulled only", symbol, side)
                 return
-            await self._send(PlaceOrder(team_id=_config.TEAM_ID, symbol=symbol,
-                                        side=side, order_type="limit", price=price,
-                                        quantity=qty))
+            sent = await self._send(PlaceOrder(team_id=_config.TEAM_ID, symbol=symbol,
+                                               side=side, order_type="limit",
+                                               price=price, quantity=qty))
+            if not sent:
+                logger.info("FLASH %s: %s %d @ %.2f not sent", symbol, side, qty, price)
+                return
             waited = self._clock() - t0
             self.flash_log.reacted(waited)
             logger.info("FLASH %s %s %d @ %.2f (maker) %.0f ms after the event",

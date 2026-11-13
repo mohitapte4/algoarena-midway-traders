@@ -19,7 +19,7 @@ import broker.config as broker_config
 import exchange.config as config
 from exchange.ipo import IPOOffering
 from exchange.server import ExchangeServer, Portfolio
-from shared.messages import (Leaderboard, OrderAck, SeatRequest, SessionEvent,
+from shared.messages import (ErrorMsg, Leaderboard, OrderAck, SeatRequest, SessionEvent,
                              TradeExecution, parse_message)
 from shared.orderbook import Trade
 from team.books import Bookkeeper, Books, VenueState, Verdict
@@ -240,7 +240,9 @@ def venue(monkeypatch):
 
 
 def a_session(seat: Seat) -> None:
-    """Long and short, taker and maker, a flip, carry and idle-cash interest."""
+    """Long and short, taker and maker, a flip, carry and idle-cash interest.
+    The venue finances only a scored week."""
+    seat.srv.scenario.week, seat.srv.scenario.scoring_counts = 2, True
     seat.connect()
     seat.trade("buy", "AAPL", 40, 210.0, taker=True)
     seat.trade("sell", "AAPL", 15, 214.5, taker=False)
@@ -331,6 +333,7 @@ def test_futures_and_a_settlement_reconcile(venue):
 def test_liquidation_of_this_seat_reconciles(venue, caplog):
     """A futures blow-up with cash still positive: the venue closes both
     positions at a penalty, sends no fills, and pays no interest after."""
+    venue.scenario.week, venue.scenario.scoring_counts = 2, True
     seat = Seat(venue)
     seat.connect()
     seat.trade("buy", "AAPL", 100, 200.0, taker=True)
@@ -607,3 +610,23 @@ def test_the_broker_seat_reconciles_its_own_books(venue, monkeypatch):
     assert "close" in recon.title
     assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
     assert recon.row("pos AAPL").venue == -20
+
+
+def test_cancel_fees_reconcile(venue):
+    # Week 7 bills $0.05 for a cancel that removes a resting order, inside
+    # the venue's fees and cash; no message confirms a cancel, so the seat
+    # books one as it sends it, and gets it back on ORDER_NOT_FOUND.
+    venue.scenario.flags["cancellation_fees"] = True
+    seat = Seat(venue)
+    a_session(seat)
+    seat.on_message(SessionEvent(event="SESSION_OPEN", message="",
+                                 data={"scenario": {"flags": dict(venue.scenario.flags)}}))
+    for _ in range(3):                                   # removed a resting order
+        seat.keeper.cancel_sent()
+        venue._charge_cancel_fee("me", SimpleNamespace(remaining=10))
+    seat.keeper.cancel_sent()                            # lost the race to a fill
+    seat.on_message(ErrorMsg(code="ORDER_NOT_FOUND", message="Order 'x' not found"))
+    seat.ticks(1)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("fees").ok
