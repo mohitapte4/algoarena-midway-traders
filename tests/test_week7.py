@@ -19,7 +19,7 @@ from team.mean_reversion_trader import MeanReversionTrader
 from team.momentum_trader import LONG_WINDOW, SHORT_WINDOW, MomentumTrader
 from team.rolling import RollingRange, RollingWindow
 from team.venue import TeamBot
-from tests.test_broker import handle, make as make_broker, places
+from tests.test_broker import ack_all, cancelled, handle, make as make_broker, places
 from tests.test_momentum_trader import Clock, FakeMarket, trend
 from tests.test_rejects import ready
 from tests.test_week5 import live_broker
@@ -271,8 +271,8 @@ def test_message_meter_reports_the_cancel_bill():
     meter.limited()
     assert meter.messages == 50
     assert meter.limited_share == pytest.approx(0.02)
-    assert meter.cancel_bill == pytest.approx(9 * CANCEL_FEE_PER_ORDER)
-    assert "$0.45" in meter.report()
+    assert meter.cancel_bill == pytest.approx(10 * CANCEL_FEE_PER_ORDER)
+    assert "$0.50" in meter.report()
 
 
 def test_hot_path_meters_record_every_tick():
@@ -368,3 +368,36 @@ def test_broker_traded_exposure_still_stops_at_a_fifth_of_equity(monkeypatch, ca
         assert not _send(b, "buy", "AMD", 40)            # $9k: past it
     assert len(places(sent, "buy")) == 1
     assert "traded gross" in caplog.text                 # said why, in the log
+
+
+def test_broker_keeps_a_quote_that_has_not_changed():
+    b, sent, _ = make_broker()
+    asyncio.run(b.quote_symbol("AAPL"))
+    ack_all(b, sent)
+    asyncio.run(b._requote("AAPL", b.quote_centre("AAPL")))
+    assert not cancelled(sent) and not places(sent)      # no billed cancel
+
+
+def test_broker_replaces_a_quote_whose_price_moved():
+    b, sent, _ = make_broker()
+    asyncio.run(b.quote_symbol("AAPL"))
+    first = ack_all(b, sent)
+    asyncio.run(b._requote("AAPL", b.quote_centre("AAPL") + 1.0))
+    assert cancelled(sent) == set(first)
+    assert places(sent, "buy")
+
+
+def test_a_bid_the_risk_check_refused_does_not_trigger_a_requote(monkeypatch):
+    # Local week-7 run: a refused bid read as a filled one, so the broker
+    # requoted every pass and paid a cancel fee each time its ask moved a cent.
+    b, sent, _ = make_broker()
+    async def refuse_buys(msg):
+        if isinstance(msg, PlaceOrder) and msg.side == "buy":
+            return False
+        sent.append(msg)
+        return True
+    b._send = refuse_buys
+    b.state.positions["AAPL"] = 20
+    asyncio.run(b.quote_symbol("AAPL"))
+    ack_all(b, sent)
+    assert not b.needs_requote("AAPL", b.quote_centre("AAPL"))

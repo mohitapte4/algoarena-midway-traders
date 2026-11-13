@@ -86,12 +86,12 @@ class MessageMeter:
 
     @property
     def cancel_bill(self) -> float:
-        return max(self.cancels - self.cancel_not_found, 0) * self.cancel_fee
+        """Every cancel sent is billed (Ed #102), found or not."""
+        return self.cancels * self.cancel_fee
 
     def report(self) -> str:
-        billed = max(self.cancels - self.cancel_not_found, 0)
         return (f"{self.orders} orders, {self.cancels} cancels, "
                 f"{self.rate_limited} RATE_LIMITED ({self.limited_share:.1%} of messages, "
-                f"graded limit 5%); cancel fees {billed} billed cancels x "
+                f"graded limit 5%); cancel fees {self.cancels} cancels x "
                 f"${self.cancel_fee:.2f} = ${self.cancel_bill:.2f} "
-                f"({self.cancel_not_found} cancels lost the race to a fill, not billed)")
+                f"({self.cancel_not_found} of them lost the race to a fill)")

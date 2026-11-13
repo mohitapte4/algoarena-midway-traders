@@ -78,6 +78,8 @@ MESSAGES_PER_SEC = 4.5  # orders + cancels. Week 7 meters 8 per exchange tick
 QUOTE_LEVELS = 1        # one level a side: a requote is at most 2 cancels and
                         # 2 orders (3 levels made it 12 messages and 6 cancel fees)
 REQUOTE_BPS = 8.0       # requote once the centre moves 8 bp (engine: 5)
+QUOTE_MAX_AGE_SEC = 300.0  # engine: 30. Every cancel is billed, and on Nov 6
+                           # most requotes were this refresh of unmoved quotes
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 TICK = 0.01
@@ -196,6 +198,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # Shares an order took as a taker before its ack arrived.
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
+        # Sides the risk check would not let us quote at the last requote:
+        # an empty side there is intended, not a quote that was taken.
+        self._unquoted: dict[str, set[str]] = {}
         self.trading_state = TradingState(lambda: self._clock())
         self._risk_orders = OwnOrders()
         self._risk_ready = False
@@ -446,9 +451,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if last is None:
             return True
         resting = self.state.resting_orders.get(symbol, {})
-        if not resting.get("buy_qty") and self._bid_room(symbol) > 0:
+        unquoted = self._unquoted.get(symbol, ())
+        if (not resting.get("buy_qty") and self._bid_room(symbol) > 0
+                and "buy" not in unquoted):
             return True
-        if not resting.get("sell_qty") and self._ask_room(symbol) > 0:
+        if (not resting.get("sell_qty") and self._ask_room(symbol) > 0
+                and "sell" not in unquoted):
             return True
         if abs(centre - last) >= self.requote_threshold(centre):
             return True
@@ -458,7 +466,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if abs(moved) >= _config.QUOTE_SIZE:
             return True
         age = time.time() - self.state.last_quote_time.get(symbol, 0.0)
-        return age >= _config.QUOTE_MAX_AGE_SEC
+        return age >= QUOTE_MAX_AGE_SEC
 
     async def quote_symbol(self, symbol: str) -> None:
         """The engine's ladder, with each ask capped at the inventory not
@@ -495,14 +503,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if bid_price <= 0 or ask_price <= bid_price:
             return
 
-        await self.cancel_quotes(symbol)
-        if not self._session_open:
-            return
-
         half_step = max(half, 0.01)
         unoffered = self._ask_room(symbol)
         unbid = self._bid_room(symbol)
-        bid_total = ask_total = 0
+        wanted: list[tuple[str, float, int]] = []
         for lvl in range(QUOTE_LEVELS):
             size = _config.QUOTE_SIZE * (lvl + 1)
             lvl_bid = math.floor((bid_price - lvl * half_step) * 100) / 100
@@ -511,20 +515,47 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 continue
             bid_size = min(size, unbid)
             if bid_size > 0:
-                await self._send(PlaceOrder(
-                    team_id=_config.TEAM_ID, symbol=symbol, side="buy",
-                    order_type="limit", price=lvl_bid, quantity=bid_size,
-                ))
-                bid_total += bid_size
+                wanted.append(("buy", lvl_bid, bid_size))
                 unbid -= bid_size
             ask_size = min(size, unoffered)
             if ask_size > 0:
-                await self._send(PlaceOrder(
-                    team_id=_config.TEAM_ID, symbol=symbol, side="sell",
-                    order_type="limit", price=lvl_ask, quantity=ask_size,
-                ))
-                ask_total += ask_size
+                wanted.append(("sell", lvl_ask, ask_size))
                 unoffered -= ask_size
+
+        # Every cancel is billed (week 7), so a quote already resting at the
+        # wanted price, with no more shares than wanted, stays where it is.
+        kept: dict[str, int] = {"buy": 0, "sell": 0}
+        to_place = []
+        live = {i: q for i, q in self._live.items() if q.symbol == symbol}
+        for side, price, size in wanted:
+            same = next((i for i, q in live.items() if q.side == side
+                         and abs(q.price - price) < PRICE_EPS
+                         and 0 < q.open_qty <= size), None)
+            if same is None:
+                to_place.append((side, price, size))
+            else:
+                kept[side] += live.pop(same).open_qty
+        for order_id in live:
+            del self._live[order_id]
+            await self._send(CancelOrder(
+                team_id=_config.TEAM_ID, order_id=order_id, symbol=symbol))
+        if not self._session_open:
+            return
+
+        bid_total, ask_total = kept["buy"], kept["sell"]
+        unquoted = set()
+        for side, price, size in to_place:
+            sent = await self._send(PlaceOrder(
+                team_id=_config.TEAM_ID, symbol=symbol, side=side,
+                order_type="limit", price=price, quantity=size,
+            ))
+            if not sent:
+                unquoted.add(side)
+            elif side == "buy":
+                bid_total += size
+            else:
+                ask_total += size
+        self._unquoted[symbol] = unquoted
 
         resting = self.state.resting_orders.setdefault(symbol, {})
         resting["buy_qty"] = bid_total
