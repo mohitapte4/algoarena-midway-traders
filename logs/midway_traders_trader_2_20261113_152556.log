@@ -1,0 +1,667 @@
+15:25:56  INFO    Logging to /Users/edhac/Workspace/uchicago-msfm/finm3350-systematic-trading/algoarena-midway-traders/logs/midway_traders_trader_2_20261113_152556.log
+15:25:56  INFO    Connecting to wss://feed.algoarena-st.duckdns.org (EXCHANGE_URL from the shell)
+15:25:56  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+15:25:56  INFO    BOOKS  seeded from venue (leaderboard t2497778): cash 350305.62, positions AAPL 40, AMD 54, AMZN 54, GOOGL 32, INTC 52, META 54, MSFT 43, NFLX 6, NVDA 54, ORCA 173, TSLA 6, VLTA 6
+15:25:56  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+15:25:56  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+15:25:56  INFO    Session event: SESSION_OPEN — Session already open — you joined mid-session.
+15:25:56  INFO    EVENT  SESSION_OPEN   Session already open — you joined mid-session.
+15:25:56  INFO    ORDER  buy  5 AAPL @ 233.68 take (notional 1168.40) — starter 1/3
+15:25:56  DEBUG   Placed: buy 5 AAPL @ 233.6800
+15:25:56  DEBUG   Ack: buy 5 AAPL @ 233.6800
+15:25:56  INFO    Fill: bought 5 AAPL @ 233.6800 (fee=11.6840)
+15:25:56  INFO    FILL   #1 buy    5 AAPL   @   233.68  notional   1168.40  vs limit +0.0000 (starter 1/3, taker)  | bought and held 5, avg entry 233.6800
+15:25:56  DEBUG   Portfolio: net_worth=453599.73
+15:25:56  INFO    RISK   session reference net worth 453599.73
+15:26:56  INFO    HOTPATH on_tick: 594 calls, mean 213 us, p50 195 us, p99 607 us, max 1912 us
+15:26:56  INFO    HOTPATH time between ticks: 593 calls, mean 101345 us, p50 101317 us, p99 102764 us, max 116025 us
+15:26:56  INFO    HOTPATH message handling: 394 calls, mean 164 us, p50 70 us, p99 589 us, max 13894 us
+15:26:56  INFO    MSGS   1 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:26:56  INFO    FLASH  0 flashes seen, no orders sent on them
+15:26:56  INFO    ORDER  sell 5 AAPL @ 233.80 rest (notional 1169.00) — mid 233.76 / mean 233.68, z +4.25, back at the mean
+15:26:56  DEBUG   Placed: sell 5 AAPL @ 233.8000
+15:26:56  DEBUG   Ack: sell 5 AAPL @ 233.8000
+15:27:56  INFO    HOTPATH on_tick: 1184 calls, mean 299 us, p50 260 us, p99 1226 us, max 26577 us
+15:27:56  INFO    HOTPATH time between ticks: 1183 calls, mean 101604 us, p50 101368 us, p99 105864 us, max 171210 us
+15:27:56  INFO    HOTPATH message handling: 776 calls, mean 144 us, p50 69 us, p99 589 us, max 13894 us
+15:27:56  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:27:56  INFO    FLASH  0 flashes seen, no orders sent on them
+15:28:00  INFO    Fill: sold   5 AAPL @ 233.8000 (fee=11.6900)
+15:28:00  INFO    FILL   #2 sell   5 AAPL   @   233.80  notional   1169.00  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+15:28:00  DEBUG   Portfolio: net_worth=453602.54
+15:28:56  INFO    HOTPATH on_tick: 1775 calls, mean 325 us, p50 271 us, p99 1412 us, max 26577 us
+15:28:56  INFO    HOTPATH time between ticks: 1774 calls, mean 101616 us, p50 101386 us, p99 106961 us, max 171210 us
+15:28:56  INFO    HOTPATH message handling: 1155 calls, mean 152 us, p50 74 us, p99 661 us, max 13894 us
+15:28:56  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:28:56  INFO    FLASH  0 flashes seen, no orders sent on them
+15:29:56  INFO    HOTPATH on_tick: 2366 calls, mean 338 us, p50 284 us, p99 1402 us, max 26577 us
+15:29:56  INFO    HOTPATH time between ticks: 2365 calls, mean 101627 us, p50 101398 us, p99 106961 us, max 171210 us
+15:29:56  INFO    HOTPATH message handling: 1542 calls, mean 157 us, p50 80 us, p99 661 us, max 15626 us
+15:29:56  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:29:56  INFO    FLASH  0 flashes seen, no orders sent on them
+15:30:00  INFO    RECON  midway_traders_trader_2 positions at SESSION_CLOSED vs the last portfolio update: PASS
+15:30:00  INFO    RECON    item                           own         venue        diff
+15:30:00  INFO    RECON    positions held                  12            12           0  ok
+15:30:00  INFO    RECON    pos AAPL                        40            40           0  ok
+15:30:00  INFO    RECON    pos AMD                         54            54           0  ok
+15:30:00  INFO    RECON    pos AMZN                        54            54           0  ok
+15:30:00  INFO    RECON    pos GOOGL                       32            32           0  ok
+15:30:00  INFO    RECON    pos INTC                        52            52           0  ok
+15:30:00  INFO    RECON    pos META                        54            54           0  ok
+15:30:00  INFO    RECON    pos MSFT                        43            43           0  ok
+15:30:00  INFO    RECON    pos NFLX                         6             6           0  ok
+15:30:00  INFO    RECON    pos NVDA                        54            54           0  ok
+15:30:00  INFO    RECON    pos ORCA                       173           173           0  ok
+15:30:00  INFO    RECON    pos TSLA                         6             6           0  ok
+15:30:00  INFO    RECON    pos VLTA                         6             6           0  ok
+15:30:00  INFO    Session event: SESSION_CLOSED — Trading session is now CLOSED. Flatten positions.
+15:30:00  INFO    SESSION closed: positions are marked at the close, no close-out orders sent
+15:30:00  INFO    HOTPATH on_tick: 2397 calls, mean 338 us, p50 285 us, p99 1402 us, max 26577 us
+15:30:00  INFO    HOTPATH time between ticks: 2396 calls, mean 101628 us, p50 101400 us, p99 107065 us, max 171210 us
+15:30:00  INFO    HOTPATH message handling: 1556 calls, mean 158 us, p50 81 us, p99 661 us, max 15626 us
+15:30:00  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:30:00  INFO    FLASH  0 flashes seen, no orders sent on them
+15:30:00  INFO    RECON  midway_traders_trader_2 close vs leaderboard t2498019 (2 fills, 0 rebases): PASS
+15:30:00  INFO    RECON    item                           own         venue        diff
+15:30:00  INFO    RECON    positions held                  12            12           0  ok
+15:30:00  INFO    RECON    pos AAPL                        40            40           0  ok
+15:30:00  INFO    RECON    pos AMD                         54            54           0  ok
+15:30:00  INFO    RECON    pos AMZN                        54            54           0  ok
+15:30:00  INFO    RECON    pos GOOGL                       32            32           0  ok
+15:30:00  INFO    RECON    pos INTC                        52            52           0  ok
+15:30:00  INFO    RECON    pos META                        54            54           0  ok
+15:30:00  INFO    RECON    pos MSFT                        43            43           0  ok
+15:30:00  INFO    RECON    pos NFLX                         6             6           0  ok
+15:30:00  INFO    RECON    pos NVDA                        54            54           0  ok
+15:30:00  INFO    RECON    pos ORCA                       173           173           0  ok
+15:30:00  INFO    RECON    pos TSLA                         6             6           0  ok
+15:30:00  INFO    RECON    pos VLTA                         6             6           0  ok
+15:30:00  INFO    RECON    fees                        312.02        312.02        0.00  ok
+15:30:00  INFO    RECON    rebates                      27.05         27.04       -0.01  ok
+15:30:00  INFO    RECON    realized                 -6,576.21     -6,576.21        0.00  ok
+15:30:00  INFO    RECON    carry (venue's)                n/a          0.00         n/a  margin interest + borrow fees, taken from the venue
+15:30:00  INFO    RECON    cash                    350,277.01    350,277.00       -0.01  ok  diff is interest on idle cash
+15:30:00  INFO    RECON    interest (est)                0.00         -0.01       -0.01  rate x cash x ticks
+15:30:00  INFO    RECON    net worth               453,282.48    453,282.47       -0.01  
+15:30:00  INFO    RECON    P&L since t2497778          -32.97        -32.98       -0.01  
+15:30:21  INFO    Session event: WEEK_CHANGED — Week 7: Execution in a fast market — quotas, latency, cancel fees, flashes; borrow tightens; window 2
+15:30:21  INFO    EVENT  WEEK_CHANGED   Week 7: Execution in a fast market — quotas, latency, cancel fees, flashes; borrow tightens; window 2
+15:30:21  INFO    Session event: CALENDAR — No scheduled events this session
+15:30:21  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:00  DEBUG   Portfolio: net_worth=473186.19
+15:40:00  INFO    BOOKS  starting grant AAPL 6, AMD 6, AMZN 6, GOOGL 6, INTC 6, META 6, MSFT 6, NFLX 6, NVDA 6, ORCA 6, TSLA 6, VLTA 6 (quantities from the venue's positions)
+15:40:00  INFO    Session event: SESSION_PREOPEN — Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:00  INFO    EVENT  SESSION_PREOPEN Pre-open: limit orders only — the opening auction crosses in 12 ticks
+15:40:00  INFO    HOTPATH on_tick: 2398 calls, mean 338 us, p50 285 us, p99 1402 us, max 26577 us
+15:40:00  INFO    HOTPATH time between ticks: 2397 calls, mean 352168 us, p50 101400 us, p99 107318 us, max 600645810 us
+15:40:00  INFO    HOTPATH message handling: 11803 calls, mean 323 us, p50 106 us, p99 8304 us, max 30151 us
+15:40:00  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:40:00  INFO    FLASH  0 flashes seen, no orders sent on them
+15:40:00  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 11 ticks
+15:40:04  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 10 ticks
+15:40:05  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 9 ticks
+15:40:08  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 8 ticks
+15:40:10  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 7 ticks
+15:40:12  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 6 ticks
+15:40:14  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 5 ticks
+15:40:16  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 4 ticks
+15:40:19  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 3 ticks
+15:40:21  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 2 ticks
+15:40:23  INFO    Session event: AUCTION_INDICATIVE — Opening cross in 1 ticks
+15:40:29  INFO    Session event: CALENDAR — No scheduled events this session
+15:40:29  INFO    EVENT  CALENDAR       No scheduled events this session
+15:40:29  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+15:40:29  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+15:40:29  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+15:40:29  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+15:41:00  INFO    HOTPATH on_tick: 2989 calls, mean 309 us, p50 279 us, p99 1261 us, max 26577 us
+15:41:00  INFO    HOTPATH time between ticks: 2988 calls, mean 302606 us, p50 101388 us, p99 107772 us, max 600645810 us
+15:41:00  INFO    HOTPATH message handling: 12377 calls, mean 336 us, p50 110 us, p99 8683 us, max 30151 us
+15:41:00  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+15:41:00  INFO    FLASH  0 flashes seen, no orders sent on them
+15:41:55  INFO    Session event: FLASH — Flash: META +2.24%, reverting over 2 ticks
+15:41:55  INFO    EVENT  FLASH          Flash: META +2.24%, reverting over 2 ticks
+15:41:55  INFO    FLASH  META +2.24% (reverts in 2 ticks): pre-flash mid 595.37, sell into it; strategy and stop-loss out of the name for 10s
+15:41:55  INFO    ORDER  sell 10 META @ 602.04 rest (notional 6020.40) — flash +2.24% entry, pre-flash mid 595.37
+15:41:55  INFO    FLASH  META order 0 ms after the event
+15:41:55  DEBUG   Placed: sell 10 META @ 602.0400
+15:41:55  DEBUG   Ack: sell 10 META @ 602.0400
+15:41:58  INFO    CANCEL sell 10 META @ 602.04 (flash entry)
+15:41:58  INFO    FLASH  META done: entry sent, 0 filled, 0 closed at the pre-flash mid
+15:42:00  INFO    HOTPATH on_tick: 3579 calls, mean 316 us, p50 290 us, p99 1218 us, max 26577 us
+15:42:00  INFO    HOTPATH time between ticks: 3578 calls, mean 269482 us, p50 101401 us, p99 108271 us, max 600645810 us
+15:42:00  INFO    HOTPATH message handling: 13006 calls, mean 353 us, p50 116 us, p99 9559 us, max 30151 us
+15:42:00  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:42:00  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:43:00  INFO    HOTPATH on_tick: 4171 calls, mean 313 us, p50 293 us, p99 1196 us, max 26577 us
+15:43:00  INFO    HOTPATH time between ticks: 4170 calls, mean 245623 us, p50 101405 us, p99 107772 us, max 600645810 us
+15:43:00  INFO    HOTPATH message handling: 13725 calls, mean 353 us, p50 116 us, p99 9547 us, max 30151 us
+15:43:00  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:43:00  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:44:00  INFO    HOTPATH on_tick: 4762 calls, mean 310 us, p50 300 us, p99 1272 us, max 26577 us
+15:44:00  INFO    HOTPATH time between ticks: 4761 calls, mean 227745 us, p50 101418 us, p99 108490 us, max 600645810 us
+15:44:00  INFO    HOTPATH message handling: 13956 calls, mean 361 us, p50 117 us, p99 9726 us, max 30151 us
+15:44:00  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:44:00  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:44:33  INFO    Session event: UPGRADE_PURCHASED — STT_11 bought Securities lending desk for $175,000 — +2,000 shares/symbol of private short locate
+15:44:33  INFO    EVENT  UPGRADE_PURCHASED STT_11 bought Securities lending desk for $175,000 — +2,000 shares/symbol of private short locate
+15:44:34  INFO    Session event: UPGRADE_PURCHASED — STT_11 bought Message quota increase for $150,000 — order/cancel rate limit doubled
+15:44:34  INFO    EVENT  UPGRADE_PURCHASED STT_11 bought Message quota increase for $150,000 — order/cancel rate limit doubled
+15:45:00  INFO    HOTPATH on_tick: 5352 calls, mean 313 us, p50 306 us, p99 1224 us, max 26577 us
+15:45:00  INFO    HOTPATH time between ticks: 5351 calls, mean 213858 us, p50 101425 us, p99 108562 us, max 600645810 us
+15:45:00  INFO    HOTPATH message handling: 14424 calls, mean 371 us, p50 121 us, p99 9841 us, max 30151 us
+15:45:00  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:45:00  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:46:00  INFO    HOTPATH on_tick: 5942 calls, mean 322 us, p50 312 us, p99 1103 us, max 26577 us
+15:46:00  INFO    HOTPATH time between ticks: 5941 calls, mean 202727 us, p50 101436 us, p99 108756 us, max 600645810 us
+15:46:01  INFO    HOTPATH message handling: 14699 calls, mean 383 us, p50 127 us, p99 11341 us, max 30151 us
+15:46:01  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:46:01  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:47:01  INFO    HOTPATH on_tick: 6532 calls, mean 328 us, p50 317 us, p99 1145 us, max 26577 us
+15:47:01  INFO    HOTPATH time between ticks: 6531 calls, mean 193602 us, p50 101442 us, p99 109019 us, max 600645810 us
+15:47:01  INFO    HOTPATH message handling: 15250 calls, mean 391 us, p50 132 us, p99 11450 us, max 30151 us
+15:47:01  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:47:01  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:48:01  INFO    HOTPATH on_tick: 7121 calls, mean 336 us, p50 338 us, p99 1392 us, max 26577 us
+15:48:01  INFO    HOTPATH time between ticks: 7120 calls, mean 186018 us, p50 101472 us, p99 109248 us, max 600645810 us
+15:48:01  INFO    HOTPATH message handling: 15671 calls, mean 400 us, p50 137 us, p99 12327 us, max 30151 us
+15:48:01  INFO    MSGS   3 orders, 1 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 1 cancels x $0.05 = $0.05 (0 of them lost the race to a fill)
+15:48:01  INFO    FLASH  1 flashes seen, an order on 1 (1 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:48:27  INFO    Session event: FLASH — Flash: NFLX +2.05%, reverting over 2 ticks
+15:48:27  INFO    EVENT  FLASH          Flash: NFLX +2.05%, reverting over 2 ticks
+15:48:27  INFO    FLASH  NFLX +2.05% (reverts in 2 ticks): pre-flash mid 759.37, sell into it; strategy and stop-loss out of the name for 10s
+15:48:27  INFO    ORDER  sell 10 NFLX @ 767.17 rest (notional 7671.70) — flash +2.05% entry, pre-flash mid 759.37
+15:48:27  INFO    FLASH  NFLX order 0 ms after the event
+15:48:27  DEBUG   Placed: sell 10 NFLX @ 767.1700
+15:48:27  DEBUG   Ack: sell 10 NFLX @ 767.1700
+15:48:30  INFO    CANCEL sell 10 NFLX @ 767.17 (flash entry)
+15:48:30  INFO    FLASH  NFLX done: entry sent, 0 filled, 0 closed at the pre-flash mid
+15:48:39  INFO    Session event: CALENDAR — Upcoming: earnings TSLA @ t400
+15:48:39  INFO    EVENT  CALENDAR       Upcoming: earnings TSLA @ t400
+15:48:39  INFO    EVENT  window TSLA: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:49:01  INFO    HOTPATH on_tick: 7711 calls, mean 343 us, p50 347 us, p99 1453 us, max 26577 us
+15:49:01  INFO    HOTPATH time between ticks: 7710 calls, mean 179577 us, p50 101483 us, p99 109333 us, max 600645810 us
+15:49:01  INFO    HOTPATH message handling: 15939 calls, mean 407 us, p50 140 us, p99 12436 us, max 30151 us
+15:49:01  INFO    MSGS   4 orders, 2 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 2 cancels x $0.05 = $0.10 (0 of them lost the race to a fill)
+15:49:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:50:01  INFO    HOTPATH on_tick: 8297 calls, mean 348 us, p50 357 us, p99 1582 us, max 26577 us
+15:50:01  INFO    HOTPATH time between ticks: 8296 calls, mean 174133 us, p50 101543 us, p99 110703 us, max 600645810 us
+15:50:01  INFO    HOTPATH message handling: 16249 calls, mean 416 us, p50 141 us, p99 12327 us, max 30151 us
+15:50:01  INFO    MSGS   4 orders, 2 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 2 cancels x $0.05 = $0.10 (0 of them lost the race to a fill)
+15:50:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:51:01  INFO    HOTPATH on_tick: 8883 calls, mean 352 us, p50 369 us, p99 1519 us, max 26577 us
+15:51:01  INFO    HOTPATH time between ticks: 8882 calls, mean 169410 us, p50 101603 us, p99 110443 us, max 600645810 us
+15:51:01  INFO    HOTPATH message handling: 16645 calls, mean 423 us, p50 141 us, p99 12327 us, max 30151 us
+15:51:01  INFO    MSGS   4 orders, 2 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 2 cancels x $0.05 = $0.10 (0 of them lost the race to a fill)
+15:51:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:52:01  INFO    HOTPATH on_tick: 9469 calls, mean 356 us, p50 380 us, p99 1453 us, max 26577 us
+15:52:01  INFO    HOTPATH time between ticks: 9468 calls, mean 165263 us, p50 101670 us, p99 110351 us, max 600645810 us
+15:52:01  INFO    HOTPATH message handling: 16786 calls, mean 431 us, p50 142 us, p99 11485 us, max 30151 us
+15:52:01  INFO    MSGS   4 orders, 2 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 2 cancels x $0.05 = $0.10 (0 of them lost the race to a fill)
+15:52:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:52:18  INFO    Session event: CALENDAR_EVENT — Earnings: TSLA moving -9.1%
+15:52:18  INFO    EVENT  CALENDAR_EVENT Earnings: TSLA moving -9.1%
+15:52:18  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 278.35 in 15s
+15:52:18  INFO    EVENT  TSLA fade-extra leg edge 2.74% — not traded
+15:52:18  INFO    EVENT  TSLA -9.12%: fade edge 7.30% vs round trip 4.00% — FADE 9 shares: sell down to 292.33, buy back after 15s at no more than 278.35
+15:52:18  INFO    ORDER  sell 9 TSLA @ 292.33 take (notional 2630.97) — fade sell
+15:52:18  DEBUG   Placed: sell 9 TSLA @ 292.3300
+15:52:21  DEBUG   Ack: sell 9 TSLA @ 292.3300
+15:52:29  INFO    Session event: TRADING_HALT — Trading halted on TSLA: TSLA velocity halt: 5.5% move in 60s (threshold 5.0%)
+15:52:29  INFO    EVENT  TRADING_HALT   Trading halted on TSLA: TSLA velocity halt: 5.5% move in 60s (threshold 5.0%)
+15:52:33  INFO    CANCEL sell 9 TSLA @ 292.33 (fade sell)
+15:52:34  INFO    EVENT  FADE TSLA done: bought 0, sold 0, gross P&L +0.00
+15:52:38  INFO    Session event: SSR_ON — TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+15:52:39  INFO    EVENT  SSR_ON         TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+15:53:01  INFO    HOTPATH on_tick: 10055 calls, mean 360 us, p50 388 us, p99 1392 us, max 26577 us
+15:53:01  INFO    HOTPATH time between ticks: 10054 calls, mean 161599 us, p50 101765 us, p99 110430 us, max 600645810 us
+15:53:01  INFO    HOTPATH message handling: 17153 calls, mean 438 us, p50 142 us, p99 11327 us, max 30151 us
+15:53:01  INFO    MSGS   5 orders, 3 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 3 cancels x $0.05 = $0.15 (0 of them lost the race to a fill)
+15:53:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:54:01  INFO    HOTPATH on_tick: 10640 calls, mean 364 us, p50 401 us, p99 1415 us, max 26577 us
+15:54:01  INFO    HOTPATH time between ticks: 10639 calls, mean 158359 us, p50 101978 us, p99 110838 us, max 600645810 us
+15:54:01  INFO    HOTPATH message handling: 17464 calls, mean 449 us, p50 146 us, p99 11992 us, max 30151 us
+15:54:01  INFO    MSGS   5 orders, 3 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 3 cancels x $0.05 = $0.15 (0 of them lost the race to a fill)
+15:54:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:55:01  INFO    HOTPATH on_tick: 11227 calls, mean 364 us, p50 398 us, p99 1360 us, max 26577 us
+15:55:01  INFO    HOTPATH time between ticks: 11226 calls, mean 155426 us, p50 102140 us, p99 111856 us, max 600645810 us
+15:55:01  INFO    HOTPATH message handling: 17783 calls, mean 460 us, p50 154 us, p99 14305 us, max 30151 us
+15:55:01  INFO    MSGS   5 orders, 3 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 3 cancels x $0.05 = $0.15 (0 of them lost the race to a fill)
+15:55:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:56:01  INFO    HOTPATH on_tick: 11819 calls, mean 360 us, p50 386 us, p99 1300 us, max 26577 us
+15:56:01  INFO    HOTPATH time between ticks: 11818 calls, mean 152720 us, p50 102086 us, p99 109886 us, max 600645810 us
+15:56:01  INFO    HOTPATH message handling: 18235 calls, mean 458 us, p50 151 us, p99 13216 us, max 30151 us
+15:56:01  INFO    MSGS   5 orders, 3 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 3 cancels x $0.05 = $0.15 (0 of them lost the race to a fill)
+15:56:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:56:13  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t650
+15:56:13  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t650
+15:56:13  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+15:57:01  INFO    HOTPATH on_tick: 12412 calls, mean 351 us, p50 356 us, p99 1119 us, max 26577 us
+15:57:01  INFO    HOTPATH time between ticks: 12411 calls, mean 150262 us, p50 101820 us, p99 108167 us, max 600645810 us
+15:57:01  INFO    HOTPATH message handling: 18666 calls, mean 456 us, p50 147 us, p99 11199 us, max 30151 us
+15:57:01  INFO    MSGS   5 orders, 3 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 3 cancels x $0.05 = $0.15 (0 of them lost the race to a fill)
+15:57:01  INFO    FLASH  2 flashes seen, an order on 2 (2 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:57:24  INFO    Session event: FLASH — Flash: GOOGL +2.01%, reverting over 2 ticks
+15:57:24  INFO    EVENT  FLASH          Flash: GOOGL +2.01%, reverting over 2 ticks
+15:57:24  INFO    FLASH  GOOGL +2.01% (reverts in 2 ticks): pre-flash mid 174.70, sell into it; strategy and stop-loss out of the name for 10s
+15:57:24  INFO    ORDER  sell 10 GOOGL @ 176.46 rest (notional 1764.60) — flash +2.01% entry, pre-flash mid 174.70
+15:57:24  INFO    FLASH  GOOGL order 0 ms after the event
+15:57:24  DEBUG   Placed: sell 10 GOOGL @ 176.4600
+15:57:26  DEBUG   Ack: sell 10 GOOGL @ 176.4600
+15:57:27  INFO    CANCEL sell 10 GOOGL @ 176.46 (flash entry)
+15:57:27  INFO    FLASH  GOOGL done: entry sent, 0 filled, 0 closed at the pre-flash mid
+15:57:29  INFO    Session event: TRADING_RESUMED — Trading resumed on TSLA
+15:57:29  INFO    EVENT  TRADING_RESUMED Trading resumed on TSLA
+15:58:01  INFO    HOTPATH on_tick: 13005 calls, mean 341 us, p50 280 us, p99 1077 us, max 26577 us
+15:58:01  INFO    HOTPATH time between ticks: 13004 calls, mean 148028 us, p50 101516 us, p99 107977 us, max 600645810 us
+15:58:01  INFO    HOTPATH message handling: 19187 calls, mean 453 us, p50 144 us, p99 11043 us, max 30151 us
+15:58:01  INFO    MSGS   6 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+15:58:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+15:59:01  INFO    HOTPATH on_tick: 13597 calls, mean 333 us, p50 220 us, p99 1002 us, max 26577 us
+15:59:01  INFO    HOTPATH time between ticks: 13596 calls, mean 145996 us, p50 101397 us, p99 107399 us, max 600645810 us
+15:59:01  INFO    HOTPATH message handling: 19447 calls, mean 454 us, p50 139 us, p99 10408 us, max 30151 us
+15:59:01  INFO    MSGS   6 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+15:59:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:00:01  INFO    HOTPATH on_tick: 14189 calls, mean 330 us, p50 197 us, p99 963 us, max 26577 us
+16:00:01  INFO    HOTPATH time between ticks: 14188 calls, mean 144136 us, p50 101340 us, p99 107227 us, max 600645810 us
+16:00:01  INFO    HOTPATH message handling: 19706 calls, mean 457 us, p50 138 us, p99 10470 us, max 30151 us
+16:00:01  INFO    MSGS   6 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+16:00:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:00:14  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.2%
+16:00:14  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.2%
+16:00:14  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 230.33 in 15s
+16:00:14  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 422.50 in 15s
+16:00:14  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 128.35 in 15s
+16:00:14  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 277.66 in 15s
+16:00:14  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 198.51 in 15s
+16:00:14  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 172.67 in 15s
+16:00:14  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 578.87 in 15s
+16:00:14  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 703.23 in 15s
+16:00:14  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 134.33 in 15s
+16:00:14  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 23.12 in 15s
+16:00:14  INFO    EVENT  ORCA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 27.05 in 15s
+16:00:14  INFO    EVENT  VLTA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 29.99 in 15s
+16:00:14  INFO    EVENT  AAPL -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  MSFT -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  NVDA -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  TSLA -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  AMZN -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  GOOGL -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  META -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  NFLX -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  AMD -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  INTC -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  ORCA -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:14  INFO    EVENT  VLTA -2.20%: fade edge 1.76% vs round trip 4.00% — too small to pay the fee, no trade
+16:00:26  INFO    Session event: SSR_ON — NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:00:26  INFO    EVENT  SSR_ON         NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+16:00:30  INFO    ORDER  buy  5 AAPL @ 230.32 rest (notional 1151.60) — event reaction
+16:00:30  INFO    EVENT  AAPL reaction: bid 5 @ 230.32 (settle 230.33)
+16:00:30  DEBUG   Placed: buy 5 AAPL @ 230.3200
+16:00:30  INFO    ORDER  buy  5 MSFT @ 422.49 rest (notional 2112.45) — event reaction
+16:00:30  INFO    EVENT  MSFT reaction: bid 5 @ 422.49 (settle 422.50)
+16:00:30  DEBUG   Placed: buy 5 MSFT @ 422.4900
+16:00:30  INFO    ORDER  buy  5 NVDA @ 128.34 rest (notional 641.70) — event reaction
+16:00:30  INFO    EVENT  NVDA reaction: bid 5 @ 128.34 (settle 128.35)
+16:00:30  DEBUG   Placed: buy 5 NVDA @ 128.3400
+16:00:30  INFO    ORDER  buy  5 TSLA @ 277.65 rest (notional 1388.25) — event reaction
+16:00:30  INFO    EVENT  TSLA reaction: bid 5 @ 277.65 (settle 277.66)
+16:00:30  DEBUG   Placed: buy 5 TSLA @ 277.6500
+16:00:31  INFO    ORDER  buy  5 AMZN @ 198.50 rest (notional 992.50) — event reaction
+16:00:31  INFO    EVENT  AMZN reaction: bid 5 @ 198.50 (settle 198.51)
+16:00:31  DEBUG   Placed: buy 5 AMZN @ 198.5000
+16:00:32  INFO    ORDER  buy  5 GOOGL @ 172.66 rest (notional 863.30) — event reaction
+16:00:32  INFO    EVENT  GOOGL reaction: bid 5 @ 172.66 (settle 172.67)
+16:00:32  DEBUG   Placed: buy 5 GOOGL @ 172.6600
+16:00:32  DEBUG   Ack: buy 5 AAPL @ 230.3200
+16:00:32  DEBUG   Ack: buy 5 MSFT @ 422.4900
+16:00:32  DEBUG   Ack: buy 5 NVDA @ 128.3400
+16:00:32  DEBUG   Ack: buy 5 TSLA @ 277.6500
+16:00:32  INFO    ORDER  buy  5 META @ 578.86 rest (notional 2894.30) — event reaction
+16:00:32  INFO    EVENT  META reaction: bid 5 @ 578.86 (settle 578.87)
+16:00:32  DEBUG   Placed: buy 5 META @ 578.8600
+16:00:33  INFO    ORDER  buy  5 NFLX @ 703.23 rest (notional 3516.15) — event reaction
+16:00:33  INFO    EVENT  NFLX reaction: bid 5 @ 703.23 (settle 703.23)
+16:00:33  DEBUG   Placed: buy 5 NFLX @ 703.2300
+16:00:34  INFO    ORDER  buy  5 AMD @ 134.33 rest (notional 671.65) — event reaction
+16:00:34  INFO    EVENT  AMD reaction: bid 5 @ 134.33 (settle 134.33)
+16:00:34  DEBUG   Placed: buy 5 AMD @ 134.3300
+16:00:34  INFO    ORDER  buy  5 INTC @ 23.11 rest (notional 115.55) — event reaction
+16:00:34  INFO    EVENT  INTC reaction: bid 5 @ 23.11 (settle 23.12)
+16:00:34  DEBUG   Placed: buy 5 INTC @ 23.1100
+16:00:34  DEBUG   Ack: buy 5 AMZN @ 198.5000
+16:00:34  DEBUG   Ack: buy 5 GOOGL @ 172.6600
+16:00:35  DEBUG   Ack: buy 5 META @ 578.8600
+16:00:35  DEBUG   Ack: buy 5 NFLX @ 703.2300
+16:00:35  DEBUG   Ack: buy 5 AMD @ 134.3300
+16:00:35  INFO    ORDER  buy  5 ORCA @ 27.04 rest (notional 135.20) — event reaction
+16:00:35  INFO    EVENT  ORCA reaction: bid 5 @ 27.04 (settle 27.05)
+16:00:35  DEBUG   Placed: buy 5 ORCA @ 27.0400
+16:00:36  INFO    ORDER  buy  5 VLTA @ 29.99 rest (notional 149.95) — event reaction
+16:00:36  INFO    EVENT  VLTA reaction: bid 5 @ 29.99 (settle 29.99)
+16:00:36  DEBUG   Placed: buy 5 VLTA @ 29.9900
+16:00:37  DEBUG   Ack: buy 5 INTC @ 23.1100
+16:00:38  DEBUG   Ack: buy 5 ORCA @ 27.0400
+16:00:38  DEBUG   Ack: buy 5 VLTA @ 29.9900
+16:01:01  INFO    HOTPATH on_tick: 14779 calls, mean 334 us, p50 196 us, p99 1163 us, max 26577 us
+16:01:01  INFO    HOTPATH time between ticks: 14778 calls, mean 142448 us, p50 101319 us, p99 106854 us, max 600645810 us
+16:01:01  INFO    HOTPATH message handling: 19908 calls, mean 462 us, p50 136 us, p99 10408 us, max 30151 us
+16:01:01  INFO    MSGS   18 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+16:01:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:01:05  INFO    Fill: bought 5 MSFT @ 422.4900 (fee=21.1245)
+16:01:05  INFO    FILL   #3 buy    5 MSFT   @   422.49  notional   2112.45  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 422.4900
+16:01:05  DEBUG   Portfolio: net_worth=468895.02
+16:01:10  INFO    Fill: bought 5 META @ 578.8600 (fee=28.9430)
+16:01:10  INFO    FILL   #4 buy    5 META   @   578.86  notional   2894.30  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 578.8600
+16:01:10  DEBUG   Portfolio: net_worth=469111.81
+16:01:16  INFO    Fill: bought 5 ORCA @ 27.0400 (fee=1.3520)
+16:01:16  INFO    FILL   #5 buy    5 ORCA   @    27.04  notional    135.20  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 27.0400
+16:01:16  DEBUG   Portfolio: net_worth=469310.53
+16:01:19  WARNING RISK   stop-loss MSFT: bid 413.42 is 2.15% below average entry 422.4900
+16:01:19  INFO    ORDER  sell 5 MSFT @ 413.42 take (notional 2067.10) — stop-loss
+16:01:19  DEBUG   Placed: sell 5 MSFT @ 413.4200
+16:01:21  DEBUG   Ack: sell 5 MSFT @ 413.4200
+16:01:21  INFO    Fill: sold   5 MSFT @ 416.2000 (fee=20.8100)
+16:01:21  INFO    FILL   #6 sell   5 MSFT   @   416.20  notional   2081.00  vs limit +2.7800 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:01:21  DEBUG   Portfolio: net_worth=469248.99
+16:01:22  INFO    Fill: bought 5 NFLX @ 703.2300 (fee=35.1615)
+16:01:22  INFO    FILL   #7 buy    5 NFLX   @   703.23  notional   3516.15  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 703.2300
+16:01:22  DEBUG   Portfolio: net_worth=469222.55
+16:01:26  INFO    Fill: bought 5 VLTA @ 29.9900 (fee=1.4995)
+16:01:26  INFO    FILL   #8 buy    5 VLTA   @    29.99  notional    149.95  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 29.9900
+16:01:26  DEBUG   Portfolio: net_worth=469207.27
+16:01:41  INFO    Fill: bought 5 AAPL @ 230.3200 (fee=11.5160)
+16:01:41  INFO    FILL   #9 buy    5 AAPL   @   230.32  notional   1151.60  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 230.3200
+16:01:41  DEBUG   Portfolio: net_worth=469097.75
+16:01:42  INFO    Fill: bought 5 NVDA @ 128.3400 (fee=6.4170)
+16:01:42  INFO    FILL   #10 buy    5 NVDA   @   128.34  notional    641.70  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 128.3400
+16:01:42  DEBUG   Portfolio: net_worth=469094.40
+16:01:42  INFO    Fill: bought 5 AMZN @ 198.5000 (fee=9.9250)
+16:01:42  INFO    FILL   #11 buy    5 AMZN   @   198.50  notional    992.50  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 198.5000
+16:01:42  DEBUG   Portfolio: net_worth=468922.03
+16:01:42  INFO    Fill: bought 5 GOOGL @ 172.6600 (fee=8.6330)
+16:01:42  INFO    FILL   #12 buy    5 GOOGL  @   172.66  notional    863.30  vs limit +0.0000 (reaction, maker)  | bought and held 5, avg entry 172.6600
+16:01:42  DEBUG   Portfolio: net_worth=468919.55
+16:01:45  WARNING RISK   stop-loss NFLX: bid 691.97 is 1.60% below average entry 703.2300
+16:01:45  INFO    ORDER  sell 5 NFLX @ 691.97 take (notional 3459.85) — stop-loss
+16:01:45  DEBUG   Placed: sell 5 NFLX @ 691.9700
+16:01:47  DEBUG   Ack: sell 5 NFLX @ 691.9700
+16:01:47  INFO    Fill: sold   5 NFLX @ 691.9700 (fee=34.5985)
+16:01:47  INFO    FILL   #13 sell   5 NFLX   @   691.97  notional   3459.85  vs limit +0.0000 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:01:47  DEBUG   Portfolio: net_worth=468796.18
+16:02:01  INFO    HOTPATH on_tick: 15369 calls, mean 339 us, p50 206 us, p99 1274 us, max 26577 us
+16:02:01  INFO    HOTPATH time between ticks: 15368 calls, mean 140888 us, p50 101320 us, p99 106709 us, max 600645810 us
+16:02:01  INFO    HOTPATH message handling: 20177 calls, mean 468 us, p50 133 us, p99 10470 us, max 33572 us
+16:02:01  INFO    MSGS   20 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+16:02:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:02:11  WARNING RISK   stop-loss GOOGL: bid 169.51 is 1.82% below average entry 172.6600
+16:02:11  INFO    ORDER  sell 5 GOOGL @ 169.51 take (notional 847.55) — stop-loss
+16:02:11  DEBUG   Placed: sell 5 GOOGL @ 169.5100
+16:02:13  DEBUG   Ack: sell 5 GOOGL @ 169.5100
+16:02:13  INFO    Fill: sold   5 GOOGL @ 169.5100 (fee=8.4755)
+16:02:13  INFO    FILL   #14 sell   5 GOOGL  @   169.51  notional    847.55  vs limit +0.0000 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:02:13  DEBUG   Portfolio: net_worth=468506.05
+16:03:01  INFO    HOTPATH on_tick: 15957 calls, mean 347 us, p50 220 us, p99 1568 us, max 26577 us
+16:03:01  INFO    HOTPATH time between ticks: 15956 calls, mean 139458 us, p50 101345 us, p99 107725 us, max 600645810 us
+16:03:01  INFO    HOTPATH message handling: 20337 calls, mean 476 us, p50 134 us, p99 10541 us, max 33572 us
+16:03:01  INFO    MSGS   21 orders, 4 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 4 cancels x $0.05 = $0.20 (0 of them lost the race to a fill)
+16:03:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:03:07  INFO    ORDER  sell 5 NVDA @ 128.56 rest (notional 642.80) — mid 128.38 / mean 128.18, z +0.42, back at the mean
+16:03:07  DEBUG   Placed: sell 5 NVDA @ 128.5600
+16:03:07  DEBUG   Ack: sell 5 NVDA @ 128.5600
+16:03:08  INFO    ORDER  sell 5 AAPL @ 230.23 rest (notional 1151.15) — mid 230.21 / mean 230.21, z +0.01, back at the mean
+16:03:08  DEBUG   Placed: sell 5 AAPL @ 230.2300
+16:03:08  DEBUG   Ack: sell 5 AAPL @ 230.2300
+16:03:20  INFO    ORDER  sell 5 AMZN @ 199.30 rest (notional 996.50) — mid 199.03 / mean 198.83, z +1.26, back at the mean
+16:03:20  DEBUG   Placed: sell 5 AMZN @ 199.3000
+16:03:21  DEBUG   Ack: sell 5 AMZN @ 199.3000
+16:03:21  INFO    CANCEL sell 5 AMZN @ 199.30 (quote)
+16:03:33  INFO    ORDER  sell 5 AMZN @ 198.82 rest (notional 994.10) — mid 198.79 / mean 198.78, z +0.07, back at the mean
+16:03:33  DEBUG   Placed: sell 5 AMZN @ 198.8200
+16:03:36  DEBUG   Ack: sell 5 AMZN @ 198.8200
+16:03:43  INFO    ORDER  sell 5 ORCA @ 27.00 rest (notional 135.00) — mid 26.97 / mean 26.97, z +0.65, back at the mean
+16:03:43  DEBUG   Placed: sell 5 ORCA @ 27.0000
+16:03:43  INFO    ORDER  sell 5 META @ 575.79 rest (notional 2878.95) — mid 575.70 / mean 575.58, z +0.47, back at the mean
+16:03:43  DEBUG   Placed: sell 5 META @ 575.7900
+16:03:45  DEBUG   Ack: sell 5 ORCA @ 27.0000
+16:03:45  DEBUG   Ack: sell 5 META @ 575.7900
+16:03:57  INFO    Fill: sold   5 AMZN @ 198.8200 (fee=9.9410)
+16:03:57  INFO    FILL   #15 sell   5 AMZN   @   198.82  notional    994.10  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:03:57  DEBUG   Portfolio: net_worth=467955.56
+16:04:01  INFO    HOTPATH on_tick: 16545 calls, mean 356 us, p50 275 us, p99 1875 us, max 26577 us
+16:04:01  INFO    HOTPATH time between ticks: 16544 calls, mean 138130 us, p50 101401 us, p99 108946 us, max 600645810 us
+16:04:01  INFO    HOTPATH message handling: 20672 calls, mean 480 us, p50 133 us, p99 10889 us, max 33572 us
+16:04:01  INFO    MSGS   27 orders, 5 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 5 cancels x $0.05 = $0.25 (0 of them lost the race to a fill)
+16:04:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:04:26  INFO    Fill: sold   3 ORCA @ 27.0000 (fee=0.8100)
+16:04:26  INFO    FILL   #16 sell   3 ORCA   @    27.00  notional     81.00  vs limit +0.0000 (quote, maker)  | bought and held 2, avg entry 27.0400
+16:04:26  DEBUG   Portfolio: net_worth=467946.64
+16:04:34  INFO    Fill: sold   2 ORCA @ 27.0000 (fee=0.5400)
+16:04:34  INFO    FILL   #17 sell   2 ORCA   @    27.00  notional     54.00  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:04:34  DEBUG   Portfolio: net_worth=467956.63
+16:04:34  INFO    Fill: sold   5 AAPL @ 230.2300 (fee=11.5115)
+16:04:34  INFO    FILL   #18 sell   5 AAPL   @   230.23  notional   1151.15  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:04:34  DEBUG   Portfolio: net_worth=467968.23
+16:04:36  INFO    CANCEL sell 5 NVDA @ 128.56 (quote)
+16:04:36  WARNING RISK   stop-loss NVDA: bid 126.22 is 1.65% below average entry 128.3400
+16:04:36  INFO    ORDER  sell 5 NVDA @ 126.22 take (notional 631.10) — stop-loss
+16:04:36  DEBUG   Placed: sell 5 NVDA @ 126.2200
+16:04:39  DEBUG   Ack: sell 5 NVDA @ 126.2200
+16:04:39  INFO    Fill: sold   5 NVDA @ 127.5400 (fee=6.3770)
+16:04:39  INFO    FILL   #19 sell   5 NVDA   @   127.54  notional    637.70  vs limit +1.3200 (stop-loss, taker)  | bought and held 0, avg entry 0.0000
+16:04:39  DEBUG   Portfolio: net_worth=467952.52
+16:04:54  INFO    Session event: CALENDAR — Upcoming: earnings AAPL @ t900
+16:04:54  INFO    EVENT  CALENDAR       Upcoming: earnings AAPL @ t900
+16:04:54  INFO    EVENT  window AAPL: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+16:05:01  INFO    HOTPATH on_tick: 17133 calls, mean 363 us, p50 356 us, p99 2045 us, max 26577 us
+16:05:01  INFO    HOTPATH time between ticks: 17132 calls, mean 136893 us, p50 101481 us, p99 109399 us, max 600645810 us
+16:05:01  INFO    HOTPATH message handling: 20936 calls, mean 485 us, p50 132 us, p99 10269 us, max 33572 us
+16:05:01  INFO    MSGS   28 orders, 6 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 6 cancels x $0.05 = $0.30 (0 of them lost the race to a fill)
+16:05:01  INFO    FLASH  3 flashes seen, an order on 3 (3 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:05:37  INFO    ORDER  sell 5 VLTA @ 29.84 rest (notional 149.20) — mid 29.80 / mean 29.80, z +0.17, back at the mean
+16:05:37  DEBUG   Placed: sell 5 VLTA @ 29.8400
+16:05:38  DEBUG   Ack: sell 5 VLTA @ 29.8400
+16:05:48  INFO    Session event: FLASH — Flash: NFLX +1.68%, reverting over 2 ticks
+16:05:48  INFO    EVENT  FLASH          Flash: NFLX +1.68%, reverting over 2 ticks
+16:05:48  INFO    FLASH  NFLX +1.68% (reverts in 2 ticks): pre-flash mid 679.38, sell into it; strategy and stop-loss out of the name for 10s
+16:05:48  INFO    ORDER  sell 10 NFLX @ 685.08 rest (notional 6850.80) — flash +1.68% entry, pre-flash mid 679.38
+16:05:48  INFO    FLASH  NFLX order 0 ms after the event
+16:05:48  DEBUG   Placed: sell 10 NFLX @ 685.0800
+16:05:51  DEBUG   Ack: sell 10 NFLX @ 685.0800
+16:05:51  INFO    CANCEL sell 10 NFLX @ 685.08 (flash entry)
+16:05:52  INFO    FLASH  NFLX done: entry sent, 0 filled, 0 closed at the pre-flash mid
+16:06:01  INFO    HOTPATH on_tick: 17722 calls, mean 370 us, p50 414 us, p99 2176 us, max 26577 us
+16:06:01  INFO    HOTPATH time between ticks: 17721 calls, mean 135733 us, p50 101569 us, p99 110177 us, max 600645810 us
+16:06:01  INFO    HOTPATH message handling: 21209 calls, mean 490 us, p50 133 us, p99 10215 us, max 33572 us
+16:06:01  INFO    MSGS   30 orders, 7 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 7 cancels x $0.05 = $0.35 (0 of them lost the race to a fill)
+16:06:01  INFO    FLASH  4 flashes seen, an order on 4 (4 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:06:13  INFO    Fill: sold   1 VLTA @ 29.8400 (fee=0.2984)
+16:06:13  INFO    FILL   #20 sell   1 VLTA   @    29.84  notional     29.84  vs limit +0.0000 (quote, maker)  | bought and held 4, avg entry 29.9900
+16:06:13  DEBUG   Portfolio: net_worth=467518.02
+16:06:13  INFO    Fill: sold   2 VLTA @ 29.8400 (fee=0.5968)
+16:06:13  INFO    FILL   #21 sell   2 VLTA   @    29.84  notional     59.68  vs limit +0.0000 (quote, maker)  | bought and held 2, avg entry 29.9900
+16:06:13  DEBUG   Portfolio: net_worth=467517.70
+16:06:16  INFO    Fill: sold   2 VLTA @ 29.8400 (fee=0.5968)
+16:06:16  INFO    FILL   #22 sell   2 VLTA   @    29.84  notional     59.68  vs limit +0.0000 (quote, maker)  | bought and held 0, avg entry 0.0000
+16:06:16  DEBUG   Portfolio: net_worth=467517.24
+16:07:02  INFO    HOTPATH on_tick: 18312 calls, mean 374 us, p50 442 us, p99 2302 us, max 26577 us
+16:07:02  INFO    HOTPATH time between ticks: 18311 calls, mean 134641 us, p50 101621 us, p99 110199 us, max 600645810 us
+16:07:02  INFO    HOTPATH message handling: 21484 calls, mean 496 us, p50 131 us, p99 10005 us, max 33572 us
+16:07:02  INFO    MSGS   30 orders, 7 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 7 cancels x $0.05 = $0.35 (0 of them lost the race to a fill)
+16:07:02  INFO    FLASH  4 flashes seen, an order on 4 (4 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:08:02  INFO    HOTPATH on_tick: 18901 calls, mean 379 us, p50 453 us, p99 2400 us, max 26577 us
+16:08:02  INFO    HOTPATH time between ticks: 18900 calls, mean 133623 us, p50 101639 us, p99 110408 us, max 600645810 us
+16:08:02  INFO    HOTPATH message handling: 21727 calls, mean 501 us, p50 133 us, p99 9812 us, max 33572 us
+16:08:02  INFO    MSGS   30 orders, 7 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 7 cancels x $0.05 = $0.35 (0 of them lost the race to a fill)
+16:08:02  INFO    FLASH  4 flashes seen, an order on 4 (4 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:08:50  INFO    Session event: CALENDAR_EVENT — Earnings: AAPL moving -5.3%
+16:08:50  INFO    EVENT  CALENDAR_EVENT Earnings: AAPL moving -5.3%
+16:08:50  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 218.17 in 15s
+16:08:50  INFO    EVENT  AAPL fade-extra leg edge 1.58% — not traded
+16:08:50  INFO    EVENT  AAPL -5.28%: fade edge 4.22% vs round trip 4.00% — FADE 2 shares: sell down to 224.25, buy back after 15s at no more than 218.17
+16:08:50  INFO    ORDER  sell 2 AAPL @ 224.25 take (notional 448.50) — fade sell
+16:08:50  DEBUG   Placed: sell 2 AAPL @ 224.2500
+16:08:53  DEBUG   Ack: sell 2 AAPL @ 224.2500
+16:08:58  INFO    Fill: sold   2 AAPL @ 224.2500 (fee=4.4850)
+16:08:58  INFO    FILL   #23 sell   2 AAPL   @   224.25  notional    448.50  vs limit +0.0000 (fade sell, taker)  | bought and held 0, avg entry 0.0000
+16:08:58  DEBUG   Portfolio: net_worth=467298.47
+16:09:02  INFO    HOTPATH on_tick: 19488 calls, mean 387 us, p50 467 us, p99 2699 us, max 26577 us
+16:09:02  INFO    HOTPATH time between ticks: 19487 calls, mean 132678 us, p50 101672 us, p99 110177 us, max 600645810 us
+16:09:02  INFO    HOTPATH message handling: 22056 calls, mean 507 us, p50 135 us, p99 9941 us, max 38511 us
+16:09:02  INFO    MSGS   31 orders, 7 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 7 cancels x $0.05 = $0.35 (0 of them lost the race to a fill)
+16:09:02  INFO    FLASH  4 flashes seen, an order on 4 (4 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:09:05  INFO    ORDER  buy  2 AAPL @ 215.26 rest (notional 430.52) — fade rebuy (resting)
+16:09:05  DEBUG   Placed: buy 2 AAPL @ 215.2600
+16:09:07  DEBUG   Ack: buy 2 AAPL @ 215.2600
+16:09:07  INFO    CANCEL buy 2 AAPL @ 215.26 (fade rebuy (resting))
+16:09:08  INFO    ORDER  buy  2 AAPL @ 218.17 rest (notional 436.34) — fade rebuy (resting)
+16:09:08  DEBUG   Placed: buy 2 AAPL @ 218.1700
+16:09:10  DEBUG   Ack: buy 2 AAPL @ 218.1700
+16:09:17  INFO    Session event: TRADING_HALT — Trading halted on AAPL: AAPL velocity halt: 5.1% move in 60s (threshold 5.0%)
+16:09:17  INFO    EVENT  TRADING_HALT   Trading halted on AAPL: AAPL velocity halt: 5.1% move in 60s (threshold 5.0%)
+16:09:35  INFO    CANCEL buy 2 AAPL @ 218.17 (fade rebuy (resting))
+16:10:02  INFO    HOTPATH on_tick: 20078 calls, mean 391 us, p50 466 us, p99 2549 us, max 26577 us
+16:10:02  INFO    HOTPATH time between ticks: 20077 calls, mean 131773 us, p50 101659 us, p99 110314 us, max 600645810 us
+16:10:02  INFO    HOTPATH message handling: 22426 calls, mean 509 us, p50 138 us, p99 10269 us, max 38511 us
+16:10:02  INFO    MSGS   33 orders, 9 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 9 cancels x $0.05 = $0.45 (0 of them lost the race to a fill)
+16:10:02  INFO    FLASH  4 flashes seen, an order on 4 (4 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:10:32  INFO    CANCEL sell 5 META @ 575.79 (quote)
+16:10:33  INFO    ORDER  sell 5 META @ 575.13 rest (notional 2875.65) — mid 575.09 / mean 575.07, z +4.36, back at the mean
+16:10:33  DEBUG   Placed: sell 5 META @ 575.1300
+16:10:33  DEBUG   Ack: sell 5 META @ 575.1300
+16:11:00  INFO    Session event: FLASH — Flash: AMZN +1.80%, reverting over 2 ticks
+16:11:00  INFO    EVENT  FLASH          Flash: AMZN +1.80%, reverting over 2 ticks
+16:11:00  INFO    FLASH  AMZN +1.80% (reverts in 2 ticks): pre-flash mid 199.45, sell into it; strategy and stop-loss out of the name for 10s
+16:11:00  INFO    ORDER  sell 10 AMZN @ 201.25 rest (notional 2012.50) — flash +1.80% entry, pre-flash mid 199.45
+16:11:00  INFO    FLASH  AMZN order 0 ms after the event
+16:11:00  DEBUG   Placed: sell 10 AMZN @ 201.2500
+16:11:01  DEBUG   Ack: sell 10 AMZN @ 201.2500
+16:11:02  INFO    HOTPATH on_tick: 20668 calls, mean 394 us, p50 454 us, p99 2472 us, max 26577 us
+16:11:02  INFO    HOTPATH time between ticks: 20667 calls, mean 130916 us, p50 101632 us, p99 109512 us, max 600645810 us
+16:11:02  INFO    HOTPATH message handling: 22915 calls, mean 510 us, p50 142 us, p99 10513 us, max 38511 us
+16:11:02  INFO    MSGS   35 orders, 10 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 10 cancels x $0.05 = $0.50 (0 of them lost the race to a fill)
+16:11:02  INFO    FLASH  5 flashes seen, an order on 5 (5 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:11:03  INFO    CANCEL sell 10 AMZN @ 201.25 (flash entry)
+16:11:04  INFO    FLASH  AMZN done: entry sent, 0 filled, 0 closed at the pre-flash mid
+16:12:02  INFO    HOTPATH on_tick: 21258 calls, mean 394 us, p50 429 us, p99 2457 us, max 26577 us
+16:12:02  INFO    HOTPATH time between ticks: 21257 calls, mean 130105 us, p50 101589 us, p99 109705 us, max 600645810 us
+16:12:02  INFO    HOTPATH message handling: 23398 calls, mean 510 us, p50 143 us, p99 10873 us, max 38511 us
+16:12:02  INFO    MSGS   35 orders, 11 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 11 cancels x $0.05 = $0.55 (0 of them lost the race to a fill)
+16:12:02  INFO    FLASH  5 flashes seen, an order on 5 (5 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:13:02  INFO    HOTPATH on_tick: 21849 calls, mean 392 us, p50 407 us, p99 2325 us, max 26577 us
+16:13:02  INFO    HOTPATH time between ticks: 21848 calls, mean 129333 us, p50 101536 us, p99 109535 us, max 600645810 us
+16:13:02  INFO    HOTPATH message handling: 23861 calls, mean 507 us, p50 144 us, p99 10819 us, max 38511 us
+16:13:02  INFO    MSGS   35 orders, 11 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 11 cancels x $0.05 = $0.55 (0 of them lost the race to a fill)
+16:13:02  INFO    FLASH  5 flashes seen, an order on 5 (5 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:14:02  INFO    HOTPATH on_tick: 22441 calls, mean 390 us, p50 393 us, p99 2195 us, max 26577 us
+16:14:02  INFO    HOTPATH time between ticks: 22440 calls, mean 128600 us, p50 101507 us, p99 109406 us, max 600645810 us
+16:14:02  INFO    HOTPATH message handling: 24569 calls, mean 502 us, p50 133 us, p99 9556 us, max 38511 us
+16:14:02  INFO    MSGS   35 orders, 11 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 11 cancels x $0.05 = $0.55 (0 of them lost the race to a fill)
+16:14:02  INFO    FLASH  5 flashes seen, an order on 5 (5 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:14:04  INFO    Session event: CALENDAR — Upcoming: dividend META @ t1200
+16:14:04  INFO    EVENT  CALENDAR       Upcoming: dividend META @ t1200
+16:14:04  INFO    EVENT  window META: dividend expected in 120s — quotes pulled, no new strategy orders until 175s from now
+16:14:04  INFO    CANCEL sell 5 META @ 575.13 (quote)
+16:14:18  INFO    Session event: TRADING_RESUMED — Trading resumed on AAPL
+16:14:18  INFO    EVENT  TRADING_RESUMED Trading resumed on AAPL
+16:14:18  INFO    ORDER  buy  2 AAPL @ 224.30 take (notional 448.60) — fade rebuy (time)
+16:14:18  DEBUG   Placed: buy 2 AAPL @ 224.3000
+16:14:20  DEBUG   Ack: buy 2 AAPL @ 224.3000
+16:14:20  INFO    Fill: bought 2 AAPL @ 219.8500 (fee=4.3970)
+16:14:20  INFO    FILL   #24 buy    2 AAPL   @   219.85  notional    439.70  vs limit -4.4500 (fade rebuy (time), taker)  | bought and held 0, avg entry 0.0000
+16:14:20  DEBUG   Portfolio: net_worth=467125.04
+16:14:20  INFO    EVENT  FADE AAPL done: bought 2, sold 2, gross P&L +8.80
+16:15:02  INFO    HOTPATH on_tick: 23033 calls, mean 388 us, p50 363 us, p99 2095 us, max 26577 us
+16:15:02  INFO    HOTPATH time between ticks: 23032 calls, mean 127902 us, p50 101466 us, p99 108727 us, max 600645810 us
+16:15:02  INFO    HOTPATH message handling: 24972 calls, mean 500 us, p50 127 us, p99 9062 us, max 38511 us
+16:15:02  INFO    MSGS   36 orders, 12 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 12 cancels x $0.05 = $0.60 (0 of them lost the race to a fill)
+16:15:02  INFO    FLASH  5 flashes seen, an order on 5 (5 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:15:24  INFO    Session event: FLASH — Flash: NFLX -2.50%, reverting over 2 ticks
+16:15:24  INFO    EVENT  FLASH          Flash: NFLX -2.50%, reverting over 2 ticks
+16:15:24  INFO    FLASH  NFLX -2.50% (reverts in 2 ticks): pre-flash mid 650.01, buy into it; strategy and stop-loss out of the name for 10s
+16:15:24  INFO    ORDER  buy  10 NFLX @ 641.89 rest (notional 6418.90) — flash -2.50% entry, pre-flash mid 650.01
+16:15:24  INFO    FLASH  NFLX order 0 ms after the event
+16:15:24  DEBUG   Placed: buy 10 NFLX @ 641.8900
+16:15:27  DEBUG   Ack: buy 10 NFLX @ 641.8900
+16:15:28  INFO    CANCEL buy 10 NFLX @ 641.89 (flash entry)
+16:15:28  INFO    FLASH  NFLX done: entry sent, 0 filled, 0 closed at the pre-flash mid
+16:16:02  INFO    HOTPATH on_tick: 23625 calls, mean 386 us, p50 330 us, p99 1628 us, max 26577 us
+16:16:02  INFO    HOTPATH time between ticks: 23624 calls, mean 127239 us, p50 101412 us, p99 107995 us, max 600645810 us
+16:16:02  INFO    HOTPATH message handling: 25281 calls, mean 500 us, p50 123 us, p99 8672 us, max 38511 us
+16:16:02  INFO    MSGS   37 orders, 13 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 13 cancels x $0.05 = $0.65 (0 of them lost the race to a fill)
+16:16:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:17:02  INFO    HOTPATH on_tick: 24216 calls, mean 384 us, p50 311 us, p99 1470 us, max 26577 us
+16:17:02  INFO    HOTPATH time between ticks: 24215 calls, mean 126615 us, p50 101402 us, p99 107086 us, max 600645810 us
+16:17:02  INFO    HOTPATH message handling: 25472 calls, mean 501 us, p50 121 us, p99 8466 us, max 38511 us
+16:17:02  INFO    MSGS   37 orders, 13 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 13 cancels x $0.05 = $0.65 (0 of them lost the race to a fill)
+16:17:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:17:18  INFO    ORDER  sell 5 META @ 573.15 rest (notional 2865.75) — mid 573.00 / mean 572.99, z +0.42, back at the mean
+16:17:18  DEBUG   Placed: sell 5 META @ 573.1500
+16:17:19  DEBUG   Ack: sell 5 META @ 573.1500
+16:17:43  INFO    Fill: sold   1 META @ 573.1500 (fee=5.7315)
+16:17:43  INFO    FILL   #25 sell   1 META   @   573.15  notional    573.15  vs limit +0.0000 (quote, maker)  | bought and held 4, avg entry 578.8600
+16:17:43  DEBUG   Portfolio: net_worth=467043.11
+16:17:52  DEBUG   Portfolio: net_worth=467076.09
+16:17:52  INFO    Session event: DIVIDEND — META pays $0.50/share — longs credited, shorts debited, price marked down ex-dividend
+16:17:52  INFO    EVENT  DIVIDEND       META pays $0.50/share — longs credited, shorts debited, price marked down ex-dividend
+16:18:02  INFO    HOTPATH on_tick: 24804 calls, mean 382 us, p50 296 us, p99 1168 us, max 26577 us
+16:18:02  INFO    HOTPATH time between ticks: 24803 calls, mean 126034 us, p50 101443 us, p99 106594 us, max 600645810 us
+16:18:02  INFO    HOTPATH message handling: 26196 calls, mean 496 us, p50 105 us, p99 7651 us, max 38511 us
+16:18:02  INFO    MSGS   38 orders, 13 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 13 cancels x $0.05 = $0.65 (0 of them lost the race to a fill)
+16:18:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:19:02  INFO    HOTPATH on_tick: 25392 calls, mean 380 us, p50 279 us, p99 1095 us, max 26577 us
+16:19:02  INFO    HOTPATH time between ticks: 25391 calls, mean 125481 us, p50 101509 us, p99 105533 us, max 600645810 us
+16:19:02  INFO    HOTPATH message handling: 26870 calls, mean 491 us, p50 98 us, p99 6594 us, max 38511 us
+16:19:02  INFO    MSGS   38 orders, 13 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 13 cancels x $0.05 = $0.65 (0 of them lost the race to a fill)
+16:19:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:20:02  INFO    CANCEL sell 4 META @ 573.15 (quote)
+16:20:02  INFO    HOTPATH on_tick: 25980 calls, mean 379 us, p50 283 us, p99 1131 us, max 26577 us
+16:20:02  INFO    HOTPATH time between ticks: 25979 calls, mean 124954 us, p50 101611 us, p99 105350 us, max 600645810 us
+16:20:02  INFO    HOTPATH message handling: 27254 calls, mean 491 us, p50 93 us, p99 6102 us, max 38511 us
+16:20:02  INFO    MSGS   38 orders, 14 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 14 cancels x $0.05 = $0.70 (0 of them lost the race to a fill)
+16:20:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:20:02  INFO    ORDER  sell 4 META @ 572.52 rest (notional 2290.08) — mid 572.37 / mean 572.29, z +1.72, back at the mean
+16:20:02  DEBUG   Placed: sell 4 META @ 572.5200
+16:20:06  DEBUG   Ack: sell 4 META @ 572.5200
+16:21:02  INFO    HOTPATH on_tick: 26568 calls, mean 377 us, p50 285 us, p99 1179 us, max 26577 us
+16:21:02  INFO    HOTPATH time between ticks: 26567 calls, mean 124449 us, p50 101788 us, p99 105498 us, max 600645810 us
+16:21:02  INFO    HOTPATH message handling: 27840 calls, mean 487 us, p50 91 us, p99 5898 us, max 38511 us
+16:21:02  INFO    MSGS   39 orders, 14 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 14 cancels x $0.05 = $0.70 (0 of them lost the race to a fill)
+16:21:02  INFO    FLASH  6 flashes seen, an order on 6 (6 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:21:46  INFO    Session event: FLASH — Flash: ORCA -1.65%, reverting over 2 ticks
+16:21:46  INFO    EVENT  FLASH          Flash: ORCA -1.65%, reverting over 2 ticks
+16:21:46  INFO    FLASH  ORCA -1.65% (reverts in 2 ticks): pre-flash mid 27.26, buy into it; strategy and stop-loss out of the name for 10s
+16:21:46  INFO    ORDER  buy  10 ORCA @ 27.03 rest (notional 270.30) — flash -1.65% entry, pre-flash mid 27.26
+16:21:46  INFO    FLASH  ORCA order 0 ms after the event
+16:21:46  DEBUG   Placed: buy 10 ORCA @ 27.0300
+16:21:49  DEBUG   Ack: buy 10 ORCA @ 27.0300
+16:21:49  INFO    CANCEL buy 10 ORCA @ 27.03 (flash entry)
+16:21:50  INFO    FLASH  ORCA done: entry sent, 0 filled, 0 closed at the pre-flash mid
+16:22:02  INFO    HOTPATH on_tick: 27155 calls, mean 376 us, p50 293 us, p99 1185 us, max 26577 us
+16:22:02  INFO    HOTPATH time between ticks: 27154 calls, mean 123970 us, p50 102144 us, p99 105498 us, max 600645810 us
+16:22:02  INFO    HOTPATH message handling: 28138 calls, mean 487 us, p50 90 us, p99 6032 us, max 38511 us
+16:22:02  INFO    MSGS   40 orders, 15 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 15 cancels x $0.05 = $0.75 (0 of them lost the race to a fill)
+16:22:02  INFO    FLASH  7 flashes seen, an order on 7 (7 within 5 s, graded: at least a quarter); reaction median 0 ms, slowest 0 ms
+16:22:12  INFO    Fill: sold   1 META @ 572.5200 (fee=5.7252)
+16:22:12  INFO    FILL   #26 sell   1 META   @   572.52  notional    572.52  vs limit +0.0000 (quote, maker)  | bought and held 3, avg entry 578.8600
+16:22:12  DEBUG   Portfolio: net_worth=467156.64
+16:37:36  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 0.8s (attempt 1)
+16:37:37  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:37:37  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:37:37  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:37:37  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:40:07  WARNING trader midway_traders_trader_2: connection dropped (received 1011 (internal error) keepalive ping timeout; then sent 1011 (internal error) keepalive ping timeout) — reconnecting in 0.8s (attempt 1)
+16:40:08  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:40:09  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:40:09  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:40:09  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:41:07  WARNING trader midway_traders_trader_2: connection dropped (no close frame received or sent) — reconnecting in 2.3s (attempt 2)
+16:41:10  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:41:10  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:41:10  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:41:10  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:45:38  WARNING trader midway_traders_trader_2: connection dropped (sent 1011 (internal error) keepalive ping timeout; no close frame received) — reconnecting in 0.9s (attempt 1)
+16:45:39  INFO    Connected to wss://feed.algoarena-st.duckdns.org as midway_traders_trader_2 (trader)
+16:45:39  INFO    BOOKS  reconnect check PASS: books survived the drop
+16:45:39  INFO    Session event: FEE_SCHEDULE — Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
+16:45:39  INFO    EVENT  FEE_SCHEDULE   Venue fee schedule: taker 200.0 bps, maker rebate -50.0 bps
