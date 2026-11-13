@@ -17,7 +17,7 @@ from team.flash import FLASH_SHARES, QUIET_SEC, entry_order, exit_price, parse_f
 from team.hotpath import CANCEL_FEE_PER_ORDER, LatencyMeter, MessageMeter
 from team.mean_reversion_trader import MeanReversionTrader
 from team.momentum_trader import LONG_WINDOW, SHORT_WINDOW, MomentumTrader
-from team.rolling import RollingRange, RollingWindow
+from team.rolling import RollingRange, RollingWindow, Sampler
 from team.venue import TeamBot
 from tests.test_broker import ack_all, cancelled, handle, make as make_broker, places
 from tests.test_momentum_trader import Clock, FakeMarket, trend
@@ -75,9 +75,11 @@ def test_rolling_range_matches_max_and_min_of_the_window():
 def test_live_rolling_windows_give_the_same_averages_as_the_history():
     mids = trend(n=LONG_WINDOW + 30)
     offline = MomentumTrader(clock=Clock())
-    live = MomentumTrader(clock=Clock())
-    for x in mids:
+    clock = Clock()
+    live = MomentumTrader(clock=clock)
+    for x in mids:                           # one snapshot every 0.5 s
         live.on_book("AAA", x)
+        clock.t += 0.5
     market = FakeMarket({"AAA": mids})
     for size in (SHORT_WINDOW, LONG_WINDOW):
         assert live._rolling(market, "AAA", size).mean == pytest.approx(
@@ -85,12 +87,33 @@ def test_live_rolling_windows_give_the_same_averages_as_the_history():
 
 
 def test_mean_reversion_reads_the_live_window():
-    t = MeanReversionTrader(clock=Clock())
+    clock = Clock()
+    t = MeanReversionTrader(clock=clock)
     for x in [100.0] * 19 + [97.0]:
         t.on_book("AAA", x)
+        clock.t += 0.5
     w = t._rolling(None, "AAA", 20)          # no market needed once fed live
     assert w.full and w.last == 97.0
     assert w.mean == pytest.approx(statistics.fmean([100.0] * 19 + [97.0]))
+
+
+def test_a_fast_feed_fills_the_windows_at_the_tested_pace():
+    # Week 7 snapshots every 0.2 s; the windows were sized at 0.5 s.
+    clock = Clock()
+    t = MomentumTrader(clock=clock)
+    for i in range(500):                     # 100 s of a 0.2 s feed
+        t.on_book("AAA", 100.0 + i)
+        clock.t += 0.2
+    w = t._rolling(None, "AAA", LONG_WINDOW)
+    assert w.full
+    spacing = (w.last - w.mean) / ((LONG_WINDOW - 1) / 2)   # mids rise 1 per 0.2 s
+    assert spacing == pytest.approx(2.5, rel=0.05)         # one mid per 0.5 s
+
+
+def test_sampler_keeps_one_value_per_period_on_average():
+    s = Sampler(0.5)
+    taken = sum(s.due("A", i * 0.2) for i in range(1000))  # 200 s
+    assert taken == pytest.approx(400, abs=2)
 
 
 # ── flash pricing ───────────────────────────────────────────────────────────
@@ -300,7 +323,7 @@ def test_the_broker_quotes_one_level_a_side():
 
 
 def test_broker_width_from_the_rolling_range_matches_the_history():
-    b, sent, _ = make_broker()
+    b, sent, now = make_broker()
     rng = random.Random(5)
     marks = []
     for _ in range(LOOKBACK * 3):
@@ -308,6 +331,7 @@ def test_broker_width_from_the_rolling_range_matches_the_history():
         marks.append(px)
         asyncio.run(b._peek(BookSnapshot(symbol="AAPL", bids=[], asks=[], mid_price=px,
                                          spread=0.0, ref_price=px).model_dump_json()))
+        now[0] += 0.5
     b.state.exchange_prices["AAPL"] = marks[-1]
     expected = volatility_spread(marks[-1], marks)
     assert expected is not None

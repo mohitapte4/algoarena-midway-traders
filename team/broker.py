@@ -48,7 +48,7 @@ from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.flash import FlashLog, entry_order, parse_flash
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
-from team.rolling import RollingRange
+from team.rolling import RollingRange, Sampler
 from team.venue import TokenBucket, OwnOrders, Order
 from team.risk import TradingState
 
@@ -57,7 +57,8 @@ logger = logging.getLogger(__name__)
 # Volatility-adjusted width. `history` holds one venue mark per book update;
 # week 7 sends one every 0.2 s per name, so 25 points is the last ~5 seconds.
 # Live, the high and low of those points are kept in O(1) (team.rolling).
-LOOKBACK = 25
+LOOKBACK = 25           # marks, one per SAMPLE_SEC
+SAMPLE_SEC = 0.5
 CALM_BPS = 10.0         # recent range below this: keep the engine default
 WIDEN_FACTOR = 2.0      # quote width = 2 × the recent high-low range
 MAX_WIDEN_BPS = 150.0   # never wider than 1.5% of the price
@@ -227,6 +228,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._pulls: set[asyncio.Task] = set()      # event cancels in their grace
         # the recent high and low of each mark, for the quote width, O(1)
         self._ranges: dict[str, RollingRange] = {}
+        self._sampler = Sampler(SAMPLE_SEC)
         self._centre: dict[str, float] = {}         # last centre quoted around
         self.messages = MessageMeter()
         self.flash_log = FlashLog()
@@ -640,7 +642,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
             ref = msg.ref_price or msg.mid_price     # what the engine records
-            if ref and ref > 0:
+            if ref and ref > 0 and self._sampler.due(msg.symbol, self._clock()):
                 rng = self._ranges.get(msg.symbol)
                 if rng is None:
                     rng = self._ranges[msg.symbol] = RollingRange(LOOKBACK)

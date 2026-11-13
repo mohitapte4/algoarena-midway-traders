@@ -77,7 +77,7 @@ from team.flash import (
 )
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.risk import EventLimits, RiskLimits, TradingState
-from team.rolling import RollingWindow
+from team.rolling import RollingWindow, Sampler
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
 
 logger = logging.getLogger(__name__)
@@ -109,6 +109,7 @@ TICK_SIZE = 0.01
 REJECT_BUDGET = 8         # stop sending at this many rejects (limit is 10)
 REJECT_COOLDOWN_SEC = 10.0
 RATE_LIMIT_PAUSE_SEC = 1.0
+SAMPLE_SEC = 0.5          # one mid per 0.5 s into the windows (team.rolling.Sampler)
 LEDGER_SETTLE_SEC = 1.0   # trust the venue's positions this long after a fill
 WINDOW_MARGIN_SEC = 10.0  # event window extends this far past the deadline
 REACTION_EXPIRY_SEC = 45.0  # inside the session check's 60-tick window
@@ -217,6 +218,7 @@ class BaseTrader(Trader):
 
         # rolling statistics fed by every book update (on_book), O(1) each
         self._stats: dict[str, dict[int, RollingWindow]] = {}
+        self._sampler = Sampler(SAMPLE_SEC)
         self._book_feed = False
 
         # the hot path, measured
@@ -541,10 +543,13 @@ class BaseTrader(Trader):
         return sum(n for code, n in self.rejects.items() if code != "RATE_LIMITED")
 
     def on_book(self, symbol: str, mid: float) -> None:
-        """A book update (team.venue.TeamBot): O(1) per rolling window."""
+        """A book update (team.venue.TeamBot): O(1) per rolling window, at
+        most one mid per SAMPLE_SEC however fast the feed."""
         if not mid or mid <= 0:
             return
         self._book_feed = True
+        if not self._sampler.due(symbol, self._clock()):
+            return
         stats = self._stats.get(symbol)
         if stats is None:
             stats = self._stats[symbol] = {n: RollingWindow(n) for n in self.WINDOWS}
