@@ -405,6 +405,7 @@ class TeamBot(_AdaptedTraderBot):
             for order_id, symbol in self._owner.take_cancels():
                 await self._send(CancelOrder(team_id=_config.TEAM_ID,
                                              order_id=order_id, symbol=symbol))
+                self._books.cancel_sent()
 
     async def flatten_all_positions(self) -> None:
         """Do nothing: once SESSION_CLOSED arrives every order is rejected."""

@@ -19,7 +19,7 @@ import broker.config as broker_config
 import exchange.config as config
 from exchange.ipo import IPOOffering
 from exchange.server import ExchangeServer, Portfolio
-from shared.messages import (Leaderboard, OrderAck, SeatRequest, SessionEvent,
+from shared.messages import (ErrorMsg, Leaderboard, OrderAck, SeatRequest, SessionEvent,
                              TradeExecution, parse_message)
 from shared.orderbook import Trade
 from team.books import Bookkeeper, Books, VenueState, Verdict
@@ -610,3 +610,23 @@ def test_the_broker_seat_reconciles_its_own_books(venue, monkeypatch):
     assert "close" in recon.title
     assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
     assert recon.row("pos AAPL").venue == -20
+
+
+def test_cancel_fees_reconcile(venue):
+    # Week 7 bills $0.05 for a cancel that removes a resting order, inside
+    # the venue's fees and cash; no message confirms a cancel, so the seat
+    # books one as it sends it, and gets it back on ORDER_NOT_FOUND.
+    venue.scenario.flags["cancellation_fees"] = True
+    seat = Seat(venue)
+    a_session(seat)
+    seat.on_message(SessionEvent(event="SESSION_OPEN", message="",
+                                 data={"scenario": {"flags": dict(venue.scenario.flags)}}))
+    for _ in range(3):                                   # removed a resting order
+        seat.keeper.cancel_sent()
+        venue._charge_cancel_fee("me", SimpleNamespace(remaining=10))
+    seat.keeper.cancel_sent()                            # lost the race to a fill
+    seat.on_message(ErrorMsg(code="ORDER_NOT_FOUND", message="Order 'x' not found"))
+    seat.ticks(1)
+    recon = seat.close()
+    assert recon.verdict is Verdict.PASS, "\n".join(recon.format())
+    assert recon.row("fees").ok

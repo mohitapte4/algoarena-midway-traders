@@ -51,10 +51,11 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable
 
-from shared.messages import (BookSnapshot, Leaderboard, PortfolioUpdate,
+from shared.messages import (BookSnapshot, ErrorMsg, Leaderboard, PortfolioUpdate,
                              SessionEvent, TradeExecution)
 
 from team.config import CASH_INTEREST_PER_TICK
+from team.hotpath import CANCEL_FEE_PER_ORDER
 
 logger = logging.getLogger(__name__)
 
@@ -266,6 +267,11 @@ class Books:
 
     def apply_charge(self, amount: float) -> None:
         self.cash -= amount
+
+    def apply_cancel_fee(self, fee: float) -> None:
+        """A cancellation fee (week 7): the venue counts it in its fees."""
+        self.cash -= fee
+        self.fees += fee
 
     def settle_future(self, symbol: str, mark: float) -> None:
         """Variation margin: the gain or loss since the entry is paid in cash
@@ -512,6 +518,7 @@ class Bookkeeper:
         self._unsettled = False
         self._update_since_boundary = False
         self._futures: set[str] = set()
+        self._cancel_fees = False   # the week bills cancels (SESSION_OPEN flags)
         self._liquidating = False
         self._team = _team_slug(seat)
         self._seat_cost: float | None = None
@@ -521,6 +528,7 @@ class Bookkeeper:
             PortfolioUpdate: self._on_update,
             Leaderboard: self._on_leaderboard,
             SessionEvent: self._on_event,
+            ErrorMsg: self._on_error,
         }
         self._events = {
             "IPO_PRICED": self._on_ipo,
@@ -629,7 +637,25 @@ class Bookkeeper:
             self.books.apply_dividend(data["symbol"],
                                       float(data.get("amount_per_share", 0.0)))
 
+    def cancel_sent(self) -> None:
+        """The seat sent a cancel. No message confirms one, so it is billed
+        here and refunded if the venue answers that it billed nothing."""
+        if self._cancel_fees and self.books is not None:
+            self.books.apply_cancel_fee(CANCEL_FEE_PER_ORDER)
+
+    def _on_error(self, msg: ErrorMsg) -> None:
+        # The venue bills a cancel only when it removes a resting order: one
+        # that lost the race to a fill (ORDER_NOT_FOUND) or was over the
+        # quota (RATE_LIMITED without "requot", the order variant) is free.
+        refused = (msg.code == "ORDER_NOT_FOUND"
+                   or (msg.code == "RATE_LIMITED" and "requot" not in msg.message.lower()))
+        if refused and self._cancel_fees and self.books is not None:
+            self.books.apply_cancel_fee(-CANCEL_FEE_PER_ORDER)
+
     def _on_open(self, event: SessionEvent) -> None:
+        flags = ((event.data or {}).get("scenario") or {}).get("flags") or {}
+        if "cancellation_fees" in flags:
+            self._cancel_fees = flags["cancellation_fees"] is True
         if (self.books is not None and self._update is not None
                 and self._update_since_boundary):
             gaps = {s: q - self.books.positions.get(s, 0)

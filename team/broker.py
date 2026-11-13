@@ -320,6 +320,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self.messages.order()
         elif isinstance(msg, CancelOrder):
             self.messages.cancel()
+            self._books.cancel_sent()
         return True
 
     def _risk_refusal(self, msg: PlaceOrder) -> str | None:
