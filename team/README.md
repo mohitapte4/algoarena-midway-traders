@@ -22,10 +22,10 @@ What is new this week, and what the seats do about it:
 | Requirement | How the seats meet it |
 | --- | --- |
 | Quota rejections under 5% of messages | The venue meters 8 orders + cancels per 1 s tick for the whole team on each venue (burst 24). The seats pace themselves to 7.5 a second: broker 4.5 (per venue), each trader 1.5 (burst 3). The broker quotes one level a side instead of three, so a requote is at most 4 messages, and requotes after an 8 bp move instead of 5. A `RATE_LIMITED` answer pauses the seat for a tick and does not count toward the reject budget, so it can never stop a seat. |
-| An order on the flashed symbol, on that venue, within 5 s, for at least a quarter of the flashes | On a `FLASH` event each trader sends its entry at once, from the event handler, not on the next tick: a maker sell half way into a jump up, or a maker bid half way into a drop (`team/flash.py`). The broker does the same on each of its two venues, after pulling its quotes in the name. Each seat logs the reaction time of every flash. |
-| Hot path O(1) | The strategies' averages and standard deviation are rolling windows fed by each book update (`team/rolling.py`); the broker's quote width uses a rolling high/low. Nothing rescans the price history per message. |
+| An order on the flashed symbol, on that venue, within 5 s, for at least a quarter of the flashes | The venue sends `FLASH` one tick *before* the price jumps. On the event each trader sends its entry at once, from the event handler, not on the next tick: a maker sell half way into a jump up, or a maker bid half way into a drop, priced from the event's `start_price` (`team/flash.py`). So the order rests before the jump arrives. The broker does the same on each of its two venues, after pulling its quotes in the name. Each seat logs the reaction time of every flash. |
+| Hot path O(1) | The strategies' averages and standard deviation are rolling windows fed by each book update (`team/rolling.py`); the broker's quote width uses a rolling high/low. Nothing rescans the price history per message. The windows take at most one mid per 0.5 s (`Sampler`), the pace their sizes were tested at: on the 0.2 s feed, 10/40 would otherwise span 2 s / 8 s, which lost money on the Week 5 tape. |
 | Connected ≥ 80% of the block | Unchanged: reconnect with backoff (`team/reconnect.py`). |
-| Know the cancellation-fee bill | The venue charges $0.05 for each cancel that removes a resting order. Every seat logs its orders, cancels, quota rejections and the cancel bill once a minute (`MSGS`) and at the close. |
+| Know the cancellation-fee bill | Every cancel is billed, $0.05 each (Ed #102). The broker keeps a quote whose price and size have not changed instead of cancelling and re-placing it, and refreshes unmoved quotes after 300 s instead of 30 s (on Nov 6 that refresh was most of its 3,071 requotes). Every seat logs its orders, cancels, quota rejections and the cancel bill once a minute (`MSGS`) and at the close. |
 | Decide what to buy in purchase window 2 | See below. |
 
 A flash is an unannounced 1.5–2.5% jump in one symbol on one venue that
@@ -46,9 +46,18 @@ exit after 30 s.
 | 16:00:12 | t1200 | META dividend, $0.50 a share        |
 | 15:40–16:30 | — | about 15–20 unannounced flashes, at least 40 ticks from the events |
 
-Direction is unknown for all of them. Borrow tightens (short locate cap
-1,200 shares for the team); the seats' short limits (100 for trader_1, 150
-for the broker) stay inside it.
+Direction is unknown for all of them. Borrow tightens: the short locate cap
+is 1,200 shares per symbol across the whole market, so other teams' shorts
+use it up too. A seat refused a short (`BORROW_UNAVAILABLE` or
+`SSR_RESTRICTED`) stops shorting that name for the rest of the session, so
+it does not spend its reject budget retrying.
+
+**Fixed on Nov 12: the risk limits counted the starting grant.** The
+broker's gross limit (20% of equity) and the traders' concentration and
+gross limits counted the shares the venue grants at the open. From Week 5
+on, the broker sent no bids at all (0 buys in Weeks 5 and 6), and on Nov 6
+trader_2's buys were cut to 0. The limits now count only what each seat
+traded. A refused broker order is logged as `RISK ... not sent: <reason>`.
 
 **Purchase window 2.** Our plan is to buy nothing. Every add-on's price is
 paid from the bots' cash and counts against this block's score, and none of
@@ -59,21 +68,37 @@ not needed: the seats are paced inside 8 a tick. If the team decides
 otherwise, buy in the dashboard (MY TEAM → UPGRADE SHOP) between 15:30 and
 16:30 only.
 
-Flashes and the fast feed only run in the graded block, and the offline
-simulator that plays them has not been released yet (it will be announced on
-Ed), so the flash code is covered by unit tests (`tests/test_week7.py`) and
-not yet by a replay.
+Flashes and the fast feed run on the hosted venue only in the graded
+block, but the course engine (pulled Nov 12, Ed #104) plays them locally.
+`season/week07.json` has the real rules: snapshots every 0.2 s and a flash
+about every 150 ticks.
 
-We ran a compressed Week 7 rehearsal on Nov 12 on the local venue: the
-week-7 scenario (quota 8 a tick, 200 ms latency, cancel fees), book snapshots
-every 0.2 s, and the four events moved into the first 4 minutes. Over about
-5 minutes of trading the venue sent no `RATE_LIMITED` at all. The broker sent
-38 orders and 36 cancels, a $1.80 cancel bill; each trader sent 9 orders and
-1 cancel. Each seat handled about 16,500 venue messages (55 a second), at a
-mean of 23 µs and a p99 of about 0.14 ms each. `on_tick` took 0.16 ms on
-average (p99 0.5 ms), and the 0.1 s tick loop never fell behind (p99 gap
-0.113 s). No seat raised an error. The local venue has no flashes and no
-other bots, so the flash reactions and fills were not exercised there.
+We ran all three seats against a local week-7 venue on Nov 12 for 12
+minutes, with flashes every ~50 ticks so more of them fit in. There were
+10 flashes (6 drops, 4 rises), the TSLA earnings and the econ print.
+
+| Seat | Flashes with an order within 5 s | Reaction (median) | `RATE_LIMITED` | Cancel bill |
+| --- | --- | --- | --- | --- |
+| broker | 9 of 10 | 52 ms | 0 | $35.80 |
+| trader_1 | 10 of 10 | 0 ms | 0 | $4.80 |
+| trader_2 | 10 of 10 | 0 ms | 0 | $0.70 |
+
+No rejects and no errors. Each seat handled about 55 venue messages a
+second at a p99 of about 0.2 ms each; `on_tick` p99 was about 0.5 ms, and
+the 0.1 s tick loop kept pace. The broker's one miss was a buy its 20%
+traded-exposure limit refused, which binds sooner on the local venue's
+$158k equity than on the house venue's ~$300k. The local market drifts much
+more than the hosted one (AMD moved 5% in 7 minutes), so the broker
+requoted on real 8 bp moves more often than it will on Friday.
+
+To repeat it (two terminals, plus one per seat as below):
+
+    GAME_WEEK=7 SESSION_AUTOOPEN=true make exchange EXCHANGE_PORT=8799
+    make momentum EXCHANGE_URL=ws://127.0.0.1:8799 EXCHANGE_URLS=ws://127.0.0.1:8799
+
+Offline, `make season WEEK=7` plays the week against the house bots (not
+our code), and `make backtest` replays a recorded tape through a trader
+seat.
 
 **Before the block**
 
