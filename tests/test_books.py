@@ -240,7 +240,9 @@ def venue(monkeypatch):
 
 
 def a_session(seat: Seat) -> None:
-    """Long and short, taker and maker, a flip, carry and idle-cash interest."""
+    """Long and short, taker and maker, a flip, carry and idle-cash interest.
+    The venue finances only a scored week."""
+    seat.srv.scenario.week, seat.srv.scenario.scoring_counts = 2, True
     seat.connect()
     seat.trade("buy", "AAPL", 40, 210.0, taker=True)
     seat.trade("sell", "AAPL", 15, 214.5, taker=False)
@@ -331,6 +333,7 @@ def test_futures_and_a_settlement_reconcile(venue):
 def test_liquidation_of_this_seat_reconciles(venue, caplog):
     """A futures blow-up with cash still positive: the venue closes both
     positions at a penalty, sends no fills, and pays no interest after."""
+    venue.scenario.week, venue.scenario.scoring_counts = 2, True
     seat = Seat(venue)
     seat.connect()
     seat.trade("buy", "AAPL", 100, 200.0, taker=True)
