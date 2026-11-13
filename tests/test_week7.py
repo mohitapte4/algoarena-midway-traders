@@ -401,3 +401,13 @@ def test_a_bid_the_risk_check_refused_does_not_trigger_a_requote(monkeypatch):
     asyncio.run(b.quote_symbol("AAPL"))
     ack_all(b, sent)
     assert not b.needs_requote("AAPL", b.quote_centre("AAPL"))
+
+
+def test_broker_stops_shorting_a_name_the_venue_will_not_lend():
+    b, sent, _ = make_broker(positions={"AAPL": 0}, flags={"shorts_allowed": True})
+    assert b._ask_room("AAPL") > 0
+    asyncio.run(b._on_error(ErrorMsg(
+        code="BORROW_UNAVAILABLE",
+        message="No borrow: 1195 of 1200 AAPL shares already short across the market")))
+    assert b._ask_room("AAPL") == 0
+    assert b._ask_room("AMD") > 0

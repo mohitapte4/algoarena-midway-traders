@@ -92,6 +92,10 @@ EVENT_CANCEL_GRACE_SEC = 0.05
 _NOT_FOUND = re.compile(r"Order '([^']+)' not found")
 _STP = re.compile(r"resting (buy|sell) \d+ (\S+) @ ([\d.]+)")
 _HALTED = re.compile(r"^(\S+) trading is halted")
+# Shorts the venue refused: the market-wide borrow pool (1,200 a symbol in
+# week 7) or the short-sale rule. Both hold for the rest of the session.
+_NO_BORROW = re.compile(r"of \d+ (\S+) shares already short")
+_SSR = re.compile(r"^(\S+) is under the short-sale rule")
 
 
 def volatility_spread(price, history) -> float | None:
@@ -198,6 +202,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # Shares an order took as a taker before its ack arrived.
         self._taken: dict[tuple[str, str], int] = {}
         self._shorts_allowed = False        # until the open says otherwise
+        self._no_short: set[str] = set()    # refused a short: borrow or SSR
         # Sides the risk check would not let us quote at the last requote:
         # an empty side there is intended, not a quote that was taken.
         self._unquoted: dict[str, set[str]] = {}
@@ -399,7 +404,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         while shorts are allowed (the venue rejects a sell below 0
         otherwise, ignoring our resting sells)."""
         held = self.state.positions.get(symbol, 0)
-        if self._shorts_allowed:
+        if self._shorts_allowed and symbol not in self._no_short:
             return max(held + self._max_inventory(symbol), 0)
         return max(held, 0)
 
@@ -668,6 +673,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self._risk_orders.on_reject(msg.code, msg.message)
         self._errors += 1
         halted = _HALTED.search(msg.message) if msg.code == "SYMBOL_HALTED" else None
+        refused = (_NO_BORROW.search(msg.message) if msg.code == "BORROW_UNAVAILABLE"
+                   else _SSR.search(msg.message) if msg.code == "SSR_RESTRICTED"
+                   else None)
+        if refused:
+            # Retrying on every requote would spend the error budget.
+            self._no_short.add(refused.group(1))
+            logger.warning("No more shorts in %s this session: %s",
+                           refused.group(1), msg.message)
         if halted:
             self.trading_state.halted_reject(halted.group(1), msg.message)
         if msg.code == "STP_CANCEL":
