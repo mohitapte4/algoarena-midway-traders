@@ -43,6 +43,7 @@ def make(positions=None, prices=None, flags=None):
 
     async def send(msg):
         sent.append(msg)
+        return True
 
     b._send = send
     now = [0.0]

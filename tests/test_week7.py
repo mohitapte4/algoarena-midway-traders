@@ -9,7 +9,7 @@ import statistics
 
 import pytest
 
-from shared.messages import BookSnapshot, ErrorMsg, SessionEvent
+from shared.messages import BookSnapshot, ErrorMsg, PlaceOrder, SessionEvent
 from team import broker as team_broker
 from team.base_trader import ORDER_BURST, ORDERS_PER_SEC, REJECT_BUDGET
 from team.broker import LOOKBACK, MESSAGES_PER_SEC, QUOTE_LEVELS, volatility_spread
@@ -22,6 +22,7 @@ from team.venue import TeamBot
 from tests.test_broker import handle, make as make_broker, places
 from tests.test_momentum_trader import Clock, FakeMarket, trend
 from tests.test_rejects import ready
+from tests.test_week5 import live_broker
 
 logging.disable(logging.CRITICAL)
 
@@ -341,3 +342,29 @@ def test_broker_bids_into_a_flash_down():
     handle(b, SessionEvent(event="FLASH", message="AAPL flash",
                            data={"symbol": "AAPL", "pct": -0.02, "revert_ticks": 2}))
     assert [(m.price, m.quantity) for m in places(sent, "buy")] == [(99.0, 10)]
+
+
+# ── broker: exposure from the opening grant, and quotes that stay put ──────
+
+def _send(b, side, symbol, qty, price=100.0):
+    return asyncio.run(b._send(PlaceOrder(order_type="limit", team_id="me",
+                                          symbol=symbol, side=side,
+                                          price=price, quantity=qty)))
+
+
+def test_broker_bids_although_its_opening_grant_is_most_of_its_equity(monkeypatch):
+    # Nov 6: the grant was 78% of equity and every bid was dropped unsent.
+    b, sent, _ = live_broker(monkeypatch, cash=20_000,
+                             positions={"AAPL": 100, "AMD": 100})
+    assert _send(b, "buy", "AAPL", 10)
+    assert places(sent, "buy")
+
+
+def test_broker_traded_exposure_still_stops_at_a_fifth_of_equity(monkeypatch, caplog):
+    b, sent, _ = live_broker(monkeypatch, cash=20_000,
+                             positions={"AAPL": 100, "AMD": 100})
+    assert _send(b, "buy", "AAPL", 50)                   # $5k of $8k
+    with caplog.at_level(logging.INFO, logger="team.broker"):
+        assert not _send(b, "buy", "AMD", 40)            # $9k: past it
+    assert len(places(sent, "buy")) == 1
+    assert "traded gross" in caplog.text                 # said why, in the log

@@ -270,13 +270,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 with contextlib.suppress(Exception):
                     await self._ws.close()
 
-    async def _send(self, msg) -> None:
+    async def _send(self, msg) -> bool:
         """Send, pacing orders and cancels inside the team's message quota.
 
         A requote is a cancel and a replace of every level, and the venue
         refuses whatever goes past the quota (week-3 dry run: 69
         RATE_LIMITED in the first two seconds), so a send waits its turn.
-        Orders still waiting when the session closes are dropped.
+        Orders still waiting when the session closes are dropped. Returns
+        whether the message went out.
         """
         if isinstance(msg, (PlaceOrder, CancelOrder)):
             while not self._bucket.take(self._clock()):
@@ -284,13 +285,17 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # A requote waiting its turn can outlive the session (dry run: 3
         # SESSION_CLOSED); once it is closed only cancels are accepted.
         if isinstance(msg, PlaceOrder) and not self._session_open:
-            return
+            return False
         if isinstance(msg, PlaceOrder):
             # Recheck after pacing: a halt/portfolio update can arrive while
             # waiting for the next message slot.
-            if (self.trading_state.blocked(msg.symbol)
-                    or not self._approve_risk(msg)):
-                return
+            if self.trading_state.blocked(msg.symbol):
+                return False
+            refusal = self._risk_refusal(msg)
+            if refusal:
+                logger.info("RISK %s %d %s @ %.2f not sent: %s", msg.side,
+                            msg.quantity, msg.symbol, msg.price, refusal)
+                return False
             self._risk_orders.add(Order(
                 msg.symbol, msg.side, msg.price, msg.quantity,
                 self._clock(), "broker", False))
@@ -303,23 +308,30 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self.messages.order()
         elif isinstance(msg, CancelOrder):
             self.messages.cancel()
+        return True
 
-    def _approve_risk(self, msg: PlaceOrder) -> bool:
-        """No borrowing; reserve pending orders and leave cash/equity buffers.
+    def _risk_refusal(self, msg: PlaceOrder) -> str | None:
+        """Why this order must not go out, or None to send it.
 
+        No borrowing; reserve pending orders and leave cash/equity buffers.
         Risk-reducing orders remain possible when the equity floor is hit.
         An authoritative portfolio and prices for every holding are required.
+
+        The gross limit counts what the broker has traded, not the shares
+        the venue granted at the open: the grant alone was 78% of equity on
+        Nov 6, so a limit on the whole position refused every bid from
+        Week 5 on (0 buys in Weeks 5 and 6).
         """
         if not self._risk_ready or not msg.price:
-            return False
+            return "no portfolio from the venue yet"
         self._risk_orders.expire(self._clock(), unacked=False)
         prices = self.state.exchange_prices
         if any(not prices.get(s) for s, q in self.state.positions.items() if q):
-            return False
+            return "no price for a holding"
         equity = self.state.cash + sum(q * prices[s]
                                       for s, q in self.state.positions.items() if q)
         if equity <= 0:
-            return False
+            return "no equity"
         if self._initial_equity is None:
             self._initial_equity = equity
         held = self.state.positions.get(msg.symbol, 0)
@@ -329,21 +341,44 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         projected = (held + buys + msg.quantity if msg.side == "buy"
                      else held - sells - msg.quantity)
         if abs(projected) > cap and abs(projected) >= abs(held):
-            return False
+            return f"inventory {projected:+d} past the {cap}-share cap"
         reducing = ((msg.side == "sell" and 0 < msg.quantity <= max(0, held - sells))
                     or (msg.side == "buy" and 0 < msg.quantity <= max(0, -held - buys)))
-        reserved = sum(o.quantity * o.price for o in self._risk_orders)
         notional = msg.quantity * msg.price
         if msg.side == "buy":
             # Includes all outstanding buys, not just this symbol's ladder.
             cash_room = self.state.cash - self._risk_orders.open_buy_notional() * 1.01
             if notional * 1.01 > cash_room - (0 if reducing else equity * 0.10):
-                return False
+                return "cash buffer"
         if reducing:
-            return True
-        gross = sum(abs(q) * prices[s] for s, q in self.state.positions.items() if q)
-        return (equity >= (self._initial_equity or equity) * 0.80
-                and gross + reserved + notional <= equity * 0.20)
+            return None
+        if equity < (self._initial_equity or equity) * 0.80:
+            return "equity 20% below the open"
+        gross = self._traded_gross(msg)
+        if gross > equity * 0.20:
+            return f"traded gross {gross:,.0f} past 20% of equity {equity:,.0f}"
+        return None
+
+    def _traded_gross(self, msg: PlaceOrder) -> float:
+        """Notional the broker would hold away from its opening grant if
+        every resting order, and `msg`, filled on its worse side."""
+        opening = self._opening or {}
+        positions = self.state.positions
+        symbols = ({s for s, q in positions.items() if q} | set(opening)
+                   | {o.symbol for o in self._risk_orders} | {msg.symbol})
+        gross = 0.0
+        for s in symbols:
+            traded = positions.get(s, 0) - opening.get(s, 0)
+            buys = self._risk_orders.open_quantity(s, "buy")
+            sells = self._risk_orders.open_quantity(s, "sell")
+            if s == msg.symbol:
+                if msg.side == "buy":
+                    buys += msg.quantity
+                else:
+                    sells += msg.quantity
+            worst = max(abs(traded + buys), abs(traded - sells))
+            gross += worst * (self.state.exchange_prices.get(s) or msg.price)
+        return gross
 
     # ── quoting ─────────────────────────────────────────────────────────
 
@@ -812,9 +847,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             if qty < 1:
                 logger.info("FLASH %s: no room to %s, quotes pulled only", symbol, side)
                 return
-            await self._send(PlaceOrder(team_id=_config.TEAM_ID, symbol=symbol,
-                                        side=side, order_type="limit", price=price,
-                                        quantity=qty))
+            sent = await self._send(PlaceOrder(team_id=_config.TEAM_ID, symbol=symbol,
+                                               side=side, order_type="limit",
+                                               price=price, quantity=qty))
+            if not sent:
+                logger.info("FLASH %s: %s %d @ %.2f not sent", symbol, side, qty, price)
+                return
             waited = self._clock() - t0
             self.flash_log.reacted(waited)
             logger.info("FLASH %s %s %d @ %.2f (maker) %.0f ms after the event",
