@@ -9,7 +9,7 @@ import pytest
 from websockets.exceptions import ConnectionClosed, InvalidHandshake
 
 from shared.messages import ErrorMsg, Handshake, OrderAck, SessionEvent, TradeExecution
-from team.base_trader import ORDERS_PER_SEC, REJECT_BUDGET, SEAT_MAX_SHARES
+from team.base_trader import ORDER_BURST, REJECT_BUDGET, SEAT_MAX_SHARES
 from team.momentum_trader import MomentumTrader
 from team.reconnect import backoff_delay, run_with_backoff
 from team.venue import CANCEL_GRACE_SEC, OwnOrders, TeamBot
@@ -99,7 +99,7 @@ def test_order_rate_is_paced():
     t, m, p, c = ready(positions={s: 20 for s in "ABCDEFGH"})
     sent = sum(t._place(s, "sell", 1, 100.0, c.t, "test", taker=False) is not None
                for s in "ABCDEFGH")
-    assert sent == ORDERS_PER_SEC
+    assert sent == ORDER_BURST          # a full bucket, then nothing until it refills
 
 
 def test_reject_budget_stops_all_orders():
@@ -323,10 +323,10 @@ def test_broker_keeps_the_default_width_when_calm():
 
 
 def test_broker_widens_on_a_ramp_but_never_past_the_cap():
-    from team.broker import MAX_WIDEN_BPS, volatility_spread
-    ramp = [195.0 * (1 + 0.004 * i) for i in range(12)]           # +4.4% in 12 updates
+    from team.broker import LOOKBACK, MAX_WIDEN_BPS, volatility_spread
+    ramp = [195.0 * (1 + 0.002 * i) for i in range(LOOKBACK + 2)]  # +5% in 27 updates
     width = volatility_spread(ramp[-1], ramp)
     assert width > 0.30
     assert width <= ramp[-1] * MAX_WIDEN_BPS / 10_000 + 1e-9
-    chop = [195.0, 195.3] * 6                                      # 15 bp chop
+    chop = [195.0, 195.3] * LOOKBACK                               # 15 bp chop
     assert volatility_spread(195.0, chop) == pytest.approx(0.6)   # 2 × range

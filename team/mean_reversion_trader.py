@@ -29,7 +29,6 @@ from __future__ import annotations
 
 import logging
 import os
-import statistics
 
 from team.base_trader import BaseTrader, Signal, configure_logging
 from team.events import FADE
@@ -40,28 +39,32 @@ WINDOW = 20
 ENTRY_Z = 2.0             # buy at this many standard deviations below the mean
 MIN_DEVIATION = 0.005     # ...and at least 0.5% below it, to clear costs
 QUANTITY = 5              # shares per quote
+FLAT_STD = 1e-9           # a std this small next to the price is a flat window
 
 
 class MeanReversionTrader(BaseTrader):
     """Quotes dips below the 20-tick average and offers the recovery."""
 
     EVENT_MODES = frozenset({FADE})
+    WINDOWS = (WINDOW,)
 
     def _signal(self, market, portfolio, net_worth: float, now: float,
                 halted: bool) -> Signal | None:
-        """Z-score entry, exit at the mean."""
+        """Z-score entry, exit at the mean.
+
+        Mean and standard deviation are rolling (team.rolling): O(1) per
+        symbol per tick instead of a pass over the last 20 mids.
+        """
         min_deviation = max(MIN_DEVIATION, self.min_edge())
         for symbol in sorted(market.symbols()):
             if self._in_window(symbol, now):
                 continue
-            hist = market.prices(symbol)
-            if len(hist) < WINDOW:
+            window = self._rolling(market, symbol, WINDOW)
+            if window is None or not window.full:
                 continue
-            window = hist[-WINDOW:]
-            mean = statistics.fmean(window)
-            std = statistics.pstdev(window, mean)
-            last = window[-1]
-            if mean <= 0 or std <= 0:
+            mean, std, last = window.mean, window.pstdev, window.last
+            # Rounding in the running sums leaves a flat window a tiny std.
+            if mean <= 0 or std <= mean * FLAT_STD:
                 continue
             z = (last - mean) / std
             reason = f"mid {last:.2f} / mean {mean:.2f}, z {z:+.2f}"

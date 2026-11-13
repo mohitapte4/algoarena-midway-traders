@@ -5,6 +5,10 @@ A strategy subclasses BaseTrader and implements `_signal()`. Everything else
 is common to every seat, so each strategy gets the same protections.
 
 Every tick, in order:
+  0. Flashes (team.flash, week 7): a FLASH event's entry is sent the moment
+     the event arrives (team.venue.TeamBot), and again from the tick if that
+     failed; the tick then expires the entry and rests the exit at the
+     pre-flash mid. While a flash plays out, steps 3-5 leave the name alone.
   1. Nothing is sent during the pre-open auction, after the reject budget is
      spent, or before the exchange has sent the seat's portfolio (it does so
      after the first fill) — except the starter order and event reactions.
@@ -37,9 +41,17 @@ to refuse it — the seat must stay under 10 rejected orders a session:
     seat's own resting order waits for that order to be cancelled first
     (self-trade prevention cancels it and counts a reject);
   * prices stay inside the venue's LULD band;
-  * orders and cancels are paced well inside the team's message quota.
+  * orders and cancels are paced well inside the team's message quota
+    (ORDERS_PER_SEC, ORDER_BURST).
 Rejects that still happen pause the symbol, and at REJECT_BUDGET the seat
-stops sending orders for the rest of the session.
+stops sending orders for the rest of the session. A RATE_LIMITED answer is
+not counted toward that budget: it pauses the seat for a tick, and a refused
+cancel is sent again.
+
+The hot path is O(1) per message: the strategies read rolling windows fed by
+each book update (on_book, team.rolling), and the time on_tick and message
+handling take is logged once a minute with the message count, the quota
+rejections and the cancellation-fee bill (team.hotpath).
 """
 
 from __future__ import annotations
@@ -60,7 +72,12 @@ from team.events import (
     DEFAULT_OVERSHOOT, DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC, FADE, RIDE,
     EventPlan, designed_edge, size_fraction,
 )
+from team.flash import (
+    FLASH_SHARES, QUIET_SEC, FlashLog, FlashPlan, entry_order, exit_price, parse_flash,
+)
+from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.risk import EventLimits, RiskLimits, TradingState
+from team.rolling import RollingWindow
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
 
 logger = logging.getLogger(__name__)
@@ -83,7 +100,9 @@ SEAT_MAX_SHARES = 200     # per symbol: held + on order. The team limit (800
                           # MAX_INVENTORY = 150), so 2 × 200 + 150 stays under.
 PRICE_BAND = 0.09         # venue rejects limits beyond ±10% of the mark by
                           # default; a week's LULD_BAND_PCT can tighten it
-ORDERS_PER_SEC = 4.0      # orders + cancels; the team shares 20 per tick
+ORDERS_PER_SEC = 1.5      # orders + cancels. Week 7 meters 8 messages per
+ORDER_BURST = 3.0         # 1 s tick for the whole team on a venue (burst 24):
+                          # broker 4.5 + two seats at 1.5 = 7.5 a second
 QUOTE_DRIFT = 0.001       # re-quote once the touch is 10 bp away
 TICK_SIZE = 0.01
 
@@ -125,6 +144,8 @@ class BaseTrader(Trader):
     EVENT_MODES: frozenset[str] = frozenset()
     # Shares per symbol this seat may sell short once the venue allows it.
     MAX_SHORT: int = 0
+    # Rolling windows (in book updates) the strategy reads, kept per symbol.
+    WINDOWS: tuple[int, ...] = ()
 
     def __init__(self, limits: RiskLimits | None = None,
                  clock: Callable[[], float] = time.monotonic,
@@ -161,7 +182,7 @@ class BaseTrader(Trader):
 
         # orders on the book and the venue's view of them
         self.orders = OwnOrders()
-        self._bucket = TokenBucket(ORDERS_PER_SEC, ORDERS_PER_SEC)
+        self._bucket = TokenBucket(ORDERS_PER_SEC, ORDER_BURST)
         self._cancels: list[Order] = []
         self.rejects: Counter[str] = Counter()
         self._stopped = False
@@ -188,6 +209,24 @@ class BaseTrader(Trader):
         self._last_ramp = (DEFAULT_RAMP_TICKS, DEFAULT_OVERSHOOT)
         self.finished_plans: list[EventPlan] = []
 
+        # flashes (team.flash)
+        self._flashes: dict[str, FlashPlan] = {}
+        self._flash_quiet: dict[str, float] = {}
+        self.flash_log = FlashLog()
+        self._halted = False
+
+        # rolling statistics fed by every book update (on_book), O(1) each
+        self._stats: dict[str, dict[int, RollingWindow]] = {}
+        self._book_feed = False
+
+        # the hot path, measured
+        self.tick_time = LatencyMeter("on_tick")
+        self.tick_gap = LatencyMeter("time between ticks")
+        self.message_time = LatencyMeter("message handling")
+        self.messages = MessageMeter()
+        self._last_tick_t: float | None = None
+        self._next_report: float | None = None
+
         # this tick's market and portfolio, so helpers need not pass them
         self._market = None
         self._portfolio = None
@@ -195,7 +234,18 @@ class BaseTrader(Trader):
     # ── required hook ───────────────────────────────────────────────────
 
     def on_tick(self, market, portfolio) -> Signal | None:
-        """Return at most one Signal per tick, or None."""
+        """Return at most one Signal per tick, or None. Timed: see hotpath."""
+        t = time.perf_counter()
+        if self._last_tick_t is not None:
+            self.tick_gap.add(t - self._last_tick_t)
+        self._last_tick_t = t
+        try:
+            return self._tick(market, portfolio)
+        finally:
+            self.tick_time.add(time.perf_counter() - t)
+            self._maybe_report()
+
+    def _tick(self, market, portfolio) -> Signal | None:
         if self._preopen or self._stopped:
             return None
         now = self._clock()
@@ -205,6 +255,12 @@ class BaseTrader(Trader):
         self._book_ipo(portfolio)
 
         net_worth = portfolio.net_worth(market)
+        if self._start_net_worth is not None:
+            self._halted = self.limits.halted(net_worth, self._start_net_worth)
+        # A flash pays only the first orders in, so it comes before anything.
+        signal = self._flash_step(market, now)
+        if signal is not None:
+            return signal
         if self._start_net_worth is None:
             # The exchange sends this seat its portfolio only after its first
             # fill; until then the local Portfolio reports a placeholder that
@@ -259,6 +315,12 @@ class BaseTrader(Trader):
         plan = self._plans.get(symbol)
         if plan is not None and order is not None and order.purpose.startswith(plan.mode):
             plan.record(side, quantity, price)
+        flash = self._flashes.get(symbol)
+        if flash is not None and order is not None:
+            if order.purpose == "flash entry":
+                flash.filled += quantity
+            elif order.purpose == "flash exit":
+                flash.exited += quantity
 
         # A buy covers shares sold short first; a sell past the shares held
         # opens a short.
@@ -354,6 +416,8 @@ class BaseTrader(Trader):
                 if symbol in prices:
                     self._on_move(symbol, ramp, overshoot, message,
                                   target=float(prices[symbol]))
+        elif event == "FLASH":
+            self._on_flash(data)
 
     # ── venue feedback (called by team.venue.TeamBot) ───────────────────
 
@@ -398,12 +462,16 @@ class BaseTrader(Trader):
         if code in NOT_ORDER_ERRORS:
             logger.warning("VENUE  %s: %s", code, message)
             return
+        if code == "RATE_LIMITED":
+            self._on_rate_limited(message, now)
+            return
         order = self.orders.on_reject(code, message)
         if code == CANCEL_RACE:
+            self.messages.not_found()
             logger.info("CANCEL %s: %s", code, message)
             return
         self.rejects[code] += 1
-        total = sum(self.rejects.values())
+        total = self._budget_rejects()
         symbol = order.symbol if order else None
         if symbol:
             self._cooldown[symbol] = now + REJECT_COOLDOWN_SEC
@@ -412,8 +480,6 @@ class BaseTrader(Trader):
         if code in ("SSR_RESTRICTED", "BORROW_UNAVAILABLE") and symbol:
             # The rule holds until the next open; retrying spends the budget.
             self._no_short.add(symbol)
-        if code == "RATE_LIMITED":
-            self._paused_until = now + RATE_LIMIT_PAUSE_SEC
         if code == "POSITION_LIMIT" and symbol in self._plans:
             self._plans[symbol].stop_buys = True
         logger.warning("REJECT #%d %s %s: %s", total, code, symbol or "-", message)
@@ -426,6 +492,8 @@ class BaseTrader(Trader):
         """Cancels to send now, as (order_id, symbol), within the rate limit."""
         now = self._clock()
         out = []
+        if now < self._paused_until:
+            return out                  # the venue just said we are over quota
         while self._cancels and self._bucket.available(now):
             order = self._cancels.pop(0)
             if order not in list(self.orders) or order.order_id is None:
@@ -436,6 +504,216 @@ class BaseTrader(Trader):
             logger.info("CANCEL %s %d %s @ %.2f (%s)", order.side, order.quantity,
                         order.symbol, order.price, order.purpose)
         return out
+
+    def _on_rate_limited(self, message: str, now: float) -> None:
+        """Over the team's message quota: back off for a tick, retry later.
+
+        Not counted toward REJECT_BUDGET: week 7 grades quota rejections as a
+        share of messages (under 5%), and stopping the seat for them would
+        also stop its flash reactions. The venue answers an order with
+        "...Slow your requoting..." and a cancel without it; a refused cancel
+        is queued again so the order it was meant for is not forgotten.
+        """
+        self.rejects["RATE_LIMITED"] += 1
+        self.messages.limited()
+        self._paused_until = now + RATE_LIMIT_PAUSE_SEC
+        is_order = "requot" in message.lower() or (
+            "per tick" not in message
+            and any(o.order_id is None for o in self.orders))
+        if is_order:
+            order = self.orders.on_reject("RATE_LIMITED", message)
+            what = (f"order {order.side} {order.quantity} {order.symbol}"
+                    if order else "order")
+        else:
+            sent = [o for o in self.orders if o.cancel_sent_at is not None]
+            order = max(sent, key=lambda o: o.cancel_sent_at, default=None)
+            if order is not None:
+                order.cancel_sent_at = None
+                self._cancels.append(order)
+            what = f"cancel {order.symbol}" if order else "cancel"
+        logger.warning("QUOTA  RATE_LIMITED %s (%d this session, %.1f%% of %d "
+                       "messages): paused %.0fs", what, self.messages.rate_limited,
+                       self.messages.limited_share * 100, self.messages.messages,
+                       RATE_LIMIT_PAUSE_SEC)
+
+    def _budget_rejects(self) -> int:
+        """Rejects that count toward REJECT_BUDGET (quota answers do not)."""
+        return sum(n for code, n in self.rejects.items() if code != "RATE_LIMITED")
+
+    def on_book(self, symbol: str, mid: float) -> None:
+        """A book update (team.venue.TeamBot): O(1) per rolling window."""
+        if not mid or mid <= 0:
+            return
+        self._book_feed = True
+        stats = self._stats.get(symbol)
+        if stats is None:
+            stats = self._stats[symbol] = {n: RollingWindow(n) for n in self.WINDOWS}
+        for window in stats.values():
+            window.push(mid)
+
+    def _rolling(self, market, symbol: str, size: int) -> RollingWindow | None:
+        """The last `size` mids of `symbol`.
+
+        Live, the window is kept up to date by on_book in O(1) per update.
+        Offline (tests, the backtester, the simulator) there is no book feed,
+        so it is built from market.prices(): the same numbers, O(size).
+        """
+        if self._book_feed:
+            return (self._stats.get(symbol) or {}).get(size)
+        hist = market.prices(symbol)
+        return RollingWindow(size, hist[-size:]) if hist else None
+
+    def message_handled(self, seconds: float) -> None:
+        self.message_time.add(seconds)
+
+    def session_summary(self) -> None:
+        """Hot path, message budget, cancel bill and flashes, in the log."""
+        logger.info("HOTPATH %s", self.tick_time.report())
+        logger.info("HOTPATH %s", self.tick_gap.report())
+        logger.info("HOTPATH %s", self.message_time.report())
+        logger.info("MSGS   %s", self.messages.report())
+        logger.info("FLASH  %s", self.flash_log.report())
+
+    def _maybe_report(self) -> None:
+        now = self._clock()
+        if self._next_report is None:
+            self._next_report = now + REPORT_EVERY_SEC
+        elif now >= self._next_report:
+            self._next_report = now + REPORT_EVERY_SEC
+            self.session_summary()
+
+    # ── flashes (team.flash) ────────────────────────────────────────────
+
+    def _on_flash(self, data: dict) -> None:
+        parsed = parse_flash(data)
+        self.flash_log.seen += 1
+        if parsed is None:
+            logger.warning("FLASH  unreadable event data %s", data)
+            return
+        symbol, pct, revert = parsed
+        now = self._clock()
+        if symbol in self.untradeable:
+            return
+        pre = self._pre_flash_mid(symbol, pct)
+        if not pre:
+            logger.warning("FLASH  %s %+.2f%%: no price seen yet, nothing sent",
+                           symbol, pct * 100)
+            return
+        old = self._flashes.get(symbol)
+        if old is not None:
+            entry = self._flash_order(symbol, old.side, "flash entry")
+            if entry is not None and not entry.taker:
+                self._cancel(entry, now)
+        self._flashes[symbol] = FlashPlan(symbol=symbol, pct=pct, pre=pre, t0=now,
+                                          revert_ticks=revert)
+        self._flash_quiet[symbol] = now + QUIET_SEC
+        logger.info("FLASH  %s %+.2f%% (reverts in %d ticks): pre-flash mid %.2f, "
+                    "%s into it; strategy and stop-loss out of the name for %.0fs",
+                    symbol, pct * 100, revert, pre,
+                    "sell" if pct > 0 else "buy", QUIET_SEC)
+
+    def _pre_flash_mid(self, symbol: str, pct: float) -> float | None:
+        """Where the price was before the jump.
+
+        The last tick's mid is at most one tick old, but the flashed book may
+        already be in it; the longest rolling window's mean has at most a
+        point or two of the jump in it. Take whichever is further from the
+        jump.
+        """
+        last = self._last_mid.get(symbol) or (
+            self._market.mid_price(symbol) if self._market is not None else None)
+        stats = self._stats.get(symbol) or {}
+        window = stats.get(max(stats)) if stats else None
+        mean = window.mean if window is not None and len(window) else None
+        candidates = [x for x in (last, mean) if x]
+        if not candidates:
+            return None
+        return min(candidates) if pct > 0 else max(candidates)
+
+    def flash_signal(self) -> Signal | None:
+        """The entry for a flash that has just arrived, sent at once by
+        team.venue.TeamBot instead of waiting for the next tick."""
+        if self._market is None or self._portfolio is None or self._stopped:
+            return None
+        now = self._clock()
+        for plan in self._flashes.values():
+            if plan.entry_sent_at is None and not plan.done:
+                signal = self._flash_entry(plan, now)
+                if signal is not None:
+                    return signal
+        return None
+
+    def _flash_order(self, symbol: str, side: str, purpose: str) -> Order | None:
+        for order in self.orders:
+            if order.symbol == symbol and order.side == side and order.purpose == purpose:
+                return order
+        return None
+
+    def _flash_entry(self, plan: FlashPlan, now: float) -> Signal | None:
+        if now >= plan.entry_until or self._halted or self._preopen:
+            return None
+        market, sym = self._market, plan.symbol
+        bid, ask = market.best_bid(sym), market.best_ask(sym)
+        side, price, take = entry_order(plan.pct, plan.pre, bid, ask,
+                                        self.taker, self.rebate)
+        qty = FLASH_SHARES
+        if side == "buy":
+            qty, why = self.limits.buy_quantity(
+                qty, price, self._symbol_value(sym, market, self._portfolio),
+                self._gross_value(market, self._portfolio),
+                self._portfolio.net_worth(market))
+            if why:
+                self._note(sym, f"flash buy cut to {qty} by {why} limit")
+        signal = self._place(sym, side, qty, price, now,
+                             f"flash {plan.pct:+.2%} entry, pre-flash mid {plan.pre:.2f}",
+                             taker=take, purpose="flash entry", allow_short=True,
+                             second=True)
+        if signal is not None:
+            plan.entry_sent_at = now
+            self.flash_log.reacted(now - plan.t0)
+            logger.info("FLASH  %s order %.0f ms after the event",
+                        sym, (now - plan.t0) * 1000)
+        return signal
+
+    def _flash_step(self, market, now: float) -> Signal | None:
+        """Send, expire and close out the flash trades."""
+        for sym, plan in list(self._flashes.items()):
+            entry = self._flash_order(sym, plan.side, "flash entry")
+            exit_ = self._flash_order(sym, plan.exit_side, "flash exit")
+            if plan.entry_sent_at is None and now < plan.entry_until:
+                signal = self._flash_entry(plan, now)
+                if signal is not None:
+                    return signal
+            if entry is not None and now >= plan.entry_until and not entry.taker:
+                self._cancel(entry, now)
+            owed = plan.open_shares - (exit_.quantity if exit_ else 0)
+            if owed > 0 and exit_ is None and now < plan.exit_until:
+                price = exit_price(plan.exit_side, plan.pre,
+                                   market.best_bid(sym), market.best_ask(sym))
+                signal = self._place(sym, plan.exit_side, owed, price, now,
+                                     "flash exit at the pre-flash mid", taker=False,
+                                     purpose="flash exit", second=True)
+                if signal is not None:
+                    return signal
+            if now >= plan.exit_until:
+                if exit_ is not None:
+                    self._cancel(exit_, now)
+                if entry is not None and not entry.taker:
+                    self._cancel(entry, now)
+            finished = (entry is None and exit_ is None
+                        and (now >= plan.exit_until
+                             or (now >= plan.entry_until and plan.open_shares <= 0)))
+            if finished:
+                plan.done = True
+                del self._flashes[sym]
+                logger.info("FLASH  %s done: entry %s, %d filled, %d closed at the "
+                            "pre-flash mid", sym,
+                            "sent" if plan.entry_sent_at is not None else "not sent",
+                            plan.filled, plan.exited)
+        return None
+
+    def _flash_quiet_now(self, symbol: str, now: float) -> bool:
+        return symbol in self._flashes or self._flash_quiet.get(symbol, 0.0) > now
 
     def run(self) -> None:
         """Connect to the exchange and trade until interrupted."""
@@ -546,6 +824,10 @@ class BaseTrader(Trader):
         return None
 
     def _in_window(self, symbol: str, now: float) -> bool:
+        """An event coming or playing out, or a flash: the strategy waits."""
+        return self._in_event_window(symbol, now) or self._flash_quiet_now(symbol, now)
+
+    def _in_event_window(self, symbol: str, now: float) -> bool:
         if symbol in self._plans:
             return True
         if self._ipo_held(symbol):
@@ -558,8 +840,10 @@ class BaseTrader(Trader):
 
     def _pull_quotes_in_windows(self, now: float) -> None:
         """Cancel resting strategy quotes in names with an event coming."""
+        # Flashes are left out: a 2 s jump that walks back is not worth a
+        # cancel fee per quote, and the flash trade sits beside the quote.
         for order in self.orders:
-            if order.purpose == "quote" and self._in_window(order.symbol, now):
+            if order.purpose == "quote" and self._in_event_window(order.symbol, now):
                 self._cancel(order, now)
 
     def _open_plans(self, net_worth: float, halted: bool) -> None:
@@ -738,8 +1022,9 @@ class BaseTrader(Trader):
         """Sell shares bought whose bid has fallen through the stop, or buy
         back shares sold short whose ask has risen through it."""
         for symbol in sorted(self._bought):
-            if symbol in self._plans or symbol in self._ipo_offer:
-                continue
+            if (symbol in self._plans or symbol in self._ipo_offer
+                    or self._flash_quiet_now(symbol, now)):
+                continue      # a flash drop is about to walk back: no stop
             bid = market.best_bid(symbol)
             avg = self._cost[symbol] / self._bought[symbol]
             if not self.limits.stop_hit(bid, avg):
@@ -757,7 +1042,7 @@ class BaseTrader(Trader):
             return self._place(symbol, "sell", qty, bid, now, "stop-loss",
                                taker=True)
         for symbol in sorted(self._shorted):
-            if symbol in self._plans:
+            if symbol in self._plans or self._flash_quiet_now(symbol, now):
                 continue
             ask = market.best_ask(symbol)
             avg = self._short_cost[symbol] / self._shorted[symbol]
@@ -920,14 +1205,18 @@ class BaseTrader(Trader):
     def _place(self, symbol: str, side: str, qty: int, price: float | None,
                now: float, reason: str, *, taker: bool,
                purpose: str | None = None,
-               allow_short: bool = False) -> Signal | None:
-        """Build an order the venue will accept, or return None."""
+               allow_short: bool = False, second: bool = False) -> Signal | None:
+        """Build an order the venue will accept, or return None.
+
+        `second` lets a flash order rest beside this side's other order in
+        the name (every other source keeps to one per symbol and side).
+        """
         if (self._stopped or not price or qty < 1 or symbol in self.untradeable
                 or self.trading_state.blocked(symbol)):
             return None
         if now < self._paused_until or now < self._cooldown.get(symbol, 0.0):
             return None
-        if self.orders.live(symbol, side) is not None:
+        if not second and self.orders.live(symbol, side) is not None:
             return None
         if not self._bucket.available(now):
             return None

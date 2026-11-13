@@ -13,6 +13,13 @@ aside while a scheduled event or a shock moves the price, and leaves a new
 listing alone for its first minute of price discovery. It also keeps the
 seat's own books (team.books) and logs their reconciliation with the venue.
 
+Week 7: one quote level a side and 4.5 messages a second per venue, so the
+team stays inside 8 a tick; RATE_LIMITED is a pause, not an error; the quote
+width comes from a rolling high-low range (O(1) per book update); and on a
+FLASH the name's quotes are pulled and one maker order bets on the walk back
+(team.flash). Message counts, quota rejections, the cancel bill and the flash
+reactions are logged once a minute per venue.
+
 Run:
     TEAM_ID=midway_traders_broker python -m team.broker
 """
@@ -32,20 +39,25 @@ from arena import Broker                # first: puts engine/ on sys.path
 import broker.config as _config         # noqa: E402  (engine module)
 from arena.broker import _AdaptedBrokerBot
 from broker.broker import _print_startup
+from broker.broker import BrokerState
 from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              PortfolioUpdate, SessionEvent, TradeExecution,
                              parse_message)
 from team.books import Bookkeeper
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
+from team.flash import FlashLog, entry_order, parse_flash
+from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
+from team.rolling import RollingRange
 from team.venue import TokenBucket, OwnOrders, Order
 from team.risk import TradingState
 
 logger = logging.getLogger(__name__)
 
-# Volatility-adjusted width. `history` holds one venue mark per book update,
-# about 1-2 a second per name, so 10 points is the last ~5-10 seconds.
-LOOKBACK = 10
+# Volatility-adjusted width. `history` holds one venue mark per book update;
+# week 7 sends one every 0.2 s per name, so 25 points is the last ~5 seconds.
+# Live, the high and low of those points are kept in O(1) (team.rolling).
+LOOKBACK = 25
 CALM_BPS = 10.0         # recent range below this: keep the engine default
 WIDEN_FACTOR = 2.0      # quote width = 2 × the recent high-low range
 MAX_WIDEN_BPS = 150.0   # never wider than 1.5% of the price
@@ -60,8 +72,12 @@ MAX_INVENTORY = 150     # per symbol, held + bid, or short + offered. The venue'
 EVENT_MAX_INVENTORY = 50  # per symbol once an event has fired in it: in Session
                         # 3 the winner's timed exit sold 110 NVDA into our bids
                         # in 3 s, and we held 145 shares of a falling name
-MESSAGES_PER_SEC = 8.0  # orders + cancels: the team shares 20 per exchange
-                        # tick (1 s) and each trader seat takes 4 (base_trader)
+MESSAGES_PER_SEC = 4.5  # orders + cancels. Week 7 meters 8 per exchange tick
+                        # (1 s) for the whole team on a venue, burst 24; the
+                        # trader seats take 1.5 each (base_trader), 7.5 in all
+QUOTE_LEVELS = 1        # one level a side: a requote is at most 2 cancels and
+                        # 2 orders (3 levels made it 12 messages and 6 cancel fees)
+REQUOTE_BPS = 8.0       # requote once the centre moves 8 bp (engine: 5)
 PAUSE_RAMPS = 3         # stay out of an event's symbol for three ramps
 PRICE_EPS = 0.005       # half a cent: quotes sit on the penny grid
 TICK = 0.01
@@ -88,7 +104,13 @@ def volatility_spread(price, history) -> float | None:
     if not price or price <= 0 or len(history) < LOOKBACK:
         return None
     recent = history[-LOOKBACK:]
-    move = max(recent) - min(recent)
+    return range_spread(price, max(recent) - min(recent))
+
+
+def range_spread(price, move: float) -> float | None:
+    """volatility_spread from the recent high-low range alone."""
+    if not price or price <= 0:
+        return None
     if move < price * CALM_BPS / 10_000:
         return None
     default = min(DEFAULT_WIDTH, price * DEFAULT_CAP_BPS / 10_000)
@@ -193,6 +215,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._bucket = TokenBucket(MESSAGES_PER_SEC, MESSAGES_PER_SEC)
         self._books = Bookkeeper(_config.TEAM_ID)
         self._pulls: set[asyncio.Task] = set()      # event cancels in their grace
+        # the recent high and low of each mark, for the quote width, O(1)
+        self._ranges: dict[str, RollingRange] = {}
+        self._centre: dict[str, float] = {}         # last centre quoted around
+        self.messages = MessageMeter()
+        self.flash_log = FlashLog()
+        self.message_time = LatencyMeter("message handling")
+        self.quote_time = LatencyMeter("requote, including waits for a message slot")
+        self._next_report: float | None = None
 
     # ── connection ──────────────────────────────────────────────────────
 
@@ -269,6 +299,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 if order.order_id == msg.order_id:
                     order.cancel_sent_at = self._clock()
         await super()._send(msg)
+        if isinstance(msg, PlaceOrder):
+            self.messages.order()
+        elif isinstance(msg, CancelOrder):
+            self.messages.cancel()
 
     def _approve_risk(self, msg: PlaceOrder) -> bool:
         """No borrowing; reserve pending orders and leave cash/equity buffers.
@@ -351,6 +385,21 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             return None
         return first(bids, "buy"), first(asks, "sell")
 
+    def _spread(self, symbol: str) -> float:
+        """Quote width: from the rolling high-low range once LOOKBACK marks
+        are in (O(1)); until then, and offline, the hook on the history."""
+        rng = self._ranges.get(symbol)
+        if rng is None or len(rng) < LOOKBACK:
+            return self.state.compute_spread(symbol)
+        price = (self.state.exchange_prices.get(symbol)
+                 or self.state.yahoo_prices.get(symbol))
+        width = range_spread(price, rng.high - rng.low)
+        return BrokerState.compute_spread(self.state, symbol) if width is None else width
+
+    @staticmethod
+    def requote_threshold(centre: float) -> float:
+        return max(_config.REQUOTE_THRESHOLD, abs(centre) * REQUOTE_BPS / 10_000.0)
+
     def _paused(self, symbol: str) -> bool:
         now = self._clock()
         return any(self._paused_until.get(k, 0.0) > now for k in (symbol, "*"))
@@ -387,8 +436,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             return
         if not self.needs_requote(symbol, centre):
             return
+        start = time.perf_counter()
+        try:
+            await self._requote(symbol, centre)
+        finally:
+            self.quote_time.add(time.perf_counter() - start)
 
-        spread = self.state.compute_spread(symbol)
+    async def _requote(self, symbol: str, centre: float) -> None:
+        spread = self._spread(symbol)
         position = self.state.positions.get(symbol, 0)
         traded = position - (self._opening or {}).get(symbol, 0)
         skew = inventory_skew(traded, self._max_inventory(symbol), spread)
@@ -413,7 +468,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         unoffered = self._ask_room(symbol)
         unbid = self._bid_room(symbol)
         bid_total = ask_total = 0
-        for lvl in range(_config.QUOTE_LEVELS):
+        for lvl in range(QUOTE_LEVELS):
             size = _config.QUOTE_SIZE * (lvl + 1)
             lvl_bid = math.floor((bid_price - lvl * half_step) * 100) / 100
             lvl_ask = math.ceil((ask_price + lvl * half_step) * 100) / 100
@@ -442,6 +497,7 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self.state.last_quote_prices[symbol] = centre
         self.state.last_quote_time[symbol] = time.time()
         self._quoted_position[symbol] = position
+        self._centre[symbol] = centre
         logger.info("Quoted %s bid=%.2f x%d ask=%.2f x%d centre=%.4f "
                     "inventory %+d (traded %+d) skew %+.2f", symbol, bid_price,
                     bid_total, ask_price, ask_total, centre, position, traded, skew)
@@ -467,6 +523,22 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         await self.cancel_all_quotes()
         logger.info("Session closed: quotes cancelled, no close-out orders "
                     "(the venue marks positions at the close)")
+        self.session_summary()
+
+    def session_summary(self) -> None:
+        venue = self.exchange_url or "venue"
+        logger.info("HOTPATH %s %s", venue, self.message_time.report())
+        logger.info("HOTPATH %s %s", venue, self.quote_time.report())
+        logger.info("MSGS   %s %s", venue, self.messages.report())
+        logger.info("FLASH  %s %s", venue, self.flash_log.report())
+
+    def _maybe_report(self) -> None:
+        now = self._clock()
+        if self._next_report is None:
+            self._next_report = now + REPORT_EVERY_SEC
+        elif now >= self._next_report:
+            self._next_report = now + REPORT_EVERY_SEC
+            self.session_summary()
 
     # ── venue messages ──────────────────────────────────────────────────
 
@@ -477,7 +549,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     async def _peek(self, raw) -> None:
         """Keep each book's touch and count the venue's errors; the engine
-        loop keeps only the mark and logs errors."""
+        loop keeps only the mark and logs errors. Timed (hot path)."""
+        start = time.perf_counter()
+        try:
+            await self._handle(raw)
+        finally:
+            self.message_time.add(time.perf_counter() - start)
+            self._maybe_report()
+
+    async def _handle(self, raw) -> None:
         try:
             msg = parse_message(json.loads(raw))
         except (KeyError, ValueError):
@@ -488,6 +568,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             logger.exception("Books could not take %s", type(msg).__name__)
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
+            ref = msg.ref_price or msg.mid_price     # what the engine records
+            if ref and ref > 0:
+                rng = self._ranges.get(msg.symbol)
+                if rng is None:
+                    rng = self._ranges[msg.symbol] = RollingRange(LOOKBACK)
+                rng.push(ref)
             return
         if not isinstance(msg, ErrorMsg):
             return
@@ -497,7 +583,11 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             logger.exception("Could not handle venue error [%s]", msg.code)
 
     async def _on_error(self, msg: ErrorMsg) -> None:
+        if msg.code == "RATE_LIMITED":
+            self._on_rate_limited(msg.message)
+            return
         if msg.code == "ORDER_NOT_FOUND":
+            self.messages.not_found()
             self._risk_orders.on_reject(msg.code, msg.message)
             # A cancel that lost the race with a fill (our own seats fade
             # into these bids as an event fires): not a rejected order.
@@ -529,6 +619,24 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                          "cancelling every quote and quoting nothing more",
                          self._errors, msg.code, msg.message)
             await self.cancel_all_quotes()
+
+    def _on_rate_limited(self, message: str) -> None:
+        """Over the team's quota: stop sending for a tick; not an error.
+
+        Week 7 grades quota rejections as a share of messages (under 5%), so
+        they do not count toward REJECT_BUDGET. A refused order is never
+        acked: its cash reservation is released and its symbol requoted. The
+        venue's order answer says "Slow your requoting"; a cancel's does not.
+        """
+        self.messages.limited()
+        self._bucket.drain(self._clock())
+        if "requot" in message.lower():
+            order = self._risk_orders.on_reject("RATE_LIMITED", message)
+            if order is not None:
+                self.state.last_quote_prices.pop(order.symbol, None)
+        logger.warning("QUOTA RATE_LIMITED (%d this session, %.1f%% of %d messages): "
+                       "%s", self.messages.rate_limited,
+                       self.messages.limited_share * 100, self.messages.messages, message)
 
     def _on_portfolio(self, msg: PortfolioUpdate) -> None:
         super()._on_portfolio(msg)
@@ -602,6 +710,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 self._on_calendar(msg.data)
             elif msg.event in ("CALENDAR_EVENT", "SHOCK"):
                 self._on_fire(msg.event, msg.data)
+            elif msg.event == "FLASH":
+                self._on_flash(msg.data or {})
             elif msg.event == "IPO_LISTED" and msg.data.get("symbol"):
                 # Nothing rests in the name yet, so there is nothing to cancel.
                 self._paused_until[msg.data["symbol"]] = (
@@ -660,6 +770,57 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._pulls.add(task)
         task.add_done_callback(self._pulls.discard)
         logger.info("EVENT %s: %s quotes pulled for %.0fs", reason, key, seconds)
+
+    def _on_flash(self, data: dict) -> None:
+        """A flash on this venue: pull the name's quotes and offer (or bid)
+        once into the jump at half its size, as a maker.
+
+        The quotes go first because a 2% jump fills every quote on the wrong
+        side at the old price. The name stays paused until the flash has
+        walked back; the requote after it cancels the flash order if it is
+        still resting.
+        """
+        self.flash_log.seen += 1
+        parsed = parse_flash(data)
+        if parsed is None:
+            logger.warning("FLASH unreadable event data %s", data)
+            return
+        symbol, pct, revert = parsed
+        pre = self._centre.get(symbol) or self.state.exchange_prices.get(symbol)
+        seconds = (revert + 1) * EXCHANGE_TICK_SEC
+        self._paused_until[symbol] = max(self._paused_until.get(symbol, 0.0),
+                                         self._clock() + seconds)
+        logger.info("FLASH %s %+.2f%% on %s: quotes pulled for %.0fs, pre-flash "
+                    "centre %s", symbol, pct * 100, self.exchange_url, seconds,
+                    f"{pre:.2f}" if pre else "unknown")
+        task = asyncio.create_task(self._flash_trade(symbol, pct, pre, self._clock()))
+        self._pulls.add(task)
+        task.add_done_callback(self._pulls.discard)
+
+    async def _flash_trade(self, symbol: str, pct: float, pre: float | None,
+                           t0: float) -> None:
+        try:
+            await asyncio.sleep(EVENT_CANCEL_GRACE_SEC)
+            await self.cancel_quotes(symbol)
+            if not pre or not self._session_open or self._errors >= REJECT_BUDGET:
+                return
+            bid, ask = self._others_touch(symbol)
+            # Maker only: a taker fee of 1.0 can never be paid by the move.
+            side, price, _ = entry_order(pct, pre, bid, ask, taker=1.0, rebate=0.0)
+            room = self._ask_room(symbol) if side == "sell" else self._bid_room(symbol)
+            qty = min(_config.QUOTE_SIZE, room)
+            if qty < 1:
+                logger.info("FLASH %s: no room to %s, quotes pulled only", symbol, side)
+                return
+            await self._send(PlaceOrder(team_id=_config.TEAM_ID, symbol=symbol,
+                                        side=side, order_type="limit", price=price,
+                                        quantity=qty))
+            waited = self._clock() - t0
+            self.flash_log.reacted(waited)
+            logger.info("FLASH %s %s %d @ %.2f (maker) %.0f ms after the event",
+                        symbol, side, qty, price, waited * 1000)
+        except Exception:
+            logger.exception("Could not trade the %s flash", symbol)
 
     async def _pull_quotes(self, symbols: list[str]) -> None:
         await asyncio.sleep(EVENT_CANCEL_GRACE_SEC)

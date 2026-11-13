@@ -44,6 +44,7 @@ import contextlib
 import json
 import logging
 import re
+import time
 from dataclasses import dataclass
 
 from arena.trader import _AdaptedTraderBot
@@ -235,6 +236,11 @@ class TokenBucket:
         self._tokens -= 1.0
         return True
 
+    def drain(self, now: float) -> None:
+        """Spend every token: the venue says we are over quota right now."""
+        self._refill(now)
+        self._tokens = 0.0
+
 
 # ── the live bot ────────────────────────────────────────────────────────────
 
@@ -263,6 +269,12 @@ class TeamBot(_AdaptedTraderBot):
             logger.info("Blocked queued order during halt: %s", msg.symbol)
             return
         await super()._send(msg)
+        meter = getattr(self._owner, "messages", None)
+        if meter is not None:
+            if isinstance(msg, PlaceOrder):
+                meter.order()
+            elif isinstance(msg, CancelOrder):
+                meter.cancel()
 
     def __init__(self, owner) -> None:
         super().__init__(owner)
@@ -307,6 +319,15 @@ class TeamBot(_AdaptedTraderBot):
         await super().listen()
 
     def _peek(self, raw) -> None:
+        start = time.perf_counter()
+        try:
+            self._handle(raw)
+        finally:
+            hook = getattr(self._owner, "message_handled", None)
+            if hook is not None:
+                hook(time.perf_counter() - start)
+
+    def _handle(self, raw) -> None:
         try:
             msg = parse_message(json.loads(raw))
         except (KeyError, ValueError) as exc:   # ValidationError is a ValueError
@@ -325,6 +346,10 @@ class TeamBot(_AdaptedTraderBot):
             elif isinstance(msg, BookSnapshot):
                 if msg.ref_price > 0:
                     self._owner.marks[msg.symbol] = msg.ref_price
+                # The same mids MarketData keeps (update_book), one push each.
+                on_book = getattr(self._owner, "on_book", None)
+                if on_book is not None:
+                    on_book(msg.symbol, msg.mid_price)
                 if msg.asset_type != "equity":
                     # e.g. the index future, listed before it may be traded
                     self._owner.untradeable.add(msg.symbol)
@@ -344,9 +369,26 @@ class TeamBot(_AdaptedTraderBot):
             # only open a late joiner sees and it carries the week's flags.
             if msg.event == "SESSION_OPEN":
                 self._owner.on_event(msg.event, msg.message, msg.data or {})
+            if msg.event == "FLASH" and hasattr(self._owner, "flash_signal"):
+                # Only the first orders in get the flash: send the entry now
+                # rather than on the next tick of the trading loop.
+                signal = self._owner.flash_signal()
+                if signal is not None:
+                    await self._send_signal(signal)
         except Exception:
             logger.exception("Event handler raised on %s; connection kept",
                              msg.event)
+
+    async def _send_signal(self, signal) -> None:
+        """The trading loop's risk check and order, outside the loop."""
+        approved, reason = self.risk.check_order(
+            signal.symbol, signal.side, signal.quantity, signal.price,
+            self.portfolio, self.market)
+        if not approved:
+            self._owner.orders.discard_unsent(signal.symbol, signal.side)
+            logger.info("Order blocked [%s]: %s", signal.symbol, reason)
+            return
+        await self._place_order(signal)
 
     async def trading_loop(self) -> None:
         pump = asyncio.create_task(self._cancel_pump())
@@ -368,3 +410,6 @@ class TeamBot(_AdaptedTraderBot):
         """Do nothing: once SESSION_CLOSED arrives every order is rejected."""
         logger.info("SESSION closed: positions are marked at the close, "
                     "no close-out orders sent")
+        summary = getattr(self._owner, "session_summary", None)
+        if summary is not None:
+            summary()

@@ -8,69 +8,72 @@ Budget invested: $1,000,000, across three seats:
 | `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`  |
 | `midway_traders_broker`   | $400,000 | market maker                | `make broker`   |
 
-## Week 6 checklist — Friday November 6
+## Week 7 checklist — Friday November 13
 
-The graded block is **Friday Nov 6, 15:30–16:30 Chicago (CST)**. The
-scenario switches in at 15:30:20 with the market closed, the opening
-auction runs from 15:40:00, and continuous trading starts after the
-12-tick cross at 15:40:12. The block ends on a 10-tick closing cross at
-16:30, the first week with one.
+The graded block is **Friday Nov 13, 15:30–16:30 Chicago (CST)**: *Execution
+in a fast market*. The scenario switches in at 15:30:20 with the market
+closed, the opening auction runs from 15:40:00, and continuous trading starts
+after the 12-tick cross at 15:40:12 (tick 0). The block ends on a 10-tick
+closing cross at 16:30. This is Part A of Phase 4, scored from the session
+recording.
 
-The Week 6 requirements are everything from Oct 30 (no forced liquidation,
-positions inside the scenario limit, trading resumes after a halt), a bid
-in the VLTA bookbuild, and staying connected for at least 80% of the block.
+What is new this week, and what the seats do about it:
 
-When the VLTA book opens, each trader indicates 200 shares at the top of
-the range ($34). The venue sends the open book again to a seat that
-connects or reconnects during the bookbuild, so a seat that starts late
-still bids, as long as it is connected before the book closes at 15:47:12.
-An allocation is offered at 1.12× the offer price once VLTA lists, with a
-stop 8% below it. The broker leaves VLTA alone for 60 s after listing.
+| Requirement | How the seats meet it |
+| --- | --- |
+| Quota rejections under 5% of messages | The venue meters 8 orders + cancels per 1 s tick for the whole team on each venue (burst 24). The seats pace themselves to 7.5 a second: broker 4.5 (per venue), each trader 1.5 (burst 3). The broker quotes one level a side instead of three, so a requote is at most 4 messages, and requotes after an 8 bp move instead of 5. A `RATE_LIMITED` answer pauses the seat for a tick and does not count toward the reject budget, so it can never stop a seat. |
+| An order on the flashed symbol, on that venue, within 5 s, for at least a quarter of the flashes | On a `FLASH` event each trader sends its entry at once, from the event handler, not on the next tick: a maker sell half way into a jump up, or a maker bid half way into a drop (`team/flash.py`). The broker does the same on each of its two venues, after pulling its quotes in the name. Each seat logs the reaction time of every flash. |
+| Hot path O(1) | The strategies' averages and standard deviation are rolling windows fed by each book update (`team/rolling.py`); the broker's quote width uses a rolling high/low. Nothing rescans the price history per message. |
+| Connected ≥ 80% of the block | Unchanged: reconnect with backoff (`team/reconnect.py`). |
+| Know the cancellation-fee bill | The venue charges $0.05 for each cancel that removes a resting order. Every seat logs its orders, cancels, quota rejections and the cancel bill once a minute (`MSGS`) and at the close. |
+| Decide what to buy in purchase window 2 | See below. |
 
-The limit is 1,000 shares per symbol for the team, so each seat's cap is
-333; the existing 200/200/150 caps don't change. Two 200-share VLTA
-allocations put the team at 400.
-
-The closing auction takes limit orders only, and all our orders are
-limits. Nothing in the bots needed changing for it.
-
-From this block the house venue charges 40 bp to take and pays no maker
-rebate (it was 30 / 5). The seats read the new schedule from
-`FEE_SCHEDULE` on connect, so event legs now need about 50 bp of edge before
-they trade. Trader_1's crossover is slowed from 5/20 to 10/40 mids: replayed
-at the new fees, 5/20 lost $699 against doing nothing on the Session 5 tape,
-while 10/40 was ahead on both the Week 5 and Week 3 tapes.
+A flash is an unannounced 1.5–2.5% jump in one symbol on one venue that
+walks back within 2 ticks. It would look like a trend to the momentum seat
+and would trip the 1.5% stop-loss on a drop, so for 10 s after a flash the
+strategy, the starter and the stop-loss leave that name alone. A filled flash
+entry is closed by a maker order at the pre-flash mid; an unfilled entry is
+cancelled once the flash should be over (revert ticks + 1 s), and an unfilled
+exit after 30 s.
 
 **Event schedule (Chicago):**
 
-| Time     | Tick | Event                               |
-| -------- | ---- | ----------------------------------- |
-| 15:42:42 | t150 | VLTA bookbuild opens                |
-| 15:44:22 | t250 | INTC earnings, 3–8%                 |
-| 15:47:12 | t420 | VLTA bookbuild closes and is priced |
-| 15:48:52 | t520 | VLTA lists                          |
-| 15:50:12 | t600 | MSFT earnings, 3–7%                 |
-| 15:53:32 | t800 | NVDA dividend, $0.30 a share        |
-| 15:56:02 | t950 | econ print, market-wide, 1.5–3%     |
+| Time     | Tick  | Event                               |
+| -------- | ----- | ----------------------------------- |
+| 15:46:52 | t400  | TSLA earnings, 5–10%                |
+| 15:51:02 | t650  | econ print, market-wide, 1.5–3%     |
+| 15:55:12 | t900  | AAPL earnings, 3–8%                 |
+| 16:00:12 | t1200 | META dividend, $0.50 a share        |
+| 15:40–16:30 | — | about 15–20 unannounced flashes, at least 40 ticks from the events |
 
-Direction is unknown for all of them.
+Direction is unknown for all of them. Borrow tightens (short locate cap
+1,200 shares for the team); the seats' short limits (100 for trader_1, 150
+for the broker) stay inside it.
 
-We ran a compressed Week 6 rehearsal on Nov 5 (same rules, events moved
-earlier): both traders' VLTA indications were recorded (400 shares, 2
-bidders) and allocated, the INTC and MSFT halts passed with every seat
-still connected, the closing cross ran cleanly, the broker's books matched
-the venue at the close, and there were no rejects.
+**Purchase window 2.** Our plan is to buy nothing. Every add-on's price is
+paid from the bots' cash and counts against this block's score, and none of
+them pays back $125k–$250k in weeks 7–10 at our size. Colocation ($250k)
+matters for flashes, but a flash trade here is 10 shares into a 1–1.25% move,
+about $10–$100 each, and 15–20 flashes a week. The quota increase ($150k) is
+not needed: the seats are paced inside 8 a tick. If the team decides
+otherwise, buy in the dashboard (MY TEAM → UPGRADE SHOP) between 15:30 and
+16:30 only.
 
-On Windows, set `PYTHONUTF8=1` before starting a seat (the startup banner
-can't be printed in the default code page), and if `make` isn't available,
-start the seats directly:
+Flashes and the fast feed only run in the graded block, and the offline
+simulator that plays them has not been released yet (it will be announced on
+Ed), so the flash code is covered by unit tests (`tests/test_week7.py`) and
+not yet by a replay.
 
-    $env:PYTHONUTF8 = "1"; $env:TICK_INTERVAL = "0.1"
-    $env:TEAM_ID = "midway_traders_trader_1"; python -m team.momentum_trader
-    $env:TEAM_ID = "midway_traders_trader_2"; python -m team.mean_reversion_trader
-    $env:TEAM_ID = "midway_traders_broker";   python -m team.broker
-
-(one seat per terminal; set `TEAM_ID` in each).
+We ran a compressed Week 7 rehearsal on Nov 12 on the local venue: the
+week-7 scenario (quota 8 a tick, 200 ms latency, cancel fees), book snapshots
+every 0.2 s, and the four events moved into the first 4 minutes. Over about
+5 minutes of trading the venue sent no `RATE_LIMITED` at all. The broker sent
+38 orders and 36 cancels, a $1.80 cancel bill; each trader sent 9 orders and
+1 cancel. Each seat handled about 16,500 venue messages (55 a second), at a
+mean of 23 µs and a p99 of about 0.14 ms each. `on_tick` took 0.16 ms on
+average (p99 0.5 ms), and the 0.1 s tick loop never fell behind (p99 gap
+0.113 s). No seat raised an error. The local venue has no flashes and no
+other bots, so the flash reactions and fills were not exercised there.
 
 **Before the block**
 
@@ -88,6 +91,13 @@ start the seats directly:
        make momentum
        make meanrev
        make broker EXCHANGE_URLS=wss://feed.algoarena-st.duckdns.org,wss://feed-8773.algoarena-st.duckdns.org
+
+   On Windows, without `make` (one seat per terminal):
+
+       $env:PYTHONUTF8 = "1"; $env:TICK_INTERVAL = "0.1"
+       $env:TEAM_ID = "midway_traders_trader_1"; python -m team.momentum_trader
+       $env:TEAM_ID = "midway_traders_trader_2"; python -m team.mean_reversion_trader
+       $env:EXCHANGE_URLS = "wss://feed.algoarena-st.duckdns.org,wss://feed-8773.algoarena-st.duckdns.org"; $env:TEAM_ID = "midway_traders_broker"; python -m team.broker
 
    The broker quotes on the house venue and on 3-sigma's venue, which pays
    makers 6 bp (the house venue now pays nothing). 3-sigma funds a quarter of
@@ -108,6 +118,9 @@ start the seats directly:
   about 30 s.
 - Restart a seat only if its process has exited. To restart, run the same
   command again.
+- `QUOTA  RATE_LIMITED` lines are not fatal: the seat pauses for a tick and
+  carries on. Check the `MSGS` line: the share of rate-limited messages must
+  stay under 5%.
 - Do not restart a seat that has logged `REJECT budget of 8 reached` (trader)
   or `venue errors this session` (broker). The seat stopped on purpose to stay
   under the 10-reject limit. A restart resets its counter, and further rejects
@@ -144,6 +157,10 @@ Every seat logs to `logs/<seat>_<timestamp>.log` as well as the terminal.
 | `ORDER` / `CANCEL`                            | What the seat sent and why. The reason is at the end of the line.                     |
 | `reconnecting in Xs (attempt N)`              | The connection dropped. The seat is redialling by itself.                             |
 | `Exchange error [CODE]` or `REJECT #N`        | The venue refused something. Each one counts toward the limit of 10.                  |
+| `FLASH  AAPL +2.00% ...` / `order N ms after` | A flash arrived and the seat's entry went out, with its reaction time.                |
+| `QUOTA  RATE_LIMITED ...`                     | Over the team's 8 messages a tick. The seat pauses one tick; it is not a reject.      |
+| `HOTPATH ...` (once a minute)                 | Time per tick and per venue message (mean, p50, p99, max), and the gap between ticks. |
+| `MSGS   ...` (once a minute)                  | Orders, cancels, quota rejections (graded under 5%) and the cancellation-fee bill.    |
 
 To count rejects for a seat after the block:
 
@@ -157,7 +174,7 @@ To count rejects for a seat after the block:
 | `cannot connect ...` repeats                   | The venue is down or not open yet. Leave the seat running; it keeps retrying.                                                                       |
 | A Python traceback, and the process exits      | Run the same command again, and note the time for the writeup.                                                                                      |
 | A seat has stopped itself at its reject budget | Leave it stopped and tell Amy (see the checklist).                                                                                                  |
-| `RATE_LIMITED` errors                          | The team sent more than 20 orders and cancels in one tick. The seats are paced to stay under this (4 + 4 + 8 a second), so report it if you see it. |
+| `RATE_LIMITED` errors                          | The team went over 8 orders and cancels in one tick (week 7). The seats are paced to 1.5 + 1.5 + 4.5 a second, so a few are possible after a burst; the seat pauses a tick. Report it if the `MSGS` line shows more than 2%. |
 
 ## How the seats trade
 
@@ -185,7 +202,7 @@ touch and earn the maker rebate. Only the races take liquidity: event
 entries, fade sales, the stop-loss, the starter order, and the buy-back at
 the deadline.
 
-**The broker** quotes three levels a side, and widens its quotes when the
+**The broker** quotes one level a side (three before week 7), and widens its quotes when the
 price is moving (`volatility_spread`). While shorts are locked, it never
 offers more shares than it holds. It holds and bids for at most 150 shares
 per symbol. It pulls its quotes in a symbol for the event warning and for
@@ -204,8 +221,8 @@ Every trader order passes one gate (`_place` in `base_trader.py`):
 - There is at most one order per symbol and side, and an order never crosses
   the seat's own resting order. A cross would trigger self-trade prevention.
 - Prices stay inside the venue's price band.
-- Orders and cancels are paced: 4 a second for each trader seat and 8 for the
-  broker. The team shares 20 a tick.
+- Orders and cancels are paced: 1.5 a second for each trader seat (burst 3)
+  and 4.5 for the broker on each venue. From week 7 the team shares 8 a tick.
 - Nothing is sent after `SESSION_CLOSED`.
 
 A reject pauses that symbol for 10 s. At 8 rejects, the seat stops sending
@@ -219,6 +236,9 @@ orders for the rest of the session.
 | `mean_reversion_trader.py` | `MeanReversionTrader._signal()`: trader_2's strategy.                                                                                                                                                     |
 | `base_trader.py`           | What both trader seats share: the event layer, the reaction bid, the stop-loss, the starter order, maker quoting, the ORCA bid (`on_ipo`) and the order gate.                                             |
 | `events.py`                | Event plans: the edge-versus-fee check and the price levels.                                                                                                                                              |
+| `flash.py`                 | Week-7 flashes: reading the `FLASH` event, the entry and exit prices, the plan and the reaction log.                                                                                                     |
+| `rolling.py`               | O(1) rolling mean / standard deviation and high / low, fed by every book update.                                                                                                                         |
+| `hotpath.py`               | The once-a-minute `HOTPATH` and `MSGS` log lines: time per tick and per message, messages sent, quota rejections, cancel bill.                                                                          |
 | `venue.py`                 | Own-order tracking (`OwnOrders`), and `TeamBot`, which routes acks, rejects and cancels to the trader.                                                                                                    |
 | `reconnect.py`             | `run_with_backoff`, the reconnect policy both bots use.                                                                                                                                                   |
 | `broker.py`                | `MyBroker` (quote width) and `TeamBrokerBot`: quotes that never cross the book, inventory skew from the opening position, inventory caps (50 a name after an event), pacing, event pauses, reject budget. |

@@ -6,6 +6,8 @@ import asyncio
 import itertools
 import logging
 
+import pytest
+
 import broker.config as _config
 from shared.messages import (CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
                              SessionEvent, TradeExecution)
@@ -17,6 +19,13 @@ logging.disable(logging.CRITICAL)
 
 ME = _config.TEAM_ID
 _ids = itertools.count(1)
+
+
+@pytest.fixture(autouse=True)
+def three_level_ladder(monkeypatch):
+    """These tests cover the ladder code, so they quote three levels; the
+    live broker quotes team.broker.QUOTE_LEVELS (1 from week 7)."""
+    monkeypatch.setattr(team_broker, "QUOTE_LEVELS", 3)
 
 
 def run(coro):
@@ -268,11 +277,11 @@ def test_the_reject_budget_pulls_every_quote_and_stops_quoting():
     b, sent, _ = make()
     run(b.quote_symbol("AAPL"))
     ids = ack_all(b, sent)
-    rate_limited = ErrorMsg(code="RATE_LIMITED", message="slow down")
+    refused = ErrorMsg(code="INVALID_ORDER", message="refused")
     for _ in range(REJECT_BUDGET - 1):
-        run(b._peek(rate_limited.model_dump_json()))
+        run(b._peek(refused.model_dump_json()))
     assert sent == []
-    run(b._peek(rate_limited.model_dump_json()))
+    run(b._peek(refused.model_dump_json()))
     assert cancelled(sent) == set(ids)
 
     sent.clear()

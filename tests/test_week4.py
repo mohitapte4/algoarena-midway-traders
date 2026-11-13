@@ -5,6 +5,8 @@ from __future__ import annotations
 import asyncio
 import logging
 
+import pytest
+
 from shared.messages import SessionEvent
 from team.base_trader import IPO_SHARES, IPO_STOP
 from team.mean_reversion_trader import MeanReversionTrader
@@ -14,11 +16,19 @@ from team.venue import OwnOrders, TeamBot
 from tests.test_broker import ack_all, make as make_broker, places, run as run_broker
 from tests.test_event_layer import fill, fire, setup
 from tests.test_momentum_trader import flat, trend
+from team import broker as team_broker
 
 logging.disable(logging.CRITICAL)
 
 DEAL = {"symbol": "ORCA", "offer_range": [24.0, 28.0], "shares": 4000}
 SHORTS_ON = {"scenario": {"flags": {"shorts_allowed": True}}}
+
+
+@pytest.fixture(autouse=True)
+def three_level_ladder(monkeypatch):
+    """These tests cover the ladder code, so they quote three levels; the
+    live broker quotes team.broker.QUOTE_LEVELS (1 from week 7)."""
+    monkeypatch.setattr(team_broker, "QUOTE_LEVELS", 3)
 
 
 def opened(cls=MomentumTrader, **kw):

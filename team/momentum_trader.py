@@ -50,19 +50,24 @@ class MomentumTrader(BaseTrader):
 
     EVENT_MODES = frozenset({RIDE, FADE})
     MAX_SHORT = 100           # team limit: −100 here and −150 broker, of 800
+    WINDOWS = (SHORT_WINDOW, LONG_WINDOW)
 
     def _signal(self, market, portfolio, net_worth: float, now: float,
                 halted: bool) -> Signal | None:
-        """10/40 moving-average crossover with a fee-aware buffer."""
+        """10/40 moving-average crossover with a fee-aware buffer.
+
+        Both averages are rolling (team.rolling), so a tick costs O(1) per
+        symbol however long the history is.
+        """
         buffer = max(BUFFER, self.min_edge())
         for symbol in sorted(market.symbols()):
             if self._in_window(symbol, now):
                 continue
-            hist = market.prices(symbol)
-            if len(hist) < LONG_WINDOW:
+            long_w = self._rolling(market, symbol, LONG_WINDOW)
+            if long_w is None or not long_w.full:
                 continue
-            short_ma = sum(hist[-SHORT_WINDOW:]) / SHORT_WINDOW
-            long_ma = sum(hist[-LONG_WINDOW:]) / LONG_WINDOW
+            short_ma = self._rolling(market, symbol, SHORT_WINDOW).mean
+            long_ma = long_w.mean
             trend = f"short {short_ma:.2f} / long {long_ma:.2f}"
 
             if short_ma > long_ma * (1 + buffer) and not halted:
