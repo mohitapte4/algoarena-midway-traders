@@ -659,8 +659,8 @@ class BaseTrader(Trader):
         qty = FLASH_SHARES
         if side == "buy":
             qty, why = self.limits.buy_quantity(
-                qty, price, self._symbol_value(sym, market, self._portfolio),
-                self._gross_value(market, self._portfolio),
+                qty, price, self._traded_value(sym, market),
+                self._traded_gross(market),
                 self._portfolio.net_worth(market))
             if why:
                 self._note(sym, f"flash buy cut to {qty} by {why} limit")
@@ -1119,14 +1119,14 @@ class BaseTrader(Trader):
         label = f"starter {self._starter_attempts + 1}/{STARTER_MAX_ATTEMPTS}"
 
         if not halted:
-            gross = self._gross_value(market, portfolio)
+            gross = self._traded_gross(market)
             for symbol in sorted(market.symbols()):
                 ask = market.best_ask(symbol)
                 if self._busy(symbol) or not ask:
                     continue
                 qty, _ = self.limits.buy_quantity(
                     STARTER_QUANTITY, ask,
-                    self._symbol_value(symbol, market, portfolio), gross, net_worth)
+                    self._traded_value(symbol, market), gross, net_worth)
                 if qty >= 1 and portfolio.can_buy(symbol, qty, ask):
                     signal = self._place(symbol, "buy", qty, ask, now, label,
                                          taker=True)
@@ -1177,8 +1177,8 @@ class BaseTrader(Trader):
             return None
         if side == "buy":
             qty, why = self.limits.buy_quantity(
-                qty, touch, self._symbol_value(symbol, market, self._portfolio),
-                self._gross_value(market, self._portfolio),
+                qty, touch, self._traded_value(symbol, market),
+                self._traded_gross(market),
                 net_worth if net_worth is not None
                 else self._portfolio.net_worth(market))
             if why:
@@ -1343,10 +1343,17 @@ class BaseTrader(Trader):
     def _symbol_value(symbol: str, market, portfolio) -> float:
         return abs(portfolio.positions.get(symbol, 0)) * (market.mid_price(symbol) or 0.0)
 
-    @staticmethod
-    def _gross_value(market, portfolio) -> float:
-        return sum(abs(qty) * (market.mid_price(sym) or 0.0)
-                   for sym, qty in portfolio.positions.items())
+    def _traded_value(self, symbol: str, market) -> float:
+        """What this seat has bought or shorted in `symbol` and still has
+        on, at the mid. The venue's starting grant is not counted: on Nov 6
+        it alone was 25% of trader_2's equity, past the 20% gross limit, so
+        every buy was cut to 0, flash entries on drops included."""
+        shares = self._bought.get(symbol, 0) + self._shorted.get(symbol, 0)
+        return shares * (market.mid_price(symbol) or 0.0)
+
+    def _traded_gross(self, market) -> float:
+        return sum(self._traded_value(sym, market)
+                   for sym in set(self._bought) | set(self._shorted))
 
     def _note(self, symbol: str, text: str) -> None:
         """Log a risk decision once, until it changes."""
