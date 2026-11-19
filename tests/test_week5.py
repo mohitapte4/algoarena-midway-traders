@@ -13,6 +13,7 @@ from team.venue import TeamBot
 from tests.test_event_layer import setup
 from tests.test_momentum_trader import trend
 from tests.test_broker import make, run, event, places
+from team.risk import RESUME_SETTLE_SEC
 
 
 @pytest.mark.parametrize('cls', [MomentumTrader, MeanReversionTrader])
@@ -26,6 +27,8 @@ def test_traders_pause_until_explicit_resume_then_accept_orders(cls, market_wide
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
     assert sum(t.rejects.values()) == 0
     t.on_event('MARKET_RESUMED' if market_wide else 'TRADING_RESUMED', '', data)
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None  # settling
+    c.t += RESUME_SETTLE_SEC
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
 
 
@@ -47,6 +50,9 @@ def test_broker_resumes_quoting_after_halt(market_wide):
     assert not places(sent)
     run(b._on_session_event(event('MARKET_RESUMED' if market_wide else 'TRADING_RESUMED', **data)))
     run(b.quote_symbol('AAPL'))
+    assert not places(sent)                       # settling after the resume
+    now[0] += RESUME_SETTLE_SEC
+    run(b.quote_symbol('AAPL'))
     assert places(sent)
     assert b._errors == 0
 
@@ -65,6 +71,7 @@ def test_trader_live_send_blocks_signal_created_before_halt(monkeypatch):
     assert not sent
     assert t.orders.live('AAPL', 'buy') is None
     t.on_event('TRADING_RESUMED', '', {'symbol': 'AAPL'})
+    c.t += RESUME_SETTLE_SEC
     signal = t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False)
     run(bot._place_order(signal))
     assert len(sent) == 1
@@ -118,8 +125,8 @@ def test_broker_reserves_unacked_orders_across_symbols(monkeypatch):
 
 def test_broker_equity_floor_still_allows_exits(monkeypatch):
     b, sent, now = live_broker(monkeypatch, cash=10000)
-    b._on_portfolio(PortfolioUpdate(team_id='me', cash=6000, positions={'AAPL': 10},
-                                   net_worth=7000, realized_pnl=-3000, unrealized_pnl=0, total_fees_paid=0))
+    b._on_portfolio(PortfolioUpdate(team_id='me', cash=6800, positions={'AAPL': 10},
+                                   net_worth=7800, realized_pnl=-2200, unrealized_pnl=0, total_fees_paid=0))
     run(b._send(PlaceOrder(order_type='limit', team_id='me', symbol='AMD', side='buy', price=100, quantity=1)))
     run(b._send(PlaceOrder(order_type='limit', team_id='me', symbol='AAPL', side='sell', price=100, quantity=5)))
     assert [(m.side, m.symbol) for m in sent] == [('sell', 'AAPL')]
@@ -321,7 +328,9 @@ def test_halt_lifts_after_venue_duration_when_resume_is_missed(cls):
     t.on_connect()  # the seat dropped and missed TRADING_RESUMED
     c.t += 299
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
-    c.t += 5
+    c.t += 5                                      # resumed, still settling
+    assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
+    c.t += RESUME_SETTLE_SEC
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
 
 
@@ -331,7 +340,7 @@ def test_broker_halt_lifts_after_venue_duration(monkeypatch):
     now[0] += 299
     run(b.quote_symbol('AAPL'))
     assert not places(sent)
-    now[0] += 5
+    now[0] += 5 + RESUME_SETTLE_SEC
     run(b.quote_symbol('AAPL'))
     assert places(sent)
 
@@ -341,6 +350,7 @@ def test_teacher_lift_resumes_halted_symbols():
     t.on_tick(m, p)
     t.on_event('TRADING_HALT', '', {'symbol': 'AAPL'})
     t.on_event('MARKET_RESUMED', '', {'symbols': ['AAPL']})
+    c.t += RESUME_SETTLE_SEC
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
 
 
@@ -352,7 +362,7 @@ def test_symbol_halted_reject_blocks_until_the_venue_resume_time():
     assert t.rejects['SYMBOL_HALTED'] == 1
     c.t += 100
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is None
-    c.t += 25
+    c.t += 25 + RESUME_SETTLE_SEC
     assert t._place('AAPL', 'buy', 5, 195, c.t, 'test', taker=False) is not None
 
 
@@ -375,7 +385,7 @@ def test_broker_symbol_halted_reject_stops_quoting_the_name(monkeypatch):
                              message='AAPL trading is halted. Resume in 60s')))
     run(b.quote_symbol('AAPL'))
     assert not places(sent)
-    now[0] += 65
+    now[0] += 65 + RESUME_SETTLE_SEC
     run(b.quote_symbol('AAPL'))
     assert places(sent)
 
@@ -388,7 +398,7 @@ def test_reaction_bid_waits_out_the_halt_its_event_caused(cls):
     t.on_event('TRADING_HALT', '', {'symbol': 'AAPL', 'duration': 300})
     assert tick(t, m, p, c, 300) == []
     t.on_event('TRADING_RESUMED', '', {'symbol': 'AAPL'})
-    out = tick(t, m, p, c, 10)
+    out = tick(t, m, p, c, 20)
     assert [(s.side, s.quantity) for _, s in out] == [('buy', 5)]
-    assert out[0][0] < 2
+    assert RESUME_SETTLE_SEC <= out[0][0] < RESUME_SETTLE_SEC + 2
     assert out[0][1].price <= PX * 1.062
