@@ -46,6 +46,27 @@ momentum:
 meanrev:
 	TICK_INTERVAL=$(or $(TICK_INTERVAL),$(SEAT_TICK)) TEAM_ID=$(or $(TEAM_ID),midway_traders_trader_2) python -m team.mean_reversion_trader
 
+# The Friday multi-venue layout (team/README.md, week 8). The team venues
+# first, the house last; a trader runs its strategy on the first venue in its
+# list. Override any of these on the command line, e.g. if the fees moved:
+#   make live-momentum T1=wss://...,wss://...
+HOUSE   ?= wss://feed.algoarena-st.duckdns.org
+V_3SIG  ?= wss://feed-8773.algoarena-st.duckdns.org
+V_STT11 ?= wss://feed-8767.algoarena-st.duckdns.org
+V_GRP8  ?= wss://feed-8770.algoarena-st.duckdns.org
+V_AUT3  ?= wss://feed-8769.algoarena-st.duckdns.org
+T1 ?= $(V_3SIG),$(V_STT11),$(V_GRP8),$(V_AUT3)
+T2 ?= $(V_STT11),$(V_3SIG),$(V_GRP8),$(V_AUT3)
+
+live-momentum:
+	$(MAKE) momentum EXCHANGE_URLS=$(T1),$(HOUSE) LINK_FEED_URL=$(HOUSE)
+
+live-meanrev:
+	$(MAKE) meanrev EXCHANGE_URLS=$(T2),$(HOUSE) LINK_FEED_URL=$(HOUSE)
+
+live-broker:
+	$(MAKE) broker EXCHANGE_URLS=$(T1)
+
 exchange:
 	python -m exchange.server
 
@@ -70,4 +91,4 @@ backtest:
 test:
 	pytest tests/ -q
 
-.PHONY: install register trader broker momentum meanrev exchange sim season replay backtest test
+.PHONY: live-momentum live-meanrev live-broker install register trader broker momentum meanrev exchange sim season replay backtest test
