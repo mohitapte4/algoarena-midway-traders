@@ -1,0 +1,218 @@
+00:11:16  INFO    Logging to /Users/edhac/Workspace/uchicago-msfm/finm3350-systematic-trading/algoarena-midway-traders/logs/midway_traders_trader_2_20261120_001116.log
+00:11:16  INFO    Connecting to ws://127.0.0.1:8766 (EXCHANGE_URLS from the shell)
+00:11:16  INFO    Connected to ws://127.0.0.1:8766 as midway_traders_trader_2 (trader)
+00:11:19  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+00:11:19  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+00:11:20  INFO    ORDER  buy  4 NFLX @ 489.69 take (notional 1958.76) — starter 1/3
+00:11:20  DEBUG   Placed: buy 4 NFLX @ 489.6900
+00:11:22  INFO    LINK   AMD moved +20.1 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:11:29  INFO    Session event: CALENDAR — Upcoming: econ_print MARKET @ t950
+00:11:29  INFO    EVENT  CALENDAR       Upcoming: econ_print MARKET @ t950
+00:11:29  INFO    EVENT  window *: econ_print expected in 120s — quotes pulled, no new strategy orders until 175s from now
+00:11:41  INFO    LINK   NFLX moved -6.4 bp: buy AMZN, echo +1.9 bp due in 8 ticks
+00:12:19  INFO    HOTPATH on_tick: 591 calls, mean 210 us, p50 119 us, p99 1367 us, max 4229 us
+00:12:19  INFO    HOTPATH time between ticks: 590 calls, mean 101724 us, p50 101299 us, p99 110774 us, max 122011 us
+00:12:19  INFO    HOTPATH message handling: 1032 calls, mean 147 us, p50 91 us, p99 1291 us, max 6249 us
+00:12:19  INFO    MSGS   1 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:12:19  INFO    FLASH  0 flashes seen, no orders sent on them
+00:12:19  INFO    LINK   home: 2 leader moves, 0 follower orders, 0 filled
+00:12:34  INFO    LINK   NFLX moved -4.5 bp: buy AMZN, echo +1.3 bp due in 8 ticks
+00:12:45  INFO    LINK   NFLX moved +4.3 bp: sell AMZN, echo -1.3 bp due in 8 ticks
+00:12:46  INFO    LINK   NFLX moved -8.2 bp: buy AMZN, echo +2.5 bp due in 8 ticks
+00:12:47  INFO    LINK   NFLX moved -19.9 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:12:56  INFO    LINK   NFLX moved -12.8 bp: buy AMZN, echo +3.9 bp due in 8 ticks
+00:12:58  INFO    LINK   NFLX moved -6.1 bp: buy AMZN, echo +1.8 bp due in 8 ticks
+00:12:59  INFO    LINK   NFLX moved -12.7 bp: buy AMZN, echo +3.8 bp due in 8 ticks
+00:13:05  INFO    LINK   NFLX moved +14.8 bp: sell AMZN, echo -4.4 bp due in 8 ticks
+00:13:07  INFO    LINK   NFLX moved +7.6 bp: sell AMZN, echo -2.3 bp due in 8 ticks
+00:13:12  INFO    LINK   AMD moved +15.7 bp: buy GOOGL, echo +5.7 bp due in 6 ticks
+00:13:19  INFO    HOTPATH on_tick: 1181 calls, mean 276 us, p50 152 us, p99 2222 us, max 7775 us
+00:13:19  INFO    HOTPATH time between ticks: 1180 calls, mean 101736 us, p50 101300 us, p99 110774 us, max 122011 us
+00:13:19  INFO    HOTPATH message handling: 2705 calls, mean 136 us, p50 83 us, p99 1205 us, max 6249 us
+00:13:19  INFO    MSGS   1 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:13:19  INFO    FLASH  0 flashes seen, no orders sent on them
+00:13:19  INFO    LINK   home: 12 leader moves, 0 follower orders, 0 filled
+00:13:25  INFO    LINK   MSFT moved -4.2 bp: buy TSLA, echo +1.5 bp due in 4 ticks
+00:13:27  INFO    LINK   MSFT moved -3.8 bp: buy TSLA, echo +1.3 bp due in 4 ticks
+00:14:11  INFO    Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.2%
+00:14:11  INFO    EVENT  CALENDAR_EVENT Econ Print: market-wide moving -2.2%
+00:14:11  INFO    EVENT  AAPL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 207.19 in 15s
+00:14:11  INFO    EVENT  MSFT reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 422.58 in 15s
+00:14:11  INFO    EVENT  NVDA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 148.16 in 15s
+00:14:11  INFO    EVENT  TSLA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 228.05 in 15s
+00:14:11  INFO    EVENT  AMZN reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 154.35 in 15s
+00:14:11  INFO    EVENT  GOOGL reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 177.00 in 15s
+00:14:11  INFO    EVENT  META reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 610.18 in 15s
+00:14:11  INFO    EVENT  NFLX reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 475.77 in 15s
+00:14:11  INFO    EVENT  AMD reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 205.24 in 15s
+00:14:11  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 16.37 in 15s
+00:14:11  INFO    EVENT  ORCA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 22.27 in 15s
+00:14:11  INFO    EVENT  VLTA reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 32.19 in 15s
+00:14:11  INFO    LINK   MSFT moved -19.3 bp: buy TSLA, echo +6.7 bp due in 4 ticks
+00:14:12  INFO    LINK   MSFT moved -19.3 bp: buy TSLA, echo +6.8 bp due in 4 ticks
+00:14:19  INFO    LINK   MSFT moved -19.8 bp: buy TSLA, echo +6.9 bp due in 4 ticks
+00:14:19  INFO    LINK   NFLX moved -19.3 bp: buy AMZN, echo +5.8 bp due in 8 ticks
+00:14:20  INFO    HOTPATH on_tick: 1770 calls, mean 300 us, p50 179 us, p99 2594 us, max 12273 us
+00:14:20  INFO    HOTPATH time between ticks: 1769 calls, mean 101820 us, p50 101311 us, p99 111225 us, max 146561 us
+00:14:20  INFO    HOTPATH message handling: 3717 calls, mean 143 us, p50 89 us, p99 1259 us, max 6249 us
+00:14:20  INFO    MSGS   1 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:14:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:14:20  INFO    LINK   home: 18 leader moves, 0 follower orders, 0 filled
+00:14:20  INFO    LINK   AMD moved -19.9 bp: sell GOOGL, echo -7.2 bp due in 6 ticks
+00:14:21  INFO    LINK   NFLX moved -19.7 bp: buy AMZN, echo +5.9 bp due in 8 ticks
+00:14:22  INFO    LINK   MSFT moved -19.3 bp: buy TSLA, echo +6.8 bp due in 4 ticks
+00:14:22  INFO    LINK   MSFT moved -19.7 bp: buy TSLA, echo +6.9 bp due in 4 ticks
+00:14:22  INFO    LINK   AMD moved -39.3 bp: sell GOOGL, echo -14.2 bp due in 6 ticks
+00:14:22  INFO    LINK   NFLX moved -19.7 bp: buy AMZN, echo +5.9 bp due in 8 ticks
+00:14:23  INFO    LINK   MSFT moved -19.6 bp: buy TSLA, echo +6.9 bp due in 4 ticks
+00:14:24  INFO    ORDER  buy  5 AAPL @ 209.58 take (notional 1047.90) — starter 2/3
+00:14:24  DEBUG   Placed: buy 5 AAPL @ 209.5800
+00:14:25  INFO    LINK   MSFT moved -19.8 bp: buy TSLA, echo +6.9 bp due in 4 ticks
+00:14:25  INFO    LINK   NFLX moved -39.7 bp: buy AMZN, echo +11.9 bp due in 8 ticks
+00:14:26  INFO    ORDER  buy  5 MSFT @ 421.38 rest (notional 2106.90) — event reaction
+00:14:26  INFO    EVENT  MSFT reaction: bid 5 @ 421.38 (settle 422.58)
+00:14:26  DEBUG   Placed: buy 5 MSFT @ 421.3800
+00:14:26  INFO    LINK   MSFT moved -19.9 bp: buy TSLA, echo +7.0 bp due in 4 ticks
+00:14:26  INFO    ORDER  buy  5 NVDA @ 148.16 rest (notional 740.80) — event reaction
+00:14:26  INFO    EVENT  NVDA reaction: bid 5 @ 148.16 (settle 148.16)
+00:14:26  DEBUG   Placed: buy 5 NVDA @ 148.1600
+00:14:26  INFO    ORDER  buy  5 TSLA @ 228.05 rest (notional 1140.25) — event reaction
+00:14:26  INFO    EVENT  TSLA reaction: bid 5 @ 228.05 (settle 228.05)
+00:14:26  DEBUG   Placed: buy 5 TSLA @ 228.0500
+00:14:26  INFO    LINK   NFLX moved -19.9 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:26  INFO    LINK   AMD moved -19.8 bp: sell GOOGL, echo -7.1 bp due in 6 ticks
+00:14:27  INFO    ORDER  buy  5 AMZN @ 154.34 rest (notional 771.70) — event reaction
+00:14:27  INFO    EVENT  AMZN reaction: bid 5 @ 154.34 (settle 154.35)
+00:14:27  DEBUG   Placed: buy 5 AMZN @ 154.3400
+00:14:27  INFO    ORDER  buy  5 GOOGL @ 177.00 rest (notional 885.00) — event reaction
+00:14:27  INFO    EVENT  GOOGL reaction: bid 5 @ 177.00 (settle 177.00)
+00:14:27  DEBUG   Placed: buy 5 GOOGL @ 177.0000
+00:14:28  INFO    LINK   NFLX moved -19.9 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:28  INFO    LINK   MSFT moved -19.9 bp: buy TSLA, echo +7.0 bp due in 4 ticks
+00:14:28  INFO    ORDER  buy  5 META @ 610.18 rest (notional 3050.90) — event reaction
+00:14:28  INFO    EVENT  META reaction: bid 5 @ 610.18 (settle 610.18)
+00:14:28  DEBUG   Placed: buy 5 META @ 610.1800
+00:14:28  INFO    LINK   AMD moved -19.9 bp: sell GOOGL, echo -7.2 bp due in 6 ticks
+00:14:29  INFO    ORDER  buy  5 NFLX @ 475.28 rest (notional 2376.40) — event reaction
+00:14:29  INFO    EVENT  NFLX reaction: bid 5 @ 475.28 (settle 475.77)
+00:14:29  DEBUG   Placed: buy 5 NFLX @ 475.2800
+00:14:29  INFO    LINK   MSFT moved -19.8 bp: buy TSLA, echo +6.9 bp due in 4 ticks
+00:14:29  INFO    LINK   NFLX moved -19.8 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:29  INFO    ORDER  buy  5 AMD @ 202.80 rest (notional 1014.00) — event reaction
+00:14:29  INFO    EVENT  AMD reaction: bid 5 @ 202.80 (settle 205.24)
+00:14:29  DEBUG   Placed: buy 5 AMD @ 202.8000
+00:14:30  INFO    ORDER  buy  5 INTC @ 16.19 rest (notional 80.95) — event reaction
+00:14:30  INFO    EVENT  INTC reaction: bid 5 @ 16.19 (settle 16.37)
+00:14:30  DEBUG   Placed: buy 5 INTC @ 16.1900
+00:14:30  INFO    LINK   MSFT moved -20.1 bp: buy TSLA, echo +7.0 bp due in 4 ticks
+00:14:31  INFO    ORDER  buy  5 ORCA @ 22.00 rest (notional 110.00) — event reaction
+00:14:31  INFO    EVENT  ORCA reaction: bid 5 @ 22.00 (settle 22.27)
+00:14:31  DEBUG   Placed: buy 5 ORCA @ 22.0000
+00:14:31  INFO    LINK   NFLX moved -20.2 bp: buy AMZN, echo +6.1 bp due in 8 ticks
+00:14:31  INFO    ORDER  buy  5 VLTA @ 31.51 rest (notional 157.55) — event reaction
+00:14:31  INFO    EVENT  VLTA reaction: bid 5 @ 31.51 (settle 32.19)
+00:14:31  DEBUG   Placed: buy 5 VLTA @ 31.5100
+00:14:35  INFO    LINK   MSFT moved +10.1 bp: sell TSLA, echo -3.5 bp due in 4 ticks
+00:14:35  INFO    LINK   AMD moved +19.9 bp: buy GOOGL, echo +7.1 bp due in 6 ticks
+00:14:36  INFO    LINK   MSFT moved +9.5 bp: sell TSLA, echo -3.3 bp due in 4 ticks
+00:14:40  INFO    LINK   MSFT moved +9.8 bp: sell TSLA, echo -3.4 bp due in 4 ticks
+00:14:41  INFO    LINK   NFLX moved +9.9 bp: sell AMZN, echo -3.0 bp due in 8 ticks
+00:14:42  INFO    LINK   MSFT moved +9.7 bp: sell TSLA, echo -3.4 bp due in 4 ticks
+00:14:42  INFO    LINK   NFLX moved +9.9 bp: sell AMZN, echo -3.0 bp due in 8 ticks
+00:14:44  INFO    LINK   MSFT moved -13.8 bp: buy TSLA, echo +4.8 bp due in 4 ticks
+00:14:44  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:44  INFO    LINK   NFLX moved -19.9 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:44  INFO    LINK   AMD moved -15.5 bp: sell GOOGL, echo -5.6 bp due in 6 ticks
+00:14:46  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:48  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:14:48  INFO    Session event: SSR_ON — VLTA is now under the short-sale rule — shorts must add liquidity above the bid
+00:14:48  INFO    EVENT  SSR_ON         VLTA is now under the short-sale rule — shorts must add liquidity above the bid
+00:14:54  INFO    ORDER  buy  5 AAPL @ 208.66 take (notional 1043.30) — starter 3/3
+00:14:54  DEBUG   Placed: buy 5 AAPL @ 208.6600
+00:14:59  INFO    Session event: SSR_ON — NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+00:14:59  INFO    EVENT  SSR_ON         NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+00:14:59  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:15:02  INFO    LINK   NFLX moved -39.5 bp: buy AMZN, echo +11.8 bp due in 8 ticks
+00:15:04  INFO    LINK   AMD moved -20.0 bp: sell GOOGL, echo -7.2 bp due in 6 ticks
+00:15:05  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:15:05  INFO    LINK   AMD moved -13.7 bp: sell GOOGL, echo -4.9 bp due in 6 ticks
+00:15:07  INFO    LINK   NFLX moved -20.2 bp: buy AMZN, echo +6.1 bp due in 8 ticks
+00:15:08  INFO    LINK   NFLX moved -19.9 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:15:10  INFO    LINK   NFLX moved -11.0 bp: buy AMZN, echo +3.3 bp due in 8 ticks
+00:15:10  INFO    LINK   NFLX moved -12.1 bp: buy AMZN, echo +3.6 bp due in 8 ticks
+00:15:11  INFO    LINK   NFLX moved -16.9 bp: buy AMZN, echo +5.1 bp due in 8 ticks
+00:15:11  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:15:11  INFO    Session event: TRADING_HALT — Trading halted on VLTA: VLTA velocity halt: 5.0% move in 60s (threshold 5.0%)
+00:15:11  INFO    EVENT  TRADING_HALT   Trading halted on VLTA: VLTA velocity halt: 5.0% move in 60s (threshold 5.0%)
+00:15:12  INFO    LINK   NFLX moved -6.7 bp: buy AMZN, echo +2.0 bp due in 8 ticks
+00:15:13  INFO    LINK   NFLX moved -5.0 bp: buy AMZN, echo +1.5 bp due in 8 ticks
+00:15:16  INFO    LINK   NFLX moved -15.1 bp: buy AMZN, echo +4.5 bp due in 8 ticks
+00:15:18  INFO    LINK   NFLX moved -15.9 bp: buy AMZN, echo +4.8 bp due in 8 ticks
+00:15:20  INFO    HOTPATH on_tick: 2359 calls, mean 297 us, p50 159 us, p99 2468 us, max 12273 us
+00:15:20  INFO    HOTPATH time between ticks: 2358 calls, mean 101832 us, p50 101312 us, p99 111092 us, max 146561 us
+00:15:20  INFO    HOTPATH message handling: 5077 calls, mean 155 us, p50 93 us, p99 1330 us, max 7682 us
+00:15:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:15:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:15:20  INFO    LINK   home: 65 leader moves, 0 follower orders, 0 filled
+00:15:20  INFO    Session event: TRADING_HALT — Trading halted on NFLX: NFLX velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:15:20  INFO    EVENT  TRADING_HALT   Trading halted on NFLX: NFLX velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:15:21  INFO    LINK   NFLX moved -11.9 bp: buy AMZN, echo +3.6 bp due in 8 ticks
+00:15:22  INFO    LINK   NFLX moved -7.1 bp: buy AMZN, echo +2.1 bp due in 8 ticks
+00:16:20  INFO    HOTPATH on_tick: 2951 calls, mean 270 us, p50 139 us, p99 2174 us, max 12273 us
+00:16:20  INFO    HOTPATH time between ticks: 2950 calls, mean 101768 us, p50 101290 us, p99 111073 us, max 146561 us
+00:16:20  INFO    HOTPATH message handling: 5930 calls, mean 157 us, p50 103 us, p99 1153 us, max 7682 us
+00:16:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:16:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:16:20  INFO    LINK   home: 67 leader moves, 0 follower orders, 0 filled
+00:17:15  INFO    LINK   MSFT moved -5.2 bp: buy TSLA, echo +1.8 bp due in 4 ticks
+00:17:20  INFO    HOTPATH on_tick: 3542 calls, mean 251 us, p50 129 us, p99 2080 us, max 12273 us
+00:17:20  INFO    HOTPATH time between ticks: 3541 calls, mean 101747 us, p50 101278 us, p99 110774 us, max 146561 us
+00:17:20  INFO    HOTPATH message handling: 6848 calls, mean 160 us, p50 114 us, p99 1317 us, max 7682 us
+00:17:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:17:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:17:20  INFO    LINK   home: 68 leader moves, 0 follower orders, 0 filled
+00:17:33  INFO    LINK   MSFT moved -4.3 bp: buy TSLA, echo +1.5 bp due in 4 ticks
+00:18:09  INFO    LINK   MSFT moved -3.3 bp: buy TSLA, echo +1.1 bp due in 4 ticks
+00:18:20  INFO    HOTPATH on_tick: 4133 calls, mean 242 us, p50 127 us, p99 2027 us, max 12273 us
+00:18:20  INFO    HOTPATH time between ticks: 4132 calls, mean 101724 us, p50 101276 us, p99 110234 us, max 146561 us
+00:18:20  INFO    HOTPATH message handling: 7772 calls, mean 163 us, p50 118 us, p99 1286 us, max 7682 us
+00:18:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:18:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:18:20  INFO    LINK   home: 70 leader moves, 0 follower orders, 0 filled
+00:18:44  INFO    LINK   MSFT moved -6.1 bp: buy TSLA, echo +2.1 bp due in 4 ticks
+00:18:46  INFO    LINK   MSFT moved -3.5 bp: buy TSLA, echo +1.2 bp due in 4 ticks
+00:19:16  INFO    LINK   MSFT moved -4.4 bp: buy TSLA, echo +1.5 bp due in 4 ticks
+00:19:20  INFO    HOTPATH on_tick: 4724 calls, mean 237 us, p50 128 us, p99 1990 us, max 12273 us
+00:19:20  INFO    HOTPATH time between ticks: 4723 calls, mean 101700 us, p50 101274 us, p99 109790 us, max 146561 us
+00:19:20  INFO    HOTPATH message handling: 8563 calls, mean 164 us, p50 124 us, p99 1141 us, max 7682 us
+00:19:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:19:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:19:20  INFO    LINK   home: 73 leader moves, 0 follower orders, 0 filled
+00:19:38  INFO    LINK   MSFT moved -3.0 bp: buy TSLA, echo +1.1 bp due in 4 ticks
+00:20:12  INFO    Session event: TRADING_RESUMED — Trading resumed on VLTA
+00:20:12  INFO    EVENT  TRADING_RESUMED Trading resumed on VLTA
+00:20:20  INFO    Session event: TRADING_RESUMED — Trading resumed on NFLX
+00:20:20  INFO    EVENT  TRADING_RESUMED Trading resumed on NFLX
+00:20:20  INFO    HOTPATH on_tick: 5314 calls, mean 232 us, p50 121 us, p99 1788 us, max 15296 us
+00:20:20  INFO    HOTPATH time between ticks: 5313 calls, mean 101708 us, p50 101276 us, p99 109777 us, max 163649 us
+00:20:20  INFO    HOTPATH message handling: 9581 calls, mean 162 us, p50 121 us, p99 1089 us, max 7682 us
+00:20:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:20:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:20:20  INFO    LINK   home: 74 leader moves, 0 follower orders, 0 filled
+00:20:21  INFO    LINK   NFLX moved -17.9 bp: buy AMZN, echo +5.4 bp due in 8 ticks
+00:20:22  INFO    LINK   NFLX moved -15.4 bp: buy AMZN, echo +4.6 bp due in 8 ticks
+00:20:24  INFO    LINK   NFLX moved -9.2 bp: buy AMZN, echo +2.8 bp due in 8 ticks
+00:20:27  INFO    LINK   MSFT moved -4.9 bp: buy TSLA, echo +1.7 bp due in 4 ticks
+00:20:27  INFO    LINK   NFLX moved -6.4 bp: buy AMZN, echo +1.9 bp due in 8 ticks
+00:20:51  INFO    LINK   MSFT moved -3.1 bp: buy TSLA, echo +1.1 bp due in 4 ticks
+00:21:03  INFO    LINK   NFLX moved -6.8 bp: buy AMZN, echo +2.0 bp due in 8 ticks
+00:21:04  INFO    LINK   NFLX moved -6.6 bp: buy AMZN, echo +2.0 bp due in 8 ticks
+00:21:19  INFO    LINK   NFLX moved -8.8 bp: buy AMZN, echo +2.6 bp due in 8 ticks
+00:21:20  INFO    HOTPATH on_tick: 5905 calls, mean 235 us, p50 112 us, p99 1739 us, max 18268 us
+00:21:20  INFO    HOTPATH time between ticks: 5904 calls, mean 101701 us, p50 101261 us, p99 109311 us, max 163649 us
+00:21:20  INFO    HOTPATH message handling: 10807 calls, mean 163 us, p50 117 us, p99 1076 us, max 7682 us
+00:21:20  INFO    MSGS   14 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:21:20  INFO    FLASH  0 flashes seen, no orders sent on them
+00:21:20  INFO    LINK   home: 83 leader moves, 0 follower orders, 0 filled
+00:21:25  WARNING trader midway_traders_trader_2: connection closed cleanly — reconnecting in 0.9s (attempt 1)
+00:21:26  WARNING trader midway_traders_trader_2: cannot connect (ConnectionRefusedError: [Errno 61] Connect call failed ('127.0.0.1', 8766)) — reconnecting in 2.1s (attempt 2)

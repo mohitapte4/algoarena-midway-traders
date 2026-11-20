@@ -1,0 +1,166 @@
+00:11:13  INFO    Logging to /Users/edhac/Workspace/uchicago-msfm/finm3350-systematic-trading/algoarena-midway-traders/logs/midway_traders_trader_1_20261120_001113.log
+00:11:13  INFO    Connecting to ws://127.0.0.1:8765 (EXCHANGE_URLS from the shell)
+00:11:13  INFO    Connected to ws://127.0.0.1:8765 as midway_traders_trader_1 (trader)
+00:11:16  INFO    Session event: CALENDAR — No scheduled events this session
+00:11:16  INFO    EVENT  CALENDAR       No scheduled events this session
+00:11:16  INFO    Session event: IPO_ANNOUNCE — IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+00:11:16  INFO    EVENT  IPO_ANNOUNCE   IPO: Volta Grid (VLTA) — 3,500 shares at $30.00–34.00; book opens t150, lists t520
+00:11:16  INFO    Session event: SESSION_OPEN — Trading session is now OPEN. Bots activate!
+00:11:16  INFO    EVENT  SESSION_OPEN   Trading session is now OPEN. Bots activate!
+00:11:16  INFO    Session event: AUCTION_RESULT — Opening auction complete — continuous trading begins
+00:11:16  INFO    EVENT  AUCTION_RESULT Opening auction complete — continuous trading begins
+00:11:16  INFO    ORDER  buy  5 NVDA @ 154.43 take (notional 772.15) — starter 1/3
+00:11:16  DEBUG   Placed: buy 5 NVDA @ 154.4300
+00:11:17  INFO    LINK   NFLX moved -20.1 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:11:18  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:11:18  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:11:18  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:11:20  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:11:21  INFO    LINK   NFLX moved -20.0 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:11:22  INFO    LINK   NFLX moved -10.4 bp: buy AMZN, echo +3.1 bp due in 8 ticks
+00:11:33  INFO    Session event: TRADING_HALT — Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:11:33  INFO    EVENT  TRADING_HALT   Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:11:46  INFO    ORDER  buy  5 AAPL @ 216.09 take (notional 1080.45) — starter 2/3
+00:11:46  DEBUG   Placed: buy 5 AAPL @ 216.0900
+00:12:09  INFO    LINK   MSFT moved -3.5 bp: buy TSLA, echo +1.2 bp due in 4 ticks
+00:12:16  INFO    HOTPATH on_tick: 591 calls, mean 173 us, p50 91 us, p99 1291 us, max 9485 us
+00:12:16  INFO    HOTPATH time between ticks: 590 calls, mean 101721 us, p50 101253 us, p99 111082 us, max 116597 us
+00:12:16  INFO    HOTPATH message handling: 1099 calls, mean 168 us, p50 104 us, p99 1137 us, max 6642 us
+00:12:16  INFO    MSGS   2 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:12:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:12:16  INFO    LINK   home: 8 leader moves, 0 follower orders, 0 filled
+00:12:16  INFO    ORDER  buy  5 AAPL @ 215.78 take (notional 1078.90) — starter 3/3
+00:12:16  DEBUG   Placed: buy 5 AAPL @ 215.7800
+00:13:16  INFO    HOTPATH on_tick: 1181 calls, mean 173 us, p50 85 us, p99 1291 us, max 9485 us
+00:13:16  INFO    HOTPATH time between ticks: 1180 calls, mean 101717 us, p50 101246 us, p99 111082 us, max 122860 us
+00:13:16  INFO    HOTPATH message handling: 2131 calls, mean 185 us, p50 111 us, p99 1855 us, max 6642 us
+00:13:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:13:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:13:16  INFO    LINK   home: 8 leader moves, 0 follower orders, 0 filled
+00:13:43  INFO    Session event: CALENDAR — Upcoming: earnings INTC @ t250
+00:13:43  INFO    EVENT  CALENDAR       Upcoming: earnings INTC @ t250
+00:13:43  INFO    EVENT  window INTC: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+00:14:08  INFO    Session event: IPO_OPEN — VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+00:14:08  INFO    IPO    VLTA: indicate 200 of 3500 shares up to $34.00 (range $30.00-34.00). Expected pop +15% (venue: offer x exp(N(12%, 18%))); top of range costs nothing if the book is cold; team stays at 400 of 800 shares
+00:14:08  INFO    EVENT  IPO_OPEN       VLTA book is OPEN — subscribe with quantity and max price ($30.00–34.00) before t420
+00:14:16  INFO    HOTPATH on_tick: 1771 calls, mean 179 us, p50 88 us, p99 1888 us, max 9485 us
+00:14:16  INFO    HOTPATH time between ticks: 1770 calls, mean 101765 us, p50 101249 us, p99 111082 us, max 207696 us
+00:14:16  INFO    HOTPATH message handling: 3032 calls, mean 184 us, p50 118 us, p99 1585 us, max 6642 us
+00:14:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:14:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:14:16  INFO    LINK   home: 8 leader moves, 0 follower orders, 0 filled
+00:14:52  INFO    LINK   MSFT moved -4.8 bp: buy TSLA, echo +1.7 bp due in 4 ticks
+00:15:16  INFO    HOTPATH on_tick: 2360 calls, mean 189 us, p50 94 us, p99 1965 us, max 9485 us
+00:15:16  INFO    HOTPATH time between ticks: 2359 calls, mean 101795 us, p50 101255 us, p99 111675 us, max 207696 us
+00:15:16  INFO    HOTPATH message handling: 3772 calls, mean 192 us, p50 121 us, p99 1650 us, max 6642 us
+00:15:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:15:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:15:16  INFO    LINK   home: 9 leader moves, 0 follower orders, 0 filled
+00:15:37  INFO    LINK   MSFT moved -5.6 bp: buy TSLA, echo +2.0 bp due in 4 ticks
+00:16:09  INFO    Session event: CALENDAR_EVENT — Earnings: INTC moving -5.8%
+00:16:09  INFO    EVENT  CALENDAR_EVENT Earnings: INTC moving -5.8%
+00:16:09  INFO    EVENT  INTC reaction: cancel other orders; unless a plan trades first, bid 5 at no more than 16.25 in 15s
+00:16:16  INFO    Session event: TRADING_RESUMED — Trading resumed on NFLX
+00:16:16  INFO    EVENT  TRADING_RESUMED Trading resumed on NFLX
+00:16:16  INFO    Session event: TRADING_RESUMED — Trading resumed on AMD
+00:16:16  INFO    EVENT  TRADING_RESUMED Trading resumed on AMD
+00:16:16  INFO    HOTPATH on_tick: 2951 calls, mean 190 us, p50 96 us, p99 1988 us, max 9485 us
+00:16:16  INFO    HOTPATH time between ticks: 2950 calls, mean 101751 us, p50 101258 us, p99 111564 us, max 207696 us
+00:16:16  INFO    HOTPATH message handling: 4681 calls, mean 196 us, p50 127 us, p99 1585 us, max 6642 us
+00:16:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:16:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:16:16  INFO    LINK   home: 10 leader moves, 0 follower orders, 0 filled
+00:16:18  INFO    LINK   NFLX moved -10.2 bp: buy AMZN, echo +3.1 bp due in 8 ticks
+00:16:18  INFO    LINK   AMD moved -19.6 bp: sell GOOGL, echo -7.1 bp due in 6 ticks
+00:16:18  INFO    LINK   NFLX moved -20.1 bp: buy AMZN, echo +6.0 bp due in 8 ticks
+00:16:18  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:16:19  INFO    LINK   NFLX moved -4.9 bp: buy AMZN, echo +1.5 bp due in 8 ticks
+00:16:19  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:16:20  INFO    Session event: TRADING_HALT — Trading halted on INTC: INTC velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:16:20  INFO    EVENT  TRADING_HALT   Trading halted on INTC: INTC velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:16:20  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:16:21  INFO    LINK   AMD moved +20.1 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:16:22  INFO    LINK   NFLX moved +7.1 bp: sell AMZN, echo -2.1 bp due in 8 ticks
+00:16:23  INFO    LINK   AMD moved +20.0 bp: buy GOOGL, echo +7.2 bp due in 6 ticks
+00:16:26  INFO    Session event: SSR_ON — INTC is now under the short-sale rule — shorts must add liquidity above the bid
+00:16:26  INFO    EVENT  SSR_ON         INTC is now under the short-sale rule — shorts must add liquidity above the bid
+00:16:33  INFO    Session event: TRADING_RESUMED — Trading resumed on TSLA
+00:16:33  INFO    EVENT  TRADING_RESUMED Trading resumed on TSLA
+00:16:42  INFO    LINK   AMD moved -12.4 bp: sell GOOGL, echo -4.5 bp due in 6 ticks
+00:16:43  INFO    LINK   NFLX moved +4.7 bp: sell AMZN, echo -1.4 bp due in 8 ticks
+00:16:49  INFO    Session event: SSR_ON — TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+00:16:49  INFO    EVENT  SSR_ON         TSLA is now under the short-sale rule — shorts must add liquidity above the bid
+00:16:53  INFO    LINK   NFLX moved -5.2 bp: buy AMZN, echo +1.5 bp due in 8 ticks
+00:17:00  INFO    LINK   AMD moved -17.9 bp: sell GOOGL, echo -6.4 bp due in 6 ticks
+00:17:11  INFO    LINK   AMD moved +14.7 bp: buy GOOGL, echo +5.3 bp due in 6 ticks
+00:17:13  INFO    Session event: TRADING_HALT — Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:17:13  INFO    EVENT  TRADING_HALT   Trading halted on TSLA: TSLA velocity halt: 5.1% move in 60s (threshold 5.0%)
+00:17:16  INFO    HOTPATH on_tick: 3542 calls, mean 193 us, p50 101 us, p99 1941 us, max 9485 us
+00:17:16  INFO    HOTPATH time between ticks: 3541 calls, mean 101727 us, p50 101261 us, p99 111082 us, max 207696 us
+00:17:16  INFO    HOTPATH message handling: 5573 calls, mean 204 us, p50 134 us, p99 1650 us, max 6642 us
+00:17:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:17:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:17:16  INFO    LINK   home: 25 leader moves, 0 follower orders, 0 filled
+00:18:16  INFO    HOTPATH on_tick: 4133 calls, mean 206 us, p50 106 us, p99 1988 us, max 9485 us
+00:18:16  INFO    HOTPATH time between ticks: 4132 calls, mean 101716 us, p50 101267 us, p99 110448 us, max 207696 us
+00:18:16  INFO    HOTPATH message handling: 6325 calls, mean 210 us, p50 141 us, p99 1779 us, max 7569 us
+00:18:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:18:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:18:16  INFO    LINK   home: 25 leader moves, 0 follower orders, 0 filled
+00:18:19  INFO    LINK   AMD moved -13.8 bp: sell GOOGL, echo -5.0 bp due in 6 ticks
+00:18:20  INFO    LINK   NFLX moved -11.1 bp: buy AMZN, echo +3.3 bp due in 8 ticks
+00:18:22  INFO    LINK   NFLX moved -4.3 bp: buy AMZN, echo +1.3 bp due in 8 ticks
+00:18:22  INFO    LINK   AMD moved -15.2 bp: sell GOOGL, echo -5.5 bp due in 6 ticks
+00:18:28  INFO    LINK   AMD moved -12.2 bp: sell GOOGL, echo -4.4 bp due in 6 ticks
+00:18:30  INFO    LINK   AMD moved -10.5 bp: sell GOOGL, echo -3.8 bp due in 6 ticks
+00:19:16  INFO    HOTPATH on_tick: 4724 calls, mean 213 us, p50 118 us, p99 1983 us, max 9485 us
+00:19:16  INFO    HOTPATH time between ticks: 4723 calls, mean 101700 us, p50 101277 us, p99 109885 us, max 207696 us
+00:19:16  INFO    HOTPATH message handling: 7143 calls, mean 211 us, p50 146 us, p99 2054 us, max 7569 us
+00:19:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:19:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:19:16  INFO    LINK   home: 31 leader moves, 0 follower orders, 0 filled
+00:19:38  INFO    Session event: IPO_PRICED — VLTA priced at $34.00 — 8,282 shares subscribed for 3,500 offered; lists t520
+00:19:38  INFO    EVENT  IPO_PRICED     VLTA priced at $34.00 — 8,282 shares subscribed for 3,500 offered; lists t520
+00:20:16  INFO    HOTPATH on_tick: 5314 calls, mean 214 us, p50 128 us, p99 1919 us, max 9485 us
+00:20:16  INFO    HOTPATH time between ticks: 5313 calls, mean 101702 us, p50 101293 us, p99 109098 us, max 207696 us
+00:20:16  INFO    HOTPATH message handling: 7857 calls, mean 211 us, p50 147 us, p99 1853 us, max 7569 us
+00:20:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:20:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:20:16  INFO    LINK   home: 31 leader moves, 0 follower orders, 0 filled
+00:20:51  INFO    Session event: CALENDAR — Upcoming: earnings MSFT @ t600
+00:20:51  INFO    EVENT  CALENDAR       Upcoming: earnings MSFT @ t600
+00:20:51  INFO    EVENT  window MSFT: earnings expected in 120s — quotes pulled, no new strategy orders until 175s from now
+00:20:54  INFO    LINK   MSFT moved -3.2 bp: buy TSLA, echo +1.1 bp due in 4 ticks
+00:21:16  INFO    HOTPATH on_tick: 5904 calls, mean 219 us, p50 140 us, p99 1965 us, max 9485 us
+00:21:16  INFO    HOTPATH time between ticks: 5903 calls, mean 101707 us, p50 101304 us, p99 109098 us, max 207696 us
+00:21:16  INFO    HOTPATH message handling: 8709 calls, mean 213 us, p50 147 us, p99 1858 us, max 7569 us
+00:21:16  INFO    MSGS   3 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:21:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:21:16  INFO    LINK   home: 32 leader moves, 0 follower orders, 0 filled
+00:21:21  INFO    Session event: TRADING_RESUMED — Trading resumed on INTC
+00:21:21  INFO    EVENT  TRADING_RESUMED Trading resumed on INTC
+00:21:30  INFO    LINK   MSFT moved -3.6 bp: buy TSLA, echo +1.2 bp due in 4 ticks
+00:21:31  INFO    ORDER  buy  5 INTC @ 16.24 rest (notional 81.20) — event reaction
+00:21:31  INFO    EVENT  INTC reaction: bid 5 @ 16.24 (settle 16.25)
+00:21:31  DEBUG   Placed: buy 5 INTC @ 16.2400
+00:21:43  INFO    Session event: IPO_LISTED — VLTA is now trading — offered at $34.00. Where it belongs is yours to discover.
+00:21:43  INFO    EVENT  IPO_LISTED     VLTA is now trading — offered at $34.00. Where it belongs is yours to discover.
+00:21:43  INFO    IPO    VLTA listed with no allocation booked for this seat
+00:21:46  INFO    LINK   AMD moved +18.0 bp: buy GOOGL, echo +6.5 bp due in 6 ticks
+00:21:53  INFO    LINK   MSFT moved -4.2 bp: buy TSLA, echo +1.5 bp due in 4 ticks
+00:22:12  INFO    Session event: TRADING_RESUMED — Trading resumed on TSLA
+00:22:13  INFO    EVENT  TRADING_RESUMED Trading resumed on TSLA
+00:22:16  INFO    HOTPATH on_tick: 6495 calls, mean 221 us, p50 144 us, p99 1941 us, max 11659 us
+00:22:16  INFO    HOTPATH time between ticks: 6494 calls, mean 101704 us, p50 101303 us, p99 108596 us, max 207696 us
+00:22:16  INFO    HOTPATH message handling: 9650 calls, mean 212 us, p50 148 us, p99 1673 us, max 7569 us
+00:22:16  INFO    MSGS   4 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:22:16  INFO    FLASH  0 flashes seen, no orders sent on them
+00:22:16  INFO    LINK   home: 35 leader moves, 0 follower orders, 0 filled
+00:23:17  INFO    HOTPATH on_tick: 7086 calls, mean 223 us, p50 147 us, p99 1800 us, max 11659 us
+00:23:17  INFO    HOTPATH time between ticks: 7085 calls, mean 101698 us, p50 101305 us, p99 108539 us, max 207696 us
+00:23:17  INFO    HOTPATH message handling: 10336 calls, mean 218 us, p50 152 us, p99 1837 us, max 13314 us
+00:23:17  INFO    MSGS   4 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+00:23:17  INFO    FLASH  0 flashes seen, no orders sent on them
+00:23:17  INFO    LINK   home: 35 leader moves, 0 follower orders, 0 filled
+00:23:27  WARNING trader midway_traders_trader_1: connection closed cleanly — reconnecting in 1.2s (attempt 1)
+00:23:29  WARNING trader midway_traders_trader_1: cannot connect (ConnectionRefusedError: [Errno 61] Connect call failed ('127.0.0.1', 8765)) — reconnecting in 1.7s (attempt 2)

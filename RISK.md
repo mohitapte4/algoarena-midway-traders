@@ -6,7 +6,7 @@ We hold no exchange licence, so the exchange-role requirements do not apply.
 
 Risk code: `team/risk.py`, enforced in each seat's order gate
 (`BaseTrader._place`, `TeamBrokerBot._send` / `_risk_refusal`). Tests: one per
-guard in `tests/test_risk_guards.py` (23 tests; `make test` runs 479, all pass).
+guard in `tests/test_risk_guards.py` (23 tests; `make test` runs 518, all pass).
 
 ## Limits
 
@@ -59,18 +59,78 @@ every seat). To clear it, delete the file and restart the seat.
 
 ## Session 6 (Nov 6, the VLTA IPO)
 
+### Replayed: the Session 6 recording through `scripts/replay_session.py`
+
+Our three seats, running this PR's code, connected to `scripts/replay_session.py`
+serving the Session 6 recording. They received Nov 6's halts, resumes and events as
+they happened. Times below are tape time (Chicago).
+
+| Halt (tape) | Resumed | trader_1 | trader_2 | broker |
+| --- | --- | --- | --- | --- |
+| TSLA 15:40:40 | 15:45:40 | nothing sent | nothing sent | nothing during; first quote 11 s after |
+| INTC 15:45:27 | 15:50:28 | nothing during; event bid 10 s after | nothing during; event bid 10 s after | nothing during; first quote 12 s after |
+| TSLA 15:46:19 | 15:51:20 | nothing sent | nothing sent | nothing during; first quote 12 s after |
+| VLTA 16:01:21 | 16:06:21 | nothing sent | nothing sent | nothing during; first quote 10 s after |
+| NFLX 16:01:29 | 16:06:29 | nothing sent | nothing sent | nothing during; first quote 11 s after |
+| NFLX, AMD (halted before the recording starts) | 15:45:23 | nothing sent | nothing sent | quoted twice in each (the tape never announces these halts); first quote 13–14 s after |
+
+Through every halt the tape announces, no seat sends anything into the halted name,
+and each re-enters 10–14 s after the resume, never at the first tick. The INTC
+earnings reaction shows the policy end to end (trader_1's log, tape times added):
+
+```
+00:16:09  EVENT  CALENDAR_EVENT Earnings: INTC moving -5.8%                    15:45:16
+00:16:09  EVENT  INTC reaction: ... bid 5 at no more than 16.25 in 15s
+00:16:20  EVENT  TRADING_HALT   Trading halted on INTC: velocity 5.1% in 60s   15:45:27   (bid not sent)
+00:21:21  EVENT  TRADING_RESUMED Trading resumed on INTC                      15:50:28
+00:21:31  ORDER  buy  5 INTC @ 16.24 rest (notional 81.20) — event reaction   15:50:38   (+10 s)
+```
+
+The broker on VLTA (broker log, tape times added):
+
+```
+00:15:11  EVENT TRADING_HALT: VLTA quotes pulled for 0s                       16:01:21
+00:20:12  Trading resumed: Trading resumed on VLTA                            16:06:21
+00:20:22  Quoted VLTA bid=31.13 x0 ask=31.63 x0 ...                           16:06:31   (+10 s)
+```
+
+**How this evidence was collected.**
+
+- **The tape.** We replayed two windows of
+  `sessions/session_week06_20261106_214023_market.jsonl`, 15:40:23–15:52:30 and
+  15:57:30–16:07:30, which cover every halt and resume on the tape. Each window was a
+  trimmed copy of the recording, served on its own port. In the copies we made two
+  changes:
+  - We removed the 136 trade prints of our own Nov 6 fills. The replayed seats would
+    otherwise book them as fills of orders they never sent.
+  - The second window starts with the tape's own `SESSION_OPEN` record, re-stamped
+    1 s before the window. Without it the seats would never see the session open.
+- **The run.** A 33-line wrapper around `replay_session.py`'s own `load` and
+  `ReplayServer` held the stream until all three seats had connected, because the
+  tape's `SESSION_OPEN` comes in its first 20 ms. Playback was at ×1, so the 10 s
+  wait keeps its tape-time meaning.
+- **The seats.** The seats were started with the normal commands (`python -m
+  team.momentum_trader`, `team.mean_reversion_trader`, `team.broker`), pointed at the
+  replay with `EXCHANGE_URL`. Their logs are
+  `logs/midway_traders_{trader_1,trader_2,broker}_20261120_001113.log` (first window)
+  and `…_001116.log` (second window).
+- **The table.** We read the table from those logs. Each log line's wall-clock time
+  was mapped to tape time using the moment each stream started. Trader logs record
+  whole seconds, so the delays are accurate to about 1 s.
+- **What the replay server cannot do.** It plays the tape and ignores what the seats
+  send: no acks, fills, rejects or portfolio. So the traders, never sent a portfolio,
+  only send their starter orders and event reactions, not strategy trades. The broker
+  decides its quotes, but its own check refuses to send them without a portfolio,
+  which is why its quote lines show size `x0`. They still show when and where it
+  would quote. For the same reason the replay cannot show orders cancelled at a halt
+  (an order that was never acked cannot be cancelled), so that guard's evidence is
+  `test_13b` and `test_13c`.
+
+### Live: what the seats did on Nov 6
+
 These are the seats as they ran on Nov 6, before the Phase 3 changes; points 2–3 of
-the halt policy fix what this session showed. Facts below are from the seat logs in
+the halt policy fix what this session showed. From the seat logs in
 `logs/*20261106*`.
-
-**Replay (REPLAY tab / `scripts/replay_session.py`):**
-`make replay FILE=sessions/session_week06_20261106_214023_market.jsonl`, then the
-dashboard's REPLAY tab. Screenshots:
-
-- [ ] TSLA halt 15:40:40 → resume 15:45:40 → halted again 15:46:19
-- [ ] NFLX and AMD resume at 15:45:23 (our broker's resting asks fill at the reopen)
-- [ ] VLTA halt 16:01:21 → resume 16:06:21 (trader_2's resting stop fills at the reopen)
-- [ ] the market-wide econ print at 16:00:20
 
 | Halt (seat logs) | Resumed | What our seats did around it |
 | --- | --- | --- |
