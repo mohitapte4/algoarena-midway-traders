@@ -44,21 +44,26 @@ async def run_with_backoff(
     sleep: Callable[[float], Awaitable[None]] = asyncio.sleep,
     clock: Callable[[], float] = time.monotonic,
     rand: Callable[[], float] = random.random,
+    on_drop: Callable[[], None] | None = None,
 ) -> None:
     """Run `serve()` again after every end, until cancelled.
 
     `serve` is one connection: connect, work, return when the peer closes.
     Every exception except cancellation means "try again"; the unexpected
-    ones are logged with their traceback.
+    ones are logged with their traceback. `on_drop` hears of every
+    established connection that ended (the kill switch counts them:
+    team.risk.KillSwitch.on_disconnect); a failed attempt to connect is not
+    a drop, so a venue outage cannot add up to one.
     """
     attempt = 0
     while True:
         started = clock()
+        dropped = False
         try:
             await serve()
-            reason = "connection closed cleanly"
+            reason, dropped = "connection closed cleanly", True
         except websockets.exceptions.ConnectionClosed as exc:
-            reason = f"connection dropped ({exc})"
+            reason, dropped = f"connection dropped ({exc})", True
         except websockets.exceptions.InvalidHandshake as exc:
             reason = f"handshake rejected ({exc})"
         except OSError as exc:            # includes TimeoutError
@@ -66,6 +71,11 @@ async def run_with_backoff(
         except Exception as exc:
             logger.exception("%s: unexpected error", name)
             reason = f"unexpected {type(exc).__name__}"
+        if dropped and on_drop is not None:
+            try:
+                on_drop()
+            except Exception:
+                logger.exception("%s: on_drop failed", name)
         attempt = 1 if clock() - started >= healthy_after else attempt + 1
         delay = backoff_delay(attempt, base=base, cap=cap, jitter=jitter, r=rand())
         logger.warning("%s: %s — reconnecting in %.1fs (attempt %d)",

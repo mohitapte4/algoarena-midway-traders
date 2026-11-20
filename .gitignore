@@ -8,7 +8,10 @@ venv/
 .venv/
 sessions/
 data/reports/
-
+tmp/
 # Secrets — your team token. NEVER commit this.
 .env
 .claude/worktrees/
+# Kill switch trip files (team/risk.py KillSwitch)
+KILL
+KILL_*
