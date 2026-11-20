@@ -80,7 +80,7 @@ from team.flash import (
 )
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.leadlag import TICK_SEC as LINK_TICK_SEC, EchoPlan, LinkTracker, echo_plans
-from team.risk import EventLimits, RiskLimits, TradingState
+from team.risk import HARD_GROSS, EventLimits, RiskLimits, TradingState, kill_switch
 from team.routing import Router, VenueQuote
 from team.rolling import RollingWindow, Sampler
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
@@ -167,6 +167,9 @@ class BaseTrader(Trader):
         self.event_limits = event_limits or EventLimits()
         self._clock = clock
         self.trading_state = TradingState(lambda: self._clock())
+        # Phase 3: one switch that stops every new order (team.risk.KillSwitch)
+        self.kill = kill_switch(getattr(_trader_config, "TEAM_ID", "trader"),
+                                lambda: self._clock())
         self._preopen = False
         self._start_net_worth: float | None = None
         self._halt_logged = False
@@ -273,6 +276,9 @@ class BaseTrader(Trader):
             self._maybe_report()
 
     def _tick(self, market, portfolio) -> Signal | None:
+        self.kill.poll()
+        if self.kill.tripped:
+            return self._kill_step(market, portfolio)
         if self._preopen or self._stopped:
             return None
         now = self._clock()
@@ -303,6 +309,10 @@ class BaseTrader(Trader):
                 return signal or self._reaction_signal(market, now, False)
             self._start_net_worth = net_worth
             logger.info("RISK   session reference net worth %.2f", net_worth)
+        if self.limits.kill_hit(net_worth, self._start_net_worth):
+            self.kill.trip(f"net worth {net_worth:,.2f} is {self.limits.kill_loss:.0%} "
+                           f"below the open ({self._start_net_worth:,.2f})")
+            return self._kill_step(market, portfolio)
         halted = self.limits.halted(net_worth, self._start_net_worth)
         if halted and not self._halt_logged:
             self._halt_logged = True
@@ -414,6 +424,21 @@ class BaseTrader(Trader):
     def on_event(self, event: str, message: str, data: dict) -> None:
         """Auction state, fees, the event calendar and shocks."""
         self.trading_state.event(event, data)
+        if event in ("TRADING_HALT", "MARKET_HALT"):
+            # The venue leaves resting orders on the book through a halt and
+            # fills them in the reopening at pre-halt prices (Nov 6: quotes
+            # filled 0 s after NFLX, AMD and VLTA resumed). Pull them now;
+            # cancels are accepted while halted. Re-entry comes after the settle.
+            halted = data.get("symbol") if event == "TRADING_HALT" else None
+            for order in list(self.orders):
+                if halted is None or order.symbol == halted:
+                    self._cancel(order, self._clock())
+        if event == "TRADING_RESUMED" and data.get("symbol"):
+            # The windows still hold the pre-halt mids: a strategy reading
+            # them would trade the halt's gap. They refill from the resume.
+            self._stats.pop(data["symbol"], None)
+        elif event == "MARKET_RESUMED":
+            self._stats.clear()
         if event != "AUCTION_INDICATIVE":       # sent every pre-open tick
             logger.info("EVENT  %-14s %s", event, message)
         if event == "SESSION_PREOPEN":
@@ -536,6 +561,7 @@ class BaseTrader(Trader):
         logger.warning("REJECT #%d %s %s: %s", total, code, symbol or "-", message)
         if total >= REJECT_BUDGET and not self._stopped:
             self._stopped = True
+            self.kill.trip(f"reject budget of {REJECT_BUDGET} reached")
             logger.error("REJECT budget of %d reached: no more orders this "
                          "session", REJECT_BUDGET)
 
@@ -1444,6 +1470,9 @@ class BaseTrader(Trader):
         `second` lets a flash order rest beside this side's other order in
         the name (every other source keeps to one per symbol and side).
         """
+        purpose = purpose or reason
+        if self.kill.tripped:
+            return None
         if (self._stopped or not price or qty < 1 or symbol in self.untradeable
                 or self.trading_state.blocked(symbol)):
             return None
@@ -1471,6 +1500,8 @@ class BaseTrader(Trader):
             cash = self._portfolio.cash if self._portfolio is not None else 0.0
             room = cash / (1 + self.taker) - self.orders.open_buy_notional()
             qty = min(qty, int(room // price) if room > 0 else 0)
+            if not purpose.startswith("fade"):
+                qty = self._hard_gross_cut(symbol, qty, price)
         if qty < 1:
             return None
 
@@ -1478,11 +1509,37 @@ class BaseTrader(Trader):
         self._last_order_at[symbol] = now
         self.orders.add(Order(symbol=symbol, side=side, price=price,
                               quantity=qty, sent_at=now,
-                              purpose=purpose or reason, taker=taker))
+                              purpose=purpose, taker=taker))
         logger.info("ORDER  %-4s %d %s @ %.2f %s (notional %.2f) — %s",
                     side, qty, symbol, price, "take" if taker else "rest",
                     qty * price, reason)
         return Signal(symbol=symbol, side=side, quantity=qty, price=price)
+
+    def _hard_gross_cut(self, symbol: str, qty: int, price: float) -> int:
+        """Cut a buy so the seat's traded gross, resting buys included, stays
+        under HARD_GROSS of net worth. Buying back a short only reduces it."""
+        if self._portfolio is None or self._market is None:
+            return qty
+        covering = min(qty, self._shorted.get(symbol, 0))
+        net_worth = self._portfolio.net_worth(self._market)
+        room = (HARD_GROSS * net_worth - self._traded_gross(self._market)
+                - self.orders.open_buy_notional())
+        allowed = covering + (int(room // price) if room > 0 else 0)
+        if allowed < qty:
+            self._note(symbol, f"buy cut from {qty} to {max(allowed, 0)} by the "
+                               f"{HARD_GROSS:.0%} hard gross limit")
+            return max(allowed, 0)
+        return qty
+
+    def _kill_step(self, market, portfolio) -> None:
+        """The kill switch is tripped: send nothing new and cancel every
+        order still resting."""
+        now = self._clock()
+        self._market, self._portfolio = market, portfolio
+        self.orders.expire(now)
+        for order in list(self.orders):
+            self._cancel(order, now)
+        return None
 
     def _cancel(self, order: Order, now: float) -> None:
         """Queue a cancel, unless it could race a fill or is already sent."""

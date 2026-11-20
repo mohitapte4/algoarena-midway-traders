@@ -50,7 +50,8 @@ from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
 from team.rolling import RollingRange, Sampler
 from team.venue import TokenBucket, OwnOrders, Order
-from team.risk import TradingState
+from team.risk import (BROKER_KILL_LOSS, BROKER_SESSION_LOSS, ToxicityMeter,
+                       TradedCost, TradingState, kill_switch, position_stop)
 
 logger = logging.getLogger(__name__)
 
@@ -146,9 +147,8 @@ class MyBroker(Broker):
     # Level 4 (skew) lives in TeamBrokerBot.quote_symbol: it needs the
     # quote width and the inventory limit, which the skew() hook is not given.
 
-    # Optional extra hooks:
-    #   def toxic(self, trader_id): ...                 # Level 5
-    #   def on_fill(self, side, symbol, quantity, price): ...
+    # Toxicity (Level 5) lives in TeamBrokerBot._spread: one-sided fills
+    # against our quotes widen them (team.risk.ToxicityMeter).
 
     async def _run_venues(self) -> None:
         """One TeamBrokerBot per venue; the first one's Yahoo feed serves all."""
@@ -157,6 +157,7 @@ class MyBroker(Broker):
         for b in bots[1:]:
             b.state.yahoo_prices = bots[0].state.yahoo_prices
             b._own_yahoo_feed = False
+            b.kill = bots[0].kill           # one switch for the seat
         await asyncio.gather(*(b.run() for b in bots))
 
 
@@ -208,6 +209,12 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         # an empty side there is intended, not a quote that was taken.
         self._unquoted: dict[str, set[str]] = {}
         self.trading_state = TradingState(lambda: self._clock())
+        # Phase 3: one switch for the seat (shared by every venue's bot)
+        self.kill = kill_switch(_config.TEAM_ID, lambda: self._clock())
+        self._kill_pulled = False
+        self._traded_cost: dict[str, TradedCost] = {}
+        self._toxicity = ToxicityMeter(lambda: self._clock())
+        self._stopped_names: set[str] = set()     # per-position stop in force
         self._risk_orders = OwnOrders()
         self._risk_ready = False
         self._initial_equity: float | None = None
@@ -243,7 +250,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         _print_startup()
         self.start_yahoo_feeds()
         await run_with_backoff(self._serve, f"broker {_config.TEAM_ID} "
-                                            f"{self.exchange_url}")
+                                            f"{self.exchange_url}",
+                               on_drop=lambda: self.kill.on_disconnect(self.exchange_url or ""))
 
     async def _serve(self) -> None:
         """One connection: quote until the venue closes it or it drops.
@@ -299,6 +307,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         if isinstance(msg, PlaceOrder) and not self._session_open:
             return False
         if isinstance(msg, PlaceOrder):
+            if self.kill.tripped:
+                return False
             # Recheck after pacing: a halt/portfolio update can arrive while
             # waiting for the next message slot.
             if self.trading_state.blocked(msg.symbol):
@@ -347,6 +357,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             return "no equity"
         if self._initial_equity is None:
             self._initial_equity = equity
+        if equity < self._initial_equity * (1 - BROKER_KILL_LOSS):
+            self.kill.trip(f"equity {equity:,.0f} is {BROKER_KILL_LOSS:.0%} below "
+                           f"the open ({self._initial_equity:,.0f})")
+            return "kill switch"
         held = self.state.positions.get(msg.symbol, 0)
         buys = self._risk_orders.open_quantity(msg.symbol, "buy")
         sells = self._risk_orders.open_quantity(msg.symbol, "sell")
@@ -365,8 +379,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 return "cash buffer"
         if reducing:
             return None
-        if equity < (self._initial_equity or equity) * 0.80:
-            return "equity 20% below the open"
+        if equity < self._initial_equity * (1 - BROKER_SESSION_LOSS):
+            return f"equity {BROKER_SESSION_LOSS:.0%} below the open"
         gross = self._traded_gross(msg)
         if gross > equity * 0.20:
             return f"traded gross {gross:,.0f} past 20% of equity {equity:,.0f}"
@@ -434,6 +448,15 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         return first(bids, "buy"), first(asks, "sell")
 
     def _spread(self, symbol: str) -> float:
+        """The quote width, doubled while the flow against us is one-sided."""
+        width = self._base_spread(symbol)
+        factor = self._toxicity.factor(symbol, _config.QUOTE_SIZE)
+        if factor > 1:
+            logger.info("RISK %s toxic flow: quotes widened x%.0f to %.2f",
+                        symbol, factor, width * factor)
+        return width * factor
+
+    def _base_spread(self, symbol: str) -> float:
         """Quote width: from the rolling high-low range once LOOKBACK marks
         are in (O(1)); until then, and offline, the hook on the history."""
         rng = self._ranges.get(symbol)
@@ -479,6 +502,14 @@ class TeamBrokerBot(_AdaptedBrokerBot):
     async def quote_symbol(self, symbol: str) -> None:
         """The engine's ladder, with each ask capped at the inventory not
         already offered on the levels inside it."""
+        self.kill.poll()
+        if self.kill.tripped:
+            if not self._kill_pulled:
+                self._kill_pulled = True
+                logger.error("KILL broker (%s): cancelling every quote, quoting "
+                             "nothing more", self.kill.reason)
+                await self.cancel_all_quotes()
+            return
         if (self._errors >= REJECT_BUDGET or self._paused(symbol)
                 or self.trading_state.blocked(symbol)):
             return
@@ -498,6 +529,17 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         position = self.state.positions.get(symbol, 0)
         traded = position - (self._opening or {}).get(symbol, 0)
         skew = inventory_skew(traded, self._max_inventory(symbol), spread)
+        cost = self._traded_cost.get(symbol)
+        stopped = cost is not None and position_stop(cost.qty, cost.avg, centre)
+        if stopped:
+            skew = -spread if cost.qty > 0 else spread     # full skew
+            if symbol not in self._stopped_names:
+                logger.warning("RISK %s position stop: traded %+d at avg %.2f, centre "
+                               "%.2f: quoting only the side that reduces it",
+                               symbol, cost.qty, cost.avg, centre)
+        if not stopped and symbol in self._stopped_names:
+            logger.info("RISK %s position stop lifted", symbol)
+        (self._stopped_names.add if stopped else self._stopped_names.discard)(symbol)
         half = spread / 2
         bid_price = math.floor((centre - half + skew) * 100) / 100
         ask_price = math.ceil((centre + half + skew) * 100) / 100
@@ -514,6 +556,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         half_step = max(half, 0.01)
         unoffered = self._ask_room(symbol)
         unbid = self._bid_room(symbol)
+        if stopped and cost.qty > 0:
+            unbid = 0                   # long and under water: no more bids
+        elif stopped:
+            unoffered = 0               # short and under water: no more offers
         wanted: list[tuple[str, float, int]] = []
         for lvl in range(QUOTE_LEVELS):
             size = _config.QUOTE_SIZE * (lvl + 1)
@@ -700,6 +746,8 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                               None)
                 self._live.pop(pulled, None)
         if self._errors == REJECT_BUDGET:
+            self.kill.trip(f"{REJECT_BUDGET} venue errors (reject budget)")
+            self._kill_pulled = True
             logger.error("%d venue errors this session (last [%s] %s): "
                          "cancelling every quote and quoting nothing more",
                          self._errors, msg.code, msg.message)
@@ -789,6 +837,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         and its ack subtracts it.
         """
         self._risk_orders.on_fill(symbol, side, qty, price, self._clock())
+        self._traded_cost.setdefault(symbol, TradedCost()).fill(side, qty, price)
+        if not taker:
+            self._toxicity.fill(symbol, side, qty)
         sign = 1 if side == "buy" else -1
         hit = sorted((i for i, q in self._live.items()
                       if (q.symbol, q.side) == (symbol, side)
@@ -813,6 +864,17 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             if msg.event in ("SESSION_PREOPEN", "SESSION_OPEN"):
                 flags = (msg.data.get("scenario") or {}).get("flags") or {}
                 self._shorts_allowed = flags.get("shorts_allowed") is True
+            elif msg.event in ("TRADING_HALT", "MARKET_HALT"):
+                # Resting quotes survive a halt and fill in the reopening at
+                # pre-halt prices: pull them (the venue accepts cancels).
+                symbol = (msg.data or {}).get("symbol")
+                symbols = ([symbol] if msg.event == "TRADING_HALT" and symbol
+                           else list(self._quote_symbols))
+                task = asyncio.create_task(self._pull_quotes(symbols))
+                self._pulls.add(task)
+                task.add_done_callback(self._pulls.discard)
+                logger.info("HALT %s: quotes pulled until the resume settles",
+                            ", ".join(symbols))
             elif msg.event == "CALENDAR":
                 self._on_calendar(msg.data)
             elif msg.event in ("CALENDAR_EVENT", "SHOCK"):

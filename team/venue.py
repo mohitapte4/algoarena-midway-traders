@@ -297,7 +297,9 @@ class TeamBot(_AdaptedTraderBot):
     async def run(self) -> None:
         """Connect and trade, reconnecting with backoff whenever the link ends."""
         _print_startup()
-        await run_with_backoff(self._serve, f"trader {_config.TEAM_ID}")
+        kill = getattr(self._owner, "kill", None)
+        await run_with_backoff(self._serve, f"trader {_config.TEAM_ID}",
+                               on_drop=kill.on_disconnect if kill else None)
 
     async def _serve(self) -> None:
         """One connection: trade until the venue closes it or it drops."""

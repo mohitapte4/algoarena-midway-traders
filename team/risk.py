@@ -18,15 +18,41 @@ meaningful whatever the seat's starting capital.
 Event trades (team.events) are short-lived and sized separately, by
 EventLimits: a bigger slice of net worth in one name for well under a
 minute, with a share cap that keeps the team inside the venue's limit
-(±800 shares per symbol from week 4).
+(±800 shares per symbol from week 4). Every buy, events included, still
+passes HARD_GROSS in the order gate.
+
+Phase 3 adds:
+    KillSwitch           one switch per seat: no new orders, resting orders
+                         cancelled. Tripped by a human
+                         (a KILL file), the reject budget, a hard loss, or
+                         repeated disconnects
+    TradingState         halts lift RESUME_SETTLE_SEC after the venue resumes
+    position_stop,       the broker's per-position stop and its toxicity
+    ToxicityMeter        widening (one-sided flow against its quotes)
+
+The limit table and the reasoning behind each number are in RISK.md.
 """
 
 from __future__ import annotations
 
+import logging
 import math
 import re
+from collections import deque
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# Hard ceiling on what a trader seat has traded, at market, checked in the
+# order gate for every buy (strategy, events, flashes, starter). Strategy
+# buys keep RiskLimits.max_gross (20%) at their source; events get 12% of net
+# worth per name (EventLimits), so 35% lets two or three event names run at
+# once and stops a market-wide print from riding all twelve.
+HARD_GROSS = 0.35
 
 
 @dataclass(frozen=True)
@@ -38,6 +64,13 @@ class RiskLimits:
     max_symbol: float = 0.05
     max_gross: float = 0.20
     stop_loss: float = 0.015
+    kill_loss: float = 0.02       # hard: trip the kill switch
+
+    def kill_hit(self, net_worth: float, start_net_worth: float | None) -> bool:
+        """True once net worth is `kill_loss` below its value at the open."""
+        if start_net_worth is None or start_net_worth <= 0:
+            return False
+        return net_worth < start_net_worth * (1 - self.kill_loss)
 
     def halted(self, net_worth: float, start_net_worth: float | None) -> bool:
         """True once the session loss limit has been breached."""
@@ -95,7 +128,11 @@ class EventLimits:
         return max(0, int(room * min(fraction, 1.0)))
 
 
-HALT_GRACE_SEC = 3.0    # past the venue's stated halt end before trying again
+# A resumed symbol stays blocked this long. The venue's velocity check looks
+# back 60 s and still holds the move that halted it: on Nov 6 TSLA resumed at
+# 15:45:40, trader_1 requoted it every second from 15:45:47 and it halted
+# again at 15:46:19. Ten 1 s ticks let the book refill and the mark settle.
+RESUME_SETTLE_SEC = 10.0
 BAND_MARGIN = 0.01      # inside the week's LULD band: the mark moves every tick
 
 _RESUME_IN = re.compile(r"Resume in (\d+(?:\.\d+)?)s")
@@ -117,7 +154,7 @@ class TradingState:
     def _until(self, data: dict) -> float:
         duration = data.get("duration")
         if isinstance(duration, (int, float)):
-            return self._clock() + duration + HALT_GRACE_SEC
+            return self._clock() + duration + RESUME_SETTLE_SEC
         return math.inf
 
     def event(self, event: str, data: dict) -> None:
@@ -125,14 +162,15 @@ class TradingState:
         if event == "TRADING_HALT" and symbol:
             self.symbols[symbol] = self._until(data)
         elif event == "TRADING_RESUMED" and symbol:
-            self.symbols.pop(symbol, None)
+            self.symbols[symbol] = self._clock() + RESUME_SETTLE_SEC
         elif event == "MARKET_HALT":
             self.market_until = self._until(data)
         elif event == "MARKET_RESUMED":
             # The teacher's lift resumes every halted symbol in this one event.
-            self.market_until = None
+            settle = self._clock() + RESUME_SETTLE_SEC
+            self.market_until = settle
             for s in data.get("symbols") or ():
-                self.symbols.pop(s, None)
+                self.symbols[s] = settle
         if event in ("SESSION_PREOPEN", "SESSION_OPEN"):
             scenario = data.get("scenario") or {}
             limit = scenario.get("position_limit")
@@ -147,7 +185,7 @@ class TradingState:
     def halted_reject(self, symbol: str, message: str) -> None:
         """A SYMBOL_HALTED reject: the halt began while we were not listening."""
         found = _RESUME_IN.search(message)
-        self.symbols[symbol] = (self._clock() + float(found.group(1)) + HALT_GRACE_SEC
+        self.symbols[symbol] = (self._clock() + float(found.group(1)) + RESUME_SETTLE_SEC
                                 if found else math.inf)
 
     def blocked(self, symbol: str) -> bool:
@@ -163,3 +201,149 @@ class TradingState:
         if self.luld_band is None:
             return default
         return min(default, self.luld_band - BAND_MARGIN)
+
+
+# ── kill switch ─────────────────────────────────────────────────────────────
+
+KILL_FILE = "KILL"              # every seat; KILL_<seat id> for one seat
+KILL_POLL_SEC = 1.0
+MAX_DROPS = 6                   # dropped connections on one link ...
+DROP_WINDOW_SEC = 300.0         # ... within this window. Nov 6 (the hosted
+                                # feed's worst day) peaked at 4 in 5 min on a
+                                # link, and every seat still traded the block.
+
+
+@dataclass
+class KillSwitch:
+    """One switch per seat: once tripped, no new orders for the session.
+
+    The seat's order gate asks `tripped` before anything else; cancels still
+    go out, and the seat cancels what it has resting.
+
+    Trips:
+      * human: a file named KILL (all seats) or KILL_<seat> in the repo root.
+        Works on Windows, where a signal would not. Delete the file and
+        restart the seat to clear it.
+      * the reject budget (the seat calls trip)
+      * a hard loss (the seat calls trip)
+      * MAX_DROPS dropped connections on one link within DROP_WINDOW_SEC
+        (on_disconnect; the broker has one link per venue)
+    """
+
+    seat: str
+    clock: Callable[[], float]
+    kill_dir: Path = REPO_ROOT
+    max_drops: int = MAX_DROPS
+    drop_window_sec: float = DROP_WINDOW_SEC
+    reason: str | None = None
+    _drops: dict = field(default_factory=dict)      # link -> drop times
+    _next_poll: float = -math.inf
+
+    @property
+    def tripped(self) -> bool:
+        return self.reason is not None
+
+    def trip(self, reason: str) -> bool:
+        """Trip once; True if this call tripped it."""
+        if self.tripped:
+            return False
+        self.reason = reason
+        logger.error("KILL   %s tripped: %s — no new orders this session",
+                     self.seat, reason)
+        return True
+
+    def poll(self) -> None:
+        """The human trip: look for the kill file, at most once a second."""
+        now = self.clock()
+        if now < self._next_poll:
+            return
+        self._next_poll = now + KILL_POLL_SEC
+        for name in (KILL_FILE, f"{KILL_FILE}_{self.seat}"):
+            if (self.kill_dir / name).exists():
+                self.trip(f"human ({name})")
+                return
+
+    def on_disconnect(self, link: str = "") -> None:
+        """An established connection dropped. A link that keeps dropping
+        cannot manage its orders, so MAX_DROPS within the window trips."""
+        now = self.clock()
+        drops = self._drops.setdefault(link, deque())
+        drops.append(now)
+        while drops and now - drops[0] > self.drop_window_sec:
+            drops.popleft()
+        if len(drops) >= self.max_drops:
+            self.trip(f"{len(drops)} disconnects in {self.drop_window_sec:.0f}s"
+                      + (f" on {link}" if link else ""))
+
+
+def kill_switch(seat: str, clock: Callable[[], float]) -> KillSwitch:
+    """The seat's switch, looking for the kill file in the repo root."""
+    return KillSwitch(seat, clock)
+
+
+# ── broker: per-position stop and toxicity ──────────────────────────────────
+
+BROKER_SESSION_LOSS = 0.20   # equity this far below the open: reducing orders only
+BROKER_KILL_LOSS = 0.25      # ... this far: kill switch, every quote pulled
+BROKER_POSITION_STOP = 0.015  # traded inventory this far under water: quote
+                              # only the side that reduces it (same 1.5% as
+                              # the traders' stop-loss)
+TOXIC_WINDOW_SEC = 30.0
+TOXIC_QUOTES = 3             # one side filled for this many quote sizes ...
+TOXIC_WIDEN = 2.0            # ... widens the quotes by this factor
+
+
+class TradedCost:
+    """Average cost of the inventory traded on top of the opening grant."""
+
+    def __init__(self) -> None:
+        self.qty = 0
+        self.avg = 0.0
+
+    def fill(self, side: str, qty: int, price: float) -> None:
+        signed = qty if side == "buy" else -qty
+        new = self.qty + signed
+        if self.qty == 0 or (self.qty > 0) == (signed > 0):
+            self.avg = (self.avg * abs(self.qty) + price * qty) / abs(new) if new else 0.0
+        elif new == 0:
+            self.avg = 0.0
+        elif (new > 0) != (self.qty > 0):
+            self.avg = price            # flipped: the rest opened at this price
+        self.qty = new
+
+
+def position_stop(traded_qty: int, avg_cost: float, mark: float | None,
+                  pct: float = BROKER_POSITION_STOP) -> bool:
+    """True when the traded inventory is `pct` or more under water at `mark`."""
+    if not traded_qty or not avg_cost or not mark:
+        return False
+    if traded_qty > 0:
+        return mark <= avg_cost * (1 - pct)
+    return mark >= avg_cost * (1 + pct)
+
+
+class ToxicityMeter:
+    """How one-sided the flow against our quotes has been, per symbol.
+
+    Informed flow hits one side repeatedly (Session 3: 110 NVDA sold into our
+    bids in 3 s). When the fills on one side over TOXIC_WINDOW_SEC reach
+    TOXIC_QUOTES quote sizes, the quotes widen by TOXIC_WIDEN.
+    """
+
+    def __init__(self, clock: Callable[[], float]) -> None:
+        self._clock = clock
+        self._fills: dict[str, deque] = {}
+
+    def fill(self, symbol: str, side: str, qty: int) -> None:
+        self._fills.setdefault(symbol, deque()).append((self._clock(), side, qty))
+
+    def factor(self, symbol: str, quote_size: int) -> float:
+        fills = self._fills.get(symbol)
+        if not fills:
+            return 1.0
+        now = self._clock()
+        while fills and now - fills[0][0] > TOXIC_WINDOW_SEC:
+            fills.popleft()
+        buys = sum(q for _, s, q in fills if s == "buy")
+        sells = sum(q for _, s, q in fills if s == "sell")
+        return TOXIC_WIDEN if max(buys, sells) >= TOXIC_QUOTES * quote_size else 1.0
