@@ -80,7 +80,7 @@ from team.flash import (
 )
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.leadlag import TICK_SEC as LINK_TICK_SEC, EchoPlan, LinkTracker, echo_plans
-from team.risk import HARD_GROSS, EventLimits, RiskLimits, TradingState, kill_switch
+from team.risk import HARD_GROSS, EventLimits, KillSwitch, RiskLimits, TradingState
 from team.routing import Router, VenueQuote
 from team.rolling import RollingWindow, Sampler
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
@@ -168,8 +168,8 @@ class BaseTrader(Trader):
         self._clock = clock
         self.trading_state = TradingState(lambda: self._clock())
         # Phase 3: one switch that stops every new order (team.risk.KillSwitch)
-        self.kill = kill_switch(getattr(_trader_config, "TEAM_ID", "trader"),
-                                lambda: self._clock())
+        self.kill = KillSwitch(getattr(_trader_config, "TEAM_ID", "trader"),
+                               lambda: self._clock())
         self._preopen = False
         self._start_net_worth: float | None = None
         self._halt_logged = False
@@ -433,12 +433,6 @@ class BaseTrader(Trader):
             for order in list(self.orders):
                 if halted is None or order.symbol == halted:
                     self._cancel(order, self._clock())
-        if event == "TRADING_RESUMED" and data.get("symbol"):
-            # The windows still hold the pre-halt mids: a strategy reading
-            # them would trade the halt's gap. They refill from the resume.
-            self._stats.pop(data["symbol"], None)
-        elif event == "MARKET_RESUMED":
-            self._stats.clear()
         if event != "AUCTION_INDICATIVE":       # sent every pre-open tick
             logger.info("EVENT  %-14s %s", event, message)
         if event == "SESSION_PREOPEN":

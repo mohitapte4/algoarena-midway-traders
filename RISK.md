@@ -6,7 +6,7 @@ We hold no exchange licence, so the exchange-role requirements do not apply.
 
 Risk code: `team/risk.py`, enforced in each seat's order gate
 (`BaseTrader._place`, `TeamBrokerBot._send` / `_risk_refusal`). Tests: one per
-guard in `tests/test_risk_guards.py` (24 tests; `make test` runs 480, all pass).
+guard in `tests/test_risk_guards.py` (23 tests; `make test` runs 479, all pass).
 
 ## Limits
 
@@ -49,53 +49,44 @@ every seat). To clear it, delete the file and restart the seat.
 2. **Resting orders in the name are cancelled.** The venue keeps them on the book
    through the halt and fills them in the reopening at pre-halt prices. On Nov 6
    our quotes filled 0 s after NFLX, AMD and VLTA resumed.
-3. `TRADING_RESUMED`: the name stays blocked for **10 s** (`RESUME_SETTLE_SEC`), and
-   the strategy's rolling windows are emptied, so new entries wait until they refill
-   (about 20 s) instead of trading the gap. A missed resume lifts at the stated
-   duration + 10 s; a halt with no duration is never lifted by a guess.
-   Why: the venue's velocity check looks back 60 s and still holds the move that
-   halted the name. On Nov 6 trader_1 requoted TSLA every second from 7 s after its
-   resume, on windows that still held pre-halt mids, until TSLA halted again at
-   15:46:19.
+3. `TRADING_RESUMED`: the name stays blocked for **10 s** (`RESUME_SETTLE_SEC`). A
+   missed resume lifts at the stated duration + 10 s; a halt with no duration is
+   never lifted by a guess. Why: the venue's velocity check looks back 60 s and still
+   holds the move that halted the name. On Nov 6 trader_1 requoted TSLA every second
+   from 7 s after its resume until TSLA halted again at 15:46:19.
 4. LULD: limit prices are clamped inside the week's `LULD_BAND_PCT` around the mark,
    less 1 bp.
 
-## Session 6 replay (Nov 6, the VLTA IPO), from the tape
+## Session 6 (Nov 6, the VLTA IPO)
 
-Produced by `python scripts/risk_replay.py sessions/session_week06_20261106_214023_market.jsonl`.
-The script reads the 47,861-line tape once, line by line, in bounded memory.
-These are the seats as they ran on Nov 6, before the Phase 3 changes. Points 2–3 of
-the halt policy fix what this replay shows.
+These are the seats as they ran on Nov 6, before the Phase 3 changes; points 2–3 of
+the halt policy fix what this session showed. Facts below are from the seat logs in
+`logs/*20261106*`.
 
-| Symbol | Halted | Resumed | Our fills while halted | First fill after resume |
-| --- | --- | --- | --- | --- |
-| TSLA | 15:40:40 | 15:45:40 | 0 | 6 s (broker) |
-| NFLX | before open | 15:45:23 | 0 | 0 s (broker, a resting quote) |
-| AMD | before open | 15:45:23 | 0 | 0 s (broker, a resting quote) |
-| INTC | 15:45:27 | 15:50:28 | 0 | 8 s (trader_1) |
-| TSLA | 15:46:19 | 15:51:20 | 0 | 5 s (broker) |
-| VLTA | 16:01:21 | 16:06:21 | 0 | 0 s (trader_2, a resting ask) |
-| NFLX | 16:01:29 | 16:06:29 | 0 | 0 s (broker, a resting quote) |
+**Replay (REPLAY tab / `scripts/replay_session.py`):**
+`make replay FILE=sessions/session_week06_20261106_214023_market.jsonl`, then the
+dashboard's REPLAY tab. Screenshots:
 
-| Time | Scenario event | broker | trader_1 | trader_2 |
-| --- | --- | --- | --- | --- |
-| 15:45:16 | INTC earnings −5.8% (halted 11 s later) | — | — | — |
-| 15:50:50 | VLTA lists at $34.00 | — | — | — |
-| 15:52:33 | MSFT earnings +3.1% | — | 11 fills, net 0 | 1 fill, net +5 |
-| 15:57:00 | NVDA dividend $0.30 | — | — | — |
-| 16:00:20 | Econ print, market-wide −2.2% | 2 fills, net −20 | 30 fills, net −113 | 34 fills, net −184 |
+- [ ] TSLA halt 15:40:40 → resume 15:45:40 → halted again 15:46:19
+- [ ] NFLX and AMD resume at 15:45:23 (our broker's resting asks fill at the reopen)
+- [ ] VLTA halt 16:01:21 → resume 16:06:21 (trader_2's resting stop fills at the reopen)
+- [ ] the market-wide econ print at 16:00:20
 
-| Seat | Fills | Maker share | Largest traded position | Rejected orders in the block (seat log) |
-| --- | --- | --- | --- | --- |
-| broker | 23 | 96% | −30 INTC | 0 (3 cancels that lost a race to a fill) |
-| trader_1 | 104 | 89% | −86 VLTA (the IPO allocation sold) | 1 (`SSR_RESTRICTED` TSLA, 15:46:16) |
-| trader_2 | 74 | 93% | −86 VLTA (the IPO allocation sold) | 1 (`STP_CANCEL` INTC, 16:00:39) |
+| Halt (seat logs) | Resumed | What our seats did around it |
+| --- | --- | --- |
+| NFLX, AMD at the open (session band, 25%) | 15:45:23 | Broker's resting asks, left on the book through the halt, filled at the reopen (AMD 212.87, NFLX 496.44) |
+| TSLA 15:40:40 (velocity) | 15:45:40 | trader_1 requoted TSLA every second from 15:45:47; TSLA halted again at 15:46:19 |
+| INTC 15:45:27 (velocity, 11 s after INTC earnings −5.8%) | 15:50:28 | trader_1 cancelled its fade sell during the halt |
+| TSLA 15:46:19 (velocity) | 15:51:20 | — |
+| VLTA 16:01:21 (velocity) | 16:06:21 | trader_2's IPO stop (sent 16:00:50 at $31.14) rested through the halt and filled at the reopen, 16:06:22 |
+| NFLX 16:01:29 (velocity) | 16:06:29 | Broker's resting asks filled at the reopen, 16:06:29 |
 
-No fill in any halted name, no reject storm (2 rejected orders in total, against a
-limit of 10 per seat), and no runaway position: the largest is the sale of each
-trader's IPO allocation, which arrives without a fill. Both traders indicated 200
-VLTA at $34. Connectivity: before the block opened, the hosted feed dropped each seat
-17–19 times (13:42–15:30, at most 4 in 5 min on a link). In the block each trader
-dropped once (16:27:37), the broker twice on 3-sigma's venue and once on ours, and
-every seat was back within about 2 s (`team/reconnect.py`). This history sets the 6-in-300-s
-disconnect trip.
+No order was refused for a halt (`SYMBOL_HALTED`): the seats sent nothing into a
+halted name. Rejected orders in the block: trader_1 1 (`SSR_RESTRICTED` TSLA,
+15:46:16), trader_2 1 (`STP_CANCEL` INTC, 16:00:39), broker 0 (3 cancels lost a race
+to a fill), against a limit of 10 a seat, so no reject storm. Both traders indicated
+200 VLTA at $34. Connectivity: before the block opened, the hosted feed dropped each
+seat 17–19 times (13:42–15:30, at most 4 in 5 min on a link). In the block each
+trader dropped once (16:27:37), the broker twice on 3-sigma's venue and once on ours,
+and every seat was back within about 2 s (`team/reconnect.py`). This history sets the
+6-in-300-s disconnect trip.

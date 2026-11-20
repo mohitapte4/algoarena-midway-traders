@@ -23,9 +23,8 @@ passes HARD_GROSS in the order gate.
 
 Phase 3 adds:
     KillSwitch           one switch per seat: no new orders, resting orders
-                         cancelled. Tripped by a human
-                         (a KILL file), the reject budget, a hard loss, or
-                         repeated disconnects
+                         cancelled. Tripped by a human (a KILL file), the
+                         reject budget, a hard loss, or repeated disconnects
     TradingState         halts lift RESUME_SETTLE_SEC after the venue resumes
     position_stop,       the broker's per-position stop and its toxicity
     ToxicityMeter        widening (one-sided flow against its quotes)
@@ -55,6 +54,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 HARD_GROSS = 0.35
 
 
+def _lost(net_worth: float, start: float | None, fraction: float) -> bool:
+    """True once `net_worth` is more than `fraction` below `start`."""
+    return bool(start and start > 0 and net_worth < start * (1 - fraction))
+
+
 @dataclass(frozen=True)
 class RiskLimits:
     """Moderate limits by default; every field is a fraction."""
@@ -66,17 +70,13 @@ class RiskLimits:
     stop_loss: float = 0.015
     kill_loss: float = 0.02       # hard: trip the kill switch
 
-    def kill_hit(self, net_worth: float, start_net_worth: float | None) -> bool:
-        """True once net worth is `kill_loss` below its value at the open."""
-        if start_net_worth is None or start_net_worth <= 0:
-            return False
-        return net_worth < start_net_worth * (1 - self.kill_loss)
-
     def halted(self, net_worth: float, start_net_worth: float | None) -> bool:
         """True once the session loss limit has been breached."""
-        if start_net_worth is None or start_net_worth <= 0:
-            return False
-        return net_worth < start_net_worth * (1 - self.max_session_loss)
+        return _lost(net_worth, start_net_worth, self.max_session_loss)
+
+    def kill_hit(self, net_worth: float, start_net_worth: float | None) -> bool:
+        """True once net worth is `kill_loss` below its value at the open."""
+        return _lost(net_worth, start_net_worth, self.kill_loss)
 
     def buy_quantity(self, wanted: int, price: float, symbol_value: float,
                      gross_value: float, net_worth: float) -> tuple[int, str]:
@@ -274,11 +274,6 @@ class KillSwitch:
         if len(drops) >= self.max_drops:
             self.trip(f"{len(drops)} disconnects in {self.drop_window_sec:.0f}s"
                       + (f" on {link}" if link else ""))
-
-
-def kill_switch(seat: str, clock: Callable[[], float]) -> KillSwitch:
-    """The seat's switch, looking for the kill file in the repo root."""
-    return KillSwitch(seat, clock)
 
 
 # ── broker: per-position stop and toxicity ──────────────────────────────────

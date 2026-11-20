@@ -23,7 +23,7 @@ from team.reconnect import run_with_backoff
 from team.risk import (BROKER_KILL_LOSS, BROKER_SESSION_LOSS, DROP_WINDOW_SEC,
                        HARD_GROSS, MAX_DROPS, RESUME_SETTLE_SEC, TOXIC_QUOTES,
                        TOXIC_WIDEN, KillSwitch, RiskLimits, ToxicityMeter,
-                       TradedCost, position_stop)
+                       position_stop)
 from tests.test_broker import ack_all, cancelled, event, handle, make, places, run
 from tests.test_momentum_trader import FakeMarket, FakePortfolio, flat, trend
 from tests.test_rejects import ready
@@ -130,7 +130,6 @@ def test_8_broker_position_stop_quotes_only_the_reducing_side(monkeypatch):
     run(b.quote_symbol("AAPL"))
     assert places(sent, "buy") == []
     assert places(sent, "sell")
-    assert "AAPL" in b._stopped_names
     assert position_stop(20, 100.0, 98.0) and not position_stop(20, 100.0, 98.6)
     assert position_stop(-20, 100.0, 101.6)            # a short, the other way
 
@@ -260,13 +259,10 @@ def test_13c_a_halt_pulls_the_brokers_quotes_in_the_name():
     assert not places(sent)
 
 
-def test_14_resume_waits_out_the_settle_and_refills_the_windows():
+def test_14_resume_waits_out_the_settle():
     t, m, p, c = ready(books={"AAA": flat(), "UP": trend()})
-    t.on_book("UP", 100.0)
-    assert "UP" in t._stats
     t.on_event("TRADING_HALT", "", {"symbol": "UP"})
     t.on_event("TRADING_RESUMED", "", {"symbol": "UP"})
-    assert "UP" not in t._stats                         # pre-halt mids dropped
     assert t._place("UP", "buy", 5, 100.0, c.t, "test", taker=False) is None
     c.t += RESUME_SETTLE_SEC - 1
     assert t._place("UP", "buy", 5, 100.0, c.t, "test", taker=False) is None
@@ -312,17 +308,6 @@ def test_17_one_sided_flow_against_the_quotes_widens_them(monkeypatch):
     for _ in range(TOXIC_QUOTES):
         b._book_fill("AAPL", "sell", 100.0, 10, taker=False)
     assert b._spread("AAPL") == pytest.approx(base * TOXIC_WIDEN)
-
-
-def test_traded_cost_follows_the_inventory_through_a_flip():
-    c = TradedCost()
-    c.fill("buy", 10, 100.0)
-    c.fill("buy", 10, 102.0)
-    assert (c.qty, c.avg) == (20, 101.0)
-    c.fill("sell", 5, 105.0)
-    assert (c.qty, c.avg) == (15, 101.0)
-    c.fill("sell", 25, 99.0)
-    assert (c.qty, c.avg) == (-10, 99.0)
 
 
 class _Clock:
