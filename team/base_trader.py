@@ -59,6 +59,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import math
+import os
 import time
 from collections import Counter
 from collections.abc import Callable
@@ -68,6 +69,7 @@ from pathlib import Path
 
 from arena import Signal, Trader      # first: puts the engine on sys.path
 import trader.config as _trader_config  # noqa: E402  (engine module)
+from shared.exchange_url import exchange_urls  # noqa: E402  (engine module)
 from team.events import (
     DEFAULT_OVERSHOOT, DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC, FADE, RIDE,
     EventPlan, designed_edge, size_fraction,
@@ -77,7 +79,9 @@ from team.flash import (
     start_price,
 )
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
+from team.leadlag import TICK_SEC as LINK_TICK_SEC, EchoPlan, LinkTracker, echo_plans
 from team.risk import HARD_GROSS, EventLimits, RiskLimits, TradingState, kill_switch
+from team.routing import Router, VenueQuote
 from team.rolling import RollingWindow, Sampler
 from team.venue import CANCEL_RACE, NOT_ORDER_ERRORS, Order, OwnOrders, TokenBucket
 
@@ -122,6 +126,12 @@ SSR_GUARD = 0.05          # no new shorts this far below the open: the venue's
 # quarter of the time. An undersubscribed book prices at the bottom of the
 # range whatever the bid, so the seat bids the top of the range; two seats
 # at 200 keep the team at 400 of its 800-share limit, leaving the broker room.
+ECHO_SHARES = 60          # the earnings echo trade (team.leadlag.EchoPlan): one
+                          # event order's worth, about $15k of AMZN
+ECHO_CROSS = 0.002        # the echo exit crosses the touch by this much: the
+                          # drift is gone in a few ticks, so it must fill
+LINK_SHARES = 2           # per link order: the echo is smaller than the spread
+                          # (team.leadlag), so this is a small maker order
 IPO_SHARES = 200
 IPO_CASH_MARGIN = 1.1     # pass unless cash covers the indication with room
 IPO_TAKE_PROFIT = 1.12    # rest the allocation at the median pop, exp(12%)
@@ -220,6 +230,20 @@ class BaseTrader(Trader):
         self.flash_log = FlashLog()
         self._halted = False
 
+        # lead-lag links (team.leadlag): cues, and each resting link order
+        # with the time its echo has passed
+        self.links = LinkTracker()
+        # venues (team.routing): set by run() when the seat has two
+        self.venue = "home"
+        # Whether this connection's marks feed the lead-lag tracker. One
+        # connection does; the others share its tracker and only read it.
+        self.link_feed = True
+        self.router: Router | None = None
+        self._online = False
+        self._link_orders: list[tuple[Order, float]] = []
+        self._echoes: dict[str, EchoPlan] = {}      # follower -> plan
+        self.link_counts: Counter[str] = Counter()
+
         # rolling statistics fed by every book update (on_book), O(1) each
         self._stats: dict[str, dict[int, RollingWindow]] = {}
         self._sampler = Sampler(SAMPLE_SEC)
@@ -307,6 +331,10 @@ class BaseTrader(Trader):
             signal = self._stop_loss(market, portfolio, now)
         if signal is None:
             signal = self._ipo_exit(market, now)
+        if signal is None:
+            signal = self._echo_step(market, net_worth, now, halted)
+        if signal is None:
+            signal = self._link_step(market, net_worth, now, halted)
         if signal is None and not self._starter_filled:
             signal = self._starter(market, portfolio, net_worth, now, halted)
         if signal is None:
@@ -334,6 +362,14 @@ class BaseTrader(Trader):
                 flash.filled += quantity
             elif order.purpose == "flash exit":
                 flash.exited += quantity
+        if order is not None and order.purpose == "link":
+            self.link_counts["fills"] += 1
+        echo = self._echoes.get(symbol)
+        if echo is not None and order is not None:
+            if order.purpose == "echo entry":
+                echo.filled += quantity
+            elif order.purpose == "echo exit":
+                echo.exited += quantity
 
         # A buy covers shares sold short first; a sell past the shares held
         # opens a short.
@@ -431,10 +467,12 @@ class BaseTrader(Trader):
             ramp = int(data.get("ramp_ticks") or DEFAULT_RAMP_TICKS)
             overshoot = float(data.get("overshoot") or DEFAULT_OVERSHOOT)
             self._last_ramp = (ramp, overshoot)
-            for symbol in data.get("affected") or (
-                    [data["symbol"]] if data.get("symbol") else []):
-                self._on_move(symbol, ramp, overshoot, message,
-                              pct=float(data.get("pct") or 0.0))
+            affected = data.get("affected") or (
+                [data["symbol"]] if data.get("symbol") else [])
+            pct = float(data.get("pct") or 0.0)
+            for symbol in affected:
+                self._on_move(symbol, ramp, overshoot, message, pct=pct)
+            self._open_echoes(list(affected), pct, ramp)
         elif event == "SHOCK":
             # A teacher-injected move carries target prices, not a pct; the
             # venue ramps it like a calendar event (server.py, inject shock).
@@ -458,6 +496,16 @@ class BaseTrader(Trader):
         self.orders.clear()
         self._cancels.clear()
         self._preopen = False
+        self._online = True
+        self._market = None
+        if self.link_feed:
+            self.links.reset()
+        self._link_orders.clear()
+
+    def on_disconnect(self) -> None:
+        """The link dropped: this venue's book is stale until it is back."""
+        self._online = False
+        self._market = None
 
     def on_ipo(self, symbol: str, lo: float, hi: float, shares: int,
                data: dict) -> tuple[int, float] | None:
@@ -605,6 +653,9 @@ class BaseTrader(Trader):
         logger.info("HOTPATH %s", self.message_time.report())
         logger.info("MSGS   %s", self.messages.report())
         logger.info("FLASH  %s", self.flash_log.report())
+        logger.info("LINK   %s: %d leader moves, %d follower orders, %d filled",
+                    self.venue, self.link_counts["cues"], self.link_counts["orders"],
+                    self.link_counts["fills"])
 
     def _maybe_report(self) -> None:
         now = self._clock()
@@ -744,16 +795,193 @@ class BaseTrader(Trader):
                             plan.filled, plan.exited)
         return None
 
+    # ── lead-lag links (team.leadlag) ───────────────────────────────────
+
+    def on_mark(self, symbol: str, mark: float) -> None:
+        """A venue mark (team.venue.TeamBot): a leader's move raises a cue."""
+        if not self.link_feed:
+            return
+        cue = self.links.on_mark(symbol, mark, self._clock())
+        if cue is not None:
+            self.link_counts["cues"] += 1
+            logger.info("LINK   %s moved %+.1f bp: %s %s, echo %+.1f bp due in "
+                        "%d ticks", symbol, cue.move * 1e4, cue.side,
+                        cue.link.follower, cue.expected * 1e4, cue.link.lag)
+
+    def _link_step(self, market, net_worth: float, now: float,
+                   halted: bool) -> Signal | None:
+        """Rest a small order in a follower before its echo; cancel it after.
+
+        The order goes out even inside an event window: an earnings or econ
+        ramp is when the leaders move most. A halted follower is refused by
+        _place, and no new position is opened past the session loss limit.
+        """
+        for item in list(self._link_orders):
+            order, until = item
+            if order not in self.orders:
+                self._link_orders.remove(item)
+            elif now >= until:
+                self._cancel(order, now)
+        if halted:
+            return None
+        for cue in self.links.pending(now):
+            symbol, side = cue.link.follower, cue.side
+            route = ""
+            if self.router is not None:
+                seat, route = self.router.choose(symbol, side)
+                if seat is not self:
+                    continue
+            touch = market.best_bid(symbol) if side == "buy" else market.best_ask(symbol)
+            # A venue that charges makers (the house venue in open play on
+            # Nov 19: -100 bp) bills every fill, so send the smallest order.
+            qty = LINK_SHARES if self.rebate >= 0 else 1
+            if side == "buy" and touch:
+                qty, _ = self.limits.buy_quantity(
+                    qty, touch, self._traded_value(symbol, market),
+                    self._traded_gross(market), net_worth)
+            signal = self._place(
+                symbol, side, qty, touch, now,
+                f"link: {cue.link.leader} {cue.move * 1e4:+.1f} bp, echo due in "
+                f"{max(cue.echo_at - now, 0.0):.1f} s"
+                + (f", on {self.venue}" if self.router is not None else ""),
+                taker=False, purpose="link", allow_short=True, second=True)
+            if signal is None:
+                continue
+            cue.sent = True
+            self.link_counts["orders"] += 1
+            if route:
+                logger.info("ROUTE  %s %s %s", side, symbol, route)
+            order = next(o for o in reversed(list(self.orders))
+                         if o.purpose == "link" and o.symbol == symbol)
+            self._link_orders.append((order, cue.echo_at + LINK_TICK_SEC))
+            return signal
+        return None
+
+    def _open_echoes(self, affected: list[str], pct: float, ramp: int) -> None:
+        """A leader's release: plan the follower trade (team.leadlag.EchoPlan)."""
+        for plan in echo_plans(affected, pct, ramp, self._clock()):
+            follower = plan.link.follower
+            if follower in self.untradeable or follower in self._echoes:
+                continue
+            self._echoes[follower] = plan
+            logger.info("ECHO   %s %+.2f%%: %s %s before the first echo in %d "
+                        "ticks, out at tick %d; expected drift %.2f%%",
+                        plan.link.leader, pct * 100, plan.side, follower,
+                        plan.link.lag, ramp + plan.link.lag - 1,
+                        plan.expected * 100)
+
+    def _echo_step(self, market, net_worth: float, now: float,
+                   halted: bool) -> Signal | None:
+        """Enter the follower before the first echo; leave on the last one."""
+        for symbol, plan in list(self._echoes.items()):
+            entry = self._flash_order(symbol, plan.side, "echo entry")
+            exit_ = self._flash_order(symbol, plan.exit_side, "echo exit")
+            bid, ask = market.best_bid(symbol), market.best_ask(symbol)
+
+            if not plan.entry_sent and now < plan.enter_until:
+                if halted or not bid or not ask:
+                    continue
+                spread = (ask - bid) / ((ask + bid) / 2)
+                if not plan.worth_it(spread, self.taker, EDGE_MARGIN):
+                    plan.entry_sent = True
+                    logger.info("ECHO   %s: drift %.2f%% does not clear the spread "
+                                "%.2f%% and two fees of %.2f%% by %.2fx, no trade",
+                                symbol, plan.expected * 100, spread * 100,
+                                self.taker * 100, EDGE_MARGIN)
+                    continue
+                qty, price = ECHO_SHARES, (ask if plan.side == "buy" else bid)
+                if plan.side == "buy":
+                    # Sized as an event trade (EventLimits), like the ride.
+                    held = (max(self._position(symbol), 0)
+                            + self.orders.open_quantity(symbol, "buy"))
+                    qty = min(qty, self.event_limits.ride_shares(
+                        price, net_worth, held, 1.0))
+                signal = self._place(symbol, plan.side, qty, price, now,
+                                     f"echo entry: {plan.link.leader} "
+                                     f"{plan.pct * 100:+.2f}%", taker=True,
+                                     purpose="echo entry", allow_short=True,
+                                     second=True)
+                if signal is not None:
+                    plan.entry_sent = True
+                    return signal
+                continue
+
+            # An entry still resting once the echoes have begun missed the trade.
+            if entry is not None and now >= plan.enter_until:
+                self._cancel(entry, now)
+
+            owed = plan.open_shares - (exit_.quantity if exit_ else 0)
+            if now >= plan.exit_at and owed > 0 and exit_ is None:
+                touch = bid if plan.exit_side == "sell" else ask
+                if touch:
+                    cross = 1 - ECHO_CROSS if plan.exit_side == "sell" else 1 + ECHO_CROSS
+                    signal = self._place(symbol, plan.exit_side, owed, touch * cross,
+                                         now, "echo exit: the last echo is in",
+                                         taker=True, purpose="echo exit",
+                                         allow_short=plan.exit_side == "sell",
+                                         second=True)
+                    if signal is not None:
+                        return signal
+            if now >= plan.give_up and exit_ is not None:
+                self._cancel(exit_, now)
+
+            if entry is None and exit_ is None and (
+                    (now >= plan.enter_until and plan.open_shares <= 0)
+                    or now >= plan.give_up):
+                del self._echoes[symbol]
+                logger.info("ECHO   %s done: %d filled, %d closed%s", symbol,
+                            plan.filled, plan.exited,
+                            "" if plan.open_shares <= 0 else
+                            f"; {plan.open_shares} left to the seat's stop-loss")
+        return None
+
+    def route_quote(self, symbol: str, side: str) -> VenueQuote | None:
+        """This venue's touch and fees for the router, or None when the
+        venue cannot take the order now (offline, pre-open, halted, one-sided
+        book, or nothing to sell here)."""
+        market = self._market
+        if (not self._online or market is None or self._preopen or self._stopped
+                or self.trading_state.blocked(symbol)
+                or self._clock() < self._paused_until):
+            return None
+        bid, ask = market.best_bid(symbol), market.best_ask(symbol)
+        if not bid or not ask:
+            return None
+        if side == "sell" and self.sellable(symbol, allow_short=True) < 1:
+            return None
+        return VenueQuote(self.venue, bid, ask, self.taker, self.rebate)
+
     def _flash_quiet_now(self, symbol: str, now: float) -> bool:
         return symbol in self._flashes or self._flash_quiet.get(symbol, 0.0) > now
 
     def run(self) -> None:
         """Connect to the exchange and trade until interrupted."""
-        from team.venue import TeamBot
+        from team.venue import TeamBot, venue_name
         logging.basicConfig(level=logging.INFO,
                             format="%(asctime)s %(levelname)-7s %(message)s",
                             datefmt="%H:%M:%S")
-        asyncio.run(TeamBot(self).run())
+        urls, _ = exchange_urls()
+        if len(urls) < 2:
+            asyncio.run(TeamBot(self).run())
+            return
+        # Several venues: this seat runs its strategy on the first; one more
+        # connection per other venue takes only the orders routed to it.
+        seats = [self] + [RoutedSeat(limits=self.limits, clock=self._clock)
+                          for _ in urls[1:]]
+        router = Router(seats)
+        feed = link_feed_index(urls)
+        for i, (seat, url) in enumerate(zip(seats, urls)):
+            seat.venue, seat.router = venue_name(url), router
+            seat.links, seat.link_feed = self.links, i == feed
+            seat.kill = self.kill           # one switch for the seat
+        logger.info("ROUTE  %d venues: strategy on %s, routed orders also to %s; "
+                    "link cues from %s", len(seats), self.venue,
+                    ", ".join(s.venue for s in seats[1:]), seats[feed].venue)
+
+        async def every_venue() -> None:
+            await asyncio.gather(*(TeamBot(seat, url).run()
+                                   for seat, url in zip(seats, urls)))
+        asyncio.run(every_venue())
 
     # ── the strategy hook ───────────────────────────────────────────────
 
@@ -1423,6 +1651,61 @@ class BaseTrader(Trader):
         if self._last_note.get(symbol) != text:
             self._last_note[symbol] = text
             logger.info("RISK   %s: %s", symbol, text)
+
+
+def link_feed_index(urls: list[str]) -> int:
+    """Which venue's marks raise the lead-lag cues.
+
+    LINK_FEED_URL if it is one of the venues: set it to the house venue,
+    whose marks the links were measured on and which always has a book.
+    Otherwise the first venue.
+    """
+    wanted = (os.environ.get("LINK_FEED_URL") or "").strip()
+    return urls.index(wanted) if wanted in urls else 0
+
+
+class RoutedSeat(BaseTrader):
+    """This seat's connection to a second venue.
+
+    It runs no strategy of its own: no starter, no event trades, no
+    shorts. It keeps this venue's book, fees and positions, answers the
+    router, and sends the orders routed here through the same gate as every
+    other order (BaseTrader._place). It does bid in an IPO bookbuild held on
+    its venue and works the allocation's exit, as the home seat does: the
+    bookbuild may run on one venue only, and the bid is graded.
+    """
+
+    def _tick(self, market, portfolio) -> Signal | None:
+        self.kill.poll()
+        if self.kill.tripped:
+            return self._kill_step(market, portfolio)
+        if self._preopen or self._stopped:
+            return None
+        now = self._clock()
+        self._market, self._portfolio = market, portfolio
+        self.orders.expire(now)
+        self._sync_ledger(portfolio, now)
+        net_worth = portfolio.net_worth(market)
+        if (self._start_net_worth is None
+                and self._has_server_state(portfolio, net_worth)):
+            self._start_net_worth = net_worth
+        if (self._start_net_worth is not None
+                and self.limits.kill_hit(net_worth, self._start_net_worth)):
+            self.kill.trip(f"net worth {net_worth:,.2f} on {self.venue} is "
+                           f"{self.limits.kill_loss:.0%} below the open "
+                           f"({self._start_net_worth:,.2f})")
+            return self._kill_step(market, portfolio)
+        halted = (self._start_net_worth is not None
+                  and self.limits.halted(net_worth, self._start_net_worth))
+        self._book_ipo(portfolio)
+        return (self._ipo_exit(market, now)
+                or self._link_step(market, net_worth, now, halted))
+
+    def flash_signal(self) -> None:
+        return None
+
+    def _open_echoes(self, affected: list[str], pct: float, ramp: int) -> None:
+        """The echo trade belongs to the venue the strategy runs on."""
 
 
 def configure_logging(seat: str) -> Path:

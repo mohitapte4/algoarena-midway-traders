@@ -40,10 +40,10 @@ import broker.config as _config         # noqa: E402  (engine module)
 from arena.broker import _AdaptedBrokerBot
 from broker.broker import _print_startup
 from broker.broker import BrokerState
-from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, OrderAck, PlaceOrder,
+from shared.messages import (BookSnapshot, CancelOrder, ErrorMsg, Leaderboard, OrderAck, PlaceOrder,
                              PortfolioUpdate, SessionEvent, TradeExecution,
                              parse_message)
-from team.books import Bookkeeper
+from team.books import Bookkeeper, venue_from_leaderboard
 from team.events import DEFAULT_RAMP_TICKS, EXCHANGE_TICK_SEC
 from team.flash import FlashLog, entry_order, parse_flash, start_price
 from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
@@ -686,6 +686,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             self._books.on_message(msg)
         except Exception:
             logger.exception("Books could not take %s", type(msg).__name__)
+        if isinstance(msg, Leaderboard) and not self._risk_ready:
+            self._portfolio_from_leaderboard(msg)
+            return
         if isinstance(msg, BookSnapshot):
             self._levels[msg.symbol] = (msg.bids, msg.asks)
             ref = msg.ref_price or msg.mid_price     # what the engine records
@@ -770,15 +773,37 @@ class TeamBrokerBot(_AdaptedBrokerBot):
 
     def _on_portfolio(self, msg: PortfolioUpdate) -> None:
         super()._on_portfolio(msg)
+        self._portfolio_known(msg.cash, msg.positions)
+
+    def _portfolio_known(self, cash: float, positions: dict[str, int]) -> None:
+        """The venue's cash and positions are in `state`: orders may go out."""
         self._risk_ready = True
         prices = self.state.exchange_prices
-        if all(prices.get(s) for s, q in msg.positions.items() if q):
-            equity = msg.cash + sum(q * prices[s] for s, q in msg.positions.items() if q)
+        if all(prices.get(s) for s, q in positions.items() if q):
+            equity = cash + sum(q * prices[s] for s, q in positions.items() if q)
             if self._initial_equity is None and equity > 0:
                 self._initial_equity = equity
-        if self._opening is None and msg.positions:
-            self._opening = dict(msg.positions)
+        if self._opening is None and positions:
+            self._opening = dict(positions)
             logger.info("Opening position (not skewed away): %s", self._opening)
+
+    def _portfolio_from_leaderboard(self, msg: Leaderboard) -> None:
+        """Take cash and positions from our leaderboard row until the venue
+        sends a portfolio.
+
+        A venue sends the portfolio with a grant or a fill. A broker that
+        joins a venue it already holds a book on gets neither, so it waited
+        for a fill it could not have without quoting: on Nov 19 it sent no
+        order to two of four team venues in ten minutes.
+        """
+        row = venue_from_leaderboard(msg, _config.TEAM_ID)
+        if row is None or row.cash is None or row.positions is None:
+            return
+        self.state.cash = row.cash
+        self.state.positions = dict(row.positions)
+        logger.info("RISK   portfolio taken from the leaderboard (%s): cash %.2f, "
+                    "%d positions", row.source, row.cash, len(row.positions))
+        self._portfolio_known(row.cash, self.state.positions)
 
     def _on_order_ack(self, msg: OrderAck) -> None:
         if msg.team_id != _config.TEAM_ID:

@@ -46,6 +46,9 @@ import logging
 import re
 import time
 from dataclasses import dataclass
+from urllib.parse import urlsplit
+
+import websockets
 
 from arena.trader import _AdaptedTraderBot
 import trader.config as _config  # noqa: E402  (engine module)
@@ -53,6 +56,7 @@ from shared.messages import (  # noqa: E402  (engine module)
     BookSnapshot,
     CancelOrder,
     ErrorMsg,
+    Handshake,
     OrderAck,
     PlaceOrder,
     SessionEvent,
@@ -242,6 +246,15 @@ class TokenBucket:
         self._tokens = 0.0
 
 
+def venue_name(url: str) -> str:
+    """A short label for a venue address: its host, without the domain."""
+    netloc = urlsplit(url).netloc or url
+    host, _, port = netloc.partition(":")
+    if host.replace(".", "").isdigit():       # an IP address: keep it whole
+        return netloc
+    return host.split(".")[0] + (f":{port}" if port else "")
+
+
 # ── the live bot ────────────────────────────────────────────────────────────
 
 class _Tap:
@@ -276,8 +289,9 @@ class TeamBot(_AdaptedTraderBot):
             elif isinstance(msg, CancelOrder):
                 meter.cancel()
 
-    def __init__(self, owner) -> None:
+    def __init__(self, owner, url: str | None = None) -> None:
         super().__init__(owner)
+        self._url = url           # None: the engine's single EXCHANGE_URL
         self._books = Bookkeeper(_config.TEAM_ID)
 
     async def run(self) -> None:
@@ -285,7 +299,8 @@ class TeamBot(_AdaptedTraderBot):
         _print_startup()
         kill = getattr(self._owner, "kill", None)
         await run_with_backoff(self._serve, f"trader {_config.TEAM_ID}",
-                               on_drop=kill.on_disconnect if kill else None)
+                               on_drop=(lambda: kill.on_disconnect(self._url or ""))
+                               if kill else None)
 
     async def _serve(self) -> None:
         """One connection: trade until the venue closes it or it drops."""
@@ -303,12 +318,25 @@ class TeamBot(_AdaptedTraderBot):
                 trading.cancel()
                 await asyncio.wait({trading})   # a cancel aimed at us still propagates
         finally:
+            dropped = getattr(self._owner, "on_disconnect", None)
+            if dropped is not None:
+                dropped()
             if self._ws:
                 with contextlib.suppress(Exception):
                     await self._ws.close()
 
     async def connect(self) -> None:
-        await super().connect()
+        if self._url is None:
+            await super().connect()
+        else:
+            # The engine dials trader.config.EXCHANGE_URL; a seat on two
+            # venues gives each connection its own address.
+            logger.info("Connecting to %s", self._url)
+            self._ws = await websockets.connect(self._url)
+            await self._ws.send(Handshake(
+                team_id=_config.TEAM_ID, role="trader", level=1,
+                token=_config.ARENA_TOKEN).model_dump_json())
+            logger.info("Connected to %s as %s (trader)", self._url, _config.TEAM_ID)
         self._owner.on_connect()
         try:
             self._books.on_connect()
@@ -348,6 +376,9 @@ class TeamBot(_AdaptedTraderBot):
             elif isinstance(msg, BookSnapshot):
                 if msg.ref_price > 0:
                     self._owner.marks[msg.symbol] = msg.ref_price
+                    on_mark = getattr(self._owner, "on_mark", None)
+                    if on_mark is not None:
+                        on_mark(msg.symbol, msg.ref_price)
                 # The same mids MarketData keeps (update_book), one push each.
                 on_book = getattr(self._owner, "on_book", None)
                 if on_book is not None:
