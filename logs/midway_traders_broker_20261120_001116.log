@@ -1,0 +1,420 @@
+2026-11-20 00:11:16,810 INFO    team.logs: Logging to /Users/edhac/Workspace/uchicago-msfm/finm3350-systematic-trading/algoarena-midway-traders/logs/midway_traders_broker_20261120_001116.log
+
+2026-11-20 00:11:16 ╔══════════════════════════════════════════════╗
+2026-11-20 00:11:16 ║         AlgoArena — Broker Bot               ║
+2026-11-20 00:11:16 ╠══════════════════════════════════════════════╣
+2026-11-20 00:11:16 ║  Team:     midway_traders_broker             ║
+2026-11-20 00:11:16 ║  Exchange: ws://127.0.0.1:8766               ║
+2026-11-20 00:11:16 ║  Symbols:  AAPL, MSFT, NVDA, TSLA, AMZN, GOOGL, META, NFLX, AMD, INTC║
+2026-11-20 00:11:16 ║  Spread:   $0.30  Qty: 10                       ║
+2026-11-20 00:11:16 ║  Feed:     Yahoo Finance (every 5s)             ║
+2026-11-20 00:11:16 ╚══════════════════════════════════════════════╝
+
+2026-11-20 00:11:16,810 INFO    broker.broker: Yahoo Finance feed started for ['AAPL', 'MSFT', 'NVDA', 'TSLA', 'AMZN', 'GOOGL', 'META', 'NFLX', 'AMD', 'INTC'] (every 5 s)
+2026-11-20 00:11:16,811 INFO    broker.broker: Connecting to ws://127.0.0.1:8766 (EXCHANGE_URLS from the shell)
+2026-11-20 00:11:16,856 INFO    broker.broker: Connected to ws://127.0.0.1:8766 as midway_traders_broker (broker)
+2026-11-20 00:11:19,881 INFO    broker.broker: Session open — quoting begins
+2026-11-20 00:11:20,370 INFO    __main__: RISK buy 10 AAPL @ 349.05 not sent: no portfolio from the venue yet
+2026-11-20 00:11:20,371 INFO    __main__: RISK sell 10 AAPL @ 349.36 not sent: no portfolio from the venue yet
+2026-11-20 00:11:20,371 INFO    __main__: Quoted AAPL bid=349.05 x0 ask=349.36 x0 centre=349.2100 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:21,377 INFO    __main__: RISK buy 10 MSFT @ 433.94 not sent: no portfolio from the venue yet
+2026-11-20 00:11:21,378 INFO    __main__: RISK sell 10 MSFT @ 434.36 not sent: no portfolio from the venue yet
+2026-11-20 00:11:21,378 INFO    __main__: Quoted MSFT bid=433.94 x0 ask=434.36 x0 centre=434.2059 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:22,386 INFO    __main__: RISK buy 10 NVDA @ 152.52 not sent: no portfolio from the venue yet
+2026-11-20 00:11:22,387 INFO    __main__: RISK sell 10 NVDA @ 152.84 not sent: no portfolio from the venue yet
+2026-11-20 00:11:22,392 INFO    __main__: Quoted NVDA bid=152.52 x0 ask=152.83 x0 centre=152.6776 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:23,397 INFO    __main__: RISK buy 10 TSLA @ 234.02 not sent: no portfolio from the venue yet
+2026-11-20 00:11:23,397 INFO    __main__: RISK sell 10 TSLA @ 234.33 not sent: no portfolio from the venue yet
+2026-11-20 00:11:23,397 INFO    __main__: Quoted TSLA bid=234.02 x0 ask=234.33 x0 centre=234.1783 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:24,401 INFO    __main__: RISK buy 10 AMZN @ 158.75 not sent: no portfolio from the venue yet
+2026-11-20 00:11:24,401 INFO    __main__: RISK sell 10 AMZN @ 159.09 not sent: no portfolio from the venue yet
+2026-11-20 00:11:24,401 INFO    __main__: Quoted AMZN bid=158.75 x0 ask=159.09 x0 centre=158.9359 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:25,405 INFO    __main__: RISK buy 10 GOOGL @ 181.44 not sent: no portfolio from the venue yet
+2026-11-20 00:11:25,406 INFO    __main__: RISK sell 10 GOOGL @ 181.75 not sent: no portfolio from the venue yet
+2026-11-20 00:11:25,406 INFO    __main__: Quoted GOOGL bid=181.44 x0 ask=181.75 x0 centre=181.5969 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:26,408 INFO    __main__: RISK buy 10 META @ 630.03 not sent: no portfolio from the venue yet
+2026-11-20 00:11:26,409 INFO    __main__: RISK sell 10 META @ 630.35 not sent: no portfolio from the venue yet
+2026-11-20 00:11:26,409 INFO    __main__: Quoted META bid=630.03 x0 ask=630.35 x0 centre=630.1963 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:27,412 INFO    __main__: RISK buy 10 NFLX @ 489.04 not sent: no portfolio from the venue yet
+2026-11-20 00:11:27,412 INFO    __main__: RISK sell 10 NFLX @ 489.35 not sent: no portfolio from the venue yet
+2026-11-20 00:11:27,413 INFO    __main__: Quoted NFLX bid=489.04 x0 ask=489.35 x0 centre=489.1953 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:28,420 INFO    __main__: RISK buy 10 AMD @ 211.77 not sent: no portfolio from the venue yet
+2026-11-20 00:11:28,420 INFO    __main__: RISK sell 10 AMD @ 213.57 not sent: no portfolio from the venue yet
+2026-11-20 00:11:28,420 INFO    __main__: Quoted AMD bid=211.77 x0 ask=213.57 x0 centre=213.4151 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:11:29,277 INFO    __main__: EVENT econ_print: * quotes pulled for 165s
+2026-11-20 00:11:29,277 INFO    broker.broker: Session event: CALENDAR — Upcoming: econ_print MARKET @ t950
+2026-11-20 00:12:20,669 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 1033 calls, mean 185 us, p50 110 us, p99 1612 us, max 5998 us
+2026-11-20 00:12:20,670 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 9 calls, mean 2250 us, p50 1153 us, p99 7669 us, max 7669 us
+2026-11-20 00:12:20,671 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:12:20,672 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:13:20,726 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 2756 calls, mean 166 us, p50 98 us, p99 1498 us, max 6103 us
+2026-11-20 00:13:20,726 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 9 calls, mean 2250 us, p50 1153 us, p99 7669 us, max 7669 us
+2026-11-20 00:13:20,726 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:13:20,727 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:14:11,311 INFO    __main__: EVENT CALENDAR_EVENT: * quotes pulled for 45s
+2026-11-20 00:14:11,312 INFO    broker.broker: Session event: CALENDAR_EVENT — Econ Print: market-wide moving -2.2%
+2026-11-20 00:14:20,828 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 3757 calls, mean 177 us, p50 105 us, p99 1549 us, max 6731 us
+2026-11-20 00:14:20,828 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 9 calls, mean 2250 us, p50 1153 us, p99 7669 us, max 7669 us
+2026-11-20 00:14:20,828 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:14:20,828 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:14:48,704 INFO    broker.broker: Session event: SSR_ON — VLTA is now under the short-sale rule — shorts must add liquidity above the bid
+2026-11-20 00:14:56,380 INFO    __main__: RISK buy 10 VLTA @ 31.13 not sent: no portfolio from the venue yet
+2026-11-20 00:14:56,381 INFO    __main__: RISK sell 10 VLTA @ 32.24 not sent: no portfolio from the venue yet
+2026-11-20 00:14:56,382 INFO    __main__: Quoted VLTA bid=31.13 x0 ask=32.24 x0 centre=31.9925 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:14:57,384 INFO    __main__: RISK buy 10 AAPL @ 207.88 not sent: no portfolio from the venue yet
+2026-11-20 00:14:57,384 INFO    __main__: RISK sell 10 AAPL @ 211.01 not sent: no portfolio from the venue yet
+2026-11-20 00:14:57,384 INFO    __main__: Quoted AAPL bid=207.88 x0 ask=211.01 x0 centre=209.4463 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:14:58,388 INFO    __main__: RISK buy 10 MSFT @ 419.66 not sent: no portfolio from the venue yet
+2026-11-20 00:14:58,388 INFO    __main__: RISK sell 10 MSFT @ 426.01 not sent: no portfolio from the venue yet
+2026-11-20 00:14:58,388 INFO    __main__: Quoted MSFT bid=419.66 x0 ask=426.01 x0 centre=422.8368 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:14:59,394 INFO    __main__: RISK buy 10 NVDA @ 147.37 not sent: no portfolio from the venue yet
+2026-11-20 00:14:59,394 INFO    __main__: RISK sell 10 NVDA @ 149.60 not sent: no portfolio from the venue yet
+2026-11-20 00:14:59,394 INFO    __main__: Quoted NVDA bid=147.37 x0 ask=149.60 x0 centre=148.4843 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:14:59,607 INFO    broker.broker: Session event: SSR_ON — NFLX is now under the short-sale rule — shorts must add liquidity above the bid
+2026-11-20 00:15:00,395 INFO    __main__: RISK buy 10 TSLA @ 227.15 not sent: no portfolio from the venue yet
+2026-11-20 00:15:00,396 INFO    __main__: RISK sell 10 TSLA @ 230.58 not sent: no portfolio from the venue yet
+2026-11-20 00:15:00,396 INFO    __main__: Quoted TSLA bid=227.15 x0 ask=230.58 x0 centre=228.8623 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:01,399 INFO    __main__: RISK buy 10 AMZN @ 154.57 not sent: no portfolio from the venue yet
+2026-11-20 00:15:01,400 INFO    __main__: RISK sell 10 AMZN @ 156.90 not sent: no portfolio from the venue yet
+2026-11-20 00:15:01,400 INFO    __main__: Quoted AMZN bid=154.57 x0 ask=156.90 x0 centre=155.7356 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:02,429 INFO    __main__: RISK buy 10 GOOGL @ 177.44 not sent: no portfolio from the venue yet
+2026-11-20 00:15:02,432 INFO    __main__: RISK sell 10 GOOGL @ 180.12 not sent: no portfolio from the venue yet
+2026-11-20 00:15:02,432 INFO    __main__: Quoted GOOGL bid=177.44 x0 ask=180.12 x0 centre=178.7777 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:03,437 INFO    __main__: RISK buy 10 META @ 601.76 not sent: no portfolio from the venue yet
+2026-11-20 00:15:03,438 INFO    __main__: RISK sell 10 META @ 610.86 not sent: no portfolio from the venue yet
+2026-11-20 00:15:03,438 INFO    __main__: Quoted META bid=601.76 x0 ask=610.86 x0 centre=606.3098 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:04,441 INFO    __main__: RISK buy 10 NFLX @ 465.63 not sent: no portfolio from the venue yet
+2026-11-20 00:15:04,441 INFO    __main__: RISK sell 10 NFLX @ 472.73 not sent: no portfolio from the venue yet
+2026-11-20 00:15:04,441 INFO    __main__: Quoted NFLX bid=465.63 x0 ask=472.73 x0 centre=469.1792 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:05,443 INFO    __main__: RISK buy 10 AMD @ 204.92 not sent: no portfolio from the venue yet
+2026-11-20 00:15:05,444 INFO    __main__: RISK sell 10 AMD @ 207.99 not sent: no portfolio from the venue yet
+2026-11-20 00:15:05,444 INFO    __main__: Quoted AMD bid=204.92 x0 ask=207.99 x0 centre=206.4537 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:06,449 INFO    __main__: RISK buy 10 INTC @ 16.54 not sent: no portfolio from the venue yet
+2026-11-20 00:15:06,450 INFO    __main__: RISK sell 10 INTC @ 16.97 not sent: no portfolio from the venue yet
+2026-11-20 00:15:06,450 INFO    __main__: Quoted INTC bid=16.54 x0 ask=16.97 x0 centre=16.8364 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:07,453 INFO    __main__: RISK buy 10 ORCA @ 21.96 not sent: no portfolio from the venue yet
+2026-11-20 00:15:07,454 INFO    __main__: RISK sell 10 ORCA @ 22.30 not sent: no portfolio from the venue yet
+2026-11-20 00:15:07,454 INFO    __main__: Quoted ORCA bid=21.96 x0 ask=22.30 x0 centre=22.1306 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:08,456 INFO    __main__: RISK buy 10 VLTA @ 31.13 not sent: no portfolio from the venue yet
+2026-11-20 00:15:08,457 INFO    __main__: RISK sell 10 VLTA @ 31.72 not sent: no portfolio from the venue yet
+2026-11-20 00:15:08,457 INFO    __main__: Quoted VLTA bid=31.13 x0 ask=31.72 x0 centre=31.4780 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:09,459 INFO    __main__: RISK buy 10 AAPL @ 209.25 not sent: no portfolio from the venue yet
+2026-11-20 00:15:09,460 INFO    __main__: RISK sell 10 AAPL @ 212.41 not sent: no portfolio from the venue yet
+2026-11-20 00:15:09,460 INFO    __main__: Quoted AAPL bid=209.25 x0 ask=212.41 x0 centre=210.8287 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:10,465 INFO    __main__: RISK buy 10 TSLA @ 228.52 not sent: no portfolio from the venue yet
+2026-11-20 00:15:10,466 INFO    __main__: RISK sell 10 TSLA @ 231.97 not sent: no portfolio from the venue yet
+2026-11-20 00:15:10,466 INFO    __main__: Quoted TSLA bid=228.52 x0 ask=231.97 x0 centre=230.2464 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:11,468 INFO    __main__: RISK buy 10 AMZN @ 156.66 not sent: no portfolio from the venue yet
+2026-11-20 00:15:11,469 INFO    __main__: RISK sell 10 AMZN @ 159.03 not sent: no portfolio from the venue yet
+2026-11-20 00:15:11,469 INFO    __main__: Quoted AMZN bid=156.67 x0 ask=159.03 x0 centre=157.8493 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:11,940 INFO    __main__: EVENT TRADING_HALT: VLTA quotes pulled for 0s
+2026-11-20 00:15:11,941 WARNING broker.broker: Market halt: Trading halted on VLTA: VLTA velocity halt: 5.0% move in 60s (threshold 5.0%)
+2026-11-20 00:15:12,476 INFO    __main__: RISK buy 10 GOOGL @ 177.68 not sent: no portfolio from the venue yet
+2026-11-20 00:15:12,476 INFO    __main__: RISK sell 10 GOOGL @ 180.36 not sent: no portfolio from the venue yet
+2026-11-20 00:15:12,476 INFO    __main__: Quoted GOOGL bid=177.68 x0 ask=180.36 x0 centre=179.0217 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:13,480 INFO    __main__: RISK buy 10 NFLX @ 460.65 not sent: no portfolio from the venue yet
+2026-11-20 00:15:13,481 INFO    __main__: RISK sell 10 NFLX @ 467.67 not sent: no portfolio from the venue yet
+2026-11-20 00:15:13,481 INFO    __main__: Quoted NFLX bid=460.65 x0 ask=467.67 x0 centre=464.1608 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:14,484 INFO    __main__: RISK buy 10 AMD @ 204.70 not sent: no portfolio from the venue yet
+2026-11-20 00:15:14,485 INFO    __main__: RISK sell 10 AMD @ 208.35 not sent: no portfolio from the venue yet
+2026-11-20 00:15:14,485 INFO    __main__: Quoted AMD bid=204.70 x0 ask=208.35 x0 centre=206.8063 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:15,489 INFO    __main__: RISK buy 10 INTC @ 16.55 not sent: no portfolio from the venue yet
+2026-11-20 00:15:15,493 INFO    __main__: RISK sell 10 INTC @ 16.95 not sent: no portfolio from the venue yet
+2026-11-20 00:15:15,493 INFO    __main__: Quoted INTC bid=16.56 x0 ask=16.95 x0 centre=16.8200 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:17,502 INFO    __main__: RISK buy 10 AAPL @ 210.09 not sent: no portfolio from the venue yet
+2026-11-20 00:15:17,503 INFO    __main__: RISK sell 10 AAPL @ 213.26 not sent: no portfolio from the venue yet
+2026-11-20 00:15:17,503 INFO    __main__: Quoted AAPL bid=210.09 x0 ask=213.26 x0 centre=211.6715 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:18,512 INFO    __main__: RISK buy 10 TSLA @ 228.97 not sent: no portfolio from the venue yet
+2026-11-20 00:15:18,513 INFO    __main__: RISK sell 10 TSLA @ 232.43 not sent: no portfolio from the venue yet
+2026-11-20 00:15:18,513 INFO    __main__: Quoted TSLA bid=228.97 x0 ask=232.43 x0 centre=230.6988 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:19,517 INFO    __main__: RISK buy 10 AMZN @ 157.43 not sent: no portfolio from the venue yet
+2026-11-20 00:15:19,518 INFO    __main__: RISK sell 10 AMZN @ 159.81 not sent: no portfolio from the venue yet
+2026-11-20 00:15:19,518 INFO    __main__: Quoted AMZN bid=157.43 x0 ask=159.81 x0 centre=158.6185 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:20,170 INFO    __main__: EVENT TRADING_HALT: NFLX quotes pulled for 0s
+2026-11-20 00:15:20,170 WARNING broker.broker: Market halt: Trading halted on NFLX: NFLX velocity halt: 5.1% move in 60s (threshold 5.0%)
+2026-11-20 00:15:20,521 INFO    __main__: RISK buy 10 GOOGL @ 178.03 not sent: no portfolio from the venue yet
+2026-11-20 00:15:20,521 INFO    __main__: RISK sell 10 GOOGL @ 180.72 not sent: no portfolio from the venue yet
+2026-11-20 00:15:20,521 INFO    __main__: Quoted GOOGL bid=178.03 x0 ask=180.72 x0 centre=179.3769 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:21,356 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 5087 calls, mean 180 us, p50 111 us, p99 1512 us, max 6731 us
+2026-11-20 00:15:21,356 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 33 calls, mean 1567 us, p50 1270 us, p99 7669 us, max 7669 us
+2026-11-20 00:15:21,357 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:15:21,357 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:15:29,562 INFO    __main__: RISK buy 10 AAPL @ 210.81 not sent: no portfolio from the venue yet
+2026-11-20 00:15:29,563 INFO    __main__: RISK sell 10 AAPL @ 213.01 not sent: no portfolio from the venue yet
+2026-11-20 00:15:29,563 INFO    __main__: Quoted AAPL bid=210.81 x0 ask=213.01 x0 centre=211.9121 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:32,595 INFO    __main__: RISK buy 10 TSLA @ 230.14 not sent: no portfolio from the venue yet
+2026-11-20 00:15:32,595 INFO    __main__: RISK sell 10 TSLA @ 231.63 not sent: no portfolio from the venue yet
+2026-11-20 00:15:32,595 INFO    __main__: Quoted TSLA bid=230.14 x0 ask=231.63 x0 centre=230.8880 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:33,601 INFO    __main__: RISK buy 10 META @ 604.66 not sent: no portfolio from the venue yet
+2026-11-20 00:15:33,601 INFO    __main__: RISK sell 10 META @ 606.33 not sent: no portfolio from the venue yet
+2026-11-20 00:15:33,601 INFO    __main__: Quoted META bid=604.67 x0 ask=606.32 x0 centre=605.4939 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:36,609 INFO    __main__: RISK buy 10 AMZN @ 158.03 not sent: no portfolio from the venue yet
+2026-11-20 00:15:36,610 INFO    __main__: RISK sell 10 AMZN @ 158.67 not sent: no portfolio from the venue yet
+2026-11-20 00:15:36,610 INFO    __main__: Quoted AMZN bid=158.03 x0 ask=158.67 x0 centre=158.3503 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:40,630 INFO    __main__: RISK buy 10 ORCA @ 22.00 not sent: no portfolio from the venue yet
+2026-11-20 00:15:40,631 INFO    __main__: RISK sell 10 ORCA @ 22.15 not sent: no portfolio from the venue yet
+2026-11-20 00:15:40,631 INFO    __main__: Quoted ORCA bid=22.00 x0 ask=22.15 x0 centre=22.0732 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:43,652 INFO    __main__: RISK buy 10 INTC @ 16.57 not sent: no portfolio from the venue yet
+2026-11-20 00:15:43,653 INFO    __main__: RISK sell 10 INTC @ 16.86 not sent: no portfolio from the venue yet
+2026-11-20 00:15:43,653 INFO    __main__: Quoted INTC bid=16.58 x0 ask=16.86 x0 centre=16.8390 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:15:57,699 INFO    __main__: RISK buy 10 AMZN @ 157.72 not sent: no portfolio from the venue yet
+2026-11-20 00:15:57,699 INFO    __main__: RISK sell 10 AMZN @ 158.68 not sent: no portfolio from the venue yet
+2026-11-20 00:15:57,699 INFO    __main__: Quoted AMZN bid=157.73 x0 ask=158.68 x0 centre=158.2052 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:00,707 INFO    __main__: RISK buy 10 TSLA @ 230.67 not sent: no portfolio from the venue yet
+2026-11-20 00:16:00,707 INFO    __main__: RISK sell 10 TSLA @ 231.40 not sent: no portfolio from the venue yet
+2026-11-20 00:16:00,708 INFO    __main__: Quoted TSLA bid=230.67 x0 ask=231.40 x0 centre=231.0798 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:01,712 INFO    __main__: RISK buy 10 META @ 605.41 not sent: no portfolio from the venue yet
+2026-11-20 00:16:01,713 INFO    __main__: RISK sell 10 META @ 609.77 not sent: no portfolio from the venue yet
+2026-11-20 00:16:01,713 INFO    __main__: Quoted META bid=605.42 x0 ask=609.77 x0 centre=607.5920 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:03,720 INFO    __main__: RISK buy 10 AMD @ 204.90 not sent: no portfolio from the venue yet
+2026-11-20 00:16:03,721 INFO    __main__: RISK sell 10 AMD @ 207.24 not sent: no portfolio from the venue yet
+2026-11-20 00:16:03,721 INFO    __main__: Quoted AMD bid=204.90 x0 ask=207.24 x0 centre=207.0041 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:09,756 INFO    __main__: RISK buy 10 AAPL @ 211.41 not sent: no portfolio from the venue yet
+2026-11-20 00:16:09,756 INFO    __main__: RISK sell 10 AAPL @ 212.08 not sent: no portfolio from the venue yet
+2026-11-20 00:16:09,756 INFO    __main__: Quoted AAPL bid=211.41 x0 ask=212.08 x0 centre=211.7426 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:23,302 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 5931 calls, mean 184 us, p50 122 us, p99 1286 us, max 6731 us
+2026-11-20 00:16:23,302 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 44 calls, mean 1520 us, p50 1248 us, p99 7669 us, max 7669 us
+2026-11-20 00:16:23,303 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:16:23,303 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:16:24,830 INFO    __main__: RISK buy 10 NVDA @ 148.49 not sent: no portfolio from the venue yet
+2026-11-20 00:16:24,830 INFO    __main__: RISK sell 10 NVDA @ 148.81 not sent: no portfolio from the venue yet
+2026-11-20 00:16:24,831 INFO    __main__: Quoted NVDA bid=148.49 x0 ask=148.80 x0 centre=148.6476 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:25,835 INFO    __main__: RISK buy 10 AMZN @ 157.81 not sent: no portfolio from the venue yet
+2026-11-20 00:16:25,835 INFO    __main__: RISK sell 10 AMZN @ 158.32 not sent: no portfolio from the venue yet
+2026-11-20 00:16:25,836 INFO    __main__: Quoted AMZN bid=157.81 x0 ask=158.32 x0 centre=158.0664 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:27,842 INFO    __main__: RISK buy 10 INTC @ 16.55 not sent: no portfolio from the venue yet
+2026-11-20 00:16:27,842 INFO    __main__: RISK sell 10 INTC @ 16.86 not sent: no portfolio from the venue yet
+2026-11-20 00:16:27,843 INFO    __main__: Quoted INTC bid=16.56 x0 ask=16.85 x0 centre=16.8219 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:34,860 INFO    __main__: RISK buy 10 AMD @ 205.10 not sent: no portfolio from the venue yet
+2026-11-20 00:16:34,860 INFO    __main__: RISK sell 10 AMD @ 207.43 not sent: no portfolio from the venue yet
+2026-11-20 00:16:34,860 INFO    __main__: Quoted AMD bid=205.10 x0 ask=207.43 x0 centre=207.2084 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:38,872 INFO    __main__: RISK buy 10 AMZN @ 157.63 not sent: no portfolio from the venue yet
+2026-11-20 00:16:38,872 INFO    __main__: RISK sell 10 AMZN @ 158.21 not sent: no portfolio from the venue yet
+2026-11-20 00:16:38,873 INFO    __main__: Quoted AMZN bid=157.64 x0 ask=158.21 x0 centre=157.9248 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:40,879 INFO    __main__: RISK buy 10 INTC @ 16.60 not sent: no portfolio from the venue yet
+2026-11-20 00:16:40,879 INFO    __main__: RISK sell 10 INTC @ 16.87 not sent: no portfolio from the venue yet
+2026-11-20 00:16:40,879 INFO    __main__: Quoted INTC bid=16.60 x0 ask=16.87 x0 centre=16.8408 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:43,902 INFO    __main__: RISK buy 10 INTC @ 16.60 not sent: no portfolio from the venue yet
+2026-11-20 00:16:43,904 INFO    __main__: RISK sell 10 INTC @ 16.91 not sent: no portfolio from the venue yet
+2026-11-20 00:16:43,904 INFO    __main__: Quoted INTC bid=16.60 x0 ask=16.91 x0 centre=16.8649 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:53,941 INFO    __main__: RISK buy 10 AAPL @ 211.31 not sent: no portfolio from the venue yet
+2026-11-20 00:16:53,942 INFO    __main__: RISK sell 10 AAPL @ 211.74 not sent: no portfolio from the venue yet
+2026-11-20 00:16:53,942 INFO    __main__: Quoted AAPL bid=211.31 x0 ask=211.74 x0 centre=211.5263 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:16:56,952 INFO    __main__: RISK buy 10 AMZN @ 157.52 not sent: no portfolio from the venue yet
+2026-11-20 00:16:56,952 INFO    __main__: RISK sell 10 AMZN @ 157.96 not sent: no portfolio from the venue yet
+2026-11-20 00:16:56,952 INFO    __main__: Quoted AMZN bid=157.52 x0 ask=157.96 x0 centre=157.7405 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:08,005 INFO    __main__: RISK buy 10 AMZN @ 156.94 not sent: no portfolio from the venue yet
+2026-11-20 00:17:08,005 INFO    __main__: RISK sell 10 AMZN @ 157.92 not sent: no portfolio from the venue yet
+2026-11-20 00:17:08,005 INFO    __main__: Quoted AMZN bid=156.95 x0 ask=157.92 x0 centre=157.4336 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:17,030 INFO    __main__: RISK buy 10 MSFT @ 422.18 not sent: no portfolio from the venue yet
+2026-11-20 00:17:17,032 INFO    __main__: RISK sell 10 MSFT @ 422.50 not sent: no portfolio from the venue yet
+2026-11-20 00:17:17,032 INFO    __main__: Quoted MSFT bid=422.18 x0 ask=422.50 x0 centre=422.3404 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:18,035 INFO    __main__: RISK buy 10 TSLA @ 231.07 not sent: no portfolio from the venue yet
+2026-11-20 00:17:18,035 INFO    __main__: RISK sell 10 TSLA @ 232.29 not sent: no portfolio from the venue yet
+2026-11-20 00:17:18,036 INFO    __main__: Quoted TSLA bid=231.07 x0 ask=232.29 x0 centre=231.6781 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:23,642 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 6911 calls, mean 189 us, p50 139 us, p99 1531 us, max 6957 us
+2026-11-20 00:17:23,643 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 56 calls, mean 1471 us, p50 1153 us, p99 4556 us, max 7669 us
+2026-11-20 00:17:23,643 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:17:23,643 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:17:25,076 INFO    __main__: RISK buy 10 TSLA @ 231.09 not sent: no portfolio from the venue yet
+2026-11-20 00:17:25,076 INFO    __main__: RISK sell 10 TSLA @ 232.85 not sent: no portfolio from the venue yet
+2026-11-20 00:17:25,077 INFO    __main__: Quoted TSLA bid=231.09 x0 ask=232.85 x0 centre=231.9726 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:36,112 INFO    __main__: RISK buy 10 AMZN @ 157.10 not sent: no portfolio from the venue yet
+2026-11-20 00:17:36,113 INFO    __main__: RISK sell 10 AMZN @ 157.50 not sent: no portfolio from the venue yet
+2026-11-20 00:17:36,113 INFO    __main__: Quoted AMZN bid=157.10 x0 ask=157.50 x0 centre=157.2990 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:41,129 INFO    __main__: RISK buy 10 AAPL @ 210.79 not sent: no portfolio from the venue yet
+2026-11-20 00:17:41,130 INFO    __main__: RISK sell 10 AAPL @ 211.70 not sent: no portfolio from the venue yet
+2026-11-20 00:17:41,130 INFO    __main__: Quoted AAPL bid=210.79 x0 ask=211.70 x0 centre=211.2451 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:44,140 INFO    __main__: RISK buy 10 TSLA @ 231.41 not sent: no portfolio from the venue yet
+2026-11-20 00:17:44,141 INFO    __main__: RISK sell 10 TSLA @ 233.08 not sent: no portfolio from the venue yet
+2026-11-20 00:17:44,141 INFO    __main__: Quoted TSLA bid=231.41 x0 ask=233.08 x0 centre=232.2481 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:46,152 INFO    __main__: RISK buy 10 ORCA @ 22.06 not sent: no portfolio from the venue yet
+2026-11-20 00:17:46,157 INFO    __main__: RISK sell 10 ORCA @ 22.13 not sent: no portfolio from the venue yet
+2026-11-20 00:17:46,158 INFO    __main__: Quoted ORCA bid=22.06 x0 ask=22.13 x0 centre=22.0933 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:58,199 INFO    __main__: RISK buy 10 AMZN @ 156.97 not sent: no portfolio from the venue yet
+2026-11-20 00:17:58,201 INFO    __main__: RISK sell 10 AMZN @ 157.34 not sent: no portfolio from the venue yet
+2026-11-20 00:17:58,201 INFO    __main__: Quoted AMZN bid=156.97 x0 ask=157.34 x0 centre=157.1563 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:17:59,206 INFO    __main__: RISK buy 10 META @ 607.39 not sent: no portfolio from the venue yet
+2026-11-20 00:17:59,207 INFO    __main__: RISK sell 10 META @ 608.47 not sent: no portfolio from the venue yet
+2026-11-20 00:17:59,207 INFO    __main__: Quoted META bid=607.39 x0 ask=608.47 x0 centre=608.3178 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:04,237 INFO    __main__: RISK buy 10 MSFT @ 421.61 not sent: no portfolio from the venue yet
+2026-11-20 00:18:04,238 INFO    __main__: RISK sell 10 MSFT @ 422.09 not sent: no portfolio from the venue yet
+2026-11-20 00:18:04,238 INFO    __main__: Quoted MSFT bid=421.61 x0 ask=422.09 x0 centre=421.9319 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:05,243 INFO    __main__: RISK buy 10 GOOGL @ 178.75 not sent: no portfolio from the venue yet
+2026-11-20 00:18:05,244 INFO    __main__: RISK sell 10 GOOGL @ 179.46 not sent: no portfolio from the venue yet
+2026-11-20 00:18:05,244 INFO    __main__: Quoted GOOGL bid=178.75 x0 ask=179.46 x0 centre=179.2134 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:07,251 INFO    __main__: RISK buy 10 INTC @ 16.59 not sent: no portfolio from the venue yet
+2026-11-20 00:18:07,252 INFO    __main__: RISK sell 10 INTC @ 16.88 not sent: no portfolio from the venue yet
+2026-11-20 00:18:07,253 INFO    __main__: Quoted INTC bid=16.59 x0 ask=16.88 x0 centre=16.8509 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:09,268 INFO    __main__: RISK buy 10 AAPL @ 210.44 not sent: no portfolio from the venue yet
+2026-11-20 00:18:09,269 INFO    __main__: RISK sell 10 AAPL @ 211.27 not sent: no portfolio from the venue yet
+2026-11-20 00:18:09,269 INFO    __main__: Quoted AAPL bid=210.44 x0 ask=211.27 x0 centre=210.8558 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:18,318 INFO    __main__: RISK buy 10 TSLA @ 231.77 not sent: no portfolio from the venue yet
+2026-11-20 00:18:18,318 INFO    __main__: RISK sell 10 TSLA @ 232.33 not sent: no portfolio from the venue yet
+2026-11-20 00:18:18,318 INFO    __main__: Quoted TSLA bid=231.77 x0 ask=232.33 x0 centre=232.0527 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:19,323 INFO    __main__: RISK buy 10 META @ 607.87 not sent: no portfolio from the venue yet
+2026-11-20 00:18:19,324 INFO    __main__: RISK sell 10 META @ 609.98 not sent: no portfolio from the venue yet
+2026-11-20 00:18:19,324 INFO    __main__: Quoted META bid=607.87 x0 ask=609.98 x0 centre=608.9227 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:24,614 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 7824 calls, mean 197 us, p50 145 us, p99 1686 us, max 6957 us
+2026-11-20 00:18:24,615 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 69 calls, mean 1566 us, p50 1248 us, p99 6623 us, max 7669 us
+2026-11-20 00:18:24,615 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:18:24,615 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:18:38,384 INFO    __main__: RISK buy 10 MSFT @ 420.76 not sent: no portfolio from the venue yet
+2026-11-20 00:18:38,385 INFO    __main__: RISK sell 10 MSFT @ 421.94 not sent: no portfolio from the venue yet
+2026-11-20 00:18:38,385 INFO    __main__: Quoted MSFT bid=420.76 x0 ask=421.94 x0 centre=421.3495 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:41,397 INFO    __main__: RISK buy 10 AAPL @ 210.02 not sent: no portfolio from the venue yet
+2026-11-20 00:18:41,397 INFO    __main__: RISK sell 10 AAPL @ 210.86 not sent: no portfolio from the venue yet
+2026-11-20 00:18:41,397 INFO    __main__: Quoted AAPL bid=210.02 x0 ask=210.86 x0 centre=210.5839 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:42,399 INFO    __main__: RISK buy 10 TSLA @ 231.40 not sent: no portfolio from the venue yet
+2026-11-20 00:18:42,399 INFO    __main__: RISK sell 10 TSLA @ 232.15 not sent: no portfolio from the venue yet
+2026-11-20 00:18:42,399 INFO    __main__: Quoted TSLA bid=231.40 x0 ask=232.15 x0 centre=231.7758 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:43,403 INFO    __main__: RISK buy 10 AMZN @ 156.87 not sent: no portfolio from the venue yet
+2026-11-20 00:18:43,404 INFO    __main__: RISK sell 10 AMZN @ 157.18 not sent: no portfolio from the venue yet
+2026-11-20 00:18:43,404 INFO    __main__: Quoted AMZN bid=156.87 x0 ask=157.18 x0 centre=157.0294 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:48,418 INFO    __main__: RISK buy 10 MSFT @ 420.03 not sent: no portfolio from the venue yet
+2026-11-20 00:18:48,424 INFO    __main__: RISK sell 10 MSFT @ 421.67 not sent: no portfolio from the venue yet
+2026-11-20 00:18:48,425 INFO    __main__: Quoted MSFT bid=420.03 x0 ask=421.67 x0 centre=420.8477 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:53,442 INFO    __main__: RISK buy 10 META @ 608.61 not sent: no portfolio from the venue yet
+2026-11-20 00:18:53,443 INFO    __main__: RISK sell 10 META @ 609.65 not sent: no portfolio from the venue yet
+2026-11-20 00:18:53,443 INFO    __main__: Quoted META bid=608.61 x0 ask=609.65 x0 centre=609.4955 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:56,453 INFO    __main__: RISK buy 10 GOOGL @ 178.58 not sent: no portfolio from the venue yet
+2026-11-20 00:18:56,454 INFO    __main__: RISK sell 10 GOOGL @ 179.22 not sent: no portfolio from the venue yet
+2026-11-20 00:18:56,454 INFO    __main__: Quoted GOOGL bid=178.58 x0 ask=179.22 x0 centre=178.9830 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:18:59,465 INFO    __main__: RISK buy 10 TSLA @ 230.88 not sent: no portfolio from the venue yet
+2026-11-20 00:18:59,465 INFO    __main__: RISK sell 10 TSLA @ 231.94 not sent: no portfolio from the venue yet
+2026-11-20 00:18:59,465 INFO    __main__: Quoted TSLA bid=230.88 x0 ask=231.94 x0 centre=231.4107 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:00,467 INFO    __main__: RISK buy 10 AMZN @ 156.54 not sent: no portfolio from the venue yet
+2026-11-20 00:19:00,468 INFO    __main__: RISK sell 10 AMZN @ 157.09 not sent: no portfolio from the venue yet
+2026-11-20 00:19:00,468 INFO    __main__: Quoted AMZN bid=156.54 x0 ask=157.09 x0 centre=156.8618 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:04,480 INFO    __main__: RISK buy 10 AMD @ 205.08 not sent: no portfolio from the venue yet
+2026-11-20 00:19:04,481 INFO    __main__: RISK sell 10 AMD @ 207.17 not sent: no portfolio from the venue yet
+2026-11-20 00:19:04,481 INFO    __main__: Quoted AMD bid=205.08 x0 ask=207.17 x0 centre=207.0186 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:06,492 INFO    __main__: RISK buy 10 AMZN @ 156.25 not sent: no portfolio from the venue yet
+2026-11-20 00:19:06,493 INFO    __main__: RISK sell 10 AMZN @ 157.09 not sent: no portfolio from the venue yet
+2026-11-20 00:19:06,493 INFO    __main__: Quoted AMZN bid=156.25 x0 ask=157.09 x0 centre=156.6655 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:13,534 INFO    __main__: RISK buy 10 AMZN @ 155.57 not sent: no portfolio from the venue yet
+2026-11-20 00:19:13,536 INFO    __main__: RISK sell 10 AMZN @ 157.09 not sent: no portfolio from the venue yet
+2026-11-20 00:19:13,536 INFO    __main__: Quoted AMZN bid=155.57 x0 ask=157.09 x0 centre=156.3302 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:15,542 INFO    __main__: RISK buy 10 ORCA @ 22.08 not sent: no portfolio from the venue yet
+2026-11-20 00:19:15,542 INFO    __main__: RISK sell 10 ORCA @ 22.14 not sent: no portfolio from the venue yet
+2026-11-20 00:19:15,542 INFO    __main__: Quoted ORCA bid=22.08 x0 ask=22.14 x0 centre=22.1119 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:19,566 INFO    __main__: RISK buy 10 AAPL @ 209.85 not sent: no portfolio from the venue yet
+2026-11-20 00:19:19,566 INFO    __main__: RISK sell 10 AAPL @ 210.60 not sent: no portfolio from the venue yet
+2026-11-20 00:19:19,566 INFO    __main__: Quoted AAPL bid=209.85 x0 ask=210.60 x0 centre=210.3843 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:20,588 INFO    __main__: RISK buy 10 MSFT @ 419.60 not sent: no portfolio from the venue yet
+2026-11-20 00:19:20,603 INFO    __main__: RISK sell 10 MSFT @ 420.85 not sent: no portfolio from the venue yet
+2026-11-20 00:19:20,603 INFO    __main__: Quoted MSFT bid=419.60 x0 ask=420.85 x0 centre=420.2247 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:21,610 INFO    __main__: RISK buy 10 AMZN @ 155.30 not sent: no portfolio from the venue yet
+2026-11-20 00:19:21,611 INFO    __main__: RISK sell 10 AMZN @ 156.98 not sent: no portfolio from the venue yet
+2026-11-20 00:19:21,611 INFO    __main__: Quoted AMZN bid=155.30 x0 ask=156.98 x0 centre=156.1387 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:24,619 INFO    __main__: RISK buy 10 META @ 609.07 not sent: no portfolio from the venue yet
+2026-11-20 00:19:24,619 INFO    __main__: RISK sell 10 META @ 610.73 not sent: no portfolio from the venue yet
+2026-11-20 00:19:24,619 INFO    __main__: Quoted META bid=609.07 x0 ask=610.73 x0 centre=610.0979 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:24,696 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 8652 calls, mean 198 us, p50 153 us, p99 1686 us, max 6957 us
+2026-11-20 00:19:24,696 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 86 calls, mean 1743 us, p50 1214 us, p99 7669 us, max 15640 us
+2026-11-20 00:19:24,697 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:19:24,697 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:19:27,631 INFO    __main__: RISK buy 10 TSLA @ 230.52 not sent: no portfolio from the venue yet
+2026-11-20 00:19:27,631 INFO    __main__: RISK sell 10 TSLA @ 231.38 not sent: no portfolio from the venue yet
+2026-11-20 00:19:27,631 INFO    __main__: Quoted TSLA bid=230.52 x0 ask=231.38 x0 centre=230.9497 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:28,635 INFO    __main__: RISK buy 10 AMZN @ 155.47 not sent: no portfolio from the venue yet
+2026-11-20 00:19:28,635 INFO    __main__: RISK sell 10 AMZN @ 156.56 not sent: no portfolio from the venue yet
+2026-11-20 00:19:28,641 INFO    __main__: Quoted AMZN bid=155.47 x0 ask=156.56 x0 centre=156.0139 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:30,649 INFO    __main__: RISK buy 10 AMD @ 204.81 not sent: no portfolio from the venue yet
+2026-11-20 00:19:30,650 INFO    __main__: RISK sell 10 AMD @ 206.96 not sent: no portfolio from the venue yet
+2026-11-20 00:19:30,650 INFO    __main__: Quoted AMD bid=204.81 x0 ask=206.96 x0 centre=206.8027 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:44,716 INFO    __main__: RISK buy 10 TSLA @ 230.09 not sent: no portfolio from the venue yet
+2026-11-20 00:19:44,718 INFO    __main__: RISK sell 10 TSLA @ 231.40 not sent: no portfolio from the venue yet
+2026-11-20 00:19:44,718 INFO    __main__: Quoted TSLA bid=230.09 x0 ask=231.40 x0 centre=230.7419 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:50,735 INFO    __main__: RISK buy 10 ORCA @ 22.10 not sent: no portfolio from the venue yet
+2026-11-20 00:19:50,736 INFO    __main__: RISK sell 10 ORCA @ 22.16 not sent: no portfolio from the venue yet
+2026-11-20 00:19:50,736 INFO    __main__: Quoted ORCA bid=22.10 x0 ask=22.16 x0 centre=22.1304 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:54,746 INFO    __main__: RISK buy 10 AAPL @ 209.57 not sent: no portfolio from the venue yet
+2026-11-20 00:19:54,748 INFO    __main__: RISK sell 10 AAPL @ 210.36 not sent: no portfolio from the venue yet
+2026-11-20 00:19:54,748 INFO    __main__: Quoted AAPL bid=209.57 x0 ask=210.36 x0 centre=210.2070 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:56,760 INFO    __main__: RISK buy 10 INTC @ 16.60 not sent: no portfolio from the venue yet
+2026-11-20 00:19:56,760 INFO    __main__: RISK sell 10 INTC @ 16.86 not sent: no portfolio from the venue yet
+2026-11-20 00:19:56,760 INFO    __main__: Quoted INTC bid=16.60 x0 ask=16.86 x0 centre=16.8366 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:58,765 INFO    __main__: RISK buy 10 MSFT @ 419.19 not sent: no portfolio from the venue yet
+2026-11-20 00:19:58,765 INFO    __main__: RISK sell 10 MSFT @ 420.17 not sent: no portfolio from the venue yet
+2026-11-20 00:19:58,765 INFO    __main__: Quoted MSFT bid=419.19 x0 ask=420.17 x0 centre=419.6821 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:19:59,777 INFO    __main__: RISK buy 10 TSLA @ 229.91 not sent: no portfolio from the venue yet
+2026-11-20 00:19:59,784 INFO    __main__: RISK sell 10 TSLA @ 230.80 not sent: no portfolio from the venue yet
+2026-11-20 00:19:59,785 INFO    __main__: Quoted TSLA bid=229.91 x0 ask=230.80 x0 centre=230.3597 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:01,793 INFO    __main__: RISK buy 10 INTC @ 16.60 not sent: no portfolio from the venue yet
+2026-11-20 00:20:01,793 INFO    __main__: RISK sell 10 INTC @ 16.90 not sent: no portfolio from the venue yet
+2026-11-20 00:20:01,793 INFO    __main__: Quoted INTC bid=16.60 x0 ask=16.90 x0 centre=16.8646 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:10,818 INFO    __main__: RISK buy 10 INTC @ 16.57 not sent: no portfolio from the venue yet
+2026-11-20 00:20:10,819 INFO    __main__: RISK sell 10 INTC @ 16.88 not sent: no portfolio from the venue yet
+2026-11-20 00:20:10,819 INFO    __main__: Quoted INTC bid=16.58 x0 ask=16.88 x0 centre=16.8474 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:12,734 INFO    broker.broker: Trading resumed: Trading resumed on VLTA
+2026-11-20 00:20:16,851 INFO    __main__: RISK buy 10 NVDA @ 148.35 not sent: no portfolio from the venue yet
+2026-11-20 00:20:16,851 INFO    __main__: RISK sell 10 NVDA @ 148.66 not sent: no portfolio from the venue yet
+2026-11-20 00:20:16,851 INFO    __main__: Quoted NVDA bid=148.35 x0 ask=148.66 x0 centre=148.5053 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:20,179 INFO    broker.broker: Trading resumed: Trading resumed on NFLX
+2026-11-20 00:20:22,879 INFO    __main__: RISK buy 10 VLTA @ 31.13 not sent: no portfolio from the venue yet
+2026-11-20 00:20:22,880 INFO    __main__: RISK sell 10 VLTA @ 31.63 not sent: no portfolio from the venue yet
+2026-11-20 00:20:22,880 INFO    __main__: Quoted VLTA bid=31.13 x0 ask=31.63 x0 centre=31.3940 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:23,883 INFO    __main__: RISK buy 10 AAPL @ 209.33 not sent: no portfolio from the venue yet
+2026-11-20 00:20:23,883 INFO    __main__: RISK sell 10 AAPL @ 210.16 not sent: no portfolio from the venue yet
+2026-11-20 00:20:23,883 INFO    __main__: Quoted AAPL bid=209.33 x0 ask=210.16 x0 centre=210.0038 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:25,123 INFO    __main__: HOTPATH ws://127.0.0.1:8766 message handling: 9694 calls, mean 200 us, p50 151 us, p99 1724 us, max 9854 us
+2026-11-20 00:20:25,125 INFO    __main__: HOTPATH ws://127.0.0.1:8766 requote, including waits for a message slot: 100 calls, mean 1798 us, p50 1153 us, p99 8431 us, max 15640 us
+2026-11-20 00:20:25,125 INFO    __main__: MSGS   ws://127.0.0.1:8766 0 orders, 0 cancels, 0 RATE_LIMITED (0.0% of messages, graded limit 5%); cancel fees 0 cancels x $0.05 = $0.00 (0 of them lost the race to a fill)
+2026-11-20 00:20:25,125 INFO    __main__: FLASH  ws://127.0.0.1:8766 0 flashes seen, no orders sent on them
+2026-11-20 00:20:25,892 INFO    __main__: RISK buy 10 VLTA @ 31.00 not sent: no portfolio from the venue yet
+2026-11-20 00:20:25,893 INFO    __main__: RISK sell 10 VLTA @ 31.48 not sent: no portfolio from the venue yet
+2026-11-20 00:20:25,893 INFO    __main__: Quoted VLTA bid=31.00 x0 ask=31.48 x0 centre=31.2400 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:28,902 INFO    __main__: RISK buy 10 MSFT @ 418.88 not sent: no portfolio from the venue yet
+2026-11-20 00:20:28,903 INFO    __main__: RISK sell 10 MSFT @ 419.45 not sent: no portfolio from the venue yet
+2026-11-20 00:20:28,903 INFO    __main__: Quoted MSFT bid=418.88 x0 ask=419.45 x0 centre=419.2958 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:30,914 INFO    __main__: RISK buy 10 NFLX @ 456.49 not sent: no portfolio from the venue yet
+2026-11-20 00:20:30,915 INFO    __main__: RISK sell 10 NFLX @ 461.50 not sent: no portfolio from the venue yet
+2026-11-20 00:20:30,915 INFO    __main__: Quoted NFLX bid=456.49 x0 ask=461.50 x0 centre=458.9939 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:33,421 INFO    __main__: RISK buy 10 NVDA @ 148.22 not sent: no portfolio from the venue yet
+2026-11-20 00:20:33,422 INFO    __main__: RISK sell 10 NVDA @ 148.54 not sent: no portfolio from the venue yet
+2026-11-20 00:20:33,422 INFO    __main__: Quoted NVDA bid=148.23 x0 ask=148.54 x0 centre=148.3821 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:34,425 INFO    __main__: RISK buy 10 TSLA @ 229.66 not sent: no portfolio from the venue yet
+2026-11-20 00:20:34,427 INFO    __main__: RISK sell 10 TSLA @ 230.45 not sent: no portfolio from the venue yet
+2026-11-20 00:20:34,427 INFO    __main__: Quoted TSLA bid=229.66 x0 ask=230.45 x0 centre=230.0551 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:35,430 INFO    __main__: RISK buy 10 NFLX @ 455.60 not sent: no portfolio from the venue yet
+2026-11-20 00:20:35,430 INFO    __main__: RISK sell 10 NFLX @ 461.50 not sent: no portfolio from the venue yet
+2026-11-20 00:20:35,430 INFO    __main__: Quoted NFLX bid=455.60 x0 ask=461.50 x0 centre=458.5518 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:36,433 INFO    __main__: RISK buy 10 GOOGL @ 178.35 not sent: no portfolio from the venue yet
+2026-11-20 00:20:36,433 INFO    __main__: RISK sell 10 GOOGL @ 178.99 not sent: no portfolio from the venue yet
+2026-11-20 00:20:36,433 INFO    __main__: Quoted GOOGL bid=178.35 x0 ask=178.99 x0 centre=178.8367 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:45,966 INFO    __main__: RISK buy 10 INTC @ 16.60 not sent: no portfolio from the venue yet
+2026-11-20 00:20:45,968 INFO    __main__: RISK sell 10 INTC @ 16.90 not sent: no portfolio from the venue yet
+2026-11-20 00:20:45,969 INFO    __main__: Quoted INTC bid=16.60 x0 ask=16.90 x0 centre=16.8656 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:46,973 INFO    __main__: RISK buy 10 NVDA @ 148.06 not sent: no portfolio from the venue yet
+2026-11-20 00:20:46,973 INFO    __main__: RISK sell 10 NVDA @ 148.41 not sent: no portfolio from the venue yet
+2026-11-20 00:20:46,973 INFO    __main__: Quoted NVDA bid=148.06 x0 ask=148.41 x0 centre=148.2347 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:55,011 INFO    __main__: RISK buy 10 MSFT @ 418.45 not sent: no portfolio from the venue yet
+2026-11-20 00:20:55,011 INFO    __main__: RISK sell 10 MSFT @ 419.05 not sent: no portfolio from the venue yet
+2026-11-20 00:20:55,011 INFO    __main__: Quoted MSFT bid=418.45 x0 ask=419.05 x0 centre=418.8928 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:20:58,523 INFO    __main__: RISK buy 10 TSLA @ 229.54 not sent: no portfolio from the venue yet
+2026-11-20 00:20:58,524 INFO    __main__: RISK sell 10 TSLA @ 230.13 not sent: no portfolio from the venue yet
+2026-11-20 00:20:58,524 INFO    __main__: Quoted TSLA bid=229.54 x0 ask=230.13 x0 centre=229.8351 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:01,536 INFO    __main__: RISK buy 10 TSLA @ 229.07 not sent: no portfolio from the venue yet
+2026-11-20 00:21:01,537 INFO    __main__: RISK sell 10 TSLA @ 230.13 not sent: no portfolio from the venue yet
+2026-11-20 00:21:01,537 INFO    __main__: Quoted TSLA bid=229.07 x0 ask=230.13 x0 centre=229.6004 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:04,050 INFO    __main__: RISK buy 10 INTC @ 16.62 not sent: no portfolio from the venue yet
+2026-11-20 00:21:04,051 INFO    __main__: RISK sell 10 INTC @ 16.95 not sent: no portfolio from the venue yet
+2026-11-20 00:21:04,051 INFO    __main__: Quoted INTC bid=16.62 x0 ask=16.94 x0 centre=16.8873 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:05,054 INFO    __main__: RISK buy 10 NFLX @ 456.71 not sent: no portfolio from the venue yet
+2026-11-20 00:21:05,055 INFO    __main__: RISK sell 10 NFLX @ 458.54 not sent: no portfolio from the venue yet
+2026-11-20 00:21:05,055 INFO    __main__: Quoted NFLX bid=456.71 x0 ask=458.54 x0 centre=457.6245 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:06,559 INFO    __main__: RISK buy 10 AAPL @ 209.03 not sent: no portfolio from the venue yet
+2026-11-20 00:21:06,560 INFO    __main__: RISK sell 10 AAPL @ 209.99 not sent: no portfolio from the venue yet
+2026-11-20 00:21:06,560 INFO    __main__: Quoted AAPL bid=209.03 x0 ask=209.99 x0 centre=209.8305 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:12,087 INFO    __main__: RISK buy 10 NVDA @ 147.96 not sent: no portfolio from the venue yet
+2026-11-20 00:21:12,087 INFO    __main__: RISK sell 10 NVDA @ 148.28 not sent: no portfolio from the venue yet
+2026-11-20 00:21:12,087 INFO    __main__: Quoted NVDA bid=147.96 x0 ask=148.27 x0 centre=148.1149 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:18,109 INFO    __main__: RISK buy 10 VLTA @ 31.08 not sent: no portfolio from the venue yet
+2026-11-20 00:21:18,115 INFO    __main__: RISK sell 10 VLTA @ 31.25 not sent: no portfolio from the venue yet
+2026-11-20 00:21:18,116 INFO    __main__: Quoted VLTA bid=31.08 x0 ask=31.25 x0 centre=31.2101 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:20,123 INFO    __main__: RISK buy 10 NFLX @ 456.15 not sent: no portfolio from the venue yet
+2026-11-20 00:21:20,123 INFO    __main__: RISK sell 10 NFLX @ 457.94 not sent: no portfolio from the venue yet
+2026-11-20 00:21:20,123 INFO    __main__: Quoted NFLX bid=456.15 x0 ask=457.94 x0 centre=457.0471 inventory +0 (traded +0) skew -0.00
+2026-11-20 00:21:25,618 WARNING team.reconnect: broker midway_traders_broker ws://127.0.0.1:8766: connection closed cleanly — reconnecting in 1.1s (attempt 1)
+2026-11-20 00:21:26,766 WARNING team.reconnect: broker midway_traders_broker ws://127.0.0.1:8766: cannot connect (ConnectionRefusedError: [Errno 61] Connect call failed ('127.0.0.1', 8766)) — reconnecting in 2.0s (attempt 2)

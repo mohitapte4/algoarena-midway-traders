@@ -50,8 +50,8 @@ from team.hotpath import REPORT_EVERY_SEC, LatencyMeter, MessageMeter
 from team.reconnect import run_with_backoff
 from team.rolling import RollingRange, Sampler
 from team.venue import TokenBucket, OwnOrders, Order
-from team.risk import (BROKER_KILL_LOSS, BROKER_SESSION_LOSS, ToxicityMeter,
-                       TradedCost, TradingState, kill_switch, position_stop)
+from team.risk import (BROKER_KILL_LOSS, BROKER_SESSION_LOSS, KillSwitch,
+                       ToxicityMeter, TradedCost, TradingState, position_stop)
 
 logger = logging.getLogger(__name__)
 
@@ -210,11 +210,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         self._unquoted: dict[str, set[str]] = {}
         self.trading_state = TradingState(lambda: self._clock())
         # Phase 3: one switch for the seat (shared by every venue's bot)
-        self.kill = kill_switch(_config.TEAM_ID, lambda: self._clock())
-        self._kill_pulled = False
+        self.kill = KillSwitch(_config.TEAM_ID, lambda: self._clock())
         self._traded_cost: dict[str, TradedCost] = {}
         self._toxicity = ToxicityMeter(lambda: self._clock())
-        self._stopped_names: set[str] = set()     # per-position stop in force
         self._risk_orders = OwnOrders()
         self._risk_ready = False
         self._initial_equity: float | None = None
@@ -503,15 +501,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         """The engine's ladder, with each ask capped at the inventory not
         already offered on the levels inside it."""
         self.kill.poll()
-        if self.kill.tripped:
-            if not self._kill_pulled:
-                self._kill_pulled = True
-                logger.error("KILL broker (%s): cancelling every quote, quoting "
-                             "nothing more", self.kill.reason)
-                await self.cancel_all_quotes()
+        if self.kill.tripped:              # the reject budget is one of its trips
+            await self.cancel_quotes(symbol)
             return
-        if (self._errors >= REJECT_BUDGET or self._paused(symbol)
-                or self.trading_state.blocked(symbol)):
+        if self._paused(symbol) or self.trading_state.blocked(symbol):
             return
         centre = self.quote_centre(symbol)
         if not centre:
@@ -533,13 +526,9 @@ class TeamBrokerBot(_AdaptedBrokerBot):
         stopped = cost is not None and position_stop(cost.qty, cost.avg, centre)
         if stopped:
             skew = -spread if cost.qty > 0 else spread     # full skew
-            if symbol not in self._stopped_names:
-                logger.warning("RISK %s position stop: traded %+d at avg %.2f, centre "
-                               "%.2f: quoting only the side that reduces it",
-                               symbol, cost.qty, cost.avg, centre)
-        if not stopped and symbol in self._stopped_names:
-            logger.info("RISK %s position stop lifted", symbol)
-        (self._stopped_names.add if stopped else self._stopped_names.discard)(symbol)
+            logger.warning("RISK %s position stop: traded %+d at avg %.2f, centre "
+                           "%.2f: quoting only the side that reduces it",
+                           symbol, cost.qty, cost.avg, centre)
         half = spread / 2
         bid_price = math.floor((centre - half + skew) * 100) / 100
         ask_price = math.ceil((centre + half + skew) * 100) / 100
@@ -747,7 +736,6 @@ class TeamBrokerBot(_AdaptedBrokerBot):
                 self._live.pop(pulled, None)
         if self._errors == REJECT_BUDGET:
             self.kill.trip(f"{REJECT_BUDGET} venue errors (reject budget)")
-            self._kill_pulled = True
             logger.error("%d venue errors this session (last [%s] %s): "
                          "cancelling every quote and quoting nothing more",
                          self._errors, msg.code, msg.message)
@@ -867,14 +855,10 @@ class TeamBrokerBot(_AdaptedBrokerBot):
             elif msg.event in ("TRADING_HALT", "MARKET_HALT"):
                 # Resting quotes survive a halt and fill in the reopening at
                 # pre-halt prices: pull them (the venue accepts cancels).
+                # TradingState keeps the name unquoted until the resume settles.
                 symbol = (msg.data or {}).get("symbol")
-                symbols = ([symbol] if msg.event == "TRADING_HALT" and symbol
-                           else list(self._quote_symbols))
-                task = asyncio.create_task(self._pull_quotes(symbols))
-                self._pulls.add(task)
-                task.add_done_callback(self._pulls.discard)
-                logger.info("HALT %s: quotes pulled until the resume settles",
-                            ", ".join(symbols))
+                key = symbol if msg.event == "TRADING_HALT" and symbol else "*"
+                self._pause(key, 0.0, msg.event)
             elif msg.event == "CALENDAR":
                 self._on_calendar(msg.data)
             elif msg.event in ("CALENDAR_EVENT", "SHOCK"):

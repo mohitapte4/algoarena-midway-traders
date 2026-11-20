@@ -72,10 +72,7 @@ async def run_with_backoff(
             logger.exception("%s: unexpected error", name)
             reason = f"unexpected {type(exc).__name__}"
         if dropped and on_drop is not None:
-            try:
-                on_drop()
-            except Exception:
-                logger.exception("%s: on_drop failed", name)
+            on_drop()
         attempt = 1 if clock() - started >= healthy_after else attempt + 1
         delay = backoff_delay(attempt, base=base, cap=cap, jitter=jitter, r=rand())
         logger.warning("%s: %s — reconnecting in %.1fs (attempt %d)",
