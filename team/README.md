@@ -8,6 +8,224 @@ Budget invested: $1,000,000, across three seats:
 | `midway_traders_trader_2` | $300,000 | mean reversion + event fade | `make meanrev`  |
 | `midway_traders_broker`   | $400,000 | market maker                | `make broker`   |
 
+## Week 8 checklist — Friday November 20
+
+The graded block is **Friday Nov 20, 15:30–16:30 Chicago (CST)**:
+*Multi-venue and big data*. The scenario switches in at 15:30:20 with the
+market closed, the opening auction runs from 15:40:00, and continuous trading
+starts after the 12-tick cross at 15:40:12 (tick 0). The block ends on a
+10-tick closing cross at 16:30.
+
+| Requirement | How the seats meet it |
+| --- | --- |
+| Orders on both venues, routed on the NBBO and the fee difference | Every seat connects to the four team venues and to the house venue (`EXCHANGE_URLS`, below). The broker quotes on the team venues only. Each trader seat runs its strategy on the first venue in the list and holds one more connection per other venue; before a link order goes out, `team/routing.py` compares every venue's touch and fees and sends it to one of them. See "Routing" below. |
+| A bid in the LUNA bookbuild | Each trader seat indicates 200 shares at the top of the range ($52) when the book opens at t150, as it did for ORCA and VLTA (`BaseTrader.on_ipo`). Both seats did so in the local run below. |
+| Trade the hidden links | `team/leadlag.py`. After a leader's mark moves, each trader seat rests a 2-share maker order in the follower, in the predicted direction, before the echo is due, and cancels it one tick after. |
+| Connected ≥ 80% of the block | Unchanged: reconnect with backoff (`team/reconnect.py`). |
+
+**The three links** (from all four parts of the week-8 history, 1,000
+sessions, 28.7 million rows; `python scripts/find_links.py <part1> <part2>
+<part3> <part4>`, 9 s):
+
+| Leader | Follower | Lag | Echo | Correlation at the lag |
+| --- | --- | --- | --- | --- |
+| AMD | GOOGL | 6 ticks | +0.36 × the leader's move | +0.62 |
+| NFLX | AMZN | 8 ticks | −0.30 × (opposite direction) | −0.33 |
+| MSFT | TSLA | 4 ticks | −0.36 × (opposite direction) | −0.17 |
+
+The scan covers every leader, follower and lag from 1 to 10, with the ticks
+within 60 of an earnings release, the econ print or a halt removed. The next
+candidates are the same pairs read backwards (at most 0.11), which is each
+leader's own tick-to-tick pattern showing through the echo. Every other pair
+is under 0.01. With the events left in, the trap the starter warns about is
+plain: all 84 unlinked pairs score above 0.05, the largest 0.70, and
+MSFT → TSLA shows up at lag 1 with the wrong sign (+0.61). After a leader move above 5 bp the follower went the predicted
+way 96–99% of the time.
+
+**The echo is not worth crossing the spread for.** It lasts one tick and
+walks back on the next. Outside the events the largest leader moves are
+14–18 bp (AMD) and 3–6 bp (NFLX, MSFT), so the echo is at most about 7 bp
+against a 16 bp spread in every follower. Buying at the ask one tick after the
+move and selling at the bid on the echo tick lost 16 bp a round trip in the
+history, before fees, at every threshold we tried. During the NFLX earnings
+ramp the echo in AMZN is about 18 bp a tick for 15 ticks, still under the
+house venue's taker fee, and about level with a team venue's spread plus fees. So the link orders are small maker
+orders: they cost $0.05 to cancel if nobody trades with them, and they are on
+the right side if somebody does. If the venue charges makers (see below) they
+are 1 share.
+
+A leader move counts from about its 99th-percentile one-tick move: AMD 10 bp,
+NFLX 4 bp, MSFT 3 bp. That is 20–40 cues a session per link in calm trading,
+plus every tick of the NFLX earnings ramp (t700) and of the econ print
+(t1000), when all three leaders move 10–25 bp a tick. The check needs 10
+orders with 60% in the right direction. While a move is inside its lag, a
+smaller move the other way does not flip the follower's direction.
+
+**Event schedule (Chicago):**
+
+| Time     | Tick  | Event                               |
+| -------- | ----- | ----------------------------------- |
+| 15:42:42 | t150  | LUNA bookbuild opens                |
+| 15:45:12 | t300  | GOOGL earnings, 3–8%                |
+| 15:47:42 | t450  | LUNA bookbuild closes and is priced |
+| 15:49:22 | t550  | LUNA lists                          |
+| 15:51:52 | t700  | NFLX earnings, 4–9%                 |
+| 15:56:52 | t1000 | econ print, market-wide, 1.5–3%     |
+
+Direction is unknown for all of them. GOOGL is a follower and NFLX is a
+leader: the NFLX release sends 15 cues into AMZN.
+
+**Local runs, Nov 19.** All three seats ran for 7.5 minutes against the
+course engine's week-8 venue with the same three pairs, lags and directions
+planted (`LEADLAG_SEED=15740536`; the betas differ from the hosted ones) and
+the events moved up to t100, t230 and t320.
+
+*One venue:* trader_1 saw 243 leader moves and sent 99 link orders (GOOGL
+40, AMZN 44, TSLA 15); trader_2 sent 104. Every one went out before its echo
+was due, in the predicted direction.
+
+*Three venues, the Friday layout:* two venues at team fees (8/6 bp and
+14/11 bp) and one at the house's new fees (400/−100 bp), house last, cues
+from the house's marks, broker on the two team venues only.
+
+| Seat | Leader moves (house marks) | Link orders | To the 11 bp venue | To the 6 bp venue | To the house | LUNA indications | Rejects | `RATE_LIMITED` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| trader_1 | 177 | 75 | 49 | 26 | 0 | 3 (one per venue), all allocated | 0 | 0 |
+| trader_2 | 177 | 75 | 49 | 26 | 0 | 3, all allocated | 0 | 0 |
+
+The 6 bp venue won an order only when its touch was better by more than
+the 5 bp difference in rebate, for example `ROUTE  sell AMZN -> ...` with the
+ask 8.6 bp lower. No link order filled in any run, so each cost one $0.05
+cancel. No tracebacks. The local house venue had no market maker, so it never
+showed a two-sided book and was never a candidate; on Friday it will be, and
+loses on its −100 bp rebate. The local venue is thinner and jumpier than the
+hosted one: it produces more cues, and on its tape the followers went the
+predicted way after only 55–62% of 5 bp moves (96% or more in the history).
+The runs show the plumbing, not the edge.
+
+To repeat it, start each venue without `SESSION_AUTOOPEN`, connect the
+seats, then type `open` in each venue's terminal. If a session opens before
+the seats connect, nobody is granted shares and the book stays empty.
+
+    TAKER_FEE_RATE=0.0008 MAKER_REBATE_RATE=0.0006 LEADLAG_SEED=15740536 make exchange SCENARIO_PATH=season/week08.json EXCHANGE_PORT=8797
+    TAKER_FEE_RATE=0.04 MAKER_REBATE_RATE=-0.01 LEADLAG_SEED=15740536 make exchange SCENARIO_PATH=season/week08.json EXCHANGE_PORT=8795
+    make momentum EXCHANGE_URLS=ws://127.0.0.1:8797,ws://127.0.0.1:8795 LINK_FEED_URL=ws://127.0.0.1:8795
+
+**House venue fees (Ed, Nov 19).** From this block the house venue charges
+400 bp to take and **charges makers 100 bp**, and a cancel there costs $0.50.
+The team venues charge 8–14 bp to take, pay makers 5–11 bp and bill $0.05 a
+cancel. The course's advice is to route everything to the team venues, not to
+quote on the house, and to treat it as the venue of last resort. So the house
+goes **last** in `EXCHANGE_URLS`: no strategy runs there, the broker does not
+connect to it, and a trader seat sends it an order only when no team venue
+can take one.
+
+**Routing.** A resting order goes to the venue with the highest
+`rebate − gap`, where the gap is how far that venue's touch sits behind the
+best touch across the venues. So the order joins the national best unless
+another venue's rebate beats it by more than the price gap. The house's
+rebate is −100 bp, so it loses to any team venue with a book. A taker order
+would go to the lowest ask plus taker fee (or the highest bid less the fee);
+the link orders are makers, so only the maker rule is used live. A venue whose
+mid is more than 2% from the first venue's is left out: in open play the
+venues have sat 5–50% apart, and that is not one market. A sell is routed only
+to a venue where the seat holds the shares, and nothing is routed to a venue
+that is offline, halted in that name, or showing a one-sided book. Each routed
+order logs a `ROUTE` line with every venue's touch and rebate.
+
+Only the first venue runs the seat's strategy (crossover or mean reversion,
+event trades, starter). The other connections take routed link orders, bid
+200 shares in a LUNA bookbuild if their venue holds one, and work that
+allocation's exit. They never short. The lead-lag cues come from one venue's
+marks, named by `LINK_FEED_URL`: use the house venue, where the links were
+measured and where there is always a book.
+
+**Before the block:** the steps under Week 7 below are unchanged except for
+step 3. Check `/api/venues` for the day's fees and `/api/nbbo` for which team
+venues are priced near each other. Put the team venue you want the strategy
+on first and the house last:
+
+    H=wss://feed.algoarena-st.duckdns.org
+    T=wss://feed-8773.algoarena-st.duckdns.org,wss://feed-8767.algoarena-st.duckdns.org,wss://feed-8770.algoarena-st.duckdns.org,wss://feed-8769.algoarena-st.duckdns.org
+    T1=wss://feed-8773.algoarena-st.duckdns.org,wss://feed-8767.algoarena-st.duckdns.org,wss://feed-8770.algoarena-st.duckdns.org,wss://feed-8769.algoarena-st.duckdns.org
+    T2=wss://feed-8767.algoarena-st.duckdns.org,wss://feed-8773.algoarena-st.duckdns.org,wss://feed-8770.algoarena-st.duckdns.org,wss://feed-8769.algoarena-st.duckdns.org
+    make momentum EXCHANGE_URLS=$T1,$H LINK_FEED_URL=$H
+    make meanrev  EXCHANGE_URLS=$T2,$H LINK_FEED_URL=$H
+    make broker   EXCHANGE_URLS=$T
+
+The two traders run their strategies on different venues, so one thin book
+does not stop both: trader_1 on 3-sigma and trader_2 on STT_11, the two
+cheapest to take on (6 and 7 bp on Nov 19). If the fees have moved, put the
+two lowest taker fees first.
+
+(8773 is 3-sigma, 8767 STT_11, 8770 Group 8, 8769 2026Autumn 3.) Each trader
+prints `Connected to ...` once per venue, then `ROUTE  5 venues: strategy on
+feed-8773, ...; link cues from feed`. Plain `make momentum` still runs a seat
+on the house venue alone, which now costs 1% a maker fill: do not use it.
+
+`make season WEEK=8` (run Nov 19, 3 s) plays the week with the house bots, not
+our seats. It confirms the engine and `season/week08.json` are current: the
+links are active and LUNA lists at t550.
+
+**The earnings echo trade.** NFLX is a leader and has the t700 release. Its
+ramp moves it the same way for 15 ticks, so AMZN's echoes pile up: by tick 22
+AMZN has drifted about 0.105 × the release the other way (0.68% on the average
+6.5% move), and it gives that back within eight ticks. Each trader seat takes
+AMZN against NFLX's direction as soon as the release arrives (the first echo
+lands at tick 8) and takes the other way at tick 22. In the 1,000 history
+sessions that made +0.39% a share net of a 16 bp spread and 16 bp of fees, and
+won 89% of the time; leaving at tick 30 instead lost 0.16%. It trades only
+when the expected drift clears the venue's spread plus two taker fees by
+1.25×, so never on the house and not in a wide book. Size is one event order,
+at most 60 shares. On a team venue's $75,000 the event limit (12% of net
+worth) allows about 35 AMZN shares, so expect about $35 a seat. GOOGL's
+release (t300) has no echo trade: GOOGL is a follower.
+
+Local run, Nov 19 (one venue at 8/6 bp, NFLX release of −6.0%): trader_1
+bought AMZN at 197.35 the moment the release arrived, got the 10 shares at the
+touch, cancelled the other 50 at tick 7, and sold the 10 at 199.02 at tick 22:
++0.85% before 16 bp of fees. trader_2, on the same venue, found nothing left
+to take and cancelled. Both seats on one book compete for the same shares,
+which is one more reason to start them on different venues.
+
+A rehearsal note: our broker pulls every quote about 100 ticks ahead of a
+market-wide print. If a local scenario puts the econ print within 100 ticks
+after the NFLX release and our broker is the only market maker, the book is
+empty at the release and nothing trades. Friday's two events are 300 ticks
+apart.
+
+**Hosted open play, Nov 19, 21:18–21:28.** All three seats ran the Friday
+commands for ten minutes. Nobody else was trading, so this checks the
+connections, not prices or P&L.
+
+- Each trader held five connections for ten minutes with no reconnects, no
+  rejects and no rate limiting. trader_1 sent 43 link orders (31 to 3-sigma,
+  6 to Group 8, 5 to 2026Autumn 3, 1 to STT_11); trader_2 sent 43 (20, 12, 9
+  and 2 across the four). None went to the house.
+- The venues were 2–4% apart, so most `ROUTE` lines left one to three venues
+  out of the comparison.
+- A team venue funds each trader seat with $75,000 (the house: about
+  $420,000), so event trades there are about a quarter of their old size.
+- **The broker sent nothing on two of the four venues.** A venue sends the
+  portfolio with a grant or a fill, and on a venue where the broker already
+  held a book it got neither, so its risk check refused every quote. It now
+  takes cash and positions from its leaderboard row until a portfolio
+  arrives (`RISK   portfolio taken from the leaderboard`). Re-run at 21:29:
+  it quoted on all four.
+
+**Open items**
+
+- *Routing covers the link orders only.* The crossover, mean-reversion and
+  event orders are not routed: they stay on the house venue, where their
+  signals are computed. The second venue has never been traded by a trader
+  seat on the hosted arena, only locally.
+- *Event liquidity on the team venues is unknown.* The event rides and the
+  echo trade take liquidity, and our own broker pulls its quotes when an event
+  fires. If the other brokers do too, there is nothing to take.
+- *The LUNA bookbuild.* If it runs only on the house venue, each seat's
+  house connection bids there and, if allocated, later exits at the house's
+  fees (1% for the resting exit at +12%, 4% for the stop at −8%).
+
 ## Week 7 checklist — Friday November 13
 
 The graded block is **Friday Nov 13, 15:30–16:30 Chicago (CST)**: *Execution
