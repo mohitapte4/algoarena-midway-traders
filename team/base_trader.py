@@ -973,6 +973,7 @@ class BaseTrader(Trader):
         for i, (seat, url) in enumerate(zip(seats, urls)):
             seat.venue, seat.router = venue_name(url), router
             seat.links, seat.link_feed = self.links, i == feed
+            seat.kill = self.kill           # one switch for the seat
         logger.info("ROUTE  %d venues: strategy on %s, routed orders also to %s; "
                     "link cues from %s", len(seats), self.venue,
                     ", ".join(s.venue for s in seats[1:]), seats[feed].venue)
@@ -1675,6 +1676,9 @@ class RoutedSeat(BaseTrader):
     """
 
     def _tick(self, market, portfolio) -> Signal | None:
+        self.kill.poll()
+        if self.kill.tripped:
+            return self._kill_step(market, portfolio)
         if self._preopen or self._stopped:
             return None
         now = self._clock()
@@ -1685,6 +1689,12 @@ class RoutedSeat(BaseTrader):
         if (self._start_net_worth is None
                 and self._has_server_state(portfolio, net_worth)):
             self._start_net_worth = net_worth
+        if (self._start_net_worth is not None
+                and self.limits.kill_hit(net_worth, self._start_net_worth)):
+            self.kill.trip(f"net worth {net_worth:,.2f} on {self.venue} is "
+                           f"{self.limits.kill_loss:.0%} below the open "
+                           f"({self._start_net_worth:,.2f})")
+            return self._kill_step(market, portfolio)
         halted = (self._start_net_worth is not None
                   and self.limits.halted(net_worth, self._start_net_worth))
         self._book_ipo(portfolio)

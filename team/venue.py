@@ -299,7 +299,8 @@ class TeamBot(_AdaptedTraderBot):
         _print_startup()
         kill = getattr(self._owner, "kill", None)
         await run_with_backoff(self._serve, f"trader {_config.TEAM_ID}",
-                               on_drop=kill.on_disconnect if kill else None)
+                               on_drop=(lambda: kill.on_disconnect(self._url or ""))
+                               if kill else None)
 
     async def _serve(self) -> None:
         """One connection: trade until the venue closes it or it drops."""

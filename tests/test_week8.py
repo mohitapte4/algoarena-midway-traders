@@ -459,3 +459,33 @@ def test_broker_keeps_waiting_when_the_board_has_no_row_for_it():
     b = waiting_broker()
     asyncio.run(b._handle(board("someone_else").model_dump_json()))
     assert b._risk_refusal(bid(b)) == "no portfolio from the venue yet"
+
+
+# ── the Phase 3 kill switch covers every venue of the seat ──────────────────
+
+def share_kill(home, away):
+    away.kill = home.kill                   # as BaseTrader.run wires it
+
+
+def test_a_tripped_kill_switch_stops_the_routed_seat_and_pulls_its_orders():
+    home, m, p, away, am, ap, c = two_venues()
+    share_kill(home, away)
+    leader_moves(home, c, 0.004)
+    order = away.on_tick(am, ap)
+    assert order is not None                # the link order went to the away venue
+    away.on_ack("a1", "AAA", order.side, order.price)
+    home.kill.trip("test")
+    c.t += 0.1
+    assert away.on_tick(am, ap) is None
+    assert away.take_cancels() == [("a1", "AAA")]
+    leader_moves(home, c, 0.004)
+    assert away.on_tick(am, ap) is None and home.on_tick(m, p) is None
+
+
+def test_a_hard_loss_on_the_second_venue_trips_the_seats_switch():
+    home, m, p, away, am, ap, c = two_venues()
+    share_kill(home, away)
+    ap.nw = 75_000.0 * (1 - away.limits.kill_loss) - 1
+    c.t += 1
+    assert away.on_tick(am, ap) is None
+    assert home.kill.tripped and "below the open" in home.kill.reason
